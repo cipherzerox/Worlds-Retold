@@ -1,4 +1,4 @@
-package xenoform.hailstorm.blocks;
+package xenoform.hailstorm.base;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
