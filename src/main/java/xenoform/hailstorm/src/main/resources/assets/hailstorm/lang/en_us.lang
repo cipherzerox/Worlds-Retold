@@ -1,9 +1,0 @@
-##Blocks##
-
-tile.cryonite_ore.name=Cryonite Ore
-
-##Entities##
-entity.roller.name=Snow Roller
-
-##Damage Sources##
-death.attack.hailstorm.roller=%1$s was ran over by a Snow Roller
