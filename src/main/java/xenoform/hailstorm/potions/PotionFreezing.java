@@ -1,15 +1,14 @@
 package xenoform.hailstorm.potions;
 
-import java.util.UUID;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import xenoform.hailstorm.Hailstorm;
+
+import java.util.UUID;
 
 public class PotionFreezing extends Potion {
 
@@ -30,15 +29,21 @@ public class PotionFreezing extends Potion {
 	}
 
 	@Override
-	public void performEffect(final EntityLivingBase target, final int par2) {
-		if (target instanceof EntityPlayer) {
+	public void performEffect(final EntityLivingBase target, final int par2)
+    {
+		if (target instanceof EntityPlayer)
+		{
 			EntityPlayer entityplayer = (EntityPlayer) target;
-			if (!entityplayer.capabilities.isCreativeMode) {
+			if (!entityplayer.capabilities.isCreativeMode)
+			{
 				entityplayer.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 1.0F);
 			}
-		} else {
+		}
+		else
+        {
 			target.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 1.0F);
 		}
+
 		target.attackEntityFrom(Hailstorm.FROSTBITE, 1.0F);
 	}
 
