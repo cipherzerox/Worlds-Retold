@@ -26,23 +26,23 @@ public class Hailstorm
 
     @Mod.Instance(MODID)
     public static Hailstorm instance = new Hailstorm();
+    
     public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(Hailstorm.MODID);
+	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
+    public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
 
 	@SidedProxy(clientSide = "xenoform.hailstorm.proxy.ClientProxy", serverSide = "xenoform.hailstorm.proxy.ServerProxy")
 	public static ServerProxy proxy;
-	
-	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
-    public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
     {
 		proxy.preInit(event);
 		MEntities.preInit();
-		MEntities.initModels();
+		MEntities.initRenderAndModel();
+		MPotions.registerPotions();
 		MinecraftForge.EVENT_BUS.register(new MForgeEvents());
 		MinecraftForge.EVENT_BUS.register(new MVanillaLootInsertion());
-		MPotions.registerPotions();
 		Hailstorm.LOGGER.info("Preinitialization Done");
 	}
 
@@ -51,7 +51,6 @@ public class Hailstorm
     {
 		proxy.init(event);
 		MVillagerTrades.registerTrades();
-		MEntities.Init();
 		Hailstorm.LOGGER.info("Initialization Done");
 	}
 

@@ -24,7 +24,7 @@ public class MItems {
 	
 	@ObjectHolder("avalanche_hammer")
 	public static BasicItemUniqueWeapon AVALANCHE_HAMMER = new BasicItemUniqueWeapon("avalanche_hammer", MToolMaterial.UNIQUE,
-			18, 1.6);
+			5, 1.6);
 
 	@Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 	public static class ItemsRegistrationHandler {

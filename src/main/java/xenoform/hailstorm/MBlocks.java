@@ -40,7 +40,7 @@ import xenoform.hailstorm.blocks.BasicBlock;
 public class MBlocks {
 
 	@ObjectHolder("cryonite_ore")
-	public static BasicBlock CRYONITE_ORE = new BasicBlock(Material.GRASS, "cryonite_ore", 3.0f, "pickaxe", 2)
+	public static BasicBlock CRYONITE_ORE = new BasicBlock(Material.ROCK, "cryonite_ore", 3.0f, "pickaxe", 2)
 			.setResistance(5.0F).setSoundType(SoundType.STONE).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 
 	@Mod.EventBusSubscriber(modid = Hailstorm.MODID)
