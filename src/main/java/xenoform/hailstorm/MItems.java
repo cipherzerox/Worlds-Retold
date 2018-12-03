@@ -1,7 +1,6 @@
 package xenoform.hailstorm;
 
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -13,18 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
-import xenoform.hailstorm.base.BasicItem;
-import xenoform.hailstorm.base.BasicItemUniqueWeapon;
 
 @ObjectHolder(Hailstorm.MODID)
 public class MItems {
-	
-	@ObjectHolder("cryonite")
-	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(CreativeTabs.MISC);
-	
-	@ObjectHolder("avalanche_hammer")
-	public static BasicItemUniqueWeapon AVALANCHE_HAMMER = new BasicItemUniqueWeapon("avalanche_hammer", MToolMaterial.UNIQUE,
-			18, 1.6);
 
 	@Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 	public static class ItemsRegistrationHandler {
@@ -33,8 +23,7 @@ public class MItems {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
-			items.registerAll(CRYONITE, AVALANCHE_HAMMER);
-			
+
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 		}
 

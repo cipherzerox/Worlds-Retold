@@ -5,8 +5,8 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.entity.EntitySnowRoller;
-import xenoform.hailstorm.render.RenderSnowRoller;
+import xenoform.hailstorm.entities.roller.EntitySnowRoller;
+import xenoform.hailstorm.entities.roller.RenderSnowRoller;
 
 public class MEntities
 {
