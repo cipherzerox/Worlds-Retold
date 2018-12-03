@@ -1,12 +1,22 @@
-##Items##
-
-item.cryonite.name=Cryonite
-
 ##Blocks##
 
 tile.cryonite_ore.name=Cryonite Ore
 
-##Potions##
+##Items##
+
+item.cryonite.name=Cryonite
+item.avalanche_hammer.name=Avalanche Hammer
+
+##Entities##
+
+entity.roller.name=Snow Roller
+
+##Damage Sources##
+
+death.attack.hailstorm.frostbite=%1$s suffered from frostbite.
+death.attack.hailstorm.roller=%1$s was ran over by a Snow Roller
+
+##Potion##
 
 effect.freezing=Freezing
 potion.effect.freezing=Potion of Freezing
@@ -14,11 +24,7 @@ splash_potion.effect.freezing=Splash Potion of Freezing
 lingering_potion.effect.freezing=Lingering Potion of Freezing
 tipped_arrow.effect.freezing=Arrow of Freezing
 
-##Sources##
-
-death.attack.hailstorm.frostbite=%1$s succumbed to frostbite.
-
-##Enchantments##
+##Enchantment##
 
 enchantment.iceAspect=Ice Aspect
 enchantment.arrowIce=Frost
