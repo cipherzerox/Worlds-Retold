@@ -18,8 +18,13 @@ public class MEntities
                 "roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
     }
 
+    public static void Init()
+    {
+        Hailstorm.LOGGER.info("MEntities: Entities Looted!");
+    }
+
     @SideOnly(Side.CLIENT)
-    public static void initRenderAndModel()
+    public static void initModels()
     {
         RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
     }
