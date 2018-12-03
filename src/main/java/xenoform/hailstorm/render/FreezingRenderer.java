@@ -1,48 +1,53 @@
 package xenoform.hailstorm.render;
 
-import net.minecraft.potion.*;
-import net.minecraft.client.renderer.entity.layers.*;
-import net.minecraftforge.fml.common.eventhandler.*;
-import xenoform.hailstorm.MPotions;
-import net.minecraftforge.client.event.*;
-import net.minecraft.client.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.entity.*;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.entity.*;
-import java.util.function.*;
-import net.minecraft.client.model.*;
-import java.util.*;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
+import xenoform.hailstorm.MPotions;
 
-public enum FreezingRenderer {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+
+public enum FreezingRenderer
+{
 	INSTANCE;
 
 	private static final ResourceLocation FROZEN_TEXTURE = new ResourceLocation("hailstorm",
 			"textures/entity/frozen.png");
 
-	public static class LayerFrozen implements LayerRenderer<EntityLivingBase> {
+	public static class LayerFrozen implements LayerRenderer<EntityLivingBase>
+    {
 		private final RenderLivingBase<EntityLivingBase> renderer;
 		private final Predicate<ModelRenderer> modelExclusions;
 
 		public LayerFrozen(final RenderLivingBase<EntityLivingBase> renderer,
-				final Predicate<ModelRenderer> modelExclusions) {
+				final Predicate<ModelRenderer> modelExclusions)
+        {
 			this.renderer = renderer;
 			this.modelExclusions = modelExclusions;
 		}
 
-		public LayerFrozen(final RenderLivingBase<EntityLivingBase> renderer) {
+		public LayerFrozen(final RenderLivingBase<EntityLivingBase> renderer)
+        {
 			this(renderer, box -> false);
 		}
 
-		public void doRenderLayer(final EntityLivingBase living, final float limbSwing, final float limbSwingAmount, final float partialTicks, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale) {
-            if (living.isPotionActive(MPotions.FREEZING)) {
+		public void doRenderLayer(final EntityLivingBase living, final float limbSwing, final float limbSwingAmount, final float partialTicks, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale)
+        {
+            if (living.isPotionActive(MPotions.FREEZING))
+            {
                 final ModelBase model = this.renderer.getMainModel();
                 final Map<ModelRenderer, Boolean> visibilities = new HashMap<ModelRenderer, Boolean>();
-                for (final ModelRenderer box : model.boxList) {
-                    if (this.modelExclusions.test(box)) {
+                for (final ModelRenderer box : model.boxList)
+                {
+                    if (this.modelExclusions.test(box))
+                    {
                         visibilities.put(box, box.showModel);
                         box.showModel = false;
                     }
@@ -53,13 +58,15 @@ public enum FreezingRenderer {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 0.4f);
                 model.render((Entity)living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                for (final Map.Entry<ModelRenderer, Boolean> entry : visibilities.entrySet()) {
+                for (final Map.Entry<ModelRenderer, Boolean> entry : visibilities.entrySet())
+                {
                     entry.getKey().showModel = entry.getValue();
                 }
             }
         }
 
-		public boolean shouldCombineTextures() {
+		public boolean shouldCombineTextures()
+        {
 			return false;
 		}
 	}
