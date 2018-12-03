@@ -6,6 +6,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.boss.EntityDragon;
@@ -26,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.potion.Potion;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -39,6 +44,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.MouseEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -48,6 +55,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -56,17 +64,31 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.base.BasicItemUniqueWeapon;
 import xenoform.hailstorm.packets.PacketUniqueAttack;
+import xenoform.hailstorm.render.FreezingRenderer.LayerFrozen;
+import xenoform.hailstorm.util.RenderHelper;
 
 import java.util.Random;
 
 public class MForgeEvents {
-	
+
 	private static float partialTick;
-	
+
 	public static float getPartialTick() {
 		return partialTick;
 	}
-	
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onPreRenderEntityLivingBase(final RenderLivingEvent.Pre event) {
+		final EntityLivingBase player = event.getEntity();
+		if (player.isPotionActive(MPotions.FREEZING)
+				&& !RenderHelper.doesRendererHaveLayer((RenderLivingBase<?>) event.getRenderer(),
+						(Class<? extends LayerRenderer<?>>) LayerFrozen.class, false)) {
+			event.getRenderer().addLayer(
+					(LayerRenderer) new LayerFrozen((RenderLivingBase<EntityLivingBase>) event.getRenderer()));
+		}
+	}
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onTartheusWeaponUse(final MouseEvent event) {
@@ -194,9 +216,10 @@ public class MForgeEvents {
 								}
 							}
 
-							//Hammer Explosion at full combat bar.
-							player.world.createExplosion(null, targetEntity.posX, targetEntity.posY, targetEntity.posZ, 0.5f, false);
-							
+							// Hammer Explosion at full combat bar.
+							player.world.createExplosion(null, targetEntity.posX, targetEntity.posY, targetEntity.posZ,
+									0.5f, false);
+
 							player.world.playSound(null, player.posX, player.posY, player.posZ,
 									SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
 							player.spawnSweepParticles();
