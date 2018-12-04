@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xenoform.hailstorm.entity.EntitySnowRoller;
-import xenoform.hailstorm.entity.ModelSnowRoller;
+import xenoform.hailstorm.entity.roller.EntitySnowRoller;
+import xenoform.hailstorm.entity.roller.ModelSnowRoller;
 
 import javax.annotation.Nonnull;
 

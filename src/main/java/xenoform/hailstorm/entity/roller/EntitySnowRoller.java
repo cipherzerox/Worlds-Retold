@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity;
+package xenoform.hailstorm.entity.roller;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
