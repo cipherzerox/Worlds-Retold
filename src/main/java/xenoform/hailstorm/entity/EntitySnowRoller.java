@@ -10,14 +10,11 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -119,7 +116,7 @@ public class EntitySnowRoller extends EntityMob {
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
 				(float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 
-		if (flag) {
+        if (flag) {
 			if (entityIn instanceof EntityLivingBase) {
 				((EntityLivingBase) entityIn).knockBack(this, 0.2f + (size * 0.35f),
 						(double) MathHelper.sin(this.rotationYaw * 0.017453292F),
@@ -162,4 +159,5 @@ public class EntitySnowRoller extends EntityMob {
 		this.setSize(compound.getFloat("Size"));
 		this.setShrink(compound.getBoolean("Shrink"));
 	}
+
 }
