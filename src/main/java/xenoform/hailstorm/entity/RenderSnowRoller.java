@@ -1,25 +1,24 @@
-package xenoform.hailstorm.entity;
+package xenoform.hailstorm.render;
 
-import net.minecraft.client.model.ModelChicken;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import xenoform.hailstorm.entity.EntitySnowRoller;
+import xenoform.hailstorm.entity.ModelSnowRoller;
 
 import javax.annotation.Nonnull;
 
 public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 {
-   // private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/snow_roller.png");
-    private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/chicken.png");
+    private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/snow_roller.png");
     public static final Factory FACTORY = new Factory();
 
     public RenderSnowRoller(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelChicken(), 0F);
-      //  super(renderManagerIn, new ModelSnowRoller(), 1F);
+        super(renderManagerIn, new ModelSnowRoller(), 1F);
     }
 
     @Override
@@ -36,6 +35,10 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 
     protected void preRenderCallback(EntitySnowRoller entitylivingbaseIn, float partialTickTime)
     {
+        GlStateManager.enableAlpha();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+
         double s = entitylivingbaseIn.getSize();
         GlStateManager.scale(s, s, s);
 
