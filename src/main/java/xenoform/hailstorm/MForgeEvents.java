@@ -64,7 +64,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.base.BasicItemUniqueWeapon;
 import xenoform.hailstorm.packets.PacketUniqueAttack;
-import xenoform.hailstorm.render.FreezingRenderer.LayerFrozen;
+import xenoform.hailstorm.potions.PotionFreezing;
+import xenoform.hailstorm.render.FreezingRenderer.LayerFreezing;
 import xenoform.hailstorm.util.RenderHelper;
 
 import java.util.Random;
@@ -79,13 +80,12 @@ public class MForgeEvents {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onPreRenderEntityLivingBase(final RenderLivingEvent.Pre event) {
+	public void onPreRenderFrozenEntity(final RenderLivingEvent.Pre event) {
 		final EntityLivingBase player = event.getEntity();
-		if (player.isPotionActive(MPotions.FREEZING)
+		if (player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getModifier(PotionFreezing.MODIFIER_UUID) != null
 				&& !RenderHelper.doesRendererHaveLayer((RenderLivingBase<?>) event.getRenderer(),
-						(Class<? extends LayerRenderer<?>>) LayerFrozen.class, false)) {
-			event.getRenderer().addLayer(
-					(LayerRenderer) new LayerFrozen((RenderLivingBase<EntityLivingBase>) event.getRenderer()));
+						(Class<? extends LayerRenderer<?>>) LayerFreezing.class, false)) {
+			event.getRenderer().addLayer(new LayerFreezing((RenderLivingBase<EntityLivingBase>) event.getRenderer()));
 		}
 	}
 

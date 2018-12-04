@@ -69,7 +69,7 @@ public class MPotions {
 	}
 
 	private static void registerPotionRecipes() {
-		PotionHelper.addMix(PotionTypes.AWKWARD, Items.SNOWBALL, NORMAL_FREEZING);
+		PotionHelper.addMix(PotionTypes.AWKWARD, MItems.CRYONITE, NORMAL_FREEZING);
 		PotionHelper.addMix(NORMAL_FREEZING, Items.REDSTONE, LONG_FREEZING);
 	}
 }
