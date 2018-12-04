@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -43,6 +44,7 @@ public class EntitySnowRoller extends EntityMob {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(0);
 	}
 
 	@Override
@@ -72,11 +74,13 @@ public class EntitySnowRoller extends EntityMob {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize());
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-				.setBaseValue(0.23000000417232513D + getSize() / 8);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D + getSize() / 8);
+        this.setSize(getSize(), getSize());
 
-		if (!world.isRemote) {
+        this.rotationPitch = 0;
+
+        if (!world.isRemote) {
 			int i, j, k;
 
 			for (int l = 0; l < 4; ++l) {
@@ -160,4 +164,10 @@ public class EntitySnowRoller extends EntityMob {
 		this.setShrink(compound.getBoolean("Shrink"));
 	}
 
+    @Override
+    public EntityLookHelper getLookHelper() {
+	    EntityLookHelper helper = new EntityLookHelper(this);
+	    helper.isLooking = false;
+        return helper;
+    }
 }
