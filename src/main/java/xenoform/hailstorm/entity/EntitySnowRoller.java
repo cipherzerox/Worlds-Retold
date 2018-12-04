@@ -10,25 +10,30 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
 
-public class EntitySnowRoller extends EntityMob
-{
+public class EntitySnowRoller extends EntityMob {
 	private float size = 1;
 
-	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class, DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class,
+			DataSerializers.FLOAT);
+	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class,
+			DataSerializers.BOOLEAN);
 
 	public EntitySnowRoller(World world) {
 		super(world);
+		this.setSize(1.25f, 1.25f);
 	}
 
 	protected void initEntityAI() {
@@ -67,13 +72,12 @@ public class EntitySnowRoller extends EntityMob
 	}
 
 	@Override
-	public void onLivingUpdate()
-    {
+	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-        this.setSize(getSize(), getSize());
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize());
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D + getSize() / 8);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize());
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+				.setBaseValue(0.23000000417232513D + getSize() / 8);
 
 		if (!world.isRemote) {
 			int i, j, k;
@@ -92,27 +96,24 @@ public class EntitySnowRoller extends EntityMob
 				}
 			}
 		}
-    }
+	}
 
-/*
-    @Override
-    public void onCollideWithPlayer(EntityPlayer entityIn)
-    {
-        super.onCollideWithPlayer(entityIn);
-
-        if(this.world.isRemote)
-        {
-            this.world.playSound(entityIn, this.getPosition(), SoundEvents.BLOCK_SNOW_BREAK, SoundCategory.HOSTILE, 10F, 1F);
-
-            for (int i = 0; i < 100; ++i)
-            {
-                this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width,
-                        this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width,
-                        (this.rand.nextDouble() - 0.5D), -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D));
-            }
-        }
-    }
-*/
+	/*
+	 * @Override public void onCollideWithPlayer(EntityPlayer entityIn) {
+	 * super.onCollideWithPlayer(entityIn);
+	 * 
+	 * if(this.world.isRemote) { this.world.playSound(entityIn,
+	 * this.getPosition(), SoundEvents.BLOCK_SNOW_BREAK, SoundCategory.HOSTILE,
+	 * 10F, 1F);
+	 * 
+	 * for (int i = 0; i < 100; ++i) {
+	 * this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, this.posX +
+	 * (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY +
+	 * this.rand.nextDouble() * (double)this.height, this.posZ +
+	 * (this.rand.nextDouble() - 0.5D) * (double)this.width,
+	 * (this.rand.nextDouble() - 0.5D), -this.rand.nextDouble(),
+	 * (this.rand.nextDouble() - 0.5D)); } } }
+	 */
 
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
@@ -127,7 +128,7 @@ public class EntitySnowRoller extends EntityMob
 				this.motionZ *= 0.6D;
 			}
 
-            entityIn.attackEntityFrom(Hailstorm.ROLLER, 1 + getSize() * 2);
+			entityIn.attackEntityFrom(Hailstorm.ROLLER, 1 + getSize() * 2);
 
 			if (getSize() > 1)
 				this.dropItem(Items.SNOWBALL, (int) getSize() * 2);
@@ -138,15 +139,15 @@ public class EntitySnowRoller extends EntityMob
 		return flag;
 	}
 
-    @Override
-    protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-        if(damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
-            super.damageEntity(damageSrc, damageAmount * 2);
-        else if(damageSrc == DamageSource.LAVA)
-            super.damageEntity(damageSrc, damageAmount * 3);
-        else
-            super.damageEntity(damageSrc, damageAmount);
-    }
+	@Override
+	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+		if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
+			super.damageEntity(damageSrc, damageAmount * 2);
+		else if (damageSrc == DamageSource.LAVA)
+			super.damageEntity(damageSrc, damageAmount * 3);
+		else
+			super.damageEntity(damageSrc, damageAmount);
+	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {

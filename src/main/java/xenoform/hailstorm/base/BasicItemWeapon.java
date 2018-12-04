@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -53,14 +54,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.util.ModelRegistry;
 
-public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
+public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 
 	private final Item.ToolMaterial material;
 	protected String name;
 	protected final double attackDamage;
 	protected final double attackSpeed;
 
-	public BasicItemUniqueWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed) {
+	public BasicItemWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed) {
 		super(material);
 		this.name = name;
 		this.material = material;
@@ -74,7 +75,7 @@ public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
 	}
 	
 	@Override
-	public BasicItemUniqueWeapon setCreativeTab(CreativeTabs tab) {
+	public BasicItemWeapon setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
 	}
@@ -84,6 +85,7 @@ public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
 		return 24000;
 	}
 
+	@Override
 	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 

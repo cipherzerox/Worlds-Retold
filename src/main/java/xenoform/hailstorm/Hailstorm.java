@@ -12,7 +12,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import xenoform.hailstorm.proxy.ServerProxy;
+import xenoform.hailstorm.world.OreGen;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,6 +50,7 @@ public class Hailstorm {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
+		GameRegistry.registerWorldGenerator(new OreGen(), 0);
 		MVillagerTrades.registerTrades();
 		Hailstorm.LOGGER.info("Initialization Done");
 	}

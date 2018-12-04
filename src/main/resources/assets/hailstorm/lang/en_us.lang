@@ -1,11 +1,24 @@
 ##Blocks##
 
 tile.cryonite_ore.name=Cryonite Ore
+tile.cryonite_block.name=Block of Cryonite
 
 ##Items##
 
-item.cryonite.name=Cryonite
+item.cryonite_sword.name=Cryonite Sword
 item.avalanche_hammer.name=Avalanche Hammer
+
+item.cryonite_shovel.name=Cryonite Shovel
+item.cryonite_pickaxe.name=Cryonite Pickaxe
+item.cryonite_axe.name=Cryonite Axe
+item.cryonite_hoe.name=Cryonite Hoe
+
+item.cryonite_helmet.name=Cryonite Helmet
+item.cryonite_chestplate.name=Cryonite Chestplate
+item.cryonite_leggings.name=Cryonite Leggings
+item.cryonite_boots.name=Cryonite Boots
+
+item.cryonite.name=Cryonite
 
 ##Entities##
 
