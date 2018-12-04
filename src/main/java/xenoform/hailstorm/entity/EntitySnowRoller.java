@@ -92,7 +92,7 @@ public class EntitySnowRoller extends EntityMob {
 					this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
 
 					if (getSize() <= 4)
-						this.setSize(size += .05);
+						this.setSize(size += .01);
 				}
 			}
 		}
