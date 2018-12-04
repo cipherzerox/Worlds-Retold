@@ -116,7 +116,7 @@ public class EntitySnowRoller extends EntityMob {
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
 				(float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 
-        if (flag) {
+		if (flag) {
 			if (entityIn instanceof EntityLivingBase) {
 				((EntityLivingBase) entityIn).knockBack(this, 0.2f + (size * 0.35f),
 						(double) MathHelper.sin(this.rotationYaw * 0.017453292F),
@@ -134,6 +134,10 @@ public class EntitySnowRoller extends EntityMob {
 			size = 1;
 		}
 		return flag;
+	}
+
+	public float getEyeHeight() {
+		return 0.85f;
 	}
 
 	@Override
