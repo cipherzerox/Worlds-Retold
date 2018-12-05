@@ -6,7 +6,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -18,16 +17,17 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
+
+import javax.annotation.Nullable;
 
 public class EntitySnowRoller extends EntityMob {
 	private float size = 1;
 
-	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class,
-			DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class, DataSerializers.FLOAT);
+	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class, DataSerializers.BOOLEAN);
 
 	public EntitySnowRoller(World world) {
 		super(world);
@@ -97,7 +97,7 @@ public class EntitySnowRoller extends EntityMob {
 				}
 			}
 		}
-	}
+    }
 
 	/*
 	 * @Override public void onCollideWithPlayer(EntityPlayer entityIn) {
@@ -169,9 +169,8 @@ public class EntitySnowRoller extends EntityMob {
 	}
 
     @Override
-    public EntityLookHelper getLookHelper() {
-	    EntityLookHelper helper = new EntityLookHelper(this);
-	    helper.isLooking = false;
-        return helper;
+    @Nullable
+    public Vec3d getLookVec() {
+        return null;
     }
 }

@@ -41,7 +41,6 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 
         double s = entitylivingbaseIn.getSize();
         GlStateManager.scale(s, s, s);
-        GlStateManager.translate(0.0D, -0.01D, 0.0D);
 
         if(entitylivingbaseIn.getShrink())
         {

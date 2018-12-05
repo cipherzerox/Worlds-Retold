@@ -75,11 +75,3 @@ processResources {
         exclude 'mcmod.info'
     }
 }
-
-jar {
-
-	manifest {
-	
-	    attributes 'FMLAT': 'hailstorm_at.cfg'
-	}
-}

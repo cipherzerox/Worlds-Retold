@@ -23,6 +23,7 @@ item.cryonite.name=Cryonite
 ##Entities##
 
 entity.roller.name=Snow Roller
+entity.nix.name=Nix
 
 ##Damage Sources##
 
