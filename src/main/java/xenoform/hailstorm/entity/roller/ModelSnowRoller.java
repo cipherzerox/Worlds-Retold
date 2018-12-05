@@ -99,7 +99,7 @@ public class ModelSnowRoller extends ModelBase {
 
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
-		if (entityIn.motionX == 0 || entityIn.motionY == 0 || entityIn.motionZ == 0) {
+		if (entityIn.motionX <= -1 || entityIn.motionZ <= -1) {
 			this.Body.rotateAngleX = 0.0f;
 		} else {
 			this.Body.rotateAngleX = 0.6f * limbSwing;

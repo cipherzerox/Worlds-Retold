@@ -42,17 +42,13 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 	protected float efficiency;
 	protected float damageVsEntity;
 	protected float attackSpeed;
-	public String toolClass;
 
 	public BasicItemTool(String name, Item.ToolMaterial material, Set<Block> effectiveBlocks, int tooltype, float attackDamageIn, float attackSpeedIn) {
 		super(attackDamageIn, attackSpeedIn, material, effectiveBlocks);
 		this.name = name;
 		this.material = material;
 		this.tooltype = tooltype;
-		this.efficiency = 4.0F;
-		this.maxStackSize = 1;
 		this.effectiveBlocks = effectiveBlocks;
-		this.setMaxDamage(material.getMaxUses());
 		this.efficiency = material.getEfficiency();
 		this.damageVsEntity = attackDamageIn + material.getAttackDamage();
 		this.attackSpeed = attackSpeedIn;
@@ -74,25 +70,6 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 	public BasicItemTool setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
-	}
-
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if (tooltype == 0) {
-			Material material = state.getMaterial();
-			return material != Material.SAND && material != Material.SNOW && material != Material.CLAY
-					&& material != Material.GROUND ? super.getDestroySpeed(stack, state) : this.efficiency;
-		}
-		if (tooltype == 1) {
-			Material material = state.getMaterial();
-			return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK
-					? super.getDestroySpeed(stack, state) : this.efficiency;
-		}
-		if (tooltype == 2) {
-			Material material = state.getMaterial();
-			return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE
-					? super.getDestroySpeed(stack, state) : this.efficiency;
-		}
-		return 0;
 	}
 
 	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
@@ -145,4 +122,37 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 		}
 		return null;
 	}
+	
+	@Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state)
+    {
+        for (String type : getToolClasses(stack))
+        {
+            if (state.getBlock().isToolEffective(type, state))
+                return efficiency;
+        }
+        return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiency : 1.0F;
+    }
+	
+	@javax.annotation.Nullable
+    private String toolClass;
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass, @javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player, @javax.annotation.Nullable IBlockState blockState)
+    {
+        int level = super.getHarvestLevel(stack, toolClass,  player, blockState);
+        if (level == -1 && toolClass.equals(this.toolClass))
+        {
+            return this.toolMaterial.getHarvestLevel();
+        }
+        else
+        {
+            return level;
+        }
+    }
+
+    @Override
+    public Set<String> getToolClasses(ItemStack stack)
+    {
+        return toolClass != null ? com.google.common.collect.ImmutableSet.of(toolClass) : super.getToolClasses(stack);
+    }
 }

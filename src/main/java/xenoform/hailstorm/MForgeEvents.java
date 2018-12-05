@@ -82,10 +82,10 @@ public class MForgeEvents {
 	@SubscribeEvent
 	public void onPreRenderFrozenEntity(final RenderLivingEvent.Pre event) {
 		final EntityLivingBase player = event.getEntity();
-		if (player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getModifier(PotionFreezing.MODIFIER_UUID) != null
-				&& !RenderHelper.doesRendererHaveLayer((RenderLivingBase<?>) event.getRenderer(),
-						(Class<? extends LayerRenderer<?>>) LayerFreezing.class, false)) {
-			event.getRenderer().addLayer(new LayerFreezing((RenderLivingBase<EntityLivingBase>) event.getRenderer()));
+		if (player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+				.getModifier(PotionFreezing.MODIFIER_UUID) != null
+				&& !RenderHelper.doesRendererHaveLayer(event.getRenderer(), LayerFreezing.class, false)) {
+			event.getRenderer().addLayer(new LayerFreezing(event.getRenderer()));
 		}
 	}
 
