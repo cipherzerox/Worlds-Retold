@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.*;
 
 public class RenderHelper {
 	private static Field fieldLayerRenderers = ReflectionHelper.findField((Class) RenderLivingBase.class,
-			new String[] { "layerRenderers", "layerRenderers", "i" });
+			new String[] { "layerRenderers", "field_177097_h", "i" });
 
 	public static <T extends LayerRenderer<?>> T getRenderLayer(final RenderLivingBase<?> renderer, final Class<T> cls,
 			final boolean subclasses) {

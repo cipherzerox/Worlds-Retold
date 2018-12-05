@@ -1,7 +1,9 @@
 package xenoform.hailstorm.entity.roller;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
@@ -9,6 +11,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -17,8 +20,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
+import xenoform.hailstorm.MSounds;
 
 import javax.annotation.Nullable;
 
@@ -46,7 +51,7 @@ public class EntitySnowRoller extends EntityMob {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(SIZE, Float.valueOf(baseSize));
+		this.dataManager.register(SIZE, Float.valueOf(0.35f));
 		this.dataManager.register(SHRINK, Boolean.FALSE);
 	}
 
@@ -79,7 +84,6 @@ public class EntitySnowRoller extends EntityMob {
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
 			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
 					.setBaseValue(0.23000000417232513D + getSize() / 8);
-			this.setSize(getSize(), getSize());
 			this.heal(1.0f);
 
 			if (!world.isRemote) {
@@ -182,11 +186,5 @@ public class EntitySnowRoller extends EntityMob {
 
 	public int getVerticalFaceSpeed() {
 		return 500;
-	}
-
-	@Override
-	@Nullable
-	public Vec3d getLookVec() {
-		return null;
 	}
 }
