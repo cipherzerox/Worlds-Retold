@@ -34,6 +34,7 @@ public class EntitySnowRoller extends EntityMob {
 	public EntitySnowRoller(World world) {
 		super(world);
 		this.setSize(1.25f, 1.25f);
+		this.setSize(size);
 	}
 
 	protected void initEntityAI() {
@@ -75,7 +76,7 @@ public class EntitySnowRoller extends EntityMob {
 		super.onLivingUpdate();
 
 		if (getSize() <= 2.5f) {
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
 			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
 					.setBaseValue(0.23000000417232513D + getSize() / 8);
 			this.setSize(getSize(), getSize());
@@ -92,7 +93,11 @@ public class EntitySnowRoller extends EntityMob {
 
 					if (this.world.getBlockState(blockpos) == Blocks.SNOW_LAYER.getDefaultState()) {
 						this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
-						this.setSize(size += .014);
+
+						if(getSize() <= 1)
+						    this.setSize(size += .028);
+						else
+						    this.setSize(size += .056);
 					}
 				}
 			}
