@@ -14,20 +14,17 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
 
 public class EntitySnowRoller extends EntityMob {
-	private float baseSize = 0.35f;
+	private float baseSize = 0.35F;
 	private float size = baseSize;
 
 	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class,
 			DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class,
-			DataSerializers.BOOLEAN);
 
 	public EntitySnowRoller(World world) {
 		super(world);
@@ -43,24 +40,15 @@ public class EntitySnowRoller extends EntityMob {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(SIZE, Float.valueOf(0.35f));
-		this.dataManager.register(SHRINK, Boolean.FALSE);
+		this.dataManager.register(SIZE, 0.35F);
 	}
 
 	public float getSize() {
-		return this.dataManager.get(SIZE).floatValue();
+		return this.dataManager.get(SIZE);
 	}
 
 	public void setSize(float s) {
-		this.dataManager.set(SIZE, Float.valueOf(s));
-	}
-
-	public Boolean getShrink() {
-		return this.dataManager.get(SHRINK).booleanValue();
-	}
-
-	public void setShrink(Boolean b) {
-		this.dataManager.set(SHRINK, Boolean.valueOf(b));
+		this.dataManager.set(SIZE, s);
 	}
 
 	protected void applyEntityAttributes() {
@@ -72,7 +60,7 @@ public class EntitySnowRoller extends EntityMob {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
         setSize(getSize(), getSize());
-		if (getSize() <= 2.5f) {
+		if (getSize() <= 4F) {
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
 			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
 					.setBaseValue(0.23000000417232513D + getSize() / 8);
@@ -98,7 +86,7 @@ public class EntitySnowRoller extends EntityMob {
 			}
 		}
 	}
-    
+
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
 				(float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
@@ -115,18 +103,10 @@ public class EntitySnowRoller extends EntityMob {
 			entityIn.attackEntityFrom(Hailstorm.ROLLER, 1 + getSize() * 2);
 
 			if (getSize() > baseSize)
-				this.dropItem(Items.SNOWBALL, (int) getSize() * 2);
+				this.dropItem(Items.SNOWBALL, (int) getSize() * 3);
 
 			setSize(baseSize);
 			size = baseSize;
-
-            for (int i = 0; i < 100; ++i)
-            {
-                  this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, this.posX * (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY +
-                  this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, (this.rand.nextDouble() - 0.5D),
-                          -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D));
-            }
-
 		}
 		return flag;
 	}
@@ -145,14 +125,12 @@ public class EntitySnowRoller extends EntityMob {
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setFloat("Size", this.getSize());
-		compound.setBoolean("Shrink", this.getShrink());
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		this.setSize(compound.getFloat("Size"));
-		this.setShrink(compound.getBoolean("Shrink"));
 	}
 
 	public float getEyeHeight() {
