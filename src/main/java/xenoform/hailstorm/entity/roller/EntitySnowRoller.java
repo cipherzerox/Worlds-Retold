@@ -23,10 +23,13 @@ import xenoform.hailstorm.Hailstorm;
 import javax.annotation.Nullable;
 
 public class EntitySnowRoller extends EntityMob {
-	private float size = 1;
+	private float baseSize = 0.35f;
+	private float size = baseSize;
 
-	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class, DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class,
+			DataSerializers.FLOAT);
+	private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntitySnowRoller.class,
+			DataSerializers.BOOLEAN);
 
 	public EntitySnowRoller(World world) {
 		super(world);
@@ -39,16 +42,10 @@ public class EntitySnowRoller extends EntityMob {
 		this.tasks.addTask(2, new EntityAIRollerAttack(this, 0.8D, false));
 	}
 
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(0);
-	}
-
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(SIZE, Float.valueOf(1));
+		this.dataManager.register(SIZE, Float.valueOf(baseSize));
 		this.dataManager.register(SHRINK, Boolean.FALSE);
 	}
 
@@ -68,35 +65,39 @@ public class EntitySnowRoller extends EntityMob {
 		this.dataManager.set(SHRINK, Boolean.valueOf(b));
 	}
 
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(0);
+	}
+
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
-				.setBaseValue(0.23000000417232513D + getSize() / 8);
-		this.setSize(getSize(), getSize());
+		if (getSize() <= 2.5f) {
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
+			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+					.setBaseValue(0.23000000417232513D + getSize() / 8);
+			this.setSize(getSize(), getSize());
+			this.heal(1.0f);
 
-		this.rotationPitch = 0;
+			if (!world.isRemote) {
+				int i, j, k;
 
-		if (!world.isRemote) {
-			int i, j, k;
+				for (int l = 0; l < 4; ++l) {
+					i = MathHelper.floor(this.posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+					j = MathHelper.floor(this.posY);
+					k = MathHelper.floor(this.posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+					BlockPos blockpos = new BlockPos(i, j, k);
 
-			for (int l = 0; l < 4; ++l) {
-				i = MathHelper.floor(this.posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-				j = MathHelper.floor(this.posY);
-				k = MathHelper.floor(this.posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
-				BlockPos blockpos = new BlockPos(i, j, k);
-
-				if (this.world.getBlockState(blockpos) == Blocks.SNOW_LAYER.getDefaultState()) {
-					this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
-
-					if (getSize() <= 4)
-						this.setSize(size += .01);
+					if (this.world.getBlockState(blockpos) == Blocks.SNOW_LAYER.getDefaultState()) {
+						this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
+						this.setSize(size += .014);
+					}
 				}
 			}
 		}
-    }
+	}
 
 	/*
 	 * @Override public void onCollideWithPlayer(EntityPlayer entityIn) {
@@ -121,7 +122,7 @@ public class EntitySnowRoller extends EntityMob {
 
 		if (flag) {
 			if (entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, 0.2f + (size * 0.35f),
+				((EntityLivingBase) entityIn).knockBack(this, baseSize + (size * 0.35f),
 						(double) MathHelper.sin(this.rotationYaw * 0.017453292F),
 						(double) (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
 				this.motionX *= 0.6D;
@@ -130,11 +131,11 @@ public class EntitySnowRoller extends EntityMob {
 
 			entityIn.attackEntityFrom(Hailstorm.ROLLER, 1 + getSize() * 2);
 
-			if (getSize() > 1)
+			if (getSize() > baseSize)
 				this.dropItem(Items.SNOWBALL, (int) getSize() * 2);
 
-			setSize(1);
-			size = 1;
+			setSize(baseSize);
+			size = baseSize;
 		}
 		return flag;
 	}
@@ -177,5 +178,11 @@ public class EntitySnowRoller extends EntityMob {
 
 	public int getVerticalFaceSpeed() {
 		return 500;
+	}
+
+	@Override
+	@Nullable
+	public Vec3d getLookVec() {
+		return null;
 	}
 }

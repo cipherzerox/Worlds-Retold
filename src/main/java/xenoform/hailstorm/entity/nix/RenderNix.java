@@ -1,4 +1,4 @@
-package xenoform.hailstorm.render;
+package xenoform.hailstorm.entity.nix;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xenoform.hailstorm.entity.nix.EntityNix;
-import xenoform.hailstorm.entity.nix.ModelNix;
 
 import javax.annotation.Nonnull;
 

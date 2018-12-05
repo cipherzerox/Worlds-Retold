@@ -1,4 +1,4 @@
-package xenoform.hailstorm.render;
+package xenoform.hailstorm.entity.roller;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xenoform.hailstorm.entity.roller.EntitySnowRoller;
-import xenoform.hailstorm.entity.roller.ModelSnowRoller;
 
 import javax.annotation.Nonnull;
 
@@ -35,12 +33,13 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 
     protected void preRenderCallback(EntitySnowRoller entitylivingbaseIn, float partialTickTime)
     {
+    	float baseSize = 0.35f;
         double s = entitylivingbaseIn.getSize();
         GlStateManager.scale(s, s, s);
 
         if(entitylivingbaseIn.getShrink())
         {
-            GlStateManager.scale(1, 1, 1);
+            GlStateManager.scale(baseSize, baseSize, baseSize);
         }
     }
 
