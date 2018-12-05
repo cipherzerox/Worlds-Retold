@@ -35,10 +35,6 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 
     protected void preRenderCallback(EntitySnowRoller entitylivingbaseIn, float partialTickTime)
     {
-        GlStateManager.enableAlpha();
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-
         double s = entitylivingbaseIn.getSize();
         GlStateManager.scale(s, s, s);
 
