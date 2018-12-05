@@ -18,7 +18,7 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 
     public RenderSnowRoller(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelSnowRoller(), 0.5F);
+        super(renderManagerIn, new ModelSnowRoller(), 0.55F);
     }
 
     @Override

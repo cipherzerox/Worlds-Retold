@@ -75,12 +75,13 @@ public class EntitySnowRoller extends EntityMob {
 		super.onLivingUpdate();
 
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D + getSize() / 8);
-        this.setSize(getSize(), getSize());
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+				.setBaseValue(0.23000000417232513D + getSize() / 8);
+		this.setSize(getSize(), getSize());
 
-        this.rotationPitch = 0;
+		this.rotationPitch = 0;
 
-        if (!world.isRemote) {
+		if (!world.isRemote) {
 			int i, j, k;
 
 			for (int l = 0; l < 4; ++l) {
@@ -140,10 +141,6 @@ public class EntitySnowRoller extends EntityMob {
 		return flag;
 	}
 
-	public float getEyeHeight() {
-		return 0.85f;
-	}
-
 	@Override
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
 		if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
@@ -168,10 +165,19 @@ public class EntitySnowRoller extends EntityMob {
 		this.setShrink(compound.getBoolean("Shrink"));
 	}
 
-    @Override
-    public EntityLookHelper getLookHelper() {
-	    EntityLookHelper helper = new EntityLookHelper(this);
-	    helper.isLooking = false;
-        return helper;
-    }
+	public float getEyeHeight() {
+		return 0.7f;
+	}
+
+	public int getTalkInterval() {
+		return 160;
+	}
+
+	public int getHorizontalFaceSpeed() {
+		return 500;
+	}
+
+	public int getVerticalFaceSpeed() {
+		return 500;
+	}
 }
