@@ -36,6 +36,7 @@ public class EntitySnowRoller extends EntityMob {
 		this.setSize(1.25f, 1.25f);
 	}
 
+	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
@@ -92,7 +93,7 @@ public class EntitySnowRoller extends EntityMob {
 
 					if (this.world.getBlockState(blockpos) == Blocks.SNOW_LAYER.getDefaultState()) {
 						this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
-						this.setSize(size += .014);
+						this.setSize(size += .04);
 					}
 				}
 			}
