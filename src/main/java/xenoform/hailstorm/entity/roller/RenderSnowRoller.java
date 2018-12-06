@@ -33,14 +33,8 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
 
     protected void preRenderCallback(EntitySnowRoller entitylivingbaseIn, float partialTickTime)
     {
-    	float baseSize = 0.35f;
         double s = entitylivingbaseIn.getSize();
         GlStateManager.scale(s, s, s);
-
-        if(entitylivingbaseIn.getShrink())
-        {
-            GlStateManager.scale(baseSize, baseSize, baseSize);
-        }
     }
 
     public static class Factory implements IRenderFactory<EntitySnowRoller>
