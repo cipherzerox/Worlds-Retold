@@ -46,5 +46,4 @@ public class RenderSnowRoller extends RenderLiving<EntitySnowRoller>
         }
 
     }
-
 }
