@@ -11,8 +11,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import xenoform.hailstorm.MBlocks;
 
@@ -20,12 +18,14 @@ import java.util.Random;
 
 public class WorldGenHailstorm implements IWorldGenerator {
 
+	private static final StructureHailstormShrine HAILSTORM_SHRINE = new StructureHailstormShrine();
+
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
 
-		final int blockX = chunkX * 16 + random.nextInt(16) + 8;
-		final int blockZ = chunkZ * 16 + random.nextInt(16) + 8;
+		final int blockX = (chunkX << 4) + random.nextInt(16) + 8;
+		final int blockZ = (chunkZ << 4) + random.nextInt(16) + 8;
 
 		switch (world.provider.getDimension()) {
 		// Nether
@@ -68,12 +68,11 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		}
 	}
 
-	private void generateHailstormShrine(World world, Random rand, int chunkX, int chunkZ) {
-		if ((int) (Math.random() * 10) == 0) {
-			int y = getGroundFromAbove(world, chunkX, chunkZ);
-			BlockPos pos = new BlockPos(chunkX, y, chunkZ);
-			WorldGenerator structure = new StructureHailstormShrine();
-			structure.generate(world, rand, pos);
+	private void generateHailstormShrine(World world, Random rand, int blockX, int blockZ) {
+		if (rand.nextInt(10) == 0) {
+			int y = getGroundFromAbove(world, blockX, blockZ);
+			BlockPos pos = new BlockPos(blockX, y, blockZ);
+			HAILSTORM_SHRINE.generate(world, rand, pos);
 		}
 	}
 
@@ -87,10 +86,11 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		return y;
 	}
 
-	public static boolean canSpawnHere(final Template template, final World world, final BlockPos pos) {
-		return isCornerValid(world, pos) && isCornerValid(world, pos.add(template.getSize().getX(), 0, 0))
-				&& isCornerValid(world, pos.add(template.getSize().getX(), 0, template.getSize().getZ()))
-				&& isCornerValid(world, pos.add(0, 0, template.getSize().getZ()));
+	public static boolean canSpawnHere(final World world, final BlockPos min, BlockPos max) {
+		return isCornerValid(world, min)
+				&& isCornerValid(world, new BlockPos(max.getX(), min.getY(), min.getZ()))
+				&& isCornerValid(world, max)
+				&& isCornerValid(world, new BlockPos(min.getX(), min.getY(), max.getZ()));
 	}
 
 	public static boolean isCornerValid(final World world, final BlockPos pos) {
