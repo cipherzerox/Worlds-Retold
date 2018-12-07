@@ -35,7 +35,7 @@ public class StructureHailstormShrine extends WorldGenerator {
 		MinecraftServer minecraftserver = world.getMinecraftServer();
 		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
 		Template template = templatemanager.getTemplate(minecraftserver,
-				new ResourceLocation(Hailstorm.MODID + ":" + "structures/hailstorm_shrine.nbt"));
+				new ResourceLocation(Hailstorm.MODID + ":hailstorm_shrine"));
 
 		if (template == null) {
 			System.out.println("NO STRUCTURE");
@@ -43,35 +43,35 @@ public class StructureHailstormShrine extends WorldGenerator {
 		}
 
 		if (WorldGenHailstorm.canSpawnHere(template, worldserver, position)
-                //&& world.getBiome(position) instanceof Biomes.
-                ) {
+		// && world.getBiome(position) instanceof Biomes.
+		) {
 			IBlockState iblockstate = world.getBlockState(position);
 			world.notifyBlockUpdate(position, iblockstate, iblockstate, 3);
 
-         //   System.out.println("X:" + position.getX() + " Y:" + position.getY() + " Z:" + position.getZ());
-            Rotation rotation = Rotation.NONE;
-            switch(rand.nextInt(3))
-            {
-                case 0:
-                    rotation = Rotation.NONE;
-                    break;
-                case 1:
-                    rotation = Rotation.CLOCKWISE_180;
-                    break;
-                case 2:
-                    rotation = Rotation.CLOCKWISE_90;
-                    break;
-                case 3:
-                    rotation = Rotation.COUNTERCLOCKWISE_90;
-                    break;
-                default:
-                    break;
-            }
+			System.out.println("X:" + position.getX() + " Y:" + position.getY() + " Z:" + position.getZ());
+			Rotation rotation = Rotation.NONE;
+			switch (rand.nextInt(3)) {
+			case 0:
+				rotation = Rotation.NONE;
+				break;
+			case 1:
+				rotation = Rotation.CLOCKWISE_180;
+				break;
+			case 2:
+				rotation = Rotation.CLOCKWISE_90;
+				break;
+			case 3:
+				rotation = Rotation.COUNTERCLOCKWISE_90;
+				break;
+			default:
+				break;
+			}
 
-            PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.NONE).setRotation(rotation)
-                    .setIgnoreEntities(false).setChunk((ChunkPos) null).setReplacedBlock((Block)null).setIgnoreStructureBlock(false);
+			PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.NONE).setRotation(rotation)
+					.setIgnoreEntities(false).setChunk((ChunkPos) null).setReplacedBlock((Block) null)
+					.setIgnoreStructureBlock(false);
 
-            template.getDataBlocks(position, placementsettings);
+			template.getDataBlocks(position, placementsettings);
 			template.addBlocksToWorld(world, position.add(0, 1, 0), placementsettings);
 
 			Map<BlockPos, String> map = template.getDataBlocks(position, placementsettings);
@@ -83,7 +83,7 @@ public class StructureHailstormShrine extends WorldGenerator {
 					TileEntity tileentity = world.getTileEntity(blockpos2);
 
 					if (tileentity instanceof TileEntityChest) {
-						((TileEntityChest) tileentity).setLootTable(LootTableList.ENTITIES_WITCH, rand.nextLong());
+						((TileEntityChest) tileentity).setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, rand.nextLong());
 					}
 				}
 			}
