@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
@@ -35,4 +36,9 @@ public class EnchantmentArrowIce extends Enchantment {
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
 		((EntityLivingBase) target).addPotionEffect(new PotionEffect(MPotions.FREEZING, 300, 0));
 	}
+	
+    public boolean canApplyTogether(Enchantment ench)
+    {
+        return super.canApplyTogether(ench) && ench != Enchantments.FLAME;
+    }
 }

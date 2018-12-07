@@ -40,5 +40,6 @@ tipped_arrow.effect.freezing=Arrow of Freezing
 
 ##Enchantment##
 
-enchantment.iceAspect=Ice Aspect
+enchantment.iceAspect=Icebound Blade
 enchantment.arrowIce=Frost
+enchantment.stormCaller=Lightning Rod
