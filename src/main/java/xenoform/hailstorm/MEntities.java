@@ -5,6 +5,8 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
+import xenoform.hailstorm.entity.blizzard.RenderBlizzard;
 import xenoform.hailstorm.entity.nix.EntityNix;
 import xenoform.hailstorm.entity.nix.RenderNix;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
@@ -20,6 +22,8 @@ public class MEntities
                 "roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
         EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "nix"), EntityNix.class,
                 "nix", EntityID++, Hailstorm.instance, 64, 3, true, 0x00e1ff, 0xffffff);
+        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "blizzard"), EntityBlizzard.class,
+                "blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
     }
 
     @SideOnly(Side.CLIENT)
@@ -27,5 +31,6 @@ public class MEntities
     {
         RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
     }
 }
