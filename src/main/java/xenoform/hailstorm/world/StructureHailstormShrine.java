@@ -25,9 +25,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 public class StructureHailstormShrine extends WorldGenerator {
-	Random r2 = new Random();
-
-	int r;
 
 	@Override
 	public boolean generate(World world, Random rand, BlockPos position) {
@@ -83,7 +80,8 @@ public class StructureHailstormShrine extends WorldGenerator {
 					TileEntity tileentity = world.getTileEntity(blockpos2);
 
 					if (tileentity instanceof TileEntityChest) {
-						((TileEntityChest) tileentity).setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, rand.nextLong());
+						((TileEntityChest) tileentity).setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON,
+								rand.nextLong());
 					}
 				}
 			}
@@ -93,9 +91,4 @@ public class StructureHailstormShrine extends WorldGenerator {
 
 		return false;
 	}
-
-	public void addLoot(World world) {
-
-	}
-
 }

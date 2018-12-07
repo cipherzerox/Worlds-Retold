@@ -23,6 +23,10 @@ public class WorldGenHailstorm implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
+		
+		  final int blockX = chunkX * 16 + random.nextInt(16) + 8;
+          final int blockZ = chunkZ * 16 + random.nextInt(16) + 8;
+          
 		switch (world.provider.getDimension()) {
 		// Nether
 		case -1:
@@ -31,7 +35,7 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		case 0:
 			runOreGenerator(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
 					world, random, chunkX, chunkZ);
-			generateHailstormShrine(world, random, chunkX + 8, chunkZ + 8);
+			generateHailstormShrine(world, random, blockX, blockZ);
 			break;
 		// End
 		case 1:
@@ -43,16 +47,16 @@ public class WorldGenHailstorm implements IWorldGenerator {
 	}
 
 	private void runOreGenerator(IBlockState blockToGen, int blockAmount, int chancesToSpawn, int minHeight,
-			int maxHeight, Predicate<IBlockState> blockToReplace, World world, Random rand, int chunk_X, int chunk_Z) {
+			int maxHeight, Predicate<IBlockState> blockToReplace, World world, Random rand, int chunkX, int chunkZ) {
 		if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight)
 			throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
 
 		WorldGenMinable generator = new WorldGenMinable(blockToGen, blockAmount, blockToReplace);
 		int heightdiff = maxHeight - minHeight + 1;
 		for (int i = 0; i < chancesToSpawn; i++) {
-			int x = chunk_X * 16 + rand.nextInt(16);
+			int x = chunkX * 16 + rand.nextInt(16);
 			int y = minHeight + rand.nextInt(heightdiff);
-			int z = chunk_Z * 16 + rand.nextInt(16);
+			int z = chunkZ * 16 + rand.nextInt(16);
 
 			BlockPos pos = new BlockPos(x, y, z);
 			if (world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
@@ -64,10 +68,12 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		}
 	}
 
-	private void generateHailstormShrine(World world, Random rand, int blockX, int blockZ) {
-		if ((int) (Math.random() * 500) == 0) {
-			int y = getGroundFromAbove(world, blockX, blockZ);
-			BlockPos pos = new BlockPos(blockX, y, blockZ);
+	private void generateHailstormShrine(World world, Random rand, int chunkX, int chunkZ) {
+		if ((int) (Math.random() * 10) == 0) {
+			int x = chunkX * 16 + rand.nextInt(16);
+			int z = chunkZ * 16 + rand.nextInt(16);
+			int y = getGroundFromAbove(world, x, z);
+			BlockPos pos = new BlockPos(x, y, z);
 			WorldGenerator structure = new StructureHailstormShrine();
 			structure.generate(world, rand, pos);
 		}
