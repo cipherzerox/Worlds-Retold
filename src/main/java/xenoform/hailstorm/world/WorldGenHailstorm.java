@@ -83,27 +83,4 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		}
 		return y;
 	}
-
-	public static boolean canSpawnHere(Template template, World world, BlockPos posAboveGround) {
-		int zwidth = template.getSize().getZ();
-		int xwidth = template.getSize().getX();
-
-		// check all the corners to see which ones are replaceable
-		boolean corner1 = isCornerValid(world, posAboveGround);
-		boolean corner2 = isCornerValid(world, posAboveGround.add(xwidth, 0, zwidth));
-
-		// if Y > 20 and all corners pass the test, it's okay to spawn the
-		// structure
-		return posAboveGround.getY() > 0 && corner1 && corner2;
-	}
-
-	public static boolean isCornerValid(World world, BlockPos pos) {
-		int variation = 3;
-		int highestBlock = getGroundFromAbove(world, pos.getX(), pos.getZ());
-
-		if (highestBlock > pos.getY() - variation && highestBlock < pos.getY() + variation)
-			return true;
-
-		return false;
-	}
 }

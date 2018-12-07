@@ -41,42 +41,21 @@ public class StructureHailstormShrine extends WorldGenerator {
 		MinecraftServer minecraftserver = world.getMinecraftServer();
 		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
 		Template template = templatemanager.getTemplate(minecraftserver,
-				new ResourceLocation(Hailstorm.MODID + ":hailstorm_shrine"));
+				new ResourceLocation(Hailstorm.MODID + ":" + "structures/hailstorm_shrine.nbt"));
 
 		if (template == null) {
 			System.out.println("NO STRUCTURE");
 			return false;
 		}
+		BlockPos blockpos2 = template.getSize();
+		IBlockState iblockstate = world.getBlockState(position);
+		world.notifyBlockUpdate(position, iblockstate, iblockstate, 3);
+		PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.NONE)
+				.setRotation(Rotation.NONE).setIgnoreEntities(false).setChunk((ChunkPos) null)
+				.setReplacedBlock((Block) null).setIgnoreStructureBlock(false);
 
-		if (WorldGenHailstorm.canSpawnHere(template, worldserver, position)) {
-			IBlockState iblockstate = world.getBlockState(position);
-			world.notifyBlockUpdate(position, iblockstate, iblockstate, 3);
-
-			PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.NONE)
-					.setRotation(Rotation.NONE).setIgnoreEntities(false).setChunk((ChunkPos) null)
-					.setReplacedBlock((Block) null).setIgnoreStructureBlock(false);
-
-			template.getDataBlocks(position, placementsettings);
-			template.addBlocksToWorld(world, position.add(0, 1, 0), placementsettings);
-
-			Map<BlockPos, String> map = template.getDataBlocks(position, placementsettings);
-
-			for (Entry<BlockPos, String> entry : map.entrySet()) {
-				if ("chest".equals(entry.getValue())) {
-					BlockPos blockpos2 = entry.getKey();
-					world.setBlockState(blockpos2.up(), Blocks.AIR.getDefaultState(), 3);
-					TileEntity tileentity = world.getTileEntity(blockpos2);
-
-					if (tileentity instanceof TileEntityChest) {
-						((TileEntityChest) tileentity).setLootTable(LootTableList.ENTITIES_WITCH, rand.nextLong());
-					}
-				}
-			}
-
-			return true;
-		}
-
-		return false;
+		template.addBlocksToWorldChunk(world, position.add(0, 1, 0), placementsettings);
+		return true;
 	}
 
 	public void addLoot(World world) {
