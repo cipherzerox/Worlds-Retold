@@ -23,10 +23,10 @@ public class WorldGenHailstorm implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		
-		  final int blockX = chunkX * 16 + random.nextInt(16) + 8;
-          final int blockZ = chunkZ * 16 + random.nextInt(16) + 8;
-          
+
+		final int blockX = chunkX * 16 + random.nextInt(16) + 8;
+		final int blockZ = chunkZ * 16 + random.nextInt(16) + 8;
+
 		switch (world.provider.getDimension()) {
 		// Nether
 		case -1:
@@ -70,10 +70,8 @@ public class WorldGenHailstorm implements IWorldGenerator {
 
 	private void generateHailstormShrine(World world, Random rand, int chunkX, int chunkZ) {
 		if ((int) (Math.random() * 10) == 0) {
-			int x = chunkX * 16 + rand.nextInt(16);
-			int z = chunkZ * 16 + rand.nextInt(16);
-			int y = getGroundFromAbove(world, x, z);
-			BlockPos pos = new BlockPos(x, y, z);
+			int y = getGroundFromAbove(world, chunkX, chunkZ);
+			BlockPos pos = new BlockPos(chunkX, y, chunkZ);
 			WorldGenerator structure = new StructureHailstormShrine();
 			structure.generate(world, rand, pos);
 		}
@@ -89,22 +87,15 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		return y;
 	}
 
-	public static boolean canSpawnHere(Template template, World world, BlockPos posAboveGround) {
-		int zwidth = template.getSize().getZ();
-		int xwidth = template.getSize().getX();
-		// check all the corners to see which ones are replaceable
-		boolean corner1 = isCornerValid(world, posAboveGround);
-		boolean corner2 = isCornerValid(world, posAboveGround.add(xwidth, 0, zwidth));
-		// if Y > 20 and all corners pass the test, it's okay to spawn the
-		// structure
-		return posAboveGround.getY() > 0 && corner1 && corner2;
+	public static boolean canSpawnHere(final Template template, final World world, final BlockPos pos) {
+		return isCornerValid(world, pos) && isCornerValid(world, pos.add(template.getSize().getX(), 0, 0))
+				&& isCornerValid(world, pos.add(template.getSize().getX(), 0, template.getSize().getZ()))
+				&& isCornerValid(world, pos.add(0, 0, template.getSize().getZ()));
 	}
 
-	public static boolean isCornerValid(World world, BlockPos pos) {
-		int variation = 3;
-		int highestBlock = getGroundFromAbove(world, pos.getX(), pos.getZ());
-		if (highestBlock > pos.getY() - variation && highestBlock < pos.getY() + variation)
-			return true;
-		return false;
+	public static boolean isCornerValid(final World world, final BlockPos pos) {
+		final int groundY = getGroundFromAbove(world, pos.getX(), pos.getZ());
+		return groundY > pos.getY() - 3 && groundY < pos.getY() + 3;
 	}
+
 }

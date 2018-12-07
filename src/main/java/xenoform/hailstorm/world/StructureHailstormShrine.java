@@ -68,6 +68,9 @@ public class StructureHailstormShrine extends WorldGenerator {
 					.setIgnoreEntities(false).setChunk((ChunkPos) null).setReplacedBlock((Block) null)
 					.setIgnoreStructureBlock(false);
 
+			position = position
+					.subtract(Template.transformedBlockPos(placementsettings, new BlockPos(-15 / 2, -4 / 2, -13 / 2)));
+
 			template.getDataBlocks(position, placementsettings);
 			template.addBlocksToWorld(world, position.add(0, 1, 0), placementsettings);
 
