@@ -1,6 +1,5 @@
 package xenoform.hailstorm;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -13,11 +12,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import xenoform.hailstorm.proxy.ServerProxy;
-import xenoform.hailstorm.world.WorldGenHailstorm;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import xenoform.hailstorm.proxy.ServerProxy;
+import xenoform.hailstorm.world.WorldGenHailstorm;
 
 @Mod(modid = Hailstorm.MODID, name = Hailstorm.NAME, version = Hailstorm.VERSION)
 public class Hailstorm {
@@ -35,6 +33,7 @@ public class Hailstorm {
 	public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(Hailstorm.MODID);
 	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
     public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
+    public static final DamageSource HAIL = new DamageSource("hailstorm.hail");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
