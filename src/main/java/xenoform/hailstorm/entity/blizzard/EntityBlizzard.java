@@ -53,8 +53,19 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
 
         setVelocity(0,0,0);
 
-        if(!(world.getBlockState(getPosition().down(8)) == Blocks.AIR.getDefaultState()))
+        boolean minHeight = world.getBlockState(getPosition().down(8)) == Blocks.AIR.getDefaultState();
+        boolean maxHeight = world.getBlockState(getPosition().down(12)) == Blocks.AIR.getDefaultState();
+
+        if(!minHeight)
             motionY += .1;
+
+        if(ticksExisted % 20 == 0 ) {
+            if (!maxHeight)
+                motionY += .1;
+            else
+                motionY -= .1;
+        }
+
 
         if (!this.world.isRemote && this.getAttackTarget() != null)
         {
@@ -104,7 +115,6 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
         EntityHail entityHail = new EntityHail(this.world, this, d3, d4, d5);
         world.spawnEntity(entityHail);
     }
-
 
     @Override
     public boolean hasNoGravity() {
