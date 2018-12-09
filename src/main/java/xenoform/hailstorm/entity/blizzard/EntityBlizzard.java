@@ -19,7 +19,6 @@ import java.util.Random;
 public class EntityBlizzard extends EntityMob implements EntityFlying
 {
     Random rand = new Random();
-    private boolean descending;
 
     public EntityBlizzard(World world){
         super(world);
@@ -56,7 +55,6 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
         setVelocity(0,0,0);
 
         boolean minHeight = world.getBlockState(getPosition().down(8)) == Blocks.AIR.getDefaultState();
-        boolean maxHeight = world.getBlockState(getPosition().down(12)) == Blocks.AIR.getDefaultState();
 
         if(!minHeight)
             motionY += .1;
@@ -81,7 +79,7 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
             }
         }
 
-        if (this.motionX * this.motionX + this.motionZ * this.motionZ > 0.05000000074505806D)
+        if (this.motionX * this.motionX + this.motionZ * this.motionZ >= 0.0025000011722640823D)
         {
             this.rotationYaw = (float)MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float)Math.PI) - 90.0F;
         }
@@ -103,10 +101,16 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
         double d0 = this.posX;
         double d1 = this.posY + 2;
         double d2 = this.posZ;
-        double d3 = x - d0;
         double d4 = y - d1;
-        double d5 = z - d2;
-        EntityHail entityHail = new EntityHail(this.world, this, d3, d4, d5);
+        EntityHail entityHail = new EntityHail(this.world, this, 0, d4, 0);
+
+        double x0 = d0 - 2;
+        double z0 = d2 - 2;
+
+        entityHail.posX = x0 + rand.nextInt(5);
+        entityHail.posY = d1;
+        entityHail.posZ = z0 + rand.nextInt(5);
+
         world.spawnEntity(entityHail);
     }
 
