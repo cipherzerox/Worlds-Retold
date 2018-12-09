@@ -17,6 +17,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class EntityNix extends EntityCreature {
     private int size = 0;
@@ -24,6 +25,8 @@ public class EntityNix extends EntityCreature {
     private static final DataParameter<Float> SIZE = EntityDataManager.createKey(EntityNix.class, DataSerializers.FLOAT);
     private static final DataParameter<Integer> STAGE = EntityDataManager.createKey(EntityNix.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> SHRINK = EntityDataManager.createKey(EntityNix.class, DataSerializers.BOOLEAN);
+
+    private static Random random = new Random();
 
     public EntityNix(World world) {
         super(world);
@@ -201,7 +204,7 @@ public class EntityNix extends EntityCreature {
          */
         public boolean shouldExecute()
         {
-            return true;
+            return random.nextInt(2) == 0;
         }
 
         /**
