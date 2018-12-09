@@ -5,6 +5,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
@@ -13,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.Hailstorm;
+import xenoform.hailstorm.MPotions;
 import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
 
 public class EntityHail extends EntityFireball{
@@ -78,6 +80,11 @@ public class EntityHail extends EntityFireball{
             }
 
             result.entityHit.attackEntityFrom(Hailstorm.HAIL, (float)i);
+
+            if(result.entityHit instanceof EntityLivingBase){
+                EntityLivingBase target = (EntityLivingBase)result.entityHit;
+                target.addPotionEffect(new PotionEffect(MPotions.FREEZING, 100, 0));
+            }
         }
 
         if (!this.world.isRemote)
