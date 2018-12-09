@@ -59,13 +59,12 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
         if(!minHeight)
             motionY += .1;
 
-        if(ticksExisted % 20 == 0 ) {
+        if(ticksExisted % 40 == 0 ) {
             if (!maxHeight)
                 motionY += .1;
             else
                 motionY -= .1;
         }
-
 
         if (!this.world.isRemote && this.getAttackTarget() != null)
         {

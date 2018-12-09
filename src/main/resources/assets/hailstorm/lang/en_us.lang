@@ -29,7 +29,7 @@ entity.nix.name=Nix
 
 death.attack.hailstorm.frostbite=%1$s suffered from frostbite.
 death.attack.hailstorm.roller=%1$s was ran over by a Snow Roller
-death.attack.hailstorm.hail=$1%s was domed by a piece of hail
+death.attack.hailstorm.hail=%1$s was domed by a piece of hail
 
 ##Potion##
 
