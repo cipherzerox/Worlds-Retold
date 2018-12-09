@@ -81,6 +81,25 @@ public class MItems {
 			EntityEquipmentSlot.FEET, Hailstorm.MODID + ":textures/armor/cryonite_leggings.png",
 			Hailstorm.MODID + ":textures/armor/cryonite_armor.png");
 
+	@ObjectHolder("hailstorm_helmet")
+	public static BasicItemArmor HAILSTORM_HELMET = new BasicItemArmor("hailstorm_helmet", MMaterials.HAILSTORM_ARMOR,
+			0, EntityEquipmentSlot.HEAD, Hailstorm.MODID + ":textures/armor/hailstorm_leggings.png",
+			Hailstorm.MODID + ":textures/armor/hailstorm_armor.png");
+	@ObjectHolder("hailstorm_chestplate")
+	public static BasicItemArmor HAILSTORM_CHESTPLATE = new BasicItemArmor("hailstorm_chestplate",
+			MMaterials.HAILSTORM_ARMOR, 0, EntityEquipmentSlot.CHEST,
+			Hailstorm.MODID + ":textures/armor/hailstorm_leggings.png",
+			Hailstorm.MODID + ":textures/armor/hailstorm_armor.png");
+	@ObjectHolder("hailstorm_leggings")
+	public static BasicItemArmor HAILSTORM_LEGGINGS = new BasicItemArmor("hailstorm_leggings",
+			MMaterials.HAILSTORM_ARMOR, 1, EntityEquipmentSlot.LEGS,
+			Hailstorm.MODID + ":textures/armor/hailstorm_leggings.png",
+			Hailstorm.MODID + ":textures/armor/hailstorm_armor.png");
+	@ObjectHolder("hailstorm_boots")
+	public static BasicItemArmor HAILSTORM_BOOTS = new BasicItemArmor("hailstorm_boots", MMaterials.HAILSTORM_ARMOR, 0,
+			EntityEquipmentSlot.FEET, Hailstorm.MODID + ":textures/armor/hailstorm_leggings.png",
+			Hailstorm.MODID + ":textures/armor/hailstorm_armor.png");
+
 	@ObjectHolder("cryonite")
 	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(CreativeTabs.MISC);
 
@@ -91,8 +110,9 @@ public class MItems {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
-			items.registerAll(CRYONITE_SWORD, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE,
-					CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS, CRYONITE);
+			items.registerAll(CRYONITE_SWORD, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE, CRYONITE_HOE,
+					CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS, HAILSTORM_HELMET,
+					HAILSTORM_CHESTPLATE, HAILSTORM_LEGGINGS, HAILSTORM_BOOTS, CRYONITE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 		}

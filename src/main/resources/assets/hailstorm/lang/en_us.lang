@@ -18,6 +18,11 @@ item.cryonite_chestplate.name=Cryonite Chestplate
 item.cryonite_leggings.name=Cryonite Leggings
 item.cryonite_boots.name=Cryonite Boots
 
+item.hailstorm_helmet.name=Hailstorm Helmet
+item.hailstorm_chestplate.name=Hailstorm Chestplate
+item.hailstorm_leggings.name=Hailstorm Leggings
+item.hailstorm_boots.name=Hailstorm Boots
+
 item.cryonite.name=Cryonite
 
 ##Entities##
