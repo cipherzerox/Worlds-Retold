@@ -1,9 +1,12 @@
 package xenoform.hailstorm.entity.nix;
 
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -18,19 +21,21 @@ import javax.annotation.Nullable;
 public class EntityNix extends EntityCreature {
     private int size = 0;
     private int stage = 1;
-    private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntityNix.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer> STAGE = EntityDataManager.<Integer>createKey(EntityNix.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> SHRINK = EntityDataManager.<Boolean>createKey(EntityNix.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Float> SIZE = EntityDataManager.createKey(EntityNix.class, DataSerializers.FLOAT);
+    private static final DataParameter<Integer> STAGE = EntityDataManager.createKey(EntityNix.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> SHRINK = EntityDataManager.createKey(EntityNix.class, DataSerializers.BOOLEAN);
 
     public EntityNix(World world) {
         super(world);
+        this.moveHelper = new NixMoveHelper(this);
     }
 
     @Override
     protected void initEntityAI() {
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAILookIdle(this));
-        this.tasks.addTask(1, new EntityAIWander(this, .8D));
+        this.tasks.addTask(3, new EntityNix.AINixFaceRandom(this));
+        this.tasks.addTask(5, new EntityNix.AINixHop(this));
     }
 
     @Override
@@ -122,5 +127,148 @@ public class EntityNix extends EntityCreature {
         this.setSize(compound.getFloat("Size"));
         this.setShrink(compound.getBoolean("Shrink"));
         this.setStage(compound.getInteger("Stage"));
+    }
+
+    /**
+     * Returns true if the Nix makes a sound when it jumps (based upon the Nix's size)
+     */
+    protected boolean makesSoundOnJump()
+    {
+        return this.getStage() > 0;
+    }
+
+    protected SoundEvent getJumpSound()
+    {
+        return getStage() == 0 ? SoundEvents.ENTITY_SMALL_SLIME_JUMP : SoundEvents.ENTITY_SLIME_JUMP;
+    }
+
+    /**
+     * Gets the amount of time the Nix needs to wait between jumps.
+     */
+    protected int getJumpDelay()
+    {
+        return this.rand.nextInt(20) + 10;
+    }
+
+    static class AINixFaceRandom extends EntityAIBase
+    {
+        private final EntityNix Nix;
+        private float chosenDegrees;
+        private int nextRandomizeTime;
+
+        public AINixFaceRandom(EntityNix NixIn)
+        {
+            this.Nix = NixIn;
+            this.setMutexBits(2);
+        }
+
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        public boolean shouldExecute()
+        {
+            return this.Nix.getAttackTarget() == null && (this.Nix.onGround || this.Nix.isInWater() || this.Nix.isInLava() || this.Nix.isPotionActive(MobEffects.LEVITATION));
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void updateTask()
+        {
+            if (--this.nextRandomizeTime <= 0)
+            {
+                this.nextRandomizeTime = 40 + this.Nix.getRNG().nextInt(60);
+                this.chosenDegrees = (float)this.Nix.getRNG().nextInt(360);
+            }
+
+            ((EntityNix.NixMoveHelper)this.Nix.getMoveHelper()).setDirection(this.chosenDegrees, false);
+        }
+    }
+
+
+    static class AINixHop extends EntityAIBase
+    {
+        private final EntityNix Nix;
+
+        public AINixHop(EntityNix NixIn)
+        {
+            this.Nix = NixIn;
+            this.setMutexBits(5);
+        }
+
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        public boolean shouldExecute()
+        {
+            return true;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void updateTask()
+        {
+            ((EntityNix.NixMoveHelper)this.Nix.getMoveHelper()).setSpeed(1.0D);
+        }
+    }
+
+    static class NixMoveHelper extends EntityMoveHelper {
+        private float yRot;
+        private int jumpDelay;
+        private final EntityNix Nix;
+        private boolean isAggressive;
+
+        public NixMoveHelper(EntityNix NixIn) {
+            super(NixIn);
+            this.Nix = NixIn;
+            this.yRot = 180.0F * NixIn.rotationYaw / (float) Math.PI;
+        }
+
+        public void setDirection(float p_179920_1_, boolean p_179920_2_) {
+            this.yRot = p_179920_1_;
+            this.isAggressive = p_179920_2_;
+        }
+
+        public void setSpeed(double speedIn) {
+            this.speed = speedIn;
+            this.action = EntityMoveHelper.Action.MOVE_TO;
+        }
+
+        public void onUpdateMoveHelper() {
+            this.entity.rotationYaw = this.limitAngle(this.entity.rotationYaw, this.yRot, 90.0F);
+            this.entity.rotationYawHead = this.entity.rotationYaw;
+            this.entity.renderYawOffset = this.entity.rotationYaw;
+
+            if (this.action != EntityMoveHelper.Action.MOVE_TO) {
+                this.entity.setMoveForward(0.0F);
+            } else {
+                this.action = EntityMoveHelper.Action.WAIT;
+
+                if (this.entity.onGround) {
+                    this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
+
+                    if (this.jumpDelay-- <= 0) {
+                        this.jumpDelay = this.Nix.getJumpDelay();
+
+                        if (this.isAggressive) {
+                            this.jumpDelay /= 3;
+                        }
+
+                        this.Nix.getJumpHelper().setJumping();
+
+                        if (this.Nix.makesSoundOnJump()) {
+                            this.Nix.playSound(this.Nix.getJumpSound(), this.Nix.getSoundVolume(), ((this.Nix.getRNG().nextFloat() - this.Nix.getRNG().nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                        }
+                    } else {
+                        this.Nix.moveStrafing = 0.0F;
+                        this.Nix.moveForward = 0.0F;
+                        this.entity.setAIMoveSpeed(0.0F);
+                    }
+                } else {
+                    this.entity.setAIMoveSpeed((float) (this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
+                }
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@ package xenoform.hailstorm.entity.blizzard;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
@@ -31,6 +32,7 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAIWander(this, .8D));
         this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 64));
+        this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, .4D, 64));
     }
 
     @Override
@@ -58,13 +60,6 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
 
         if(!minHeight)
             motionY += .1;
-
-        if(ticksExisted % 40 == 0 ) {
-            if (!maxHeight)
-                motionY += .1;
-            else
-                motionY -= .1;
-        }
 
         if (!this.world.isRemote && this.getAttackTarget() != null)
         {

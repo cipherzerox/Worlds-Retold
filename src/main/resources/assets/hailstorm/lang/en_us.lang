@@ -29,6 +29,7 @@ item.cryonite.name=Cryonite
 
 entity.roller.name=Snow Roller
 entity.nix.name=Nix
+entity.blizzard.name=Blizzard
 
 ##Damage Sources##
 
