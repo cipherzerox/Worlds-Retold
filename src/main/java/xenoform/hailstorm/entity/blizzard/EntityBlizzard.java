@@ -10,12 +10,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import xenoform.hailstorm.entity.EntitySurfaceMob;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 
 import java.util.List;
 import java.util.Random;
 
-public class EntityBlizzard extends EntityMob implements EntityFlying
+public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
 {
     Random rand = new Random();
     private boolean descending;
@@ -36,7 +37,9 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.1D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(70D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.3D);
     }
 
     @Override
@@ -73,8 +76,8 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
             if (entity != null)
             {
 
-                double d0 = entity.posX - this.posX + 2;
-                double d1 = entity.posZ - this.posZ + 2;
+                double d0 = entity.posX - this.posX;
+                double d1 = entity.posZ - this.posZ;
                 double d3 = d0 * d0 + d1 * d1;
 
                 if (d3 > 9.0D)
@@ -106,7 +109,7 @@ public class EntityBlizzard extends EntityMob implements EntityFlying
     private void launchHailToCoords(double x, double y, double z)
     {
         double d0 = this.posX;
-        double d1 = this.posY + 2;
+        double d1 = this.posY + 1.7;
         double d2 = this.posZ;
         double d3 = x - d0;
         double d4 = y - d1;

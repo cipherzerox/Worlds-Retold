@@ -18,8 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
+import xenoform.hailstorm.entity.EntitySurfaceMob;
 
-public class EntitySnowRoller extends EntityMob {
+public class EntitySnowRoller extends EntitySurfaceMob {
 	private float baseSize = 0.35F;
 	private float size = baseSize;
 
