@@ -5,12 +5,9 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.fml.common.Mod;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.MPotions;
+import xenoform.hailstorm.main.MPotions;
 
 public class EnchantmentIceAspect extends Enchantment {
 

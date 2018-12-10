@@ -1,4 +1,4 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;

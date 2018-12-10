@@ -1,4 +1,4 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.relauncher.*;

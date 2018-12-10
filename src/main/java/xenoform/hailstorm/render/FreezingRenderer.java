@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
-import xenoform.hailstorm.MPotions;
 import xenoform.hailstorm.potions.PotionFreezing;
 
 import java.util.HashMap;

@@ -1,13 +1,9 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.*;
-import net.minecraft.item.*;
-import net.minecraft.init.*;
 import net.minecraftforge.common.util.*;
 
 public class MMaterials {

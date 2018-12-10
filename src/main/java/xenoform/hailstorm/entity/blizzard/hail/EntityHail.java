@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.MPotions;
+import xenoform.hailstorm.main.MPotions;
 import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
 
 public class EntityHail extends EntityFireball{

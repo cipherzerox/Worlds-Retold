@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import xenoform.hailstorm.main.*;
 import xenoform.hailstorm.proxy.ServerProxy;
 import xenoform.hailstorm.world.WorldGenHailstorm;
 

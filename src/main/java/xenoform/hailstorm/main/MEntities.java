@@ -1,10 +1,11 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
 import xenoform.hailstorm.entity.blizzard.RenderBlizzard;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;

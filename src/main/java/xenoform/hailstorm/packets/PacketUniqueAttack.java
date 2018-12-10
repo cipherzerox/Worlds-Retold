@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import xenoform.hailstorm.MForgeEvents;
+import xenoform.hailstorm.main.MForgeEvents;
 
 public class PacketUniqueAttack implements IMessage
 {
