@@ -149,22 +149,22 @@ public class ModelBlizzard extends ModelBase {
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
 
-		this.shape5.rotationPointY = MathHelper.cos(0.6962F * limbSwing) * 1.4F;
-		this.shape5_1.rotationPointY = MathHelper.cos(0.6862F * limbSwing) * 1.4F;
-		this.shape5_2.rotationPointY = MathHelper.cos(0.6762F * limbSwing) * 1.4F;
-		this.shape5_3.rotationPointY = MathHelper.cos(0.6662F * limbSwing) * 1.4F;
-		this.shape5_4.rotationPointY = MathHelper.cos(0.6562F * limbSwing) * 1.4F;
-		this.shape5_5.rotationPointY = MathHelper.cos(0.6462F * limbSwing) * 1.4F;
-		this.shape5_6.rotationPointY = MathHelper.cos(0.6362F * limbSwing) * 1.4F;
-		this.shape5_7.rotationPointY = MathHelper.cos(0.6262F * limbSwing) * 1.4F;
-		this.shape5_8.rotationPointY = MathHelper.cos(0.6162F * limbSwing) * 1.4F;
-		this.shape5_9.rotationPointY = MathHelper.cos(0.6062F * limbSwing) * 1.4F;
-		this.shape5_10.rotationPointY = MathHelper.cos(0.5962F * limbSwing) * 1.4F;
-		this.shape5_11.rotationPointY = MathHelper.cos(0.5862F * limbSwing) * 1.4F;
-		this.shape5_12.rotationPointY = MathHelper.cos(0.5762F * limbSwing) * 1.4F;
+		this.shape5.rotationPointY = MathHelper.cos(0.1962F * ageInTicks) * 1.4F;
+		this.shape5_1.rotationPointY = MathHelper.cos(0.1862F * ageInTicks) * 1.4F;
+		this.shape5_2.rotationPointY = MathHelper.cos(0.1762F * ageInTicks) * 1.4F;
+		this.shape5_3.rotationPointY = MathHelper.cos(0.1662F * ageInTicks) * 1.4F;
+		this.shape5_4.rotationPointY = MathHelper.cos(0.1562F * ageInTicks) * 1.4F;
+		this.shape5_5.rotationPointY = MathHelper.cos(0.1462F * ageInTicks) * 1.4F;
+		this.shape5_6.rotationPointY = MathHelper.cos(0.1362F * ageInTicks) * 1.4F;
+		this.shape5_7.rotationPointY = MathHelper.cos(0.1262F * ageInTicks) * 1.4F;
+		this.shape5_8.rotationPointY = MathHelper.cos(0.1162F * ageInTicks) * 1.4F;
+		this.shape5_9.rotationPointY = MathHelper.cos(0.1062F * ageInTicks) * 1.4F;
+		this.shape5_10.rotationPointY = MathHelper.cos(0.1962F * ageInTicks) * 1.4F;
+		this.shape5_11.rotationPointY = MathHelper.cos(0.1862F * ageInTicks) * 1.4F;
+		this.shape5_12.rotationPointY = MathHelper.cos(0.1762F * ageInTicks) * 1.4F;
 
-		this.PlateHigh.rotateAngleY = 0.6662F * limbSwing * 1.4F;
-		this.PlateLow.rotateAngleY = 0.6662F * limbSwing * 1.4F * -1;
-		this.Head.rotationPointY = MathHelper.cos(0.4F * limbSwing) * 1.0F + 12.5F;
+		this.PlateHigh.rotateAngleY = 0.1662F * ageInTicks * 1.4F;
+		this.PlateLow.rotateAngleY = 0.1662F * ageInTicks * 1.4F * -1;
+		this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
 	}
 }
