@@ -1,6 +1,5 @@
 package xenoform.hailstorm.enchantment;
 
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -9,12 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.fml.common.Mod;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.MPotions;
 
 public class EnchantmentStormCaller extends Enchantment {
 

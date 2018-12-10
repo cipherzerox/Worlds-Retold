@@ -1,4 +1,4 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -65,6 +65,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.base.BasicItemUniqueWeapon;
 import xenoform.hailstorm.packets.PacketUniqueAttack;
 import xenoform.hailstorm.potions.PotionFreezing;

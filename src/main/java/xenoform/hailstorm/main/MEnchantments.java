@@ -1,4 +1,4 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -9,6 +9,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.enchantment.EnchantmentArrowIce;
 import xenoform.hailstorm.enchantment.EnchantmentIceAspect;
 import xenoform.hailstorm.enchantment.EnchantmentStormCaller;

@@ -1,4 +1,4 @@
-package xenoform.hailstorm;
+package xenoform.hailstorm.main;
 
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.passive.EntityVillager;

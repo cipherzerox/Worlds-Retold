@@ -1,19 +1,14 @@
 package xenoform.hailstorm.potions;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.MSounds;
+import xenoform.hailstorm.main.MSounds;
 
 import java.util.UUID;
-
-import javax.annotation.Nullable;
 
 public class PotionFreezing extends Potion {
 
