@@ -1,16 +1,22 @@
 package xenoform.hailstorm.entity.automaton;
 
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityAutomaton extends EntityMob
@@ -53,6 +59,21 @@ public class EntityAutomaton extends EntityMob
     @Override
     public boolean isAIDisabled() {
         return false;
+    }
+
+    /**
+     * Gives armor or weapon for entity based on given DifficultyInstance
+     */
+    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
+    {
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+    }
+
+    @Nullable
+    @Override
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+        setEquipmentBasedOnDifficulty(difficulty);
+        return super.onInitialSpawn(difficulty, livingdata);
     }
 
     @Override
