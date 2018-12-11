@@ -22,11 +22,10 @@ import xenoform.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
 import xenoform.hailstorm.entity.roller.RenderSnowRoller;
 
-public class MEntities
-{
+public class MEntities {
 	private static int EntityID = 0;
-    private static Biome[] COLD_BIOMES = new Biome[]{Biomes.ICE_PLAINS, Biomes.ICE_MOUNTAINS, Biomes.COLD_TAIGA, Biomes.COLD_TAIGA_HILLS,
-            Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS};
+	private static Biome[] COLD_BIOMES = new Biome[] { Biomes.ICE_PLAINS, Biomes.ICE_MOUNTAINS, Biomes.COLD_TAIGA,
+			Biomes.COLD_TAIGA_HILLS, Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS };
 
 	public static void preInit() {
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "roller"), EntitySnowRoller.class,
@@ -35,12 +34,12 @@ public class MEntities
 				EntityID++, Hailstorm.instance, 64, 3, true, 0x00e1ff, 0xffffff);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "blizzard"), EntityBlizzard.class,
 				"blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
-        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
-                "automaton", EntityID++, Hailstorm.instance, 64, 3, true, 0x979899, 0xe0e0e0);
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
+				"automaton", EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);
-        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"), EntityHail.class, "projectile_ice_scroll",
-                EntityID++, Hailstorm.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"),
+				EntityHail.class, "projectile_ice_scroll", EntityID++, Hailstorm.instance, 64, 3, true);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -48,9 +47,10 @@ public class MEntities
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
-        RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class, RenderIceScrollProjectile.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
+				RenderIceScrollProjectile.FACTORY);
 
 		EntityRegistry.addSpawn(EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);

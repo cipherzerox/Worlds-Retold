@@ -40,7 +40,10 @@ public class MItems {
 			2.4000000953674316D);
 	@ObjectHolder("avalanche_hammer")
 	public static BasicItemUniqueWeapon AVALANCHE_HAMMER = new BasicItemUniqueWeapon("avalanche_hammer",
-			MMaterials.UNIQUE_TOOL, 8, 3.4);
+			MMaterials.UNIQUE_TOOL, 8, 4.2);
+	@ObjectHolder("relic_sword")
+	public static BasicItemWeapon RELIC_SWORD = new BasicItemWeapon("relic_sword", MMaterials.RELIC_TOOL, 9f,
+			3.0D);
 
 	// Tools
 	@ObjectHolder("cryonite_shovel")
@@ -110,9 +113,10 @@ public class MItems {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
-			items.registerAll(CRYONITE_SWORD, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE, CRYONITE_HOE,
-					CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS, HAILSTORM_HELMET,
-					HAILSTORM_CHESTPLATE, HAILSTORM_LEGGINGS, HAILSTORM_BOOTS, CRYONITE, ICE_SCROLL_PROJECTILE, STATUE);
+			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE,
+					CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS,
+					HAILSTORM_HELMET, HAILSTORM_CHESTPLATE, HAILSTORM_LEGGINGS, HAILSTORM_BOOTS, CRYONITE,
+					ICE_SCROLL_PROJECTILE, STATUE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 		}

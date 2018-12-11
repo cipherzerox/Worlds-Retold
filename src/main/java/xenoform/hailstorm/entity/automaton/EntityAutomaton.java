@@ -1,5 +1,7 @@
 package xenoform.hailstorm.entity.automaton;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -7,12 +9,14 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,8 +24,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -29,6 +37,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.entity.EntitySurfaceMob;
 import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
+import xenoform.hailstorm.main.MItems;
 
 import java.util.Calendar;
 import java.util.List;
@@ -67,6 +76,8 @@ public class EntityAutomaton extends EntitySurfaceMob {
 
 	public EntityAutomaton(World world) {
 		super(world);
+		this.setSize(0.6F, 2.05F);
+		this.experienceValue = 25;
 		this.headRotation = DEFAULT_HEAD_ROTATION;
 		this.bodyRotation = DEFAULT_BODY_ROTATION;
 		this.leftArmRotation = DEFAULT_LEFTARM_ROTATION;
@@ -74,12 +85,42 @@ public class EntityAutomaton extends EntitySurfaceMob {
 		this.leftLegRotation = DEFAULT_LEFTLEG_ROTATION;
 		this.rightLegRotation = DEFAULT_RIGHTLEG_ROTATION;
 	}
-	
-    public EntityAutomaton(World worldIn, double posX, double posY, double posZ)
-    {
-        this(worldIn);
-        this.setPosition(posX, posY, posZ);
-    }
+
+	public EntityAutomaton(World worldIn, double posX, double posY, double posZ) {
+		this(worldIn);
+		this.setPosition(posX, posY, posZ);
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return this.isActive() ? (this.rand.nextInt(3) == 0 ? SoundEvents.EVOCATION_ILLAGER_PREPARE_SUMMON
+				: this.rand.nextInt(3) == 0 ? SoundEvents.EVOCATION_ILLAGER_PREPARE_ATTACK
+						: SoundEvents.ENTITY_MINECART_RIDING)
+				: null;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return SoundEvents.BLOCK_STONE_PLACE;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_STONE_BREAK;
+	}
+
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_IRONGOLEM_STEP;
+	}
+
+	@Nullable
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn) {
+		this.playSound(this.getStepSound(), 0.5F, 1.0F);
+	}
 
 	@Override
 	protected void initEntityAI() {
@@ -92,7 +133,21 @@ public class EntityAutomaton extends EntitySurfaceMob {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10D);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(70D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(100D);
+	}
+
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		if (wasRecentlyHit && this.rand.nextInt(12) == 0) {
+			EntityItem entityitem = this.dropItem(MItems.RELIC_SWORD, 1);
+			if (entityitem != null) {
+				entityitem.setNoDespawn();
+			}
+		}
+		EntityItem entityitem = this.dropItem(MItems.STATUE, 1);
+		if (entityitem != null) {
+			entityitem.setNoDespawn();
+		}
 	}
 
 	public boolean isActive() {
@@ -139,6 +194,7 @@ public class EntityAutomaton extends EntitySurfaceMob {
 						setActive(false);
 					}
 				} else if (getAttackTarget() != null && targetDistance <= 5) {
+					this.playSound(SoundEvents.ENTITY_ELDER_GUARDIAN_CURSE, 1.0F, 1.0F);
 					setActive(true);
 				}
 			}
@@ -159,10 +215,10 @@ public class EntityAutomaton extends EntitySurfaceMob {
 			// System.out.println(targetDistance);
 		}
 		if (getAttackTarget() != null && isActive()) {
-			getNavigator().tryMoveToEntityLiving(getAttackTarget(), .2D);
+			getNavigator().tryMoveToEntityLiving(getAttackTarget(), .275D);
 		}
 	}
-	
+
 	public void onUpdate() {
 		super.onUpdate();
 		Rotations rotations = (Rotations) this.dataManager.get(HEAD_ROTATION);
@@ -219,7 +275,7 @@ public class EntityAutomaton extends EntitySurfaceMob {
 
 	public void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
 		super.setEquipmentBasedOnDifficulty(difficulty);
-		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+		this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(MItems.RELIC_SWORD));
 	}
 
 	protected boolean canEquipItem(ItemStack stack) {
@@ -248,10 +304,22 @@ public class EntityAutomaton extends EntitySurfaceMob {
 		return super.canBeCollidedWith() && isActive();
 	}
 
+	@Override
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox() {
+		return !isActive() ? this.getEntityBoundingBox() : null;
+	}
+
+	@Override
+	@Nullable
+	public AxisAlignedBB getCollisionBox(Entity entityIn) {
+		return !isActive() ? this.getEntityBoundingBox() : null;
+	}
+
 	public boolean attackable() {
 		return isActive();
 	}
-	
+
 	@Override
 	public boolean isAIDisabled() {
 		return false;
@@ -388,5 +456,17 @@ public class EntityAutomaton extends EntitySurfaceMob {
 		this.setLeftLegRotation(nbttaglist4.hasNoTags() ? DEFAULT_LEFTLEG_ROTATION : new Rotations(nbttaglist4));
 		NBTTagList nbttaglist5 = tagCompound.getTagList("RightLeg", 5);
 		this.setRightLegRotation(nbttaglist5.hasNoTags() ? DEFAULT_RIGHTLEG_ROTATION : new Rotations(nbttaglist5));
+	}
+
+	public int getTalkInterval() {
+		return 160;
+	}
+
+	public int getHorizontalFaceSpeed() {
+		return 500;
+	}
+
+	public int getVerticalFaceSpeed() {
+		return 500;
 	}
 }
