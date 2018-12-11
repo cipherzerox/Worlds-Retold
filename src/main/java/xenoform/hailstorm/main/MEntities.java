@@ -18,8 +18,11 @@ import xenoform.hailstorm.entity.nix.RenderNix;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
 import xenoform.hailstorm.entity.roller.RenderSnowRoller;
 
-public class MEntities {
+public class MEntities
+{
 	private static int EntityID = 0;
+    private static Biome[] COLD_BIOMES = new Biome[]{Biomes.ICE_PLAINS, Biomes.ICE_MOUNTAINS, Biomes.COLD_TAIGA, Biomes.COLD_TAIGA_HILLS,
+            Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS};
 
 	public static void preInit() {
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "roller"), EntitySnowRoller.class,
@@ -30,6 +33,8 @@ public class MEntities {
 				"blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"), EntityHail.class, "projectile_ice_scroll",
+                EntityID++, Hailstorm.instance, 64, 3, true);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -39,14 +44,8 @@ public class MEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
 
-		EntityRegistry.addSpawn((Class) EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE,
-				new Biome[] { Biomes.ICE_PLAINS, Biomes.ICE_MOUNTAINS, Biomes.COLD_TAIGA, Biomes.COLD_TAIGA_HILLS,
-						Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS });
-		EntityRegistry.addSpawn((Class) EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE,
-				new Biome[] { Biomes.ICE_PLAINS, Biomes.ICE_MOUNTAINS, Biomes.COLD_TAIGA, Biomes.COLD_TAIGA_HILLS,
-						Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS });
-		EntityRegistry.addSpawn((Class) EntityBlizzard.class, 65, 1, 1, EnumCreatureType.CREATURE,
-				new Biome[] { Biomes.ICE_PLAINS, Biomes.ICE_MOUNTAINS, Biomes.COLD_TAIGA, Biomes.COLD_TAIGA_HILLS,
-						Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS });
+		EntityRegistry.addSpawn(EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntityBlizzard.class, 65, 1, 1, EnumCreatureType.CREATURE, COLD_BIOMES);
 	}
 }
