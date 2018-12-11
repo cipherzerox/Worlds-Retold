@@ -35,6 +35,7 @@ public class Hailstorm {
 	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
     public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
     public static final DamageSource HAIL = new DamageSource("hailstorm.hail");
+    public static final DamageSource ICE_SCROLL_PROJECTILE = new DamageSource("hailstorm.ice_scroll_projectile");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

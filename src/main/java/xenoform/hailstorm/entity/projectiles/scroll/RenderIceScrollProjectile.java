@@ -1,41 +1,49 @@
 package xenoform.hailstorm.entity.projectiles.scroll;
 
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class RenderIceScrollProjectile<T extends Entity> extends Render<T> 
+public class RenderIceScrollProjectile extends Render<EntityIceScrollProjectile>
 {
-    protected final Item item;
-    private final RenderItem itemRenderer;
     private static final ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/projectile/projectile_ice_scroll.png");
+    public static final RenderIceScrollProjectile.Factory FACTORY = new RenderIceScrollProjectile.Factory();
 
-    public RenderIceScrollProjectile(RenderManager renderManagerIn, Item itemIn, RenderItem itemRendererIn)
+    private final float scale;
+
+    public RenderIceScrollProjectile(RenderManager renderManagerIn)
     {
         super(renderManagerIn);
-        this.item = itemIn;
-        this.itemRenderer = itemRendererIn;
+        this.scale = 1;
     }
 
     /**
      * Renders the desired {@code T} type Entity.
      */
-    public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks)
+    @Override
+    public void doRender(EntityIceScrollProjectile entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         GlStateManager.pushMatrix();
+        this.bindEntityTexture(entity);
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        GlStateManager.scale(this.scale, this.scale, this.scale);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        float f = 0;
+        float f1 = 1F;
+        float f2 = 0F;
+        float f3 = 1F;
+        float f4 = 1.0F;
+        float f5 = 0.5F;
+        float f6 = 0.25F;
+        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
         if (this.renderOutlines)
         {
@@ -43,7 +51,12 @@ public class RenderIceScrollProjectile<T extends Entity> extends Render<T>
             GlStateManager.enableOutlineMode(this.getTeamColor(entity));
         }
 
-        this.itemRenderer.renderItem(this.getStackToRender(entity), ItemCameraTransforms.TransformType.GROUND);
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        bufferbuilder.pos(-0.5D, -0.25D, 0.0D).tex((double)f, (double)f3).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(0.5D, -0.25D, 0.0D).tex((double)f1, (double)f3).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(0.5D, 0.75D, 0.0D).tex((double)f1, (double)f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+        bufferbuilder.pos(-0.5D, 0.75D, 0.0D).tex((double)f, (double)f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+        tessellator.draw();
 
         if (this.renderOutlines)
         {
@@ -56,16 +69,19 @@ public class RenderIceScrollProjectile<T extends Entity> extends Render<T>
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    public ItemStack getStackToRender(T entityIn)
-    {
-        return new ItemStack(this.item);
-    }
-
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(Entity entity)
+    @Override
+    protected ResourceLocation getEntityTexture(EntityIceScrollProjectile entity)
     {
-        return TextureMap.LOCATION_BLOCKS_TEXTURE;
+        return TEXTURE;
+    }
+    public static class Factory implements IRenderFactory<EntityIceScrollProjectile>
+    {
+        @Override
+        public Render<? super EntityIceScrollProjectile> createRenderFor(RenderManager manager) {
+            return new RenderIceScrollProjectile(manager);
+        }
     }
 }

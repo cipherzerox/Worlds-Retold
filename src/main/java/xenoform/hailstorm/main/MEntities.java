@@ -9,12 +9,16 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.Hailstorm;
+import xenoform.hailstorm.entity.automaton.EntityAutomaton;
+import xenoform.hailstorm.entity.automaton.RenderAutomaton;
 import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
 import xenoform.hailstorm.entity.blizzard.RenderBlizzard;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 import xenoform.hailstorm.entity.blizzard.hail.RenderHail;
 import xenoform.hailstorm.entity.nix.EntityNix;
 import xenoform.hailstorm.entity.nix.RenderNix;
+import xenoform.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
+import xenoform.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
 import xenoform.hailstorm.entity.roller.RenderSnowRoller;
 
@@ -31,6 +35,8 @@ public class MEntities
 				EntityID++, Hailstorm.instance, 64, 3, true, 0x00e1ff, 0xffffff);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "blizzard"), EntityBlizzard.class,
 				"blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
+        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
+                "automaton", EntityID++, Hailstorm.instance, 64, 3, true, 0x979899, 0xe0e0e0);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);
         EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"), EntityHail.class, "projectile_ice_scroll",
@@ -42,7 +48,9 @@ public class MEntities
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class, RenderIceScrollProjectile.FACTORY);
 
 		EntityRegistry.addSpawn(EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);

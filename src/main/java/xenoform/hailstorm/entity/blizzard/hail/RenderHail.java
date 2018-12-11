@@ -13,7 +13,6 @@ public class RenderHail extends Render<EntityHail>
     private final ModelHail hailModel = new ModelHail();
     public static final RenderHail.Factory FACTORY = new RenderHail.Factory();
 
-
     public RenderHail(RenderManager renderManagerIn)
     {
         super(renderManagerIn);

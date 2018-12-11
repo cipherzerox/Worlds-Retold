@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,6 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.ai.EntityAIRollerAttack;
 
 public class EntitySnowRoller extends EntitySurfaceMob {
 	private float baseSize = 0.35F;

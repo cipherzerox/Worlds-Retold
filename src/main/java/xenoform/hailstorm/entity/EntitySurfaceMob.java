@@ -7,21 +7,19 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 public abstract class EntitySurfaceMob extends EntityCreature implements IMob
 {
+    protected float targetDistance;
+
     public EntitySurfaceMob(World worldIn)
     {
         super(worldIn);

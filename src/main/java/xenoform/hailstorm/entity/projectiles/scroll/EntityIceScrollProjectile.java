@@ -2,13 +2,13 @@ package xenoform.hailstorm.entity.projectiles.scroll;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.Hailstorm;
 
 public class EntityIceScrollProjectile extends EntityThrowable
 {
@@ -54,9 +54,7 @@ public class EntityIceScrollProjectile extends EntityThrowable
     {
         if (result.entityHit != null)
         {
-            int i = 5;
-
-            result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)i);
+            result.entityHit.attackEntityFrom(Hailstorm.ICE_SCROLL_PROJECTILE, 60);
         }
 
         if (!this.world.isRemote)
