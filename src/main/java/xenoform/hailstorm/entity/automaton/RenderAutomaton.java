@@ -20,7 +20,7 @@ public class RenderAutomaton extends RenderBiped<EntityAutomaton>
     public RenderAutomaton(RenderManager renderManagerIn)
     {
       //  super(renderManagerIn, new ModelAutomaton(), 0.55F);
-        super(renderManagerIn, new ModelBiped(), 1F);
+        super(renderManagerIn, new ModelBiped(), 0.5F);
         this.addLayer(new LayerBipedArmor(this)
         {
             protected void initArmor()
