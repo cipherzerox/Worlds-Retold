@@ -1,7 +1,9 @@
 package xenoform.hailstorm.entity.automaton;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
@@ -10,7 +12,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 import javax.annotation.Nonnull;
 
-public class RenderAutomaton extends RenderLiving<EntityAutomaton> 
+public class RenderAutomaton extends RenderBiped<EntityAutomaton> 
 {
     private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/automaton.png");
     public static final RenderAutomaton.Factory FACTORY = new RenderAutomaton.Factory();
@@ -18,13 +20,13 @@ public class RenderAutomaton extends RenderLiving<EntityAutomaton>
     public RenderAutomaton(RenderManager renderManagerIn)
     {
       //  super(renderManagerIn, new ModelAutomaton(), 0.55F);
-        super(renderManagerIn, new ModelZombie(), 1F);
+        super(renderManagerIn, new ModelBiped(), 0.5F);
         this.addLayer(new LayerBipedArmor(this)
         {
             protected void initArmor()
             {
-                this.modelLeggings = new ModelZombie(0.5F, true);
-                this.modelArmor = new ModelZombie(1.0F, true);
+                this.modelLeggings = new ModelBiped(0.5F);
+                this.modelArmor = new ModelBiped(1.0F);
             }
         });
     }

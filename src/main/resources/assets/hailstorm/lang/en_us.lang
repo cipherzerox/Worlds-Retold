@@ -25,11 +25,14 @@ item.hailstorm_boots.name=Hailstorm Boots
 
 item.cryonite.name=Cryonite
 
+item.statue.name=Statue
+
 ##Entities##
 
 entity.roller.name=Snow Roller
 entity.nix.name=Nix
 entity.blizzard.name=Blizzard
+entity.automaton.name=Automaton
 
 ##Damage Sources##
 

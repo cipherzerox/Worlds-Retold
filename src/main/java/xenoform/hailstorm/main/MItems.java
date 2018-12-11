@@ -93,12 +93,15 @@ public class MItems {
 			EntityEquipmentSlot.FEET, Hailstorm.MODID + ":textures/armor/hailstorm_leggings.png",
 			Hailstorm.MODID + ":textures/armor/hailstorm_armor.png");
 
-	//Basic
+	// Basic
 	@ObjectHolder("cryonite")
 	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(CreativeTabs.MISC);
 
 	@ObjectHolder("ice_scroll_projectile")
 	public static BasicItem ICE_SCROLL_PROJECTILE = new BasicItem("ice_scroll_projectile");
+
+	@ObjectHolder("statue")
+	public static BasicItemStatue STATUE = new BasicItemStatue("statue");
 
 	@Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 	public static class ItemsRegistrationHandler {
@@ -109,7 +112,7 @@ public class MItems {
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
 			items.registerAll(CRYONITE_SWORD, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE, CRYONITE_HOE,
 					CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS, HAILSTORM_HELMET,
-					HAILSTORM_CHESTPLATE, HAILSTORM_LEGGINGS, HAILSTORM_BOOTS, CRYONITE, ICE_SCROLL_PROJECTILE);
+					HAILSTORM_CHESTPLATE, HAILSTORM_LEGGINGS, HAILSTORM_BOOTS, CRYONITE, ICE_SCROLL_PROJECTILE, STATUE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 		}
@@ -130,5 +133,6 @@ public class MItems {
 		}
 	}
 
-	static {}
+	static {
+	}
 }
