@@ -56,18 +56,6 @@ public class StructureHailstormShrine extends WorldGenerator {
 
 			template.addBlocksToWorld(world, generatePos.up(), settings);
 
-			BlockPos c1 = generatePos.add(template.getSize().getX(), 0, 0);
-            BlockPos c2 = generatePos;
-            BlockPos c3 = generatePos.add(template.getSize().getX(), 0, template.getSize().getZ());
-            BlockPos c4 = generatePos.add(0, 0, template.getSize().getZ());
-
-            BlockPos[] corners = new BlockPos[] { c1, c2, c3, c4 };
-            for (BlockPos corner : corners) {
-                for (BlockPos pos : BlockPos.getAllInBoxMutable(corner, corner.up(10))) {
-                    world.setBlockState(pos, Blocks.REDSTONE_BLOCK.getDefaultState());
-                }
-            }
-
 			Map<BlockPos, String> dataBlocks = template.getDataBlocks(generatePos, settings);
 			for (Entry<BlockPos, String> entry : dataBlocks.entrySet()) {
 				handleDataBlock(world, rand, entry.getKey(), entry.getValue());

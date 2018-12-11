@@ -69,7 +69,7 @@ public class WorldGenHailstorm implements IWorldGenerator {
 	}
 
 	private void generateHailstormShrine(World world, Random rand, int blockX, int blockZ) {
-		if (rand.nextInt(1) == 0) {
+		if (rand.nextInt(70) == 0) {
 			int y = getGroundFromAbove(world, blockX, blockZ);
 			BlockPos pos = new BlockPos(blockX, y, blockZ);
 			HAILSTORM_SHRINE.generate(world, rand, pos);

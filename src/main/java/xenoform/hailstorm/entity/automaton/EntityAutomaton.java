@@ -1,17 +1,31 @@
 package xenoform.hailstorm.entity.automaton;
 
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
 
+import java.util.Calendar;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class EntityAutomaton extends EntityMob
 {
@@ -20,6 +34,8 @@ public class EntityAutomaton extends EntityMob
 
     public EntityAutomaton(World world){
         super(world);
+        this.rotationYaw= 180;
+        this.rotationPitch= 0;
     }
 
     @Override
@@ -120,4 +136,58 @@ public class EntityAutomaton extends EntityMob
         super.readEntityFromNBT(compound);
         setActive(compound.getBoolean("Active"));
     }
+    
+    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
+    {
+        super.setEquipmentBasedOnDifficulty(difficulty);
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+    }
+    
+    protected boolean canEquipItem(ItemStack stack)
+    {
+        return stack.getItem() == Items.EGG && this.isChild() && this.isRiding() ? false : super.canEquipItem(stack);
+    }
+    
+    @Nullable
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+    {
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+        this.setEquipmentBasedOnDifficulty(difficulty);
+        this.setEnchantmentBasedOnDifficulty(difficulty);
+
+        return livingdata;
+    }
+    
+    @Override
+    public boolean isMovementBlocked()
+    {
+      return true;
+    }
+    
+    public void onUpdate(){
+  	  this.rotationYaw= 0;
+  	  super.onUpdate();
+  	}
+    
+	public void move(final MoverType type, final double x, final double y, final double z) {
+			super.move(type, x, y, z);
+	}
+
+	protected void jump() {
+			super.jump();
+	}
+	
+	@Override
+	public boolean canBePushed() {
+		return false;
+	}
+
+	@Override
+	public boolean canBeCollidedWith() {
+		return !this.isDead;
+	}
+
+	public void travel(float strafe, float vertical, float forward) {
+		super.travel(strafe, vertical, forward);
+	}
 }
