@@ -31,9 +31,12 @@ public abstract class EntitySurfaceMob extends EntityCreature implements IMob
         return SoundCategory.HOSTILE;
     }
 
-    /**
-     * Called to update the entity's position/logic.
-     */
+    public void onLivingUpdate()
+    {
+        this.updateArmSwingProgress();
+        super.onLivingUpdate();
+    }
+    
     public void onUpdate()
     {
         super.onUpdate();

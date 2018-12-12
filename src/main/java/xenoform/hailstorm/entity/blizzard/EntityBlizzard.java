@@ -9,6 +9,8 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMob;
@@ -16,6 +18,8 @@ import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 
 import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Nullable;
 
 public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
 {
@@ -26,6 +30,12 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
         setSize(7F, 4F);
         noClip = true;
     }
+    
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return SoundEvents.ENTITY_LIGHTNING_THUNDER;
+	}
 
     @Override
     protected void initEntityAI() {

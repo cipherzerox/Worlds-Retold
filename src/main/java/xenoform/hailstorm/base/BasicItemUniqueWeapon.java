@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -53,7 +54,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.util.ModelRegistry;
 
-public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
+public class BasicItemUniqueWeapon extends BasicItem implements ModelRegistry {
 
 	private final Item.ToolMaterial material;
 	protected String name;
@@ -61,7 +62,7 @@ public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
 	protected final double attackSpeed;
 
 	public BasicItemUniqueWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed) {
-		super(material);
+		super(name);
 		this.name = name;
 		this.material = material;
 		this.attackDamage = attackDamage;
@@ -69,10 +70,8 @@ public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
 		this.maxStackSize = 1;
 		this.setMaxDamage(material.getMaxUses());
 		setCreativeTab(CreativeTabs.COMBAT);
-		setUnlocalizedName(name);
-		setRegistryName(name);
 	}
-	
+
 	@Override
 	public BasicItemUniqueWeapon setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
@@ -84,6 +83,7 @@ public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
 		return 24000;
 	}
 
+	@Override
 	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
@@ -95,5 +95,55 @@ public class BasicItemUniqueWeapon extends ItemSword implements ModelRegistry {
 		}
 
 		return multimap;
+	}
+
+	public int getItemEnchantability() {
+		return this.material.getEnchantability();
+	}
+
+	public String getToolMaterialName() {
+		return this.material.toString();
+	}
+
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		ItemStack mat = this.material.getRepairItemStack();
+		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false))
+			return true;
+		return super.getIsRepairable(toRepair, repair);
+	}
+
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		Block block = state.getBlock();
+
+		if (block == Blocks.WEB) {
+			return 15.0F;
+		} else {
+			Material material = state.getMaterial();
+			return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL
+					&& material != Material.LEAVES && material != Material.GOURD ? 1.0F : 1.5F;
+		}
+	}
+
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+		stack.damageItem(1, attacker);
+		return true;
+	}
+
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
+			EntityLivingBase entityLiving) {
+		if ((double) state.getBlockHardness(worldIn, pos) != 0.0D) {
+			stack.damageItem(2, entityLiving);
+		}
+
+		return true;
+	}
+
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		return blockIn.getBlock() == Blocks.WEB;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public boolean isFull3D() {
+		return true;
 	}
 }

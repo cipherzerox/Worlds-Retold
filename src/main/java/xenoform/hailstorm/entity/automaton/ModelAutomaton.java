@@ -17,9 +17,10 @@ public class ModelAutomaton extends ModelBiped {
 	}
 
 	public ModelAutomaton(float modelSize) {
-		super(modelSize, 0.0F, 64, 32);
+		super(modelSize, 0.0F, 64, 64);
 	}
 
+    @SuppressWarnings("incomplete-switch")
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
 		boolean flag = entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getTicksElytraFlying() > 4;
@@ -59,6 +60,34 @@ public class ModelAutomaton extends ModelBiped {
 
 		this.bipedRightArm.rotateAngleY = 0.0F;
 		this.bipedRightArm.rotateAngleZ = 0.0F;
+
+        switch (this.leftArmPose)
+        {
+            case EMPTY:
+                this.bipedLeftArm.rotateAngleY = 0.0F;
+                break;
+            case BLOCK:
+                this.bipedLeftArm.rotateAngleX = this.bipedLeftArm.rotateAngleX * 0.5F - 0.9424779F;
+                this.bipedLeftArm.rotateAngleY = 0.5235988F;
+                break;
+            case ITEM:
+                this.bipedLeftArm.rotateAngleX = this.bipedLeftArm.rotateAngleX * 0.5F - ((float)Math.PI / 10F);
+                this.bipedLeftArm.rotateAngleY = 0.0F;
+        }
+
+        switch (this.rightArmPose)
+        {
+            case EMPTY:
+                this.bipedRightArm.rotateAngleY = 0.0F;
+                break;
+            case BLOCK:
+                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - 0.9424779F;
+                this.bipedRightArm.rotateAngleY = -0.5235988F;
+                break;
+            case ITEM:
+                this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float)Math.PI / 10F);
+                this.bipedRightArm.rotateAngleY = 0.0F;
+        }
 
 		if (this.swingProgress > 0.0F) {
 			EnumHandSide enumhandside = this.getMainHand(entityIn);

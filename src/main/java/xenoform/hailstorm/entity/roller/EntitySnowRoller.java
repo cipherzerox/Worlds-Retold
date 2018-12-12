@@ -61,7 +61,7 @@ public class EntitySnowRoller extends EntitySurfaceMob {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
         setSize(getSize(), getSize());
-		if (getSize() <= 4F) {
+		if (getSize() <= 2.5F) {
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
 			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
 					.setBaseValue(0.23000000417232513D + getSize() / 8);
