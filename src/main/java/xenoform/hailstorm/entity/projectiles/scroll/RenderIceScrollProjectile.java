@@ -11,7 +11,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderIceScrollProjectile extends Render<EntityIceScrollProjectile>
 {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/projectile/projectile_ice_scroll.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/projectile/blizzscroll.png");
     public static final RenderIceScrollProjectile.Factory FACTORY = new RenderIceScrollProjectile.Factory();
 
     private final float scale;

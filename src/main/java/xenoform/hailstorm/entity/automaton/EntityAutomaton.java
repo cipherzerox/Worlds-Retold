@@ -144,10 +144,6 @@ public class EntityAutomaton extends EntitySurfaceMob {
 				entityitem.setNoDespawn();
 			}
 		}
-		EntityItem entityitem = this.dropItem(MItems.STATUE, 1);
-		if (entityitem != null) {
-			entityitem.setNoDespawn();
-		}
 	}
 
 	public boolean isActive() {

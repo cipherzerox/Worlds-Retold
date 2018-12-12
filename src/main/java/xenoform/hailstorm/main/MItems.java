@@ -42,8 +42,9 @@ public class MItems {
 	public static BasicItemUniqueWeapon AVALANCHE_HAMMER = new BasicItemUniqueWeapon("avalanche_hammer",
 			MMaterials.UNIQUE_TOOL, 8, 4.2);
 	@ObjectHolder("relic_sword")
-	public static BasicItemWeapon RELIC_SWORD = new BasicItemWeapon("relic_sword", MMaterials.RELIC_TOOL, 9f,
-			3.0D);
+	public static BasicItemWeapon RELIC_SWORD = new BasicItemWeapon("relic_sword", MMaterials.RELIC_TOOL, 9f, 3.0D);
+	@ObjectHolder("blizz_scroll")
+	public static BasicItemBlizzScroll BLIZZ_SCROLL = new BasicItemBlizzScroll("blizz_scroll");
 
 	// Tools
 	@ObjectHolder("cryonite_shovel")
@@ -100,9 +101,6 @@ public class MItems {
 	@ObjectHolder("cryonite")
 	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(CreativeTabs.MISC);
 
-	@ObjectHolder("ice_scroll_projectile")
-	public static BasicItem ICE_SCROLL_PROJECTILE = new BasicItem("ice_scroll_projectile");
-
 	@ObjectHolder("statue")
 	public static BasicItemStatue STATUE = new BasicItemStatue("statue");
 
@@ -113,10 +111,10 @@ public class MItems {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
-			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE,
+			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE, CRYONITE_AXE,
 					CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS,
 					HAILSTORM_HELMET, HAILSTORM_CHESTPLATE, HAILSTORM_LEGGINGS, HAILSTORM_BOOTS, CRYONITE,
-					ICE_SCROLL_PROJECTILE, STATUE);
+					STATUE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 		}
