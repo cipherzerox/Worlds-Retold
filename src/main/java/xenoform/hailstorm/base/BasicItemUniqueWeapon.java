@@ -52,6 +52,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.main.MPotions;
 import xenoform.hailstorm.util.ModelRegistry;
 
 public class BasicItemUniqueWeapon extends BasicItem implements ModelRegistry {
@@ -125,6 +126,11 @@ public class BasicItemUniqueWeapon extends BasicItem implements ModelRegistry {
 	}
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+		if (!((EntityPlayer) attacker).getCooldownTracker().hasCooldown(this)) {
+			target.addPotionEffect(new PotionEffect(MPotions.FREEZING, 100));
+			attacker.world.createExplosion(target, target.posX, target.posY + 1, target.posZ, 1.0F, true);
+			((EntityPlayer) attacker).getCooldownTracker().setCooldown(this, 140);
+		}
 		stack.damageItem(1, attacker);
 		return true;
 	}

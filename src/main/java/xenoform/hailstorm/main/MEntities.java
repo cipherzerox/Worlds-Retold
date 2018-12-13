@@ -41,17 +41,8 @@ public class MEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"),
 				EntityHail.class, "projectile_ice_scroll", EntityID++, Hailstorm.instance, 64, 3, true);
 	}
-
-	@SideOnly(Side.CLIENT)
-	public static void initRenderAndModel() {
-		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
-				RenderIceScrollProjectile.FACTORY);
-
+	
+	public static void init() {
 		EntityRegistry.addSpawn(EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityBlizzard.class, 65, 1, 1, EnumCreatureType.CREATURE, COLD_BIOMES);
