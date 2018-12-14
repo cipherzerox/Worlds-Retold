@@ -5,7 +5,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -16,10 +15,9 @@ import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMob;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
-
-import javax.annotation.Nullable;
 
 public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
 {
@@ -64,8 +62,6 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
                     setAttackTarget(entity);
             }
         }
-
-        setVelocity(0,0,0);
 
         boolean minHeight = world.getBlockState(getPosition().down(8)) == Blocks.AIR.getDefaultState();
 
