@@ -20,6 +20,10 @@ import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 import xenoform.hailstorm.entity.blizzard.hail.RenderHail;
 import xenoform.hailstorm.entity.nix.EntityNix;
 import xenoform.hailstorm.entity.nix.RenderNix;
+import xenoform.hailstorm.entity.penguin.EntityPenguin;
+import xenoform.hailstorm.entity.penguin.RenderPenguin;
+import xenoform.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
+import xenoform.hailstorm.entity.projectiles.egg.RenderPenguinEgg;
 import xenoform.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 import xenoform.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
@@ -29,7 +33,7 @@ import xenoform.hailstorm.main.MForgeEvents;
 import java.util.List;
 
 public class ClientProxy extends ServerProxy {
-	
+
 	public RayTraceResult getMouseOver(double d0) {
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc.getRenderViewEntity() != null) {
@@ -93,7 +97,7 @@ public class ClientProxy extends ServerProxy {
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected void registerEventListeners() {
 		super.registerEventListeners();
@@ -103,13 +107,17 @@ public class ClientProxy extends ServerProxy {
 	@Override
 	public void preInit(final FMLPreInitializationEvent event) {
 		super.preInit(event);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPenguin.class, RenderPenguin.FACTORY);
+
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
 				RenderIceScrollProjectile.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPenguinEgg.class, RenderPenguinEgg.FACTORY);
 	}
 
 	@Override

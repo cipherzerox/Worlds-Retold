@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.guardsman.ice;
+package xenoform.hailstorm.entity.guardsman;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * Cloudboi - T3DK
  * Created using Tabula 7.0.0
  */
-public class ModelIceGuardsman extends ModelBase {
+public class ModelGuardsman extends ModelBase {
     public ModelRenderer head;
     public ModelRenderer poleNW1;
     public ModelRenderer poleNE1;
@@ -26,7 +26,7 @@ public class ModelIceGuardsman extends ModelBase {
     public ModelRenderer Float2;
     public ModelRenderer Float3;
 
-    public ModelIceGuardsman() {
+    public ModelGuardsman() {
         this.textureWidth = 128;
         this.textureHeight = 64;
         this.poleSW2 = new ModelRenderer(this, 5, 48);

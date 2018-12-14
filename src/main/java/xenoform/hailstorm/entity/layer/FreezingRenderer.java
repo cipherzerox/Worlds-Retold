@@ -1,4 +1,4 @@
-package xenoform.hailstorm.render;
+package xenoform.hailstorm.entity.layer;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
