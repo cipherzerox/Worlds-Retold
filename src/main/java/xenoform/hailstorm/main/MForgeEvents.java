@@ -67,8 +67,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.base.BasicItemUniqueWeapon;
+import xenoform.hailstorm.entity.layer.FreezingRenderer.LayerFreezing;
 import xenoform.hailstorm.potions.PotionFreezing;
-import xenoform.hailstorm.render.FreezingRenderer.LayerFreezing;
 import xenoform.hailstorm.util.RenderHelper;
 
 import java.util.Random;
