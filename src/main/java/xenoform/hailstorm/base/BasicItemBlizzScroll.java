@@ -1,28 +1,14 @@
 package xenoform.hailstorm.base;
 
-import java.util.List;
-import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
-import xenoform.hailstorm.entity.automaton.EntityAutomaton;
 import xenoform.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 
 public class BasicItemBlizzScroll extends BasicItem {
@@ -61,7 +47,7 @@ public class BasicItemBlizzScroll extends BasicItem {
 			ent.motionX = Math.sin((float) Math.toRadians(i)) * speed / 8;
 			ent.motionZ = Math.cos((float) Math.toRadians(i)) * speed / 8;
 			ent.motionY = 0F;
-			ent.setPosition(entityLiving.posX, entityLiving.posY + 1, entityLiving.posZ);
+			ent.setPosition(entityLiving.posX + Math.sin(Math.toRadians(i)), entityLiving.posY + 1, entityLiving.posZ + Math.cos(Math.toRadians(i)));
 			worldIn.spawnEntity(ent);
 		}
 		return stack;

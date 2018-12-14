@@ -2,7 +2,6 @@ package xenoform.hailstorm.entity.blizzard;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityFlying;
@@ -26,7 +25,6 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
     public EntityBlizzard(World world){
         super(world);
         setSize(7F, 4F);
-        noClip = true;
     }
     
 	@Nullable
@@ -38,9 +36,8 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
     @Override
     protected void initEntityAI() {
         super.initEntityAI();
-        this.tasks.addTask(0, new EntityAIWander(this, .8D));
+        this.tasks.addTask(0, new EntityAIWander(this, 1.8D));
         this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 64));
-        this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, .4D, 64));
     }
 
     @Override
@@ -67,6 +64,8 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
 
         if(!minHeight)
             motionY += .1;
+        else
+            motionY = 0;
 
         if (!this.world.isRemote && this.getAttackTarget() != null)
         {
@@ -74,7 +73,6 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
 
             if (entity != null)
             {
-
                 double d0 = entity.posX - this.posX;
                 double d1 = entity.posZ - this.posZ;
                 double d3 = d0 * d0 + d1 * d1;
