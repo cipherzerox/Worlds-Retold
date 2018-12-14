@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import xenoform.hailstorm.Hailstorm;
+import xenoform.hailstorm.entity.ISnowCreature;
 import xenoform.hailstorm.main.MSounds;
 
 import java.util.UUID;
@@ -30,20 +31,12 @@ public class PotionFreezing extends Potion {
 
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) {
-		if (target instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) target;
-			if (!entityplayer.capabilities.isCreativeMode) {
-				entityplayer.playSound(MSounds.FREEZING, 0.3F, 1.0F);
-			}
+		if (target.isInLava() || target.isBurning() || target instanceof ISnowCreature) {
+			target.removePotionEffect(this);
 		} else {
 			target.playSound(MSounds.FREEZING, 0.3F, 1.0F);
+			target.attackEntityFrom(Hailstorm.FROSTBITE, 1.0F);
 		}
-
-		if (target.isInLava() || target.isBurning()) {
-			target.removePotionEffect(this);
-		}
-
-		target.attackEntityFrom(Hailstorm.FROSTBITE, 1.0F);
 	}
 
 	@Override

@@ -52,6 +52,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.main.MPotions;
 import xenoform.hailstorm.util.ModelRegistry;
 
 public class BasicItemWeapon extends BasicItem implements ModelRegistry {
@@ -60,13 +61,16 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 	protected String name;
 	protected final double attackDamage;
 	protected final double attackSpeed;
+	protected final int effect;
 
-	public BasicItemWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed) {
+	public BasicItemWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed,
+			int effect) {
 		super(name);
 		this.name = name;
 		this.material = material;
 		this.attackDamage = attackDamage;
 		this.attackSpeed = attackSpeed;
+		this.effect = effect;
 		this.maxStackSize = 1;
 		this.setMaxDamage(material.getMaxUses());
 		setCreativeTab(CreativeTabs.COMBAT);
@@ -126,6 +130,14 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		stack.damageItem(1, attacker);
+		if (this.effect == 1) {
+			target.addPotionEffect(new PotionEffect(MPotions.FREEZING, 100, 0));
+		}
+		if (!((EntityPlayer) attacker).getCooldownTracker().hasCooldown(this) && this.effect == 2) {
+			target.addPotionEffect(new PotionEffect(MPotions.FREEZING, 100));
+			attacker.world.createExplosion(target, target.posX, target.posY + 1, target.posZ, 1.0F, true);
+			((EntityPlayer) attacker).getCooldownTracker().setCooldown(this, 140);
+		}
 		return true;
 	}
 

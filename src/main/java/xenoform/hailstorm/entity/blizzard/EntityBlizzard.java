@@ -9,17 +9,20 @@ import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.ISnowCreature;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
+public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying, ISnowCreature
 {
     Random rand = new Random();
 
@@ -63,10 +66,12 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
             }
         }
 
-        boolean minHeight = world.getBlockState(getPosition().down(8)) == Blocks.AIR.getDefaultState();
+        boolean minHeight = world.getBlockState(getPosition().down(20)) == Blocks.AIR.getDefaultState();
 
         if(!minHeight)
             motionY += .1;
+        else 
+        	motionY -= .005;
 
         if (!this.world.isRemote && this.getAttackTarget() != null)
         {
@@ -97,6 +102,16 @@ public class EntityBlizzard extends EntitySurfaceMob implements EntityFlying
 
         launchHailToCoords(posX, posY, posZ);
     }
+    
+	@Override
+	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+		if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
+			super.damageEntity(damageSrc, damageAmount * 2);
+		else if (damageSrc == DamageSource.LAVA)
+			super.damageEntity(damageSrc, damageAmount * 3);
+		else
+			super.damageEntity(damageSrc, damageAmount);
+	}
 
     @Override
     public void fall(float distance, float damageMultiplier) {

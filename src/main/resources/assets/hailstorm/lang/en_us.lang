@@ -27,9 +27,13 @@ item.hailstorm_boots.name=Hailstorm Boots
 
 item.cryonite.name=Cryonite
 
+item.penguin_egg.name=Penguin Egg
+
 item.statue.name=Statue
 
 ##Entities##
+
+entity.penguin.name=Penguin
 
 entity.roller.name=Snow Roller
 entity.nix.name=Nix

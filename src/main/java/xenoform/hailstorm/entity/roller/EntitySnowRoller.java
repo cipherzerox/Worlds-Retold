@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,9 +19,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.ISnowCreature;
 import xenoform.hailstorm.entity.ai.EntityAIRollerAttack;
 
-public class EntitySnowRoller extends EntitySurfaceMob {
+public class EntitySnowRoller extends EntitySurfaceMob implements ISnowCreature {
 	private float baseSize = 0.35F;
 	private float size = baseSize;
 
@@ -60,7 +62,7 @@ public class EntitySnowRoller extends EntitySurfaceMob {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-        setSize(getSize(), getSize());
+		setSize(getSize(), getSize());
 		if (getSize() <= 2.5F) {
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D + getSize() * 2);
 			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
@@ -78,10 +80,10 @@ public class EntitySnowRoller extends EntitySurfaceMob {
 
 					if (this.world.getBlockState(blockpos) == Blocks.SNOW_LAYER.getDefaultState()) {
 						this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
-						if(getSize() <= 1)
-						    this.setSize(size += .028);
+						if (getSize() <= 1)
+							this.setSize(size += .028);
 						else
-						    this.setSize(size += .056);
+							this.setSize(size += .056);
 					}
 				}
 			}

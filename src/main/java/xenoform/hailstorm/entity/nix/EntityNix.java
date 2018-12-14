@@ -15,11 +15,13 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import xenoform.hailstorm.Hailstorm;
+import xenoform.hailstorm.entity.ISnowCreature;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EntityNix extends EntityCreature {
+public class EntityNix extends EntityCreature implements ISnowCreature {
     private int size = 0;
     private int stage = 1;
     private static final DataParameter<Float> SIZE = EntityDataManager.createKey(EntityNix.class, DataSerializers.FLOAT);
@@ -131,6 +133,18 @@ public class EntityNix extends EntityCreature {
         this.setShrink(compound.getBoolean("Shrink"));
         this.setStage(compound.getInteger("Stage"));
     }
+    
+	@Override
+	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+		if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
+			super.damageEntity(damageSrc, damageAmount * 2);
+		else if (damageSrc == DamageSource.LAVA)
+			super.damageEntity(damageSrc, damageAmount * 3);
+		else if (damageSrc == Hailstorm.FROSTBITE || damageSrc == Hailstorm.HAIL)
+			super.damageEntity(damageSrc, damageAmount * 0);
+		else
+			super.damageEntity(damageSrc, damageAmount);
+	}
 
     /**
      * Returns true if the Nix makes a sound when it jumps (based upon the Nix's size)

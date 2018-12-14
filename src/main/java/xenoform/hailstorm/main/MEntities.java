@@ -17,6 +17,8 @@ import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 import xenoform.hailstorm.entity.blizzard.hail.RenderHail;
 import xenoform.hailstorm.entity.nix.EntityNix;
 import xenoform.hailstorm.entity.nix.RenderNix;
+import xenoform.hailstorm.entity.penguin.EntityPenguin;
+import xenoform.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoform.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 import xenoform.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
@@ -28,6 +30,9 @@ public class MEntities {
 			Biomes.COLD_TAIGA_HILLS, Biomes.MUTATED_TAIGA_COLD, Biomes.MUTATED_ICE_FLATS };
 
 	public static void preInit() {
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "penguin"), EntityPenguin.class,
+				"penguin", EntityID++, Hailstorm.instance, 64, 3, true, 0x000000, 0xFFFFFF);
+		
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "roller"), EntitySnowRoller.class,
 				"roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "nix"), EntityNix.class, "nix",
@@ -36,13 +41,18 @@ public class MEntities {
 				"blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
 				"automaton", EntityID++, Hailstorm.instance, 64, 3, true);
+		
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"),
 				EntityHail.class, "projectile_ice_scroll", EntityID++, Hailstorm.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "penguin_egg"),
+				EntityPenguinEgg.class, "penguin_egg", EntityID++, Hailstorm.instance, 64, 3, true);
 	}
 	
 	public static void init() {
+		EntityRegistry.addSpawn(EntityPenguin.class, 300, 8, 16, EnumCreatureType.CREATURE, COLD_BIOMES);
+		
 		EntityRegistry.addSpawn(EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityBlizzard.class, 65, 1, 1, EnumCreatureType.CREATURE, COLD_BIOMES);

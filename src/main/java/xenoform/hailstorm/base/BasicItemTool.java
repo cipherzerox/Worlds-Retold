@@ -18,6 +18,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -27,6 +28,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.hailstorm.main.MPotions;
 import xenoform.hailstorm.util.ModelRegistry;
 
 import javax.annotation.Nullable;
@@ -37,13 +39,15 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 
 	protected String name;
 	public Item.ToolMaterial material;
-    private final Set<Block> effectiveBlocks;
+	private final Set<Block> effectiveBlocks;
 	public int tooltype;
 	protected float efficiency;
 	protected float damageVsEntity;
 	protected float attackSpeed;
+	protected int effect;
 
-	public BasicItemTool(String name, Item.ToolMaterial material, Set<Block> effectiveBlocks, int tooltype, float attackDamageIn, float attackSpeedIn) {
+	public BasicItemTool(String name, Item.ToolMaterial material, Set<Block> effectiveBlocks, int tooltype,
+			float attackDamageIn, float attackSpeedIn, int effect) {
 		super(attackDamageIn, attackSpeedIn, material, effectiveBlocks);
 		this.name = name;
 		this.material = material;
@@ -52,6 +56,7 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 		this.efficiency = material.getEfficiency();
 		this.damageVsEntity = attackDamageIn + material.getAttackDamage();
 		this.attackSpeed = attackSpeedIn;
+		this.effect = effect;
 		this.setCreativeTab(CreativeTabs.TOOLS);
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -65,7 +70,7 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 			toolClass = "axe";
 		}
 	}
-	
+
 	@Override
 	public BasicItemTool setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
@@ -122,37 +127,41 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 		}
 		return null;
 	}
-	
-	@Override
-    public float getDestroySpeed(ItemStack stack, IBlockState state)
-    {
-        for (String type : getToolClasses(stack))
-        {
-            if (state.getBlock().isToolEffective(type, state))
-                return efficiency;
-        }
-        return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiency : 1.0F;
-    }
-	
-	@javax.annotation.Nullable
-    private String toolClass;
-    @Override
-    public int getHarvestLevel(ItemStack stack, String toolClass, @javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player, @javax.annotation.Nullable IBlockState blockState)
-    {
-        int level = super.getHarvestLevel(stack, toolClass,  player, blockState);
-        if (level == -1 && toolClass.equals(this.toolClass))
-        {
-            return this.toolMaterial.getHarvestLevel();
-        }
-        else
-        {
-            return level;
-        }
-    }
 
-    @Override
-    public Set<String> getToolClasses(ItemStack stack)
-    {
-        return toolClass != null ? com.google.common.collect.ImmutableSet.of(toolClass) : super.getToolClasses(stack);
-    }
+	@Override
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		for (String type : getToolClasses(stack)) {
+			if (state.getBlock().isToolEffective(type, state))
+				return efficiency;
+		}
+		return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiency : 1.0F;
+	}
+
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+		stack.damageItem(1, attacker);
+		if (this.effect == 1) {
+			target.addPotionEffect(new PotionEffect(MPotions.FREEZING, 100, 0));
+		}
+		return true;
+	}
+
+	@javax.annotation.Nullable
+	private String toolClass;
+
+	@Override
+	public int getHarvestLevel(ItemStack stack, String toolClass,
+			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
+			@javax.annotation.Nullable IBlockState blockState) {
+		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
+		if (level == -1 && toolClass.equals(this.toolClass)) {
+			return this.toolMaterial.getHarvestLevel();
+		} else {
+			return level;
+		}
+	}
+
+	@Override
+	public Set<String> getToolClasses(ItemStack stack) {
+		return toolClass != null ? com.google.common.collect.ImmutableSet.of(toolClass) : super.getToolClasses(stack);
+	}
 }

@@ -20,6 +20,7 @@ import java.util.Set;
 @ObjectHolder(Hailstorm.MODID)
 public class MItems {
 
+	// Default
 	private static final Set<Block> EFFECTIVE_AXE = Sets.newHashSet(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG,
 			Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER,
 			Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE);
@@ -34,30 +35,46 @@ public class MItems {
 			Blocks.SANDSTONE, Blocks.RED_SANDSTONE, Blocks.STONE, Blocks.STONE_SLAB, Blocks.STONE_BUTTON,
 			Blocks.STONE_PRESSURE_PLATE);
 
+	// For Cryonite gear so it can mine snow blocks faster.
+	private static final Set<Block> EFFECTIVE_CRYON_AXE = Sets.newHashSet(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG,
+			Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER,
+			Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE, Blocks.ICE, Blocks.FROSTED_ICE, Blocks.PACKED_ICE,
+			Blocks.SNOW, Blocks.SNOW_LAYER);
+	private static final Set<Block> EFFECTIVE_CRYON_SHOVEL = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND,
+			Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SOUL_SAND, Blocks.GRASS_PATH,
+			Blocks.CONCRETE_POWDER, Blocks.ICE, Blocks.FROSTED_ICE, Blocks.PACKED_ICE, Blocks.SNOW, Blocks.SNOW_LAYER);
+	private static final Set<Block> EFFECTIVE_CRYON_PICKAXE = Sets.newHashSet(Blocks.ACTIVATOR_RAIL, Blocks.COAL_ORE,
+			Blocks.COBBLESTONE, Blocks.DETECTOR_RAIL, Blocks.DIAMOND_BLOCK, Blocks.DIAMOND_ORE,
+			Blocks.DOUBLE_STONE_SLAB, Blocks.GOLDEN_RAIL, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE, Blocks.IRON_BLOCK,
+			Blocks.IRON_ORE, Blocks.LAPIS_BLOCK, Blocks.LAPIS_ORE, Blocks.LIT_REDSTONE_ORE, Blocks.MOSSY_COBBLESTONE,
+			Blocks.NETHERRACK, Blocks.RAIL, Blocks.REDSTONE_ORE, Blocks.SANDSTONE, Blocks.RED_SANDSTONE, Blocks.STONE,
+			Blocks.STONE_SLAB, Blocks.STONE_BUTTON, Blocks.STONE_PRESSURE_PLATE, Blocks.ICE, Blocks.FROSTED_ICE,
+			Blocks.PACKED_ICE, Blocks.SNOW, Blocks.SNOW_LAYER);
+
 	// Weapons
 	@ObjectHolder("cryonite_sword")
-	public static BasicItemWeapon CRYONITE_SWORD = new BasicItemWeapon("cryonite_sword", MMaterials.CRYONITE_TOOL, 5.5f,
-			2.4000000953674316D);
+	public static BasicItemWeapon CRYONITE_SWORD = new BasicItemWeapon("cryonite_sword", MMaterials.CRYONITE_TOOL, 5.5F,
+			2.4000000953674316D, 1);
 	@ObjectHolder("avalanche_hammer")
-	public static BasicItemUniqueWeapon AVALANCHE_HAMMER = new BasicItemUniqueWeapon("avalanche_hammer",
-			MMaterials.UNIQUE_TOOL, 8, 2.4);
+	public static BasicItemWeapon AVALANCHE_HAMMER = new BasicItemWeapon("avalanche_hammer", MMaterials.UNIQUE_TOOL, 8F,
+			2.4D, 2);
 	@ObjectHolder("relic_sword")
-	public static BasicItemWeapon RELIC_SWORD = new BasicItemWeapon("relic_sword", MMaterials.RELIC_TOOL, 9f, 3.0D);
+	public static BasicItemWeapon RELIC_SWORD = new BasicItemWeapon("relic_sword", MMaterials.RELIC_TOOL, 9F, 3.0D, 0);
 	@ObjectHolder("blizz_scroll")
 	public static BasicItemBlizzScroll BLIZZ_SCROLL = new BasicItemBlizzScroll("blizz_scroll");
 
 	// Tools
 	@ObjectHolder("cryonite_shovel")
 	public static BasicItemTool CRYONITE_SHOVEL = new BasicItemTool("cryonite_shovel", MMaterials.CRYONITE_TOOL,
-			EFFECTIVE_SHOVEL, 0, 1.5f, -3.0f);
+			EFFECTIVE_CRYON_SHOVEL, 0, 1.5f, -3.0f, 1);
 	@ObjectHolder("cryonite_pickaxe")
 	public static BasicItemTool CRYONITE_PICKAXE = new BasicItemTool("cryonite_pickaxe", MMaterials.CRYONITE_TOOL,
-			EFFECTIVE_PICKAXE, 1, 1.0f, -2.8f);
+			EFFECTIVE_CRYON_PICKAXE, 1, 1.0f, -2.8f, 1);
 	@ObjectHolder("cryonite_axe")
 	public static BasicItemTool CRYONITE_AXE = new BasicItemTool("cryonite_axe", MMaterials.CRYONITE_TOOL,
-			EFFECTIVE_AXE, 2, 5.5f, -3.0f);
+			EFFECTIVE_CRYON_AXE, 2, 5.5f, -3.0f, 1);
 	@ObjectHolder("cryonite_hoe")
-	public static BasicItemHoe CRYONITE_HOE = new BasicItemHoe("cryonite_hoe", MMaterials.CRYONITE_TOOL);
+	public static BasicItemHoe CRYONITE_HOE = new BasicItemHoe("cryonite_hoe", MMaterials.CRYONITE_TOOL, 1);
 
 	// Armor
 	@ObjectHolder("cryonite_helmet")
@@ -97,9 +114,11 @@ public class MItems {
 			EntityEquipmentSlot.FEET, Hailstorm.MODID + ":textures/armor/hailstorm_leggings.png",
 			Hailstorm.MODID + ":textures/armor/hailstorm_armor.png");
 
-	// Basic
 	@ObjectHolder("cryonite")
 	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(CreativeTabs.MISC);
+
+	@ObjectHolder("penguin_egg")
+	public static BasicItemPenguinEgg PENGUIN_EGG = new BasicItemPenguinEgg("penguin_egg");
 
 	@ObjectHolder("statue")
 	public static BasicItemStatue STATUE = new BasicItemStatue("statue");
@@ -111,9 +130,9 @@ public class MItems {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
-			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL,
-					CRYONITE_PICKAXE, CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE,
-					CRYONITE_LEGGINGS, CRYONITE_BOOTS, CRYONITE, STATUE);
+			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE,
+					CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS,
+					CRYONITE, PENGUIN_EGG, STATUE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 		}
