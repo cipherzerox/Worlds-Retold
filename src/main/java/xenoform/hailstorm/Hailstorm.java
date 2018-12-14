@@ -31,7 +31,6 @@ public class Hailstorm {
 	@SidedProxy(clientSide = "xenoform.hailstorm.proxy.ClientProxy", serverSide = "xenoform.hailstorm.proxy.ServerProxy")
 	public static ServerProxy proxy;
 	
-	public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(Hailstorm.MODID);
 	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
     public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
     public static final DamageSource HAIL = new DamageSource("hailstorm.hail");
@@ -42,7 +41,7 @@ public class Hailstorm {
 		proxy.preInit(event);
 		MPotions.registerPotions();
 		MEntities.preInit();
-		MEntities.initRenderAndModel();
+		MEntities.init();
 		MinecraftForge.EVENT_BUS.register(new MForgeEvents());
 		MinecraftForge.EVENT_BUS.register(new MVanillaLootInsertion());
 		Hailstorm.LOGGER.info("Preinitialization Done");

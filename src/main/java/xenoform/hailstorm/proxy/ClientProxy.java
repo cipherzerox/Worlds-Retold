@@ -8,9 +8,22 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xenoform.hailstorm.entity.automaton.EntityAutomaton;
+import xenoform.hailstorm.entity.automaton.RenderAutomaton;
+import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
+import xenoform.hailstorm.entity.blizzard.RenderBlizzard;
+import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
+import xenoform.hailstorm.entity.blizzard.hail.RenderHail;
+import xenoform.hailstorm.entity.nix.EntityNix;
+import xenoform.hailstorm.entity.nix.RenderNix;
+import xenoform.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
+import xenoform.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
+import xenoform.hailstorm.entity.roller.EntitySnowRoller;
+import xenoform.hailstorm.entity.roller.RenderSnowRoller;
 import xenoform.hailstorm.main.MForgeEvents;
 
 import java.util.List;
@@ -90,6 +103,13 @@ public class ClientProxy extends ServerProxy {
 	@Override
 	public void preInit(final FMLPreInitializationEvent event) {
 		super.preInit(event);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
+				RenderIceScrollProjectile.FACTORY);
 	}
 
 	@Override
