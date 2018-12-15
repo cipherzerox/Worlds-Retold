@@ -14,21 +14,27 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-public class EntityIceGuardsman extends EntitySurfaceMob implements ISnowCreature
+public class EntityIceGuardsman extends EntitySurfaceMonster implements ISnowCreature
 {
 
     protected static final DataParameter<Boolean> SPINNING = EntityDataManager.createKey(EntityIceGuardsman.class,
             DataSerializers.BOOLEAN);
+    protected static final DataParameter<Integer> TICKS_SINCE_LAST_ATTACK = EntityDataManager.createKey(EntityIceGuardsman.class,
+            DataSerializers.VARINT);
+    protected static final DataParameter<Boolean> CHARGING = EntityDataManager.createKey(EntityIceGuardsman.class,
+            DataSerializers.BOOLEAN);
+    protected static final DataParameter<Integer> CHARGE_TICKS = EntityDataManager.createKey(EntityIceGuardsman.class,
+            DataSerializers.VARINT);
 
     private Random rand = new Random();
     private int ticksSinceLastAttack = 0;
+    private int chargeTicks = 0;
 
     public EntityIceGuardsman(World world){
         super(world);
@@ -47,6 +53,9 @@ public class EntityIceGuardsman extends EntitySurfaceMob implements ISnowCreatur
     protected void entityInit() {
         super.entityInit();
         this.dataManager.register(SPINNING, true);
+        this.dataManager.register(TICKS_SINCE_LAST_ATTACK, 0);
+        this.dataManager.register(CHARGING, false);
+        this.dataManager.register(CHARGE_TICKS, 0);
     }
 
     public boolean getSpinning(){
@@ -55,6 +64,30 @@ public class EntityIceGuardsman extends EntitySurfaceMob implements ISnowCreatur
 
     public void setSpinning(boolean spin){
         this.dataManager.set(SPINNING, spin);
+    }
+
+    public int getTicksSinceLastAttack(){
+        return this.dataManager.get(TICKS_SINCE_LAST_ATTACK);
+    }
+
+    public void setTicksSinceLastAttack(int ticks){
+        this.dataManager.set(TICKS_SINCE_LAST_ATTACK, ticks);
+    }
+
+    public boolean getCharging(){
+        return this.dataManager.get(CHARGING);
+    }
+
+    public void setCharging(boolean spin){
+        this.dataManager.set(CHARGING, spin);
+    }
+
+    public int getChargeTicks(){
+        return this.dataManager.get(CHARGE_TICKS);
+    }
+
+    public void setChargeTicks(int ticks){
+        this.dataManager.set(CHARGE_TICKS, ticks);
     }
 
     @Override
@@ -86,43 +119,56 @@ public class EntityIceGuardsman extends EntitySurfaceMob implements ISnowCreatur
         else
             motionY = 0;
 
+        if(getCharging() && getChargeTicks() < 40){
+            chargeTicks++;
+            setChargeTicks(chargeTicks);
+        }
+
+        if(getChargeTicks() > 40)
+            setChargeTicks(0);
+
      //   System.out.println(getAttackTarget());
 
         ticksSinceLastAttack++;
+        setTicksSinceLastAttack(ticksSinceLastAttack);
+
+      //  System.out.println(getChargeTicks());
+
         boolean thirtyPercent = rand.nextInt(3) == 0;
 
-        try{
-            if(!world.isRemote && getAttackTarget() != null) {
-                if (ticksSinceLastAttack == 20 && thirtyPercent) {
-                    System.out.println("one second");
-                    chargeAttack();
-                    ticksSinceLastAttack = 0;
-                } else if (ticksSinceLastAttack == 40 && thirtyPercent) {
-                    System.out.println("two seconds");
-                    chargeAttack();
-                    ticksSinceLastAttack = 0;
-                } else if (ticksSinceLastAttack == 60 && thirtyPercent) {
-                    System.out.println("three seconds");
-                    chargeAttack();
-                    ticksSinceLastAttack = 0;
-                } else if (ticksSinceLastAttack == 80) {
-                    System.out.println("four seconds");
-                    chargeAttack();
-                    ticksSinceLastAttack = 0;
-                }
+        if(!world.isRemote && getAttackTarget() != null) {
+            if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
+                System.out.println("one second");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+            } else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
+                System.out.println("two seconds");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+            } else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
+                System.out.println("three seconds");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+            } else if (getTicksSinceLastAttack() == 80) {
+                System.out.println("four seconds");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
             }
-        }catch (InterruptedException e){
-            e.printStackTrace();
         }
     }
 
-    private void chargeAttack() throws InterruptedException{
+    private void chargeAttack(){
         setSpinning(false);
-        System.out.println("prior to wait");
-        TimeUnit.SECONDS.sleep(2);
-        System.out.println("fire");
-        shootFreezingProjectile(getAttackTarget());
-        setSpinning(true);
+        System.out.println(getChargeTicks());
+        if(getChargeTicks() == 40){
+            shootFreezingProjectile(getAttackTarget());
+            setSpinning(true);
+            setChargeTicks(0);
+        }
     }
 
     private void shootFreezingProjectile(EntityLivingBase p_82216_2_)
@@ -165,12 +211,18 @@ public class EntityIceGuardsman extends EntitySurfaceMob implements ISnowCreatur
     public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
         compound.setBoolean("Spinning", this.getSpinning());
+        compound.setInteger("Ticks", this.getTicksSinceLastAttack());
+        compound.setBoolean("Charging", this.getCharging());
+        compound.setInteger("ChargeTicks", this.getChargeTicks());
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         this.setSpinning(compound.getBoolean("Spinning"));
+        this.setTicksSinceLastAttack(compound.getInteger("Ticks"));
+        this.setCharging(compound.getBoolean("Charging"));
+        this.setChargeTicks(compound.getInteger("ChargeTicks"));
     }
 
 }
