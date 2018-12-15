@@ -9,12 +9,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import xenoform.hailstorm.main.MPotions;
 
-public class EnchantmentArrowIce extends Enchantment {
+public class EnchantmentGlacier extends Enchantment {
 
-	public EnchantmentArrowIce(Rarity rarity, EntityEquipmentSlot... slots) {
+	public EnchantmentGlacier(Rarity rarity, EntityEquipmentSlot... slots) {
 		super(rarity, EnumEnchantmentType.BOW, slots);
-		this.setRegistryName("arrowIce");
-		this.setName("arrowIce");
+		this.setRegistryName("glacier");
+		this.setName("glacier");
 	}
 
 	public int getMaxLevel() {

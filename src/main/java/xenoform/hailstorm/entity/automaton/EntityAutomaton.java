@@ -35,7 +35,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
 import xenoform.hailstorm.main.MItems;
 
@@ -44,7 +44,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class EntityAutomaton extends EntitySurfaceMob {
+public class EntityAutomaton extends EntitySurfaceMonster {
 	private static final DataParameter<Boolean> ACTIVE = EntityDataManager.createKey(EntityAutomaton.class,
 			DataSerializers.BOOLEAN);
 	protected float targetDistance;

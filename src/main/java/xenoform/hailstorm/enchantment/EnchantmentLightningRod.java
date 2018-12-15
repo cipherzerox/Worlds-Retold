@@ -10,12 +10,12 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class EnchantmentStormCaller extends Enchantment {
+public class EnchantmentLightningRod extends Enchantment {
 
-	public EnchantmentStormCaller(Rarity rarity, EntityEquipmentSlot... slots) {
+	public EnchantmentLightningRod(Rarity rarity, EntityEquipmentSlot... slots) {
 		super(rarity, EnumEnchantmentType.BOW, slots);
-		this.setRegistryName("stormCaller");
-		this.setName("stormCaller");
+		this.setRegistryName("lightning_rod");
+		this.setName("lightning_rod");
 	}
 
 	public int getMaxLevel() {

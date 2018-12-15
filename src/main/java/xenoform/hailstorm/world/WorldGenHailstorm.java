@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import xenoform.hailstorm.main.MBlocks;
@@ -17,8 +18,6 @@ import xenoform.hailstorm.main.MBlocks;
 import java.util.Random;
 
 public class WorldGenHailstorm implements IWorldGenerator {
-
-	private static final StructureHailstormShrine HAILSTORM_SHRINE = new StructureHailstormShrine();
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
@@ -33,9 +32,10 @@ public class WorldGenHailstorm implements IWorldGenerator {
 			break;
 		// Overworld
 		case 0:
-			runOreGenerator(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
+			generateOre(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
 					world, random, chunkX, chunkZ);
 			generateHailstormShrine(world, random, blockX, blockZ);
+			generateFlowers(world, random, blockX, blockZ);
 			break;
 		// End
 		case 1:
@@ -46,8 +46,8 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		}
 	}
 
-	private void runOreGenerator(IBlockState blockToGen, int blockAmount, int chancesToSpawn, int minHeight,
-			int maxHeight, Predicate<IBlockState> blockToReplace, World world, Random rand, int chunkX, int chunkZ) {
+	private void generateOre(IBlockState blockToGen, int blockAmount, int chancesToSpawn, int minHeight, int maxHeight,
+			Predicate<IBlockState> blockToReplace, World world, Random rand, int chunkX, int chunkZ) {
 		if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight)
 			throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
 
@@ -69,10 +69,28 @@ public class WorldGenHailstorm implements IWorldGenerator {
 	}
 
 	private void generateHailstormShrine(World world, Random rand, int blockX, int blockZ) {
-		if (rand.nextInt(1) == 0) {
-			int y = getGroundFromAbove(world, blockX, blockZ);
-			BlockPos pos = new BlockPos(blockX, y, blockZ);
-			HAILSTORM_SHRINE.generate(world, rand, pos);
+		StructureHailstormShrine generator = new StructureHailstormShrine();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		if ((world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
+				|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
+				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
+				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
+				&& rand.nextInt(3) == 0) {
+			generator.generate(world, rand, pos);
+		}
+	}
+
+	private void generateFlowers(World world, Random rand, int blockX, int blockZ) {
+		WorldGenOverlayedFlower generator = new WorldGenOverlayedFlower(MBlocks.ARCTIC_WILLOW);
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		if ((world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
+				|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
+				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
+				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
+				&& rand.nextInt(10) == 0) {
+			generator.generate(world, rand, pos);
 		}
 	}
 
@@ -87,10 +105,8 @@ public class WorldGenHailstorm implements IWorldGenerator {
 	}
 
 	public static boolean canSpawnHere(final World world, final BlockPos min, BlockPos max) {
-		return isCornerValid(world, min)
-				&& isCornerValid(world, new BlockPos(max.getX(), min.getY(), min.getZ()))
-				&& isCornerValid(world, max)
-				&& isCornerValid(world, new BlockPos(min.getX(), min.getY(), max.getZ()));
+		return isCornerValid(world, min) && isCornerValid(world, new BlockPos(max.getX(), min.getY(), min.getZ()))
+				&& isCornerValid(world, max) && isCornerValid(world, new BlockPos(min.getX(), min.getY(), max.getZ()));
 	}
 
 	public static boolean isCornerValid(final World world, final BlockPos pos) {

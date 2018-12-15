@@ -18,11 +18,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
 import xenoform.hailstorm.entity.ai.EntityAIRollerAttack;
 
-public class EntitySnowRoller extends EntitySurfaceMob implements ISnowCreature {
+public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreature {
 	private float baseSize = 0.35F;
 	private float size = baseSize;
 

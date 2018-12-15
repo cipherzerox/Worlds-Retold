@@ -54,7 +54,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.EntitySurfaceMob;
+import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
 import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;

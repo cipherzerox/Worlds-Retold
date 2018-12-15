@@ -10,13 +10,13 @@ import xenoform.hailstorm.entity.automaton.EntityAutomaton;
 
 import java.util.List;
 
-public abstract class EntitySurfaceGuard extends EntitySurfaceMob
+public abstract class EntityGuard extends EntitySurfaceMonster
 {
     protected static final DataParameter<Boolean> ACTIVE = EntityDataManager.createKey(EntityAutomaton.class,
             DataSerializers.BOOLEAN);
     protected float targetDistance;
 
-    public EntitySurfaceGuard(World world){
+    public EntityGuard(World world){
         super(world);
     }
 

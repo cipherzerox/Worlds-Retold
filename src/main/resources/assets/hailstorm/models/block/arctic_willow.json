@@ -1,0 +1,7 @@
+{
+    "parent": "hailstorm:block/overlayed_plant",
+    "textures": {
+        "cross": "hailstorm:blocks/arctic_willow",
+        "overlay": "hailstorm:blocks/arctic_willow_overlay"
+    }
+}
