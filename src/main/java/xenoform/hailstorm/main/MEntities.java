@@ -51,10 +51,10 @@ public class MEntities {
 	}
 	
 	public static void init() {
-		EntityRegistry.addSpawn(EntityPenguin.class, 300, 8, 16, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntityPenguin.class, 200, 8, 16, EnumCreatureType.CREATURE, COLD_BIOMES);
 		
-		EntityRegistry.addSpawn(EntitySnowRoller.class, 150, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntitySnowRoller.class, 100, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
 		EntityRegistry.addSpawn(EntityNix.class, 10, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
-		EntityRegistry.addSpawn(EntityBlizzard.class, 65, 1, 1, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntityBlizzard.class, 55, 1, 1, EnumCreatureType.CREATURE, COLD_BIOMES);
 	}
 }

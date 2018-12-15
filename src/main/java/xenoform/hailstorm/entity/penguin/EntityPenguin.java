@@ -41,6 +41,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
@@ -90,20 +91,19 @@ public class EntityPenguin extends EntityAnimal {
 
 	protected void initEntityAI() {
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAITempt(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.tasks.addTask(3, new EntityPenguin.AIHurtSlide(this));
+		this.tasks.addTask(1, new EntityAITempt(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(3, new EntityPenguin.AISlideAway(this));
 		this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
 		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
 	}
-	
-    protected void entityInit()
-    {
-        super.entityInit();
-        this.dataManager.register(IS_SLIDING, Boolean.valueOf(false));
-    }
+
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(IS_SLIDING, Boolean.valueOf(false));
+	}
 
 	public float getEyeHeight() {
 		return this.height;
@@ -111,7 +111,8 @@ public class EntityPenguin extends EntityAnimal {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
@@ -165,22 +166,20 @@ public class EntityPenguin extends EntityAnimal {
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_CHICKEN;
+		return new ResourceLocation(Hailstorm.MODID, "entity/penguin");
 	}
 
 	public EntityPenguin createChild(EntityAgeable ageable) {
 		return new EntityPenguin(this.world);
 	}
-	
-    public boolean isSliding()
-    {
-        return ((Boolean)this.dataManager.get(IS_SLIDING)).booleanValue();
-    }
 
-    public void setSliding(boolean standing)
-    {
-        this.dataManager.set(IS_SLIDING, Boolean.valueOf(standing));
-    }
+	public boolean isSliding() {
+		return ((Boolean) this.dataManager.get(IS_SLIDING)).booleanValue();
+	}
+
+	public void setSliding(boolean standing) {
+		this.dataManager.set(IS_SLIDING, Boolean.valueOf(standing));
+	}
 
 	/**
 	 * Checks if the parameter is an item which this animal can be fed to breed
@@ -219,24 +218,23 @@ public class EntityPenguin extends EntityAnimal {
 		compound.setInteger("EggLayTime", this.timeUntilNextEgg);
 	}
 
-	class AIHurtSlide extends EntityAIAvoidEntity {
+	class AISlideAway extends EntityAIAvoidEntity {
 
 		private EntityPenguin entity;
 
-		public AIHurtSlide(EntityPenguin entityIn) {
-			super(entityIn, EntityPlayer.class, 10.0F, 1.75D, 2.0D);
+		public AISlideAway(EntityPenguin entityIn) {
+			super(entityIn, EntityPlayer.class, 8.0F, 1.75D, 2.0D);
 			this.entity = entityIn;
 		}
 
 		public void startExecuting() {
-		    EntityPenguin.this.setSliding(true);
+			EntityPenguin.this.setSliding(true);
 			super.startExecuting();
 		}
-		
-        public void resetTask()
-        {
-            EntityPenguin.this.setSliding(false);
-            super.resetTask();
-        }
+
+		public void resetTask() {
+			EntityPenguin.this.setSliding(false);
+			super.resetTask();
+		}
 	}
 }

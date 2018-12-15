@@ -28,6 +28,9 @@ item.hailstorm_boots.name=Hailstorm Boots
 item.cryonite.name=Cryonite
 
 item.penguin_egg.name=Penguin Egg
+item.penguin_feather.name=Penguin Feather
+item.manchot_raw.name=Raw Manchot
+item.manchot_cooked.name=Cooked Manchot
 
 item.statue.name=Statue
 

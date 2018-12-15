@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
@@ -119,6 +120,12 @@ public class MItems {
 
 	@ObjectHolder("penguin_egg")
 	public static BasicItemPenguinEgg PENGUIN_EGG = new BasicItemPenguinEgg("penguin_egg");
+	@ObjectHolder("penguin_feather")
+	public static BasicItem PENGUIN_FEATHER = new BasicItem("penguin_feather").setCreativeTab(CreativeTabs.MISC);
+	@ObjectHolder("manchot_raw")
+	public static BasicItemFood MANCHOT_RAW = new BasicItemFood("manchot_raw", 32, 2, 1.2F, true, EnumAction.EAT);
+	@ObjectHolder("manchot_cooked")
+	public static BasicItemFood MANCHOT_COOKED = new BasicItemFood("manchot_cooked", 32, 4, 3.0F, true, EnumAction.EAT);
 
 	@ObjectHolder("statue")
 	public static BasicItemStatue STATUE = new BasicItemStatue("statue");
@@ -132,7 +139,7 @@ public class MItems {
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
 			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE,
 					CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS,
-					CRYONITE, PENGUIN_EGG, STATUE);
+					CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, STATUE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 		}
