@@ -9,12 +9,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import xenoform.hailstorm.main.MPotions;
 
-public class EnchantmentIceAspect extends Enchantment {
+public class EnchantmentIceboundBlade extends Enchantment {
 
-	public EnchantmentIceAspect(Rarity rarity, EntityEquipmentSlot... slots) {
+	public EnchantmentIceboundBlade(Rarity rarity, EntityEquipmentSlot... slots) {
 		super(rarity, EnumEnchantmentType.WEAPON, slots);
-		this.setRegistryName("iceAspect");
-		this.setName("iceAspect");
+		this.setRegistryName("icebound_blade");
+		this.setName("icebound_blade");
 	}
 
 	public int getMaxLevel() {

@@ -10,23 +10,23 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.enchantment.EnchantmentArrowIce;
-import xenoform.hailstorm.enchantment.EnchantmentIceAspect;
-import xenoform.hailstorm.enchantment.EnchantmentStormCaller;
+import xenoform.hailstorm.enchantment.EnchantmentGlacier;
+import xenoform.hailstorm.enchantment.EnchantmentIceboundBlade;
+import xenoform.hailstorm.enchantment.EnchantmentLightningRod;
 
 @Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 public class MEnchantments {
 
-	public static final Enchantment ICE_ASPECT = new EnchantmentIceAspect(Enchantment.Rarity.RARE,
+	public static final Enchantment ICEBOUND_BLADE = new EnchantmentIceboundBlade(Enchantment.Rarity.RARE,
 			new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-	public static final Enchantment ARROW_ICE = new EnchantmentArrowIce(Enchantment.Rarity.RARE,
+	public static final Enchantment GLACIER = new EnchantmentGlacier(Enchantment.Rarity.RARE,
 			new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
-	public static final Enchantment STORM_CALLER = new EnchantmentStormCaller(Enchantment.Rarity.VERY_RARE,
+	public static final Enchantment LIGHTNING_ROD = new EnchantmentLightningRod(Enchantment.Rarity.VERY_RARE,
 			new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
 
 	@SubscribeEvent
 	public static void registerEnchantments(Register<Enchantment> event) {
-		event.getRegistry().registerAll(ICE_ASPECT, ARROW_ICE, STORM_CALLER);
+		event.getRegistry().registerAll(ICEBOUND_BLADE, GLACIER, LIGHTNING_ROD);
 	}
 
 }

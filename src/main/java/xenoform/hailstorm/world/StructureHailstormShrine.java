@@ -77,7 +77,7 @@ public class StructureHailstormShrine extends WorldGenerator {
 			TileEntity entity = world.getTileEntity(pos.down(5));
 			if (entity instanceof TileEntityChest) {
 				((TileEntityChest) entity).setLootTable(
-						new ResourceLocation(Hailstorm.MODID + ":hailstorm_shrine_chest"), rand.nextLong());
+						new ResourceLocation(Hailstorm.MODID, "chest/hailstorm_shrine_chest"), rand.nextLong());
 			}
 		}
 

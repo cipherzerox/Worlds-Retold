@@ -142,6 +142,7 @@ public class MItems {
 					CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, STATUE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
+			itemblocks.registerItemBlock(MBlocks.ARCTIC_WILLOW);
 		}
 
 		private static class ItemBlockRegistry {
