@@ -18,6 +18,8 @@ import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
 import xenoform.hailstorm.entity.blizzard.RenderBlizzard;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
 import xenoform.hailstorm.entity.blizzard.hail.RenderHail;
+import xenoform.hailstorm.entity.guardsman.EntityIceGuardsman;
+import xenoform.hailstorm.entity.guardsman.RenderIceGuardsman;
 import xenoform.hailstorm.entity.nix.EntityNix;
 import xenoform.hailstorm.entity.nix.RenderNix;
 import xenoform.hailstorm.entity.penguin.EntityPenguin;
@@ -113,6 +115,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityIceGuardsman.class, RenderIceGuardsman.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
