@@ -25,7 +25,7 @@ public class LayerGuardsmanGlow<T extends EntityLivingBase> implements LayerRend
 			final float partialTicks, final float ageInTicks, final float netHeadYaw, final float headPitch,
 			final float scale) {
 		EntityGuardsman ent = (EntityGuardsman) entity;
-		if (entity instanceof EntityGuardsman && ent.getCharging()) {
+		if (entity instanceof EntityGuardsman && ent.getCharging() && ent.isEntityAlive()) {
 			this.renderer.bindTexture(this.glowTexture);
 			final ModelBase mainModel = this.renderer.getMainModel();
 			final float alpha = this.getAlpha();

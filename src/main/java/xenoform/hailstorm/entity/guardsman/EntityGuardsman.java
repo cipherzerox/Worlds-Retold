@@ -10,12 +10,14 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -24,6 +26,8 @@ import xenoform.hailstorm.entity.ISnowCreature;
 
 import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Nullable;
 
 public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreature {
 
@@ -39,7 +43,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	private Random rand = new Random();
 	private int ticksSinceLastAttack = 0;
 	private int chargeTicks = 0;
-    public int deathTicks;
+	public int deathTicks;
 
 	public EntityGuardsman(World world) {
 		super(world);
@@ -50,7 +54,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	protected void initEntityAI() {
 		super.initEntityAI();
 		this.tasks.addTask(0, new EntityAIWander(this, .8D));
-		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 64));
+		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 22));
 		this.tasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
 	}
 
@@ -101,86 +105,109 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40D);
 		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.3D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(100D);
+	}
+	
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return this.rand.nextInt(2) == 0 ? SoundEvents.ENTITY_ILLAGER_PREPARE_BLINDNESS
+						: SoundEvents.ENTITY_ILLAGER_PREPARE_MIRROR;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return this.getCharging() ? SoundEvents.ENTITY_WITHER_HURT : SoundEvents.BLOCK_END_PORTAL_FRAME_FILL;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_END_PORTAL_SPAWN;
 	}
 
 	@Override
 	public void onLivingUpdate() {
-		super.onLivingUpdate();
+		if (this.isEntityAlive()) {
 
-		if (getAttackTarget() == null) {
-			List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
-					this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
-			for (EntityPlayer entity : list) {
-				if (entity != null)
-					setAttackTarget(entity);
-			}
-		}
+			super.onLivingUpdate();
 
-		boolean minHeight = world.getBlockState(getPosition().down(2)) == Blocks.AIR.getDefaultState();
-        boolean maxHeight = world.getBlockState(getPosition().down(4)) != Blocks.AIR.getDefaultState();
-		if (!minHeight)
-			motionY += .1;
-		else if(!maxHeight)
-			motionY -= .1;
-		else
-		    motionY = 0;
-
-		if (!world.isRemote) {
-			if (getCharging() && chargeTicks < 40) {
-				chargeTicks++;
-				setChargeTicks(chargeTicks);
-			}
-
-			if (chargeTicks >= 40 && !getCharging()) {
-				setChargeTicks(0);
-				chargeTicks = 0;
-			}
-		}
-
-		ticksSinceLastAttack++;
-		setTicksSinceLastAttack(ticksSinceLastAttack);
-
-		boolean thirtyPercent = rand.nextInt(3) == 0;
-
-		if (!world.isRemote && getAttackTarget() != null) {
-			if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
-                resetStuff();
-			} else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
-                resetStuff();
-			} else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
-                resetStuff();
-			} else if (getTicksSinceLastAttack() >= 80) {
-                resetStuff();
-			}
-		}
-		if (!this.world.isRemote && this.getAttackTarget() != null) {
-			Entity entity = this.getAttackTarget();
-			
-			this.getLookHelper().setLookPositionWithEntity((Entity) getAttackTarget(), 10.0f,
-					(float) this.getVerticalFaceSpeed());
-
-			if (entity != null) {
-				double d0 = entity.posX - this.posX;
-				double d1 = entity.posZ - this.posZ;
-				double d3 = d0 * d0 + d1 * d1;
-
-				if (d3 > 9.0D) {
-					double d5 = (double) MathHelper.sqrt(d3);
-					this.motionX += (d0 / d5 * 0.25D - this.motionX) * 0.1000000238418579D;
-					this.motionZ += (d1 / d5 * 0.25D - this.motionZ) * 0.1000000238418579D;
+			if (getAttackTarget() == null) {
+				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
+						this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
+				for (EntityPlayer entity : list) {
+					if (entity != null)
+						setAttackTarget(entity);
 				}
 			}
-		}
 
-		this.rotationYaw = (float) MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float) Math.PI) - 90.0F;
+			boolean minHeight = world.getBlockState(getPosition().down(2)) == Blocks.AIR.getDefaultState();
+			boolean maxHeight = world.getBlockState(getPosition().down(4)) != Blocks.AIR.getDefaultState();
+			if (!minHeight)
+				motionY += .1;
+			else if (!maxHeight)
+				motionY -= .1;
+			else
+				motionY = 0;
+
+			if (!world.isRemote) {
+				if (getCharging() && chargeTicks < 40) {
+					chargeTicks++;
+					setChargeTicks(chargeTicks);
+				}
+
+				if (chargeTicks >= 40 && !getCharging()) {
+					setChargeTicks(0);
+					chargeTicks = 0;
+				}
+			}
+
+			ticksSinceLastAttack++;
+			setTicksSinceLastAttack(ticksSinceLastAttack);
+
+			boolean thirtyPercent = rand.nextInt(3) == 0;
+
+			if (!world.isRemote && getAttackTarget() != null) {
+				if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
+					resetStuff();
+				} else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
+					resetStuff();
+				} else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
+					resetStuff();
+				} else if (getTicksSinceLastAttack() >= 80) {
+					resetStuff();
+				}
+			}
+			if (!this.world.isRemote && this.getAttackTarget() != null) {
+				Entity entity = this.getAttackTarget();
+
+				this.getLookHelper().setLookPositionWithEntity((Entity) getAttackTarget(), 10.0f,
+						(float) this.getVerticalFaceSpeed());
+
+				if (entity != null) {
+					double d0 = entity.posX - this.posX;
+					double d1 = entity.posZ - this.posZ;
+					double d3 = d0 * d0 + d1 * d1;
+
+					if (d3 > 9.0D) {
+						double d5 = (double) MathHelper.sqrt(d3);
+						this.motionX += (d0 / d5 * 0.25D - this.motionX) * 0.1000000238418579D;
+						this.motionZ += (d1 / d5 * 0.25D - this.motionZ) * 0.1000000238418579D;
+					}
+				}
+			}
+
+			this.rotationYaw = (float) MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float) Math.PI) - 90.0F;
+		}
 	}
 
-	private void resetStuff(){
-        setCharging(true);
-        chargeAttack();
-        setTicksSinceLastAttack(0);
-        ticksSinceLastAttack = 0;
-    }
+	private void resetStuff() {
+		setCharging(true);
+		chargeAttack();
+		setTicksSinceLastAttack(0);
+		ticksSinceLastAttack = 0;
+	}
 
 	private void chargeAttack() {
 		setSpinning(false);
@@ -244,14 +271,12 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		this.setCharging(compound.getBoolean("Charging"));
 		this.setChargeTicks(compound.getInteger("ChargeTicks"));
 	}
-	
-	protected void onDeathUpdate()
-    {
-        ++this.deathTicks;
-        
-        if (this.deathTicks == 100 && !this.world.isRemote)
-        {
-            this.setDead();
-        }
-    }
+
+	protected void onDeathUpdate() {
+		++this.deathTicks;
+
+		if (this.deathTicks == 100 && !this.world.isRemote) {
+			this.setDead();
+		}
+	}
 }

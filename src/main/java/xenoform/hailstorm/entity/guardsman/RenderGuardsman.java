@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerEnderDragonDeath;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -12,10 +13,11 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.entity.layer.LayerAutomatonGlow;
-import xenoform.hailstorm.entity.layer.LayerGuardsmanDeath;
 import xenoform.hailstorm.entity.layer.LayerGuardsmanGlow;
 
 import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
 
 public class RenderGuardsman extends RenderLiving<EntityGuardsman> {
 
@@ -30,7 +32,6 @@ public class RenderGuardsman extends RenderLiving<EntityGuardsman> {
 	public RenderGuardsman(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelGuardsman(), 0.55F);
 		this.addLayer(new LayerGuardsmanGlow(this, GLOW_TEXTURE));
-		this.addLayer(new LayerGuardsmanDeath());
 	}
 
 	@Override
@@ -57,20 +58,21 @@ public class RenderGuardsman extends RenderLiving<EntityGuardsman> {
 	protected void renderModel(EntityGuardsman entitylivingbaseIn, float limbSwing, float limbSwingAmount,
 			float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
 		if (entitylivingbaseIn.deathTicks > 0) {
-			float f = (float) entitylivingbaseIn.deathTicks / 200.0F;
-			GlStateManager.depthFunc(515);
+			float f = (float) entitylivingbaseIn.deathTicks / 100.0F;
+			GlStateManager.depthFunc(GL11.GL_LEQUAL);
 			GlStateManager.enableAlpha();
-			GlStateManager.alphaFunc(516, f);
+			GlStateManager.alphaFunc(GL11.GL_GREATER, f);
 			this.bindTexture(DYING_TEXTURE);
 			this.mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,
 					scaleFactor);
-			GlStateManager.alphaFunc(516, 0.1F);
-			GlStateManager.depthFunc(514);
+			GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+			GlStateManager.depthFunc(GL11.GL_EQUAL);
 		}
 
 		this.bindEntityTexture(entitylivingbaseIn);
 		this.mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,
 				scaleFactor);
+		GlStateManager.depthFunc(GL11.GL_LEQUAL);
 	}
 
 	public static class Factory implements IRenderFactory<EntityGuardsman> {
