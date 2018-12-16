@@ -144,6 +144,8 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 				super.damageEntity(damageSrc, damageAmount * 3);
 			else
 				super.damageEntity(damageSrc, damageAmount);
+		} else {
+			super.damageEntity(damageSrc, damageAmount);
 		}
 	}
 
