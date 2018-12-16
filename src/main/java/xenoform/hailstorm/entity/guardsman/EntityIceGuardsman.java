@@ -119,55 +119,69 @@ public class EntityIceGuardsman extends EntitySurfaceMonster implements ISnowCre
         else
             motionY = 0;
 
-        if(getCharging() && getChargeTicks() < 40){
-            chargeTicks++;
-            setChargeTicks(chargeTicks);
+        if(!world.isRemote) {
+            if (getCharging() && chargeTicks < 40) {
+                chargeTicks++;
+                setChargeTicks(chargeTicks);
+            }
+
+            if (chargeTicks >= 40 && !getCharging()) {
+                setChargeTicks(0);
+                chargeTicks = 0;
+                System.out.println("not");
+            }
         }
-
-        if(getChargeTicks() > 40)
-            setChargeTicks(0);
-
-     //   System.out.println(getAttackTarget());
 
         ticksSinceLastAttack++;
         setTicksSinceLastAttack(ticksSinceLastAttack);
 
-      //  System.out.println(getChargeTicks());
+        System.out.println("last attack:" + ticksSinceLastAttack);
+        System.out.println("charge:" + chargeTicks);
+
+     //   System.out.println(ticksSinceLastAttack);
+     //   System.out.println(getChargeTicks());
+     //   System.out.println(getCharging());
 
         boolean thirtyPercent = rand.nextInt(3) == 0;
 
         if(!world.isRemote && getAttackTarget() != null) {
-            if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
+            if (ticksSinceLastAttack == 20 && thirtyPercent) {
                 System.out.println("one second");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
-            } else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
+                ticksSinceLastAttack = 0;
+            } else if (ticksSinceLastAttack == 40 && thirtyPercent) {
                 System.out.println("two seconds");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
-            } else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
+                ticksSinceLastAttack = 0;
+            } else if (ticksSinceLastAttack == 60 && thirtyPercent) {
                 System.out.println("three seconds");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
-            } else if (getTicksSinceLastAttack() == 80) {
+                ticksSinceLastAttack = 0;
+            } else if (ticksSinceLastAttack >= 80) {
                 System.out.println("four seconds");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
+                ticksSinceLastAttack = 0;
             }
         }
     }
 
     private void chargeAttack(){
+        System.out.println("called");
         setSpinning(false);
         System.out.println(getChargeTicks());
         if(getChargeTicks() == 40){
             shootFreezingProjectile(getAttackTarget());
             setSpinning(true);
             setChargeTicks(0);
+            setCharging(false);
         }
     }
 
