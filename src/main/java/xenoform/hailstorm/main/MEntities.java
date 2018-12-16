@@ -24,11 +24,11 @@ public class MEntities {
 		//Animals
 	    EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "penguin"), EntityPenguin.class,
 				"penguin", EntityID++, Hailstorm.instance, 64, 3, true, 0x000000, 0xFFFFFF);
-		//Mobs
-		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "roller"), EntitySnowRoller.class,
-				"roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "nix"), EntityNix.class, "nix",
 				EntityID++, Hailstorm.instance, 64, 3, true, 0x00e1ff, 0xffffff);
+
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "roller"), EntitySnowRoller.class,
+				"roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "blizzard"), EntityBlizzard.class,
 				"blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
@@ -43,12 +43,12 @@ public class MEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "penguin_egg"),
 				EntityPenguinEgg.class, "penguin_egg", EntityID++, Hailstorm.instance, 64, 3, true);
 	}
-	
+
 	public static void init() {
 		EntityRegistry.addSpawn(EntityPenguin.class, 70, 8, 16, EnumCreatureType.CREATURE, COLD_BIOMES);
-		
-		EntityRegistry.addSpawn(EntitySnowRoller.class, 100, 1, 2, EnumCreatureType.CREATURE, COLD_BIOMES);
-		EntityRegistry.addSpawn(EntityNix.class, 20, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
-		EntityRegistry.addSpawn(EntityBlizzard.class, 55, 1, 1, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntityNix.class, 35, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
+
+		EntityRegistry.addSpawn(EntitySnowRoller.class, 85, 1, 4, EnumCreatureType.CREATURE, COLD_BIOMES);
+		EntityRegistry.addSpawn(EntityBlizzard.class, 50, 1, 1, EnumCreatureType.MONSTER, COLD_BIOMES);
 	}
 }

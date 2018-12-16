@@ -3,6 +3,8 @@
 tile.cryonite_ore.name=Cryonite Ore
 tile.cryonite_block.name=Block of Cryonite
 
+tile.arctic_willow.name=Arctic Willow
+
 ##Items##
 
 item.cryonite_sword.name=Cryonite Sword
