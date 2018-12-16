@@ -140,40 +140,17 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		ticksSinceLastAttack++;
 		setTicksSinceLastAttack(ticksSinceLastAttack);
 
-		// System.out.println("last attack:" + ticksSinceLastAttack);
-		// System.out.println("charge:" + chargeTicks);
-
-		// System.out.println(ticksSinceLastAttack);
-		// System.out.println(getChargeTicks());
-		// System.out.println(getCharging());
-
 		boolean thirtyPercent = rand.nextInt(3) == 0;
 
 		if (!world.isRemote && getAttackTarget() != null) {
 			if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
-				System.out.println(this + "one second");
-				setCharging(true);
-				chargeAttack();
-				setTicksSinceLastAttack(0);
-				ticksSinceLastAttack = 0;
+                resetStuff();
 			} else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
-				System.out.println(this + "two seconds");
-				setCharging(true);
-				chargeAttack();
-				setTicksSinceLastAttack(0);
-				ticksSinceLastAttack = 0;
+                resetStuff();
 			} else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
-				System.out.println(this + "three seconds");
-				setCharging(true);
-				chargeAttack();
-				setTicksSinceLastAttack(0);
-				ticksSinceLastAttack = 0;
+                resetStuff();
 			} else if (getTicksSinceLastAttack() >= 80) {
-				System.out.println(this + "four seconds");
-				setCharging(true);
-				chargeAttack();
-				setTicksSinceLastAttack(0);
-				ticksSinceLastAttack = 0;
+                resetStuff();
 			}
 		}
 		if (!this.world.isRemote && this.getAttackTarget() != null) {
@@ -198,10 +175,15 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		this.rotationYaw = (float) MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float) Math.PI) - 90.0F;
 	}
 
+	private void resetStuff(){
+        setCharging(true);
+        chargeAttack();
+        setTicksSinceLastAttack(0);
+        ticksSinceLastAttack = 0;
+    }
+
 	private void chargeAttack() {
-		System.out.println(this + "called");
 		setSpinning(false);
-		System.out.println(getChargeTicks());
 		if (getChargeTicks() == 40) {
 			shootFreezingProjectile(getAttackTarget());
 			setSpinning(true);
@@ -240,7 +222,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		else if (damageSrc == DamageSource.LAVA)
 			super.damageEntity(damageSrc, damageAmount * 3);
 		else if (getSpinning())
-			return;
+			super.damageEntity(null, 0);
 		else
 			super.damageEntity(damageSrc, damageAmount);
 	}
