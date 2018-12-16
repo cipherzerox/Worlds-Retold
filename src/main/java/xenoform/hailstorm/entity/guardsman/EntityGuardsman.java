@@ -114,7 +114,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
             }
         }
 
-        boolean minHeight = world.getBlockState(getPosition().down(3)) == Blocks.AIR.getDefaultState();
+        boolean minHeight = world.getBlockState(getPosition().down(2)) == Blocks.AIR.getDefaultState();
 
         if(!minHeight)
             motionY += .1;
@@ -130,31 +130,48 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
             if (chargeTicks >= 40 && !getCharging()) {
                 setChargeTicks(0);
                 chargeTicks = 0;
-                System.out.println("not");
             }
         }
 
         ticksSinceLastAttack++;
         setTicksSinceLastAttack(ticksSinceLastAttack);
 
+     //   System.out.println("last attack:" + ticksSinceLastAttack);
+     //   System.out.println("charge:" + chargeTicks);
+
+     //   System.out.println(ticksSinceLastAttack);
+     //   System.out.println(getChargeTicks());
+     //   System.out.println(getCharging());
+
         boolean thirtyPercent = rand.nextInt(3) == 0;
 
         if(!world.isRemote && getAttackTarget() != null) {
-            if (ticksSinceLastAttack == 20 && thirtyPercent) {
-                System.out.println("one second");
-                resetStuff();
-            } else if (ticksSinceLastAttack == 40 && thirtyPercent) {
-                System.out.println("two seconds");
-                resetStuff();
-            } else if (ticksSinceLastAttack == 60 && thirtyPercent) {
-                System.out.println("three seconds");
-                resetStuff();
-            } else if (ticksSinceLastAttack >= 80) {
-                System.out.println("four seconds");
-                resetStuff();
+            if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
+                System.out.println(this + "one second");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+                ticksSinceLastAttack = 0;
+            } else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
+                System.out.println(this + "two seconds");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+                ticksSinceLastAttack = 0;
+            } else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
+                System.out.println(this + "three seconds");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+                ticksSinceLastAttack = 0;
+            } else if (getTicksSinceLastAttack() >= 80) {
+                System.out.println(this + "four seconds");
+                setCharging(true);
+                chargeAttack();
+                setTicksSinceLastAttack(0);
+                ticksSinceLastAttack = 0;
             }
         }
-
         if (!this.world.isRemote && this.getAttackTarget() != null) {
             Entity entity = this.getAttackTarget();
 
@@ -172,17 +189,10 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
         }
 
         this.rotationYaw = (float) MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float) Math.PI) - 90.0F;
-
-    }
-
-    private void resetStuff(){
-        setCharging(true);
-        chargeAttack();
-        setTicksSinceLastAttack(0);
-        ticksSinceLastAttack = 0;
     }
 
     private void chargeAttack(){
+        System.out.println(this + "called");
         setSpinning(false);
         System.out.println(getChargeTicks());
         if(getChargeTicks() == 40){
@@ -246,16 +256,4 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
         this.setCharging(compound.getBoolean("Charging"));
         this.setChargeTicks(compound.getInteger("ChargeTicks"));
     }
-
-	public int getTalkInterval() {
-		return 160;
-	}
-
-	public int getHorizontalFaceSpeed() {
-		return 500;
-	}
-
-	public int getVerticalFaceSpeed() {
-		return 500;
-	}
 }
