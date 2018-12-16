@@ -139,6 +139,8 @@ public class ModelGuardsman extends ModelBase {
             this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
             this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
             this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
+			this.Head.rotateAngleX = headPitch / 57.295776f;
+			this.Head.rotateAngleY = netHeadYaw / 57.295776f;
         }
     }
 }
