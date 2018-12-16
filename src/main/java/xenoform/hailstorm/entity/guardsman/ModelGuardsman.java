@@ -122,8 +122,8 @@ public class ModelGuardsman extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-        if(entityIn instanceof EntityIceGuardsman) {
-            EntityIceGuardsman guardsman = (EntityIceGuardsman) entityIn;
+        if(entityIn instanceof EntityGuardsman) {
+            EntityGuardsman guardsman = (EntityGuardsman) entityIn;
             if (guardsman.getSpinning()) {
                 this.Shield1.rotateAngleY = 0.1762F * ageInTicks * 2.6F;
                 this.Shield2.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 1.5F;
