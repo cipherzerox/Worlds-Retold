@@ -247,4 +247,15 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
         this.setChargeTicks(compound.getInteger("ChargeTicks"));
     }
 
+	public int getTalkInterval() {
+		return 160;
+	}
+
+	public int getHorizontalFaceSpeed() {
+		return 500;
+	}
+
+	public int getVerticalFaceSpeed() {
+		return 500;
+	}
 }
