@@ -2,6 +2,7 @@ package xenoform.hailstorm.entity.guardsman;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -14,6 +15,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
@@ -36,6 +39,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	private Random rand = new Random();
 	private int ticksSinceLastAttack = 0;
 	private int chargeTicks = 0;
+    public int deathTicks;
 
 	public EntityGuardsman(World world) {
 		super(world);
@@ -258,4 +262,14 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		this.setCharging(compound.getBoolean("Charging"));
 		this.setChargeTicks(compound.getInteger("ChargeTicks"));
 	}
+	
+	protected void onDeathUpdate()
+    {
+        ++this.deathTicks;
+        
+        if (this.deathTicks == 100 && !this.world.isRemote)
+        {
+            this.setDead();
+        }
+    }
 }
