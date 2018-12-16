@@ -2,7 +2,6 @@ package xenoform.hailstorm.entity.guardsman;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -15,8 +14,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
@@ -108,7 +105,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		super.onLivingUpdate();
 
 		if (getAttackTarget() == null) {
-			List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
+			List<EntityPlayer> list = this.world.getEntitiesWithinAABB(EntityPlayer.class,
 					this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
 			for (EntityPlayer entity : list) {
 				if (entity != null)
@@ -156,7 +153,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		if (!this.world.isRemote && this.getAttackTarget() != null) {
 			Entity entity = this.getAttackTarget();
 			
-			this.getLookHelper().setLookPositionWithEntity((Entity) getAttackTarget(), 10.0f,
+			this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), 10.0f,
 					(float) this.getVerticalFaceSpeed());
 
 			if (entity != null) {
