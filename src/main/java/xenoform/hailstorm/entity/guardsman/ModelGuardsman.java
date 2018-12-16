@@ -2,7 +2,6 @@ package xenoform.hailstorm.entity.guardsman;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
@@ -127,31 +126,33 @@ public class ModelGuardsman extends ModelBase {
             EntityGuardsman guardsman = (EntityGuardsman) entityIn;
 			this.Head.rotateAngleX = headPitch / 50f;
 			this.Head.rotateAngleY = netHeadYaw / 50f;
-			
-            if (guardsman.getSpinning()) {
-                this.Shield1.rotateAngleY = 0.1762F * ageInTicks * 2.6F;
-                this.Shield2.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 1.5F;
-                this.Shield3.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 3.0F;
-                this.Shield4.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 4.5F;
-                this.Shield1.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 4.0F + 2;
-                this.Shield2.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 3.0F + 2;
-                this.Shield3.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.0F + 2;
-                this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
-            } else {
-                this.Shield1.rotateAngleY = 0.007F * ageInTicks * 2.6F;
-                this.Shield2.rotateAngleY = 0.007F * ageInTicks * 2.6F + 1.5F;
-                this.Shield3.rotateAngleY = 0.007F * ageInTicks * 2.6F + 3.0F;
-                this.Shield4.rotateAngleY = 0.007F * ageInTicks * 2.6F + 4.5F;
-                this.Shield1.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 4.0F + 2;
-                this.Shield2.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 3.0F + 2;
-                this.Shield3.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.0F + 2;
-                this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
-            }
 
-            this.Float1.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
-            this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
-            this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
-            this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
+			if(guardsman.deathTicks == 0) {
+                if (guardsman.getSpinning()) {
+                    this.Shield1.rotateAngleY = 0.1762F * ageInTicks * 2.6F;
+                    this.Shield2.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 1.5F;
+                    this.Shield3.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 3.0F;
+                    this.Shield4.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 4.5F;
+                    this.Shield1.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 4.0F + 2;
+                    this.Shield2.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 3.0F + 2;
+                    this.Shield3.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.0F + 2;
+                    this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
+                } else {
+                    this.Shield1.rotateAngleY = 0.007F * ageInTicks * 2.6F;
+                    this.Shield2.rotateAngleY = 0.007F * ageInTicks * 2.6F + 1.5F;
+                    this.Shield3.rotateAngleY = 0.007F * ageInTicks * 2.6F + 3.0F;
+                    this.Shield4.rotateAngleY = 0.007F * ageInTicks * 2.6F + 4.5F;
+                    this.Shield1.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 4.0F + 2;
+                    this.Shield2.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 3.0F + 2;
+                    this.Shield3.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.0F + 2;
+                    this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
+                }
+
+                this.Float1.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
+                this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
+                this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
+                this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
+            }
         }
     }
 }
