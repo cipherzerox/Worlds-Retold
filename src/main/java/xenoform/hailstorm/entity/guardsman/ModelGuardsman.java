@@ -129,16 +129,16 @@ public class ModelGuardsman extends ModelBase {
                 this.Shield2.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 1.5F;
                 this.Shield3.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 3.0F;
                 this.Shield4.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 4.5F;
+                this.Shield1.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 4.0F + 2;
+                this.Shield2.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 3.0F + 2;
+                this.Shield3.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.0F + 2;
+                this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
             }
 
             this.Float1.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
             this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
             this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
             this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
-            this.Shield1.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 4.0F + 2;
-            this.Shield2.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 3.0F + 2;
-            this.Shield3.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.0F + 2;
-            this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
         }
     }
 }
