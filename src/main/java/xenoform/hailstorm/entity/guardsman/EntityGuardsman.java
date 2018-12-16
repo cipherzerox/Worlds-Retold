@@ -113,10 +113,10 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 
 		boolean minHeight = world.getBlockState(getPosition().down(2)) == Blocks.AIR.getDefaultState();
-        boolean maxHeight = world.getBlockState(getPosition().down(4)) == Blocks.AIR.getDefaultState();
+        boolean maxHeight = world.getBlockState(getPosition().down(4)) != Blocks.AIR.getDefaultState();
 		if (!minHeight)
 			motionY += .1;
-		else if(maxHeight)
+		else if(!maxHeight)
 			motionY -= .1;
 		else
 		    motionY = 0;
