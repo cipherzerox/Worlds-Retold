@@ -9,7 +9,7 @@ import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.entity.automaton.EntityAutomaton;
 import xenoform.hailstorm.entity.blizzard.EntityBlizzard;
 import xenoform.hailstorm.entity.blizzard.hail.EntityHail;
-import xenoform.hailstorm.entity.guardsman.EntityIceGuardsman;
+import xenoform.hailstorm.entity.guardsman.EntityGuardsman;
 import xenoform.hailstorm.entity.nix.EntityNix;
 import xenoform.hailstorm.entity.penguin.EntityPenguin;
 import xenoform.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
@@ -26,15 +26,15 @@ public class MEntities {
 				"penguin", EntityID++, Hailstorm.instance, 64, 3, true, 0x000000, 0xFFFFFF);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "nix"), EntityNix.class, "nix",
 				EntityID++, Hailstorm.instance, 64, 3, true, 0x00e1ff, 0xffffff);
-
+		//Monsters
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "roller"), EntitySnowRoller.class,
 				"roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "blizzard"), EntityBlizzard.class,
 				"blizzard", EntityID++, Hailstorm.instance, 64, 3, true, 0xbff4ff, 0x00d4ff);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
 				"automaton", EntityID++, Hailstorm.instance, 64, 3, true);
-        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "ice_guardsman"), EntityIceGuardsman.class,
-                "ice_guardsman", EntityID++, Hailstorm.instance, 64, 3, true, 0x84b3ff, 0x647796);
+        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "guardsman"), EntityGuardsman.class,
+                "guardsman", EntityID++, Hailstorm.instance, 64, 3, true, 0x84b3ff, 0x647796);
         //Projectiles
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);

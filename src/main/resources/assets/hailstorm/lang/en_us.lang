@@ -39,11 +39,12 @@ item.statue.name=Statue
 ##Entities##
 
 entity.penguin.name=Penguin
+entity.nix.name=Nix
 
 entity.roller.name=Snow Roller
-entity.nix.name=Nix
 entity.blizzard.name=Blizzard
 entity.automaton.name=Automaton
+entity.guardsman.name=Guardsman
 
 ##Damage Sources##
 
