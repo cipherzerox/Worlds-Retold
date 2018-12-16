@@ -1,5 +1,6 @@
 package xenoform.hailstorm.entity.guardsman;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -13,6 +14,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
@@ -112,7 +114,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
             }
         }
 
-        boolean minHeight = world.getBlockState(getPosition().down(3)) == Blocks.AIR.getDefaultState();
+        boolean minHeight = world.getBlockState(getPosition().down(2)) == Blocks.AIR.getDefaultState();
 
         if(!minHeight)
             motionY += .1;
@@ -128,15 +130,14 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
             if (chargeTicks >= 40 && !getCharging()) {
                 setChargeTicks(0);
                 chargeTicks = 0;
-                System.out.println("not");
             }
         }
 
         ticksSinceLastAttack++;
         setTicksSinceLastAttack(ticksSinceLastAttack);
 
-        System.out.println("last attack:" + ticksSinceLastAttack);
-        System.out.println("charge:" + chargeTicks);
+     //   System.out.println("last attack:" + ticksSinceLastAttack);
+     //   System.out.println("charge:" + chargeTicks);
 
      //   System.out.println(ticksSinceLastAttack);
      //   System.out.println(getChargeTicks());
@@ -145,36 +146,53 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
         boolean thirtyPercent = rand.nextInt(3) == 0;
 
         if(!world.isRemote && getAttackTarget() != null) {
-            if (ticksSinceLastAttack == 20 && thirtyPercent) {
-                System.out.println("one second");
+            if (getTicksSinceLastAttack() == 20 && thirtyPercent) {
+                System.out.println(this + "one second");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
                 ticksSinceLastAttack = 0;
-            } else if (ticksSinceLastAttack == 40 && thirtyPercent) {
-                System.out.println("two seconds");
+            } else if (getTicksSinceLastAttack() == 40 && thirtyPercent) {
+                System.out.println(this + "two seconds");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
                 ticksSinceLastAttack = 0;
-            } else if (ticksSinceLastAttack == 60 && thirtyPercent) {
-                System.out.println("three seconds");
+            } else if (getTicksSinceLastAttack() == 60 && thirtyPercent) {
+                System.out.println(this + "three seconds");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
                 ticksSinceLastAttack = 0;
-            } else if (ticksSinceLastAttack >= 80) {
-                System.out.println("four seconds");
+            } else if (getTicksSinceLastAttack() >= 80) {
+                System.out.println(this + "four seconds");
                 setCharging(true);
                 chargeAttack();
                 setTicksSinceLastAttack(0);
                 ticksSinceLastAttack = 0;
             }
         }
+        if (!this.world.isRemote && this.getAttackTarget() != null) {
+            Entity entity = this.getAttackTarget();
+
+            if (entity != null) {
+                double d0 = entity.posX - this.posX;
+                double d1 = entity.posZ - this.posZ;
+                double d3 = d0 * d0 + d1 * d1;
+
+                if (d3 > 9.0D) {
+                    double d5 = (double) MathHelper.sqrt(d3);
+                    this.motionX += (d0 / d5 * 0.5D - this.motionX) * 0.1000000238418579D;
+                    this.motionZ += (d1 / d5 * 0.5D - this.motionZ) * 0.1000000238418579D;
+                }
+            }
+        }
+
+        this.rotationYaw = (float) MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float) Math.PI) - 90.0F;
     }
 
     private void chargeAttack(){
-        System.out.println("called");
+        System.out.println(this + "called");
         setSpinning(false);
         System.out.println(getChargeTicks());
         if(getChargeTicks() == 40){
