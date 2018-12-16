@@ -2,7 +2,6 @@ package xenoform.hailstorm.entity.guardsman;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
@@ -151,7 +150,7 @@ public class ModelGuardsman extends ModelBase {
 			this.Float1.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
 			this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
 			this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
-			
+
 			if (guardsman.deathTicks > 0) {
 				this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 2.5F + 12.5F;
 			} else {

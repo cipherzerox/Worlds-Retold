@@ -15,16 +15,16 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
-
-import javax.annotation.Nullable;
 
 public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreature {
 
@@ -270,10 +270,22 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	}
 
 	protected void onDeathUpdate() {
-		++this.deathTicks;
+		this.deathTicks++;
+
+		for(int i = 0; i < 20; i++) {
+            spawnSnow(1);
+            spawnSnow(-1);
+        }
 
 		if (this.deathTicks == 100 && !this.world.isRemote) {
 			this.setDead();
 		}
 	}
+
+	private void spawnSnow(int yDirec){
+        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble(), rand.nextDouble() * yDirec, rand.nextFloat());
+        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble() * -1, rand.nextDouble() * yDirec, rand.nextFloat());
+        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble(), rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble() * -1, rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+    }
 }
