@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -144,5 +145,9 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 			else
 				super.damageEntity(damageSrc, damageAmount);
 		}
+	}
+
+	public boolean getCanSpawnHere() {
+		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && super.getCanSpawnHere();
 	}
 }

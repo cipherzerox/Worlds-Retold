@@ -106,7 +106,7 @@ public class EntityPenguin extends EntityAnimal {
 	}
 
 	public float getEyeHeight() {
-		return this.height;
+		return this.height - 0.15F;
 	}
 
 	protected void applyEntityAttributes() {
