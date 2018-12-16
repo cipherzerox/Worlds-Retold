@@ -2,7 +2,6 @@ package xenoform.hailstorm.entity.guardsman;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -16,9 +15,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
@@ -107,7 +103,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.3D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(100D);
 	}
-	
+
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -179,22 +175,22 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 					resetStuff();
 				}
 			}
-			if (!this.world.isRemote && this.getAttackTarget() != null) {
-				Entity entity = this.getAttackTarget();
+		}
+		if (!this.world.isRemote && this.getAttackTarget() != null) {
+			Entity entity = this.getAttackTarget();
 
-				this.getLookHelper().setLookPositionWithEntity((Entity) getAttackTarget(), 10.0f,
-						(float) this.getVerticalFaceSpeed());
+			this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), 10.0f,
+					(float) this.getVerticalFaceSpeed());
 
-				if (entity != null) {
-					double d0 = entity.posX - this.posX;
-					double d1 = entity.posZ - this.posZ;
-					double d3 = d0 * d0 + d1 * d1;
+			if (entity != null) {
+				double d0 = entity.posX - this.posX;
+				double d1 = entity.posZ - this.posZ;
+				double d3 = d0 * d0 + d1 * d1;
 
-					if (d3 > 9.0D) {
-						double d5 = (double) MathHelper.sqrt(d3);
-						this.motionX += (d0 / d5 * 0.25D - this.motionX) * 0.1000000238418579D;
-						this.motionZ += (d1 / d5 * 0.25D - this.motionZ) * 0.1000000238418579D;
-					}
+				if (d3 > 9.0D) {
+					double d5 = (double) MathHelper.sqrt(d3);
+					this.motionX += (d0 / d5 * 0.25D - this.motionX) * 0.1000000238418579D;
+					this.motionZ += (d1 / d5 * 0.25D - this.motionZ) * 0.1000000238418579D;
 				}
 			}
 
