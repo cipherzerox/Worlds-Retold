@@ -24,24 +24,19 @@ public class RenderGuardsman extends RenderLiving<EntityGuardsman> {
 	private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/guardsman.png");
 	private ResourceLocation DYING_TEXTURE = new ResourceLocation("hailstorm:textures/entity/guardsman_dying.png");
 	private ResourceLocation SHOOTING_TEXTURE = new ResourceLocation(
-			"hailstorm:textures/entity/guardsman_charging.png");
-	private ResourceLocation GLOW_TEXTURE = new ResourceLocation("hailstorm:textures/entity/guardsman_glow.png");
+			"hailstorm:textures/entity/guardsman_shooting.png");
 
 	public static final RenderGuardsman.Factory FACTORY = new RenderGuardsman.Factory();
 
 	public RenderGuardsman(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelGuardsman(), 0.55F);
-		this.addLayer(new LayerGuardsmanGlow(this, GLOW_TEXTURE));
+		this.addLayer(new LayerGuardsmanGlow(this, SHOOTING_TEXTURE));
 	}
 
 	@Override
 	@Nonnull
 	public ResourceLocation getEntityTexture(@Nonnull EntityGuardsman entity) {
-		if (entity.getCharging()) {
-			return SHOOTING_TEXTURE;
-		} else {
-			return TEXTURE;
-		}
+		return TEXTURE;
 	}
 
 	@Override

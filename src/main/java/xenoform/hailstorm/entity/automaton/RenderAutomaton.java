@@ -12,14 +12,13 @@ import xenoform.hailstorm.entity.layer.LayerAutomatonGlow;
 import javax.annotation.Nonnull;
 
 public class RenderAutomaton extends RenderBiped<EntityAutomaton> {
-	private ResourceLocation GLOW_TEXTURE = new ResourceLocation("hailstorm:textures/entity/automaton_glow.png");
 	private ResourceLocation ACTIVE_TEXTURE = new ResourceLocation("hailstorm:textures/entity/automaton_active.png");
 	private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/automaton.png");
 	public static final RenderAutomaton.Factory FACTORY = new RenderAutomaton.Factory();
 
 	public RenderAutomaton(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelAutomaton(), 0.5F);
-		this.addLayer(new LayerAutomatonGlow(this, GLOW_TEXTURE));
+		this.addLayer(new LayerAutomatonGlow(this, ACTIVE_TEXTURE));
 		this.addLayer(new LayerBipedArmor(this) {
 			protected void initArmor() {
 				this.modelLeggings = new ModelBiped(0.5F);
@@ -31,11 +30,7 @@ public class RenderAutomaton extends RenderBiped<EntityAutomaton> {
 	@Override
 	@Nonnull
 	public ResourceLocation getEntityTexture(@Nonnull EntityAutomaton entity) {
-		if (entity.isActive()) {
-			return ACTIVE_TEXTURE;
-		} else {
-			return TEXTURE;
-		}
+		return TEXTURE;
 	}
 
 	@Override

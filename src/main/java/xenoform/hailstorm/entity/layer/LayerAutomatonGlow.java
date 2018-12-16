@@ -15,7 +15,7 @@ public class LayerAutomatonGlow<T extends EntityLivingBase> implements LayerRend
 	private float alpha;
 
 	public LayerAutomatonGlow(final RenderLivingBase<T> renderer, final ResourceLocation glowTexture) {
-		this.alpha = 0.6f;
+		this.alpha = 0.7f;
 		this.renderer = renderer;
 		this.glowTexture = glowTexture;
 	}

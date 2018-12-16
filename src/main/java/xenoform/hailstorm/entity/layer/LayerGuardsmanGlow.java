@@ -16,7 +16,7 @@ public class LayerGuardsmanGlow<T extends EntityLivingBase> implements LayerRend
 	private float alpha;
 
 	public LayerGuardsmanGlow(final RenderLivingBase<T> renderer, final ResourceLocation glowTexture) {
-		this.alpha = 0.5f;
+		this.alpha = 0.75f;
 		this.renderer = renderer;
 		this.glowTexture = glowTexture;
 	}
