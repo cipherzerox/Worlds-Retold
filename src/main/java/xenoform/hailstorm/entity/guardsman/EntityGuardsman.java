@@ -105,7 +105,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 
 		if (getAttackTarget() == null) {
 			List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
-					this.getEntityBoundingBox().expand(16.0D, 16.0D, 16.0D));
+					this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
 			for (EntityPlayer entity : list) {
 				if (entity != null)
 					setAttackTarget(entity);
