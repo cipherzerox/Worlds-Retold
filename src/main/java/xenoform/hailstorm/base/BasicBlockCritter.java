@@ -24,20 +24,12 @@ public class BasicBlockCritter extends BasicBlock {
 			"variant", BasicBlockCritter.EnumType.class);
 	protected static String name;
 
-	public BasicBlockCritter() {
+	public BasicBlockCritter(String name) {
 		super(Material.CLAY, name, 0.75F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BasicBlockCritter.EnumType.STONE));
 		this.setHardness(0.0F);
 		this.setCreativeTab(CreativeTabs.DECORATIONS);
 		BasicBlock.name = name;
-		setUnlocalizedName(name);
-		setRegistryName(name);
-	}
-	
-	@Override
-	public BasicBlock setCreativeTab(CreativeTabs tab) {
-		super.setCreativeTab(tab);
-		return this;
 	}
 
 	/**
@@ -50,21 +42,17 @@ public class BasicBlockCritter extends BasicBlock {
 	public static boolean canContainSilverfish(IBlockState blockState) {
 		Block block = blockState.getBlock();
 		return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE)
-				|| block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
+				|| block == Blocks.COBBLESTONE || block == Blocks.MOSSY_COBBLESTONE || block == Blocks.PACKED_ICE;
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
 		switch ((BasicBlockCritter.EnumType) state.getValue(VARIANT)) {
 		case COBBLESTONE:
 			return new ItemStack(Blocks.COBBLESTONE);
-		case STONEBRICK:
-			return new ItemStack(Blocks.STONEBRICK);
-		case MOSSY_STONEBRICK:
-			return new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.MOSSY.getMetadata());
-		case CRACKED_STONEBRICK:
-			return new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CRACKED.getMetadata());
-		case CHISELED_STONEBRICK:
-			return new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CHISELED.getMetadata());
+		case MOSSY_COBBLESTONE:
+			return new ItemStack(Blocks.MOSSY_COBBLESTONE);
+		case PACKED_ICE:
+			return new ItemStack(Blocks.PACKED_ICE);
 		default:
 			return new ItemStack(Blocks.STONE);
 		}
@@ -126,28 +114,14 @@ public class BasicBlockCritter extends BasicBlock {
 				return Blocks.COBBLESTONE.getDefaultState();
 			}
 		},
-		STONEBRICK(2, "stone_brick", "brick") {
+		MOSSY_COBBLESTONE(2, "mossy_cobblestone", "stoneMoss") {
 			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT,
-						BlockStoneBrick.EnumType.DEFAULT);
+				return Blocks.MOSSY_COBBLESTONE.getDefaultState();
 			}
 		},
-		MOSSY_STONEBRICK(3, "mossy_brick", "mossybrick") {
+		PACKED_ICE(3, "packed_ice", "icePacked") {
 			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT,
-						BlockStoneBrick.EnumType.MOSSY);
-			}
-		},
-		CRACKED_STONEBRICK(4, "cracked_brick", "crackedbrick") {
-			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT,
-						BlockStoneBrick.EnumType.CRACKED);
-			}
-		},
-		CHISELED_STONEBRICK(5, "chiseled_brick", "chiseledbrick") {
-			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT,
-						BlockStoneBrick.EnumType.CHISELED);
+				return Blocks.PACKED_ICE.getDefaultState();
 			}
 		};
 
