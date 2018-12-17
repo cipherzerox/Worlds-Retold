@@ -9,12 +9,15 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
@@ -109,7 +112,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return this.rand.nextInt(2) == 0 ? SoundEvents.ENTITY_ILLAGER_PREPARE_BLINDNESS
-						: SoundEvents.ENTITY_ILLAGER_PREPARE_MIRROR;
+				: SoundEvents.ENTITY_ILLAGER_PREPARE_MIRROR;
 	}
 
 	@Nullable
@@ -272,20 +275,47 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	protected void onDeathUpdate() {
 		this.deathTicks++;
 
-		for(int i = 0; i < 20; i++) {
-            spawnSnow(1);
-            spawnSnow(-1);
-        }
+		for (int i = 0; i < 2; i++) {
+			spawnSnow(1);
+			spawnSnow(-1);
+		}
 
 		if (this.deathTicks == 100 && !this.world.isRemote) {
 			this.setDead();
 		}
 	}
 
-	private void spawnSnow(int yDirec){
-        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble(), rand.nextDouble() * yDirec, rand.nextFloat());
-        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble() * -1, rand.nextDouble() * yDirec, rand.nextFloat());
-        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble(), rand.nextDouble() * yDirec, rand.nextFloat() * -1);
-        this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble() * -1, rand.nextDouble() * yDirec, rand.nextFloat() * -1);
-    }
+	private void spawnSnow(int yDirec) {
+		this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY + 1, posZ, rand.nextDouble(),
+				rand.nextDouble() * yDirec, rand.nextFloat());
+		this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY + 1, posZ, rand.nextDouble() * -1,
+				rand.nextDouble() * yDirec, rand.nextFloat());
+		this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY + 1, posZ, rand.nextDouble(),
+				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+		this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY + 1, posZ, rand.nextDouble() * -1,
+				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+	}
+
+	private void spawnSparks(int yDirec) {
+		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble(),
+				rand.nextDouble() * yDirec, rand.nextFloat());
+		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble() * -1,
+				rand.nextDouble() * yDirec, rand.nextFloat());
+		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble(),
+				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble() * -1,
+				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+	}
+
+	public float getEyeHeight() {
+		return this.height - 1F;
+	}
+
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (source != null && !this.getCharging()) {
+			spawnSparks(1);
+			spawnSparks(-1);
+		}
+		return super.attackEntityFrom(source, amount);
+	}
 }

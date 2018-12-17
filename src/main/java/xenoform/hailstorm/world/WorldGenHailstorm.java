@@ -10,10 +10,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import xenoform.hailstorm.main.MBlocks;
+import xenoform.hailstorm.world.feature.WorldGenOverlayedFlower;
+import xenoform.hailstorm.world.structure.StructureHailstormShrine;
 
 import java.util.Random;
 
@@ -27,21 +30,12 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		final int blockZ = (chunkZ << 4) + random.nextInt(16) + 8;
 
 		switch (world.provider.getDimension()) {
-		// Nether
-		case -1:
-			break;
-		// Overworld
 		case 0:
 			generateOre(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
-					world, random, chunkX, chunkZ);
+					world, random, blockX, blockZ);
 			generateHailstormShrine(world, random, blockX, blockZ);
 			generateFlowers(world, random, blockX, blockZ);
-			break;
-		// End
-		case 1:
-			break;
-		// Everything else
-		default:
+			generateBoulders(world, random, blockX, blockZ);
 			break;
 		}
 	}
@@ -54,11 +48,8 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		WorldGenMinable generator = new WorldGenMinable(blockToGen, blockAmount, blockToReplace);
 		int heightdiff = maxHeight - minHeight + 1;
 		for (int i = 0; i < chancesToSpawn; i++) {
-			int x = chunkX * 16 + rand.nextInt(16);
 			int y = minHeight + rand.nextInt(heightdiff);
-			int z = chunkZ * 16 + rand.nextInt(16);
-
-			BlockPos pos = new BlockPos(x, y, z);
+			BlockPos pos = new BlockPos(chunkX, y, chunkZ);
 			if (world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
 					|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
 					|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
@@ -90,6 +81,33 @@ public class WorldGenHailstorm implements IWorldGenerator {
 				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
 				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
 				&& rand.nextInt(10) == 0) {
+			generator.generate(world, rand, pos);
+		}
+	}
+
+	private void generateBoulders(World world, Random rand, int blockX, int blockZ) {
+		WorldGenBlockBlob generator = null;
+		switch (rand.nextInt(3)) {
+		case 0:
+			generator = new WorldGenBlockBlob(Blocks.STONE, 0);
+			break;
+		case 1:
+			generator = new WorldGenBlockBlob(Blocks.PACKED_ICE, 0);
+			break;
+		case 2:
+			generator = new WorldGenBlockBlob(Blocks.MOSSY_COBBLESTONE, 0);
+			break;
+		case 3:
+			generator = new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
+			break;
+		}
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		if ((world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
+				|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
+				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
+				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
+				&& rand.nextInt(16) == 0 && generator != null) {
 			generator.generate(world, rand, pos);
 		}
 	}
