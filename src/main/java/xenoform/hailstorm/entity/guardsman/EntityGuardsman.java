@@ -20,7 +20,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
@@ -98,6 +100,11 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	public void setChargeTicks(int ticks) {
 		this.dataManager.set(CHARGE_TICKS, ticks);
 	}
+	
+    public int getMaxSpawnedInChunk()
+    {
+        return 1;
+    }
 
 	@Override
 	protected void applyEntityAttributes() {
@@ -137,8 +144,9 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
 						this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
 				for (EntityPlayer entity : list) {
-					if (entity != null)
+					if (entity != null) {
 						setAttackTarget(entity);
+					}
 				}
 			}
 

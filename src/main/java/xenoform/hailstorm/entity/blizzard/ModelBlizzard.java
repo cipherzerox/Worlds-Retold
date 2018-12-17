@@ -46,7 +46,7 @@ public class ModelBlizzard extends ModelBase {
 		this.shape5_9.addBox(0.0F, 0.0F, 0.0F, 1, 3, 1, 0.0F);
 		this.setRotateAngle(shape5_9, 0.0F, 0.0F, 0.2617993877991494F);
 		this.CloudlayerHigh_1 = new ModelRenderer(this, 0, 0);
-		this.CloudlayerHigh_1.setRotationPoint(0.0F, -9.0F, 0.0F);
+		this.CloudlayerHigh_1.setRotationPoint(0.0F, -3.0F, 0.0F);
 		this.CloudlayerHigh_1.addBox(-12.5F, 0.0F, -12.5F, 25, 3, 25, 0.0F);
 		this.shape5_3 = new ModelRenderer(this, 0, 48);
 		this.shape5_3.setRotationPoint(6.0F, -1.8F, -5.3F);
@@ -86,7 +86,7 @@ public class ModelBlizzard extends ModelBase {
 		this.shape5_5.addBox(0.0F, 0.0F, 0.0F, 1, 3, 1, 0.0F);
 		this.setRotateAngle(shape5_5, 0.0F, 0.0F, 0.2617993877991494F);
 		this.CloudlayerHigh = new ModelRenderer(this, 0, 0);
-		this.CloudlayerHigh.setRotationPoint(0.0F, -6.0F, 0.0F);
+		this.CloudlayerHigh.setRotationPoint(0.0F, -5.0F, 0.0F);
 		this.CloudlayerHigh.addBox(-15.0F, 0.0F, -15.0F, 30, 5, 30, 0.0F);
 		this.shape5_12 = new ModelRenderer(this, 0, 48);
 		this.shape5_12.setRotationPoint(0.0F, -1.8F, 7.5F);
@@ -110,31 +110,32 @@ public class ModelBlizzard extends ModelBase {
 		this.shape5_10.setRotationPoint(13.5F, -1.8F, 0.0F);
 		this.shape5_10.addBox(0.0F, 0.0F, 0.0F, 1, 3, 1, 0.0F);
 		this.setRotateAngle(shape5_10, 0.0F, 0.0F, 0.2617993877991494F);
-		this.Head.addChild(this.CloudlayerLow);
 		this.RainBlocks.addChild(this.shape5_6);
 		this.RainBlocks.addChild(this.shape5_9);
-		this.Head.addChild(this.CloudlayerHigh_1);
 		this.RainBlocks.addChild(this.shape5_3);
 		this.Head.addChild(this.RainBlocks);
 		this.RainBlocks.addChild(this.shape5_2);
 		this.RainBlocks.addChild(this.shape5_11);
 		this.RainBlocks.addChild(this.shape5_7);
 		this.RainBlocks.addChild(this.shape5);
-		this.Head.addChild(this.CloudlayerMedium);
 		this.RainBlocks.addChild(this.shape5_4);
 		this.RainBlocks.addChild(this.shape5_5);
-		this.Head.addChild(this.CloudlayerHigh);
 		this.RainBlocks.addChild(this.shape5_12);
 		this.Head.addChild(this.PlateHigh);
 		this.RainBlocks.addChild(this.shape5_8);
 		this.RainBlocks.addChild(this.shape5_1);
 		this.Head.addChild(this.PlateLow);
 		this.RainBlocks.addChild(this.shape5_10);
+		this.CloudlayerLow.addChild(this.CloudlayerMedium);
+		this.CloudlayerMedium.addChild(this.CloudlayerHigh);
+		this.CloudlayerHigh.addChild(this.CloudlayerHigh_1);
 	}
 
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+		this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 		this.Head.render(f5);
+		this.CloudlayerLow.render(f5);
 	}
 
 	/**
@@ -148,6 +149,9 @@ public class ModelBlizzard extends ModelBase {
 
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scaleFactor, Entity entityIn) {
+
+		this.Head.rotateAngleX = (float) Math.toRadians(headPitch);
+		this.Head.rotateAngleY = (float) Math.toRadians(netHeadYaw);
 
 		this.shape5.rotationPointY = MathHelper.cos(0.1962F * ageInTicks) * 1.4F;
 		this.shape5_1.rotationPointY = MathHelper.cos(0.1862F * ageInTicks) * 1.4F;
@@ -165,6 +169,11 @@ public class ModelBlizzard extends ModelBase {
 
 		this.PlateHigh.rotateAngleY = 0.1662F * ageInTicks * 1.4F;
 		this.PlateLow.rotateAngleY = 0.1662F * ageInTicks * 1.4F * -1;
-		this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
+
+		float height = 20F;
+		float range = 1.75F;
+		float time = 0.2F;
+		this.Head.rotationPointY = MathHelper.cos(time * ageInTicks) * range + height;
+		this.CloudlayerLow.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.5F + 15.5F;
 	}
 }

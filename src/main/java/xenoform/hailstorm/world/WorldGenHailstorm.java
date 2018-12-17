@@ -32,7 +32,7 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		switch (world.provider.getDimension()) {
 		case 0:
 			generateOre(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
-					world, random, blockX, blockZ);
+					world, random, chunkX, chunkZ);
 			generateHailstormShrine(world, random, blockX, blockZ);
 			generateFlowers(world, random, blockX, blockZ);
 			generateBoulders(world, random, blockX, blockZ);

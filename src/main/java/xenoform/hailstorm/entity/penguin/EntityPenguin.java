@@ -30,6 +30,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -51,6 +52,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import xenoform.hailstorm.Hailstorm;
@@ -92,7 +94,8 @@ public class EntityPenguin extends EntityAnimal {
 	protected void initEntityAI() {
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAITempt(this, 1.25D, false, TEMPTATION_ITEMS));
-		this.tasks.addTask(3, new EntityPenguin.AISlideAway(this));
+		this.tasks.addTask(3, new EntityPenguin.AISlideAway(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(3, new EntityPenguin.AISlideAway(this, EntityArrow.class, 16.0F));
 		this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIFollowParent(this, 1.1D));
 		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
@@ -218,13 +221,39 @@ public class EntityPenguin extends EntityAnimal {
 		compound.setInteger("EggLayTime", this.timeUntilNextEgg);
 	}
 
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		if (rand.nextInt(8) == 0) {
+			if (livingdata instanceof EntityPenguin.GroupData) {
+				if (((EntityPenguin.GroupData) livingdata).madeParent) {
+					this.setGrowingAge(-24000);
+				}
+			} else {
+				EntityPenguin.GroupData entitypenguin$groupdata = new EntityPenguin.GroupData();
+				entitypenguin$groupdata.madeParent = true;
+				livingdata = entitypenguin$groupdata;
+			}
+		}
+		return livingdata;
+	}
+
+	static class GroupData implements IEntityLivingData {
+		public boolean madeParent;
+
+		private GroupData() {
+		}
+	}
+
 	class AISlideAway extends EntityAIAvoidEntity {
 
 		private EntityPenguin entity;
+		private Class entityToAvoid;
+		private float avoidDistance;
 
-		public AISlideAway(EntityPenguin entityIn) {
-			super(entityIn, EntityPlayer.class, 8.0F, 1.75D, 2.0D);
+		public AISlideAway(EntityPenguin entityIn, Class entityToAvoidIn, float avoidDistanceIn) {
+			super(entityIn, entityToAvoidIn, avoidDistanceIn, 1.75D, 2.0D);
 			this.entity = entityIn;
+			this.entityToAvoid = entityToAvoidIn;
+			this.avoidDistance = avoidDistanceIn;
 		}
 
 		public void startExecuting() {

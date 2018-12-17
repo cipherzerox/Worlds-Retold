@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import xenoform.hailstorm.entity.layer.LayerBlizzardCloud;
+import xenoform.hailstorm.entity.layer.LayerGuardsmanGlow;
 
 import javax.annotation.Nonnull;
 
@@ -17,6 +19,7 @@ public class RenderBlizzard extends RenderLiving<EntityBlizzard>
     public RenderBlizzard(RenderManager renderManagerIn)
     {
         super(renderManagerIn, new ModelBlizzard(), 0.55F);
+		this.addLayer(new LayerBlizzardCloud(this));
     }
 
     @Override
