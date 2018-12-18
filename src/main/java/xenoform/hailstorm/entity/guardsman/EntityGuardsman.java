@@ -1,5 +1,6 @@
 package xenoform.hailstorm.entity.guardsman;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import xenoform.hailstorm.entity.EntitySurfaceMonster;
 import xenoform.hailstorm.entity.ISnowCreature;
+import xenoform.hailstorm.particle.ParticleShielded;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -95,11 +97,10 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	public void setChargeTicks(int ticks) {
 		this.dataManager.set(CHARGE_TICKS, ticks);
 	}
-	
-    public int getMaxSpawnedInChunk()
-    {
-        return 1;
-    }
+
+	public int getMaxSpawnedInChunk() {
+		return 1;
+	}
 
 	@Override
 	protected void applyEntityAttributes() {
@@ -127,6 +128,10 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.BLOCK_END_PORTAL_SPAWN;
+	}
+
+	protected float getSoundVolume() {
+		return 1.5F;
 	}
 
 	@Override
@@ -210,6 +215,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		chargeAttack();
 		setTicksSinceLastAttack(0);
 		ticksSinceLastAttack = 0;
+		playSound(SoundEvents.BLOCK_CHEST_OPEN, 2.0F, 0.35F);
 	}
 
 	private void chargeAttack() {
@@ -243,6 +249,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		entitywitherskull.posX = d0;
 		entitywitherskull.posZ = d2;
 		this.world.spawnEntity(entitywitherskull);
+		this.playSound(SoundEvents.ENTITY_WITHER_SHOOT, 1.25F, 0.7F);
 	}
 
 	@Override
@@ -300,14 +307,18 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	}
 
 	private void spawnSparks(int yDirec) {
-		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble(),
+		ParticleShielded newEffect = new ParticleShielded(world, posX, posY + 1, posZ, rand.nextDouble(),
 				rand.nextDouble() * yDirec, rand.nextFloat());
-		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble() * -1,
+		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);
+		ParticleShielded newEffect1 = new ParticleShielded(world, posX, posY + 1, posZ, rand.nextDouble() * -1,
 				rand.nextDouble() * yDirec, rand.nextFloat());
-		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble(),
+		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect1);
+		ParticleShielded newEffect2 = new ParticleShielded(world, posX, posY + 1, posZ, rand.nextDouble(),
 				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
-		this.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, posX, posY + 1, posZ, rand.nextDouble() * -1,
+		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect2);
+		ParticleShielded newEffect3 = new ParticleShielded(world, posX, posY + 1, posZ, rand.nextDouble() * -1,
 				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
+		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);
 	}
 
 	public float getEyeHeight() {
@@ -320,5 +331,8 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 			spawnSparks(-1);
 		}
 		return super.attackEntityFrom(source, amount);
+	}
+
+	public void fall(float distance, float damageMultiplier) {
 	}
 }

@@ -110,8 +110,8 @@ public class ModelPenguin extends ModelBase {
 			this.Tail.rotateAngleX = -0.5f;
 			this.Body.rotateAngleX = 0f;
 			this.Body.offsetY = 0f;
-			this.RArm.rotateAngleZ = ageInTicks;
-			this.LArm.rotateAngleZ = -ageInTicks;
+			this.RArm.rotateAngleZ = ageInTicks + 6.5F;
+			this.LArm.rotateAngleZ = -ageInTicks - 6.5F;
 		}
 		this.RLeg.rotateAngleX = MathHelper.cos(limbSwing * 1.5F) * 0.4F * limbSwingAmount;
 		this.LLeg.rotateAngleX = MathHelper.cos(limbSwing * 1.5F + (float) Math.PI) * 0.4F * limbSwingAmount;

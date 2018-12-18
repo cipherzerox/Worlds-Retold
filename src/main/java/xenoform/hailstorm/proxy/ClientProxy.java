@@ -48,7 +48,7 @@ import xenoform.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoform.hailstorm.entity.roller.EntitySnowRoller;
 import xenoform.hailstorm.entity.roller.RenderSnowRoller;
 import xenoform.hailstorm.main.MBlocks;
-import xenoform.hailstorm.main.MForgeEvents;
+import xenoform.hailstorm.main.MClientEvents;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class ClientProxy extends ServerProxy {
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc.getRenderViewEntity() != null) {
 			if (mc.world != null) {
-				float tickPart = MForgeEvents.getPartialTick();
+				float tickPart = MClientEvents.getPartialTick();
 				RayTraceResult objectMouseOver = mc.getRenderViewEntity().rayTrace(d0, tickPart);
 				double d1 = d0;
 				Vec3d vec3 = mc.getRenderViewEntity().getPositionEyes(tickPart);
