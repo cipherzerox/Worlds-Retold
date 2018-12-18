@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.base.BasicBlock;
+import xenoform.hailstorm.base.BasicBlockCritter;
 import xenoform.hailstorm.base.BasicBlockOre;
 import xenoform.hailstorm.base.BasicBlockOverlayedPlant;
 
@@ -28,6 +29,9 @@ public class MBlocks {
 	@ObjectHolder("arctic_willow")
 	public static BasicBlockOverlayedPlant ARCTIC_WILLOW = new BasicBlockOverlayedPlant("arctic_willow")
 			.setCreativeTab(CreativeTabs.DECORATIONS);
+	
+	@ObjectHolder("critter_egg")
+	public static BasicBlockCritter CRITTER_EGG = new BasicBlockCritter("critter_egg");
 
 	@Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 	public static class RegistrationHandler {
@@ -35,7 +39,7 @@ public class MBlocks {
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event) {
 			final IForgeRegistry<Block> blocks = event.getRegistry();
-			blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW);
+			blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, CRITTER_EGG);
 		}
 	}
 }

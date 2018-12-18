@@ -143,6 +143,7 @@ public class MItems {
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 			itemblocks.registerItemBlock(MBlocks.ARCTIC_WILLOW);
+			itemblocks.registerItemBlock(MBlocks.CRITTER_EGG);
 		}
 
 		private static class ItemBlockRegistry {

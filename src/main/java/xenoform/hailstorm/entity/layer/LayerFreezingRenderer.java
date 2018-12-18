@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public enum FreezingRenderer
+public enum LayerFreezingRenderer
 {
 	INSTANCE;
 
@@ -55,7 +55,7 @@ public enum FreezingRenderer
                 }
                 GlStateManager.enableBlend();
                 GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                this.renderer.bindTexture(FreezingRenderer.FREEZING_TEXTURE);
+                this.renderer.bindTexture(LayerFreezingRenderer.FREEZING_TEXTURE);
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 0.33f);
                 model.render((Entity)living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);

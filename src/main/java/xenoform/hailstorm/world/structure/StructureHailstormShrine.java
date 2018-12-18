@@ -1,4 +1,4 @@
-package xenoform.hailstorm.world;
+package xenoform.hailstorm.world.structure;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -21,6 +21,7 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
 import xenoform.hailstorm.Hailstorm;
 import xenoform.hailstorm.entity.automaton.EntityAutomaton;
+import xenoform.hailstorm.world.WorldGenHailstorm;
 
 import java.util.Map;
 import java.util.Map.Entry;

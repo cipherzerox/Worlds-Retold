@@ -1,9 +1,11 @@
 package xenoform.hailstorm.entity.blizzard;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -43,6 +45,10 @@ public class EntityBlizzard extends EntitySurfaceMonster implements EntityFlying
 		this.tasks.addTask(0, new EntityAIWander(this, 1.8D));
 		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 64));
 	}
+	
+	public float getEyeHeight() {
+		return this.height - 2F;
+	}
 
 	@Override
 	protected void applyEntityAttributes() {
@@ -61,6 +67,9 @@ public class EntityBlizzard extends EntitySurfaceMonster implements EntityFlying
 				if (entity != null)
 					setAttackTarget(entity);
 			}
+		} else {
+			this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), 10.0f,
+					(float) this.getVerticalFaceSpeed());
 		}
 
 		boolean minHeight = world.getBlockState(getPosition().down(8)) == Blocks.AIR.getDefaultState();
@@ -91,7 +100,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements EntityFlying
 		}
 
 		super.onLivingUpdate();
-
+		
 		launchHailToCoords(posX, posY, posZ);
 	}
 

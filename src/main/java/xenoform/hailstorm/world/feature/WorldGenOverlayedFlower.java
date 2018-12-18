@@ -1,4 +1,4 @@
-package xenoform.hailstorm.world;
+package xenoform.hailstorm.world.feature;
 
 import java.util.Random;
 import net.minecraft.block.BlockFlower;

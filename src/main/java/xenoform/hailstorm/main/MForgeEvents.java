@@ -66,7 +66,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.layer.FreezingRenderer.LayerFreezing;
+import xenoform.hailstorm.entity.layer.LayerFreezingRenderer.LayerFreezing;
 import xenoform.hailstorm.potions.PotionFreezing;
 import xenoform.hailstorm.util.RenderHelper;
 
