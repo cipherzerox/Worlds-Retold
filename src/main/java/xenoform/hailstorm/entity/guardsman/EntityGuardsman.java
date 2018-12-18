@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.Blocks;
@@ -45,6 +46,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	public EntityGuardsman(World world) {
 		super(world);
 		setSize(2, 2);
+	//	this.lookHelper = null;
 	}
 
 	@Override
@@ -282,7 +284,12 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 	}
 
-	private void spawnSnow(int yDirec){
+    @Override
+    public EntityLookHelper getLookHelper() {
+        return super.getLookHelper();
+    }
+
+    private void spawnSnow(int yDirec){
         this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble(), rand.nextDouble() * yDirec, rand.nextFloat());
         this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble() * -1, rand.nextDouble() * yDirec, rand.nextFloat());
         this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY, posZ, rand.nextDouble(), rand.nextDouble() * yDirec, rand.nextFloat() * -1);
