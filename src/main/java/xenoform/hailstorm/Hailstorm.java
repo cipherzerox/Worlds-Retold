@@ -22,7 +22,7 @@ import xenoform.hailstorm.world.WorldGenHailstorm;
 public class Hailstorm {
 	public static final String MODID = "hailstorm";
 	public static final String NAME = "Hailstorm";
-	public static final String VERSION = "0.1.0";
+	public static final String VERSION = "B-1";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + Hailstorm.MODID + " </> ");
 	
 	@Instance(MODID)
@@ -42,7 +42,7 @@ public class Hailstorm {
 		MPotions.registerPotions();
 		MEntities.preInit();
 		MEntities.init();
-		MinecraftForge.EVENT_BUS.register(new MForgeEvents());
+		MinecraftForge.EVENT_BUS.register(new MClientEvents());
 		MinecraftForge.EVENT_BUS.register(new MVanillaLootInsertion());
 		Hailstorm.LOGGER.info("Preinitialization Done");
 	}

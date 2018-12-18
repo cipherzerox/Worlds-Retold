@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "(v1.0) 1.12.2-14.23.5.2784"
+version = "(B-1) 1.12.2-14.23.5.2784"
 group = "xenoform.hailstorm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Hailstorm"
 

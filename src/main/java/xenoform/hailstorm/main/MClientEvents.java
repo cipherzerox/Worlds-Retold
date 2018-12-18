@@ -48,6 +48,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -72,7 +73,7 @@ import xenoform.hailstorm.util.RenderHelper;
 
 import java.util.Random;
 
-public class MForgeEvents {
+public class MClientEvents {
 
 	private static float partialTick;
 
@@ -90,4 +91,11 @@ public class MForgeEvents {
 			event.getRenderer().addLayer(new LayerFreezing(event.getRenderer()));
 		}
 	}
+
+	@SubscribeEvent
+	public void stitcherEventPre(TextureStitchEvent.Pre event) {
+		ResourceLocation danger = new ResourceLocation(Hailstorm.MODID, "particle/shielded");
+		event.getMap().registerSprite(danger);
+	}
+
 }

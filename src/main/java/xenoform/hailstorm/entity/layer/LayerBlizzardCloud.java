@@ -23,6 +23,7 @@ public class LayerBlizzardCloud implements LayerRenderer<EntityBlizzard> {
 
 	public void doRenderLayer(EntityBlizzard entitylivingbaseIn, float limbSwing, float limbSwingAmount,
 			float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if (!(entitylivingbaseIn.deathTicks > 0)) {
 		boolean flag = entitylivingbaseIn.isInvisible();
 		GlStateManager.depthMask(!flag);
 		this.blizzardRenderer.bindTexture(CLOUD_TEXTURE);
@@ -41,6 +42,7 @@ public class LayerBlizzardCloud implements LayerRenderer<EntityBlizzard> {
 		GlStateManager.loadIdentity();
 		GlStateManager.matrixMode(5888);
 		GlStateManager.depthMask(flag);
+		}
 	}
 
 	public boolean shouldCombineTextures() {
