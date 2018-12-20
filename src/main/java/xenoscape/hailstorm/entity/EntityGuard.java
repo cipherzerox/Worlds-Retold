@@ -29,12 +29,6 @@ public abstract class EntityGuard extends EntitySurfaceMonster
     }
 
     @Override
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(ACTIVE, false);
-    }
-
-    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 

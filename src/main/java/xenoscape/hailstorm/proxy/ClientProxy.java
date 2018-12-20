@@ -40,6 +40,8 @@ import xenoscape.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 import xenoscape.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoscape.hailstorm.entity.roller.EntitySnowRoller;
 import xenoscape.hailstorm.entity.roller.RenderSnowRoller;
+import xenoscape.hailstorm.entity.sentinel.EntitySentinel;
+import xenoscape.hailstorm.entity.sentinel.RenderSentinel;
 import xenoscape.hailstorm.main.MBlocks;
 import xenoscape.hailstorm.main.MClientEvents;
 
@@ -127,6 +129,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(EntityGuardsman.class, RenderGuardsman.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySentinel.class, RenderSentinel.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,

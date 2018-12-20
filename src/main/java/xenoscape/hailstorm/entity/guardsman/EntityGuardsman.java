@@ -39,9 +39,9 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	protected static final DataParameter<Integer> CHARGE_TICKS = EntityDataManager.createKey(EntityGuardsman.class,
 			DataSerializers.VARINT);
 
-	private Random rand = new Random();
-	private int ticksSinceLastAttack = 0;
-	private int chargeTicks = 0;
+	protected Random rand = new Random();
+	protected int ticksSinceLastAttack = 0;
+	protected int chargeTicks = 0;
 	public int deathTicks;
 
 	public EntityGuardsman(World world) {
@@ -210,7 +210,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 	}
 
-	private void resetStuff() {
+	protected void resetStuff() {
 		setCharging(true);
 		chargeAttack();
 		setTicksSinceLastAttack(0);
@@ -218,7 +218,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		playSound(SoundEvents.BLOCK_CHEST_OPEN, 2.0F, 0.35F);
 	}
 
-	private void chargeAttack() {
+	protected void chargeAttack() {
 		setSpinning(false);
 		if (getChargeTicks() == 40) {
 			shootFreezingProjectile(getAttackTarget());
@@ -228,7 +228,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 	}
 
-	private void shootFreezingProjectile(EntityLivingBase p_82216_2_) {
+	protected void shootFreezingProjectile(EntityLivingBase p_82216_2_) {
 		this.launchWitherSkullToCoords(p_82216_2_.posX, p_82216_2_.posY + (double) p_82216_2_.getEyeHeight() * 0.5D,
 				p_82216_2_.posZ);
 	}
@@ -236,7 +236,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	/**
 	 * Launches a Wither skull toward (par2, par4, par6)
 	 */
-	private void launchWitherSkullToCoords(double x, double y, double z) {
+	protected void launchWitherSkullToCoords(double x, double y, double z) {
 		double d0 = this.posX;
 		double d1 = this.posY;
 		double d2 = this.posZ;
@@ -295,7 +295,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 	}
 
-	private void spawnSnow(int yDirec) {
+	protected void spawnSnow(int yDirec) {
 		this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY + 1, posZ, rand.nextDouble(),
 				rand.nextDouble() * yDirec, rand.nextFloat());
 		this.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, posX, posY + 1, posZ, rand.nextDouble() * -1,
@@ -306,7 +306,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 				rand.nextDouble() * yDirec, rand.nextFloat() * -1);
 	}
 
-	private void spawnSparks(int yDirec) {
+	protected void spawnSparks(int yDirec) {
 		ParticleShielded newEffect = new ParticleShielded(world, posX, posY + 1, posZ, rand.nextDouble(),
 				rand.nextDouble() * yDirec, rand.nextFloat());
 		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect);

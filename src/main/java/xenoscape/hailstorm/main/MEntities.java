@@ -14,6 +14,7 @@ import xenoscape.hailstorm.entity.nix.EntityNix;
 import xenoscape.hailstorm.entity.penguin.EntityPenguin;
 import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoscape.hailstorm.entity.roller.EntitySnowRoller;
+import xenoscape.hailstorm.entity.sentinel.EntitySentinel;
 
 public class MEntities {
 	private static int EntityID = 0;
@@ -35,6 +36,8 @@ public class MEntities {
 				"automaton", EntityID++, Hailstorm.instance, 64, 3, true);
         EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "guardsman"), EntityGuardsman.class,
                 "guardsman", EntityID++, Hailstorm.instance, 64, 3, true, 0x84b3ff, 0x647796);
+        EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "sentinel"), EntitySentinel.class,
+                "sentinel", EntityID++, Hailstorm.instance, 64, 3, true, 0x647796, 0x8b9099);
         //Projectiles
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);
