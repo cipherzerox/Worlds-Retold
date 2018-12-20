@@ -105,6 +105,11 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "type": "item",
+                    "name": "hailstorm:blizz_scroll",
+                    "weight": 5
                 }
             ]
         }

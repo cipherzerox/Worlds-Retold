@@ -5,6 +5,11 @@ tile.cryonite_block.name=Block of Cryonite
 
 tile.arctic_willow.name=Arctic Willow
 
+tile.stone_critter_egg.name=Stone Critter Egg
+tile.cobble_critter_egg.name=Cobblestone Critter Egg
+tile.mosscobble_critter_egg.name=Moss Stone Critter Egg
+tile.packedice_critter_egg.name=Packed Ice Critter Egg
+
 ##Items##
 
 item.cryonite_sword.name=Cryonite Sword
@@ -38,13 +43,17 @@ item.statue.name=Statue
 
 ##Entities##
 
+// Passive
 entity.penguin.name=Penguin
 entity.nix.name=Nix
 
-entity.roller.name=Snow Roller
-entity.blizzard.name=Blizzard
+// Neutral
 entity.automaton.name=Automaton
+
+// Hostile
 entity.guardsman.name=Guardsman
+entity.blizzard.name=Blizzard
+entity.roller.name=Snow Roller
 
 ##Damage Sources##
 
