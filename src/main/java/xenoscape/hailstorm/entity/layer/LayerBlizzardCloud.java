@@ -6,14 +6,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.hailstorm.entity.blizzard.EntityBlizzard;
-import xenoscape.hailstorm.entity.blizzard.ModelBlizzard;
-import xenoscape.hailstorm.entity.blizzard.RenderBlizzard;
-=======
-import xenoscape.hailstorm.entity.blizzard.EntityBlizzard;
-import xenoscape.hailstorm.entity.blizzard.ModelBlizzard;
-import xenoscape.hailstorm.entity.blizzard.RenderBlizzard;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/entity/layer/LayerBlizzardCloud.java
+
 
 @SideOnly(Side.CLIENT)
 public class LayerBlizzardCloud implements LayerRenderer<EntityBlizzard> {

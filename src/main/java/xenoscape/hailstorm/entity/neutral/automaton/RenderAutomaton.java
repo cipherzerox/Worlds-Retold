@@ -1,18 +1,15 @@
-package xenoform.hailstorm.entity.neutral.automaton;
+package xenoscape.hailstorm.entity.neutral.automaton;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xenoform.hailstorm.entity.layer.LayerAutomatonGlow;
-import xenoform.hailstorm.entity.passive.penguin.EntityPenguin;
-
-import javax.annotation.Nonnull;
+import xenoscape.hailstorm.entity.layer.LayerAutomatonGlow;
 
 public class RenderAutomaton extends RenderBiped<EntityAutomaton> {
 	private ResourceLocation ACTIVE_TEXTURE = new ResourceLocation("hailstorm:textures/entity/automaton_active.png");

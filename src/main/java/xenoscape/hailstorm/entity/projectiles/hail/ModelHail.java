@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.projectiles.hail;
+package xenoscape.hailstorm.entity.projectiles.hail;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

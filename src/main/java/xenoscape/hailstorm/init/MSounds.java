@@ -1,10 +1,10 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import xenoform.hailstorm.Hailstorm;
+import xenoscape.hailstorm.Hailstorm;
 
 public class MSounds {
 

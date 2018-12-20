@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.projectiles.hail;
+package xenoscape.hailstorm.entity.projectiles.hail;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

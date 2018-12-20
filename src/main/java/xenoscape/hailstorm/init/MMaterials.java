@@ -1,4 +1,4 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;

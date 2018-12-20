@@ -22,13 +22,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xenoscape.hailstorm.main.MPotions;
+import xenoscape.hailstorm.init.MPotions;
 import xenoscape.hailstorm.util.ModelRegistry;
-=======
-import xenoscape.hailstorm.main.MPotions;
-import xenoscape.hailstorm.util.ModelRegistry;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/base/BasicItemTool.java
-
 import java.util.Set;
 
 public class BasicItemTool extends ItemTool implements ModelRegistry {

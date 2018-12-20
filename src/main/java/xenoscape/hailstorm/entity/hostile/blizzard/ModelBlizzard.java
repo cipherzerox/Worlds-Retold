@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.hostile.blizzard;
+package xenoscape.hailstorm.entity.hostile.blizzard;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

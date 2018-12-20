@@ -1,4 +1,4 @@
-package xenoscape.hailstorm.entity.sentinel;
+package xenoscape.hailstorm.entity.neutral.sentinel;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -17,7 +17,7 @@ public class RenderSentinel extends RenderLiving<EntitySentinel> {
     private ResourceLocation SHOOTING_TEXTURE = new ResourceLocation(
             "hailstorm:textures/entity/Sentinel_shooting.png");
 
-    public static final xenoscape.hailstorm.entity.sentinel.RenderSentinel.Factory FACTORY = new xenoscape.hailstorm.entity.sentinel.RenderSentinel.Factory();
+    public static final xenoscape.hailstorm.entity.neutral.sentinel.RenderSentinel.Factory FACTORY = new xenoscape.hailstorm.entity.neutral.sentinel.RenderSentinel.Factory();
 
     public RenderSentinel(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelSentinel(), 0.55F);
@@ -68,7 +68,7 @@ public class RenderSentinel extends RenderLiving<EntitySentinel> {
     public static class Factory implements IRenderFactory<EntitySentinel> {
         @Override
         public Render<? super EntitySentinel> createRenderFor(RenderManager manager) {
-            return new xenoscape.hailstorm.entity.sentinel.RenderSentinel(manager);
+            return new xenoscape.hailstorm.entity.neutral.sentinel.RenderSentinel(manager);
         }
     }
 }

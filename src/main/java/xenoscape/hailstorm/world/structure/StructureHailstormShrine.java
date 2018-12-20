@@ -17,14 +17,8 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import xenoscape.hailstorm.Hailstorm;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.hailstorm.world.WorldGenHailstorm;
-=======
-import xenoscape.hailstorm.Hailstorm;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
-import xenoscape.hailstorm.world.WorldGenHailstorm;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/world/structure/StructureHailstormShrine.java
-
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;

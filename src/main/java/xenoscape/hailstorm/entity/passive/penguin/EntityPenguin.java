@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.passive.penguin;
+package xenoscape.hailstorm.entity.passive.penguin;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -56,12 +56,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.EntitySurfaceMonster;
-import xenoform.hailstorm.entity.ISnowCreature;
-import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
-import xenoform.hailstorm.entity.projectiles.hail.EntityHail;
-import xenoform.hailstorm.init.MItems;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.init.MItems;
 
 import javax.annotation.Nullable;
 

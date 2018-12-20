@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.passive.nix;
+package xenoscape.hailstorm.entity.passive.nix;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.hostile.roller;
+package xenoscape.hailstorm.entity.hostile.roller;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,10 +17,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.EntitySurfaceMonster;
-import xenoform.hailstorm.entity.ISnowCreature;
-import xenoform.hailstorm.entity.ai.EntityAIRollerAttack;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.entity.EntitySurfaceMonster;
+import xenoscape.hailstorm.entity.ISnowCreature;
+import xenoscape.hailstorm.entity.ai.EntityAIRollerAttack;
 
 public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreature {
 	private float baseSize = 0.35F;

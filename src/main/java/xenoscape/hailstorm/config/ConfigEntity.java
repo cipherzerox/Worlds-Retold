@@ -1,4 +1,4 @@
-package xenoform.hailstorm.config;
+package xenoscape.hailstorm.config;
 
 import java.io.File;
 

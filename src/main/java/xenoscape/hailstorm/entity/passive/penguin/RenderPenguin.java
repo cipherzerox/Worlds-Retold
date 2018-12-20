@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.passive.penguin;
+package xenoscape.hailstorm.entity.passive.penguin;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

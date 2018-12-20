@@ -1,6 +1,9 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
+
+import java.util.Set;
 
 import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -13,10 +16,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.base.*;
-
-import java.util.Set;
+import xenoscape.hailstorm.base.BasicItem;
+import xenoscape.hailstorm.base.BasicItemArmor;
+import xenoscape.hailstorm.base.BasicItemBlizzScroll;
+import xenoscape.hailstorm.base.BasicItemFood;
+import xenoscape.hailstorm.base.BasicItemPenguinEgg;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.base.BasicItemHoe;
+import xenoscape.hailstorm.base.BasicItemStatue;
+import xenoscape.hailstorm.base.BasicItemTool;
+import xenoscape.hailstorm.base.BasicItemWeapon;
 
 @ObjectHolder(Hailstorm.MODID)
 public class MItems {

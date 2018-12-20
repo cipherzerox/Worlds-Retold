@@ -1,4 +1,4 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
@@ -8,7 +8,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import xenoform.hailstorm.potions.PotionFreezing;
+import xenoscape.hailstorm.potions.PotionFreezing;
 
 public class MPotions {
 

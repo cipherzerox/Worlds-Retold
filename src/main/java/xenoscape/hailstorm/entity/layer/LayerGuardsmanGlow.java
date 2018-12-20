@@ -7,10 +7,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import xenoscape.hailstorm.entity.guardsman.EntityGuardsman;
-=======
-import xenoscape.hailstorm.entity.guardsman.EntityGuardsman;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/entity/layer/LayerGuardsmanGlow.java
+
 
 public class LayerGuardsmanGlow<T extends EntityLivingBase> implements LayerRenderer<T> {
 	public final RenderLivingBase<T> renderer;

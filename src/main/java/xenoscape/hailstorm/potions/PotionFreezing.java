@@ -6,12 +6,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import xenoscape.hailstorm.Hailstorm;
 import xenoscape.hailstorm.entity.ISnowCreature;
-import xenoscape.hailstorm.main.MSounds;
-=======
-import xenoscape.hailstorm.Hailstorm;
-import xenoscape.hailstorm.entity.ISnowCreature;
-import xenoscape.hailstorm.main.MSounds;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/potions/PotionFreezing.java
+import xenoscape.hailstorm.init.MSounds;
 
 import java.util.UUID;
 

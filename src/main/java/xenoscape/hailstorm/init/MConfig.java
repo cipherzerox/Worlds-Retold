@@ -1,7 +1,7 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xenoform.hailstorm.config.ConfigEntity;
+import xenoscape.hailstorm.config.ConfigEntity;
 
 import java.io.File;
 

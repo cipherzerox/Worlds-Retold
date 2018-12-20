@@ -1,4 +1,4 @@
-package xenoscape.hailstorm.main;
+package xenoscape.hailstorm.init;
 
 import net.minecraft.entity.*;
 import net.minecraft.util.*;

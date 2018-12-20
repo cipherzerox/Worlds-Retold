@@ -1,4 +1,4 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.base.BasicBlock;
-import xenoform.hailstorm.base.BasicBlockCritter;
-import xenoform.hailstorm.base.BasicBlockOre;
-import xenoform.hailstorm.base.BasicBlockOverlayedPlant;
+import xenoscape.hailstorm.base.BasicBlock;
+import xenoscape.hailstorm.base.BasicBlockCritter;
+import xenoscape.hailstorm.base.BasicBlockOre;
+import xenoscape.hailstorm.base.BasicBlockOverlayedPlant;
+import xenoscape.hailstorm.Hailstorm;
 
 @ObjectHolder(Hailstorm.MODID)
 public class MBlocks {

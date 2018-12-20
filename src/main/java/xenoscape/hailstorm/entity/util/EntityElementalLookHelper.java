@@ -3,6 +3,7 @@ package xenoscape.hailstorm.entity.util;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityElementalLookHelper extends EntityLookHelper

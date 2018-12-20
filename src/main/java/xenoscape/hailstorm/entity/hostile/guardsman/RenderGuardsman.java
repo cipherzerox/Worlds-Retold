@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.hostile.guardsman;
+package xenoscape.hailstorm.entity.hostile.guardsman;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -12,9 +12,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.entity.layer.LayerAutomatonGlow;
-import xenoform.hailstorm.entity.layer.LayerGuardsmanGlow;
-
 import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;

@@ -1,9 +1,9 @@
-package xenoscape.hailstorm.entity.sentinel;
+package xenoscape.hailstorm.entity.neutral.sentinel;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import xenoscape.hailstorm.entity.guardsman.ModelGuardsman;
+import xenoscape.hailstorm.entity.hostile.guardsman.ModelGuardsman;
 
 /**
  * Cloudboi - T3DK Created using Tabula 6.0.0

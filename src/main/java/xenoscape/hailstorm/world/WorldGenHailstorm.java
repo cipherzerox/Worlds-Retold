@@ -15,15 +15,9 @@ import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import xenoscape.hailstorm.main.MBlocks;
+import xenoscape.hailstorm.init.MBlocks;
 import xenoscape.hailstorm.world.feature.WorldGenOverlayedFlower;
 import xenoscape.hailstorm.world.structure.StructureHailstormShrine;
-=======
-import xenoscape.hailstorm.main.MBlocks;
-import xenoscape.hailstorm.world.feature.WorldGenOverlayedFlower;
-import xenoscape.hailstorm.world.structure.StructureHailstormShrine;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/world/WorldGenHailstorm.java
-
 import java.util.Random;
 
 public class WorldGenHailstorm implements IWorldGenerator {

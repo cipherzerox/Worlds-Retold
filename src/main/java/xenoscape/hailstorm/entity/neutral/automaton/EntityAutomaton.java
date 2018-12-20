@@ -1,21 +1,17 @@
-package xenoform.hailstorm.entity.neutral.automaton;
+package xenoscape.hailstorm.entity.neutral.automaton;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -25,7 +21,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -35,14 +30,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.entity.EntitySurfaceMonster;
-import xenoform.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
-import xenoform.hailstorm.init.MItems;
-
-import java.util.Calendar;
-import java.util.List;
-
-import javax.annotation.Nullable;
+import xenoscape.hailstorm.entity.EntitySurfaceMonster;
+import xenoscape.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
+import xenoscape.hailstorm.init.MItems;
 
 public class EntityAutomaton extends EntitySurfaceMonster {
 	private static final DataParameter<Boolean> ACTIVE = EntityDataManager.createKey(EntityAutomaton.class,

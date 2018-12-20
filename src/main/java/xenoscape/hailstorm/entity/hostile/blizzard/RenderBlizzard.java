@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.hostile.blizzard;
+package xenoscape.hailstorm.entity.hostile.blizzard;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -6,9 +6,9 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xenoform.hailstorm.entity.hostile.guardsman.EntityGuardsman;
-import xenoform.hailstorm.entity.layer.LayerBlizzardCloud;
-import xenoform.hailstorm.entity.layer.LayerGuardsmanGlow;
+import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
+import xenoscape.hailstorm.entity.layer.LayerBlizzardCloud;
+import xenoscape.hailstorm.entity.layer.LayerGuardsmanGlow;
 
 import javax.annotation.Nonnull;
 

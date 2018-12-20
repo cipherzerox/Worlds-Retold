@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.neutral.blackbear;
+package xenoscape.hailstorm.entity.neutral.blackbear;
 
 import javax.annotation.Nonnull;
 
@@ -11,8 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.entity.neutral.automaton.EntityAutomaton;
-import xenoform.hailstorm.entity.neutral.automaton.RenderAutomaton;
 
 public class RenderBlackBear extends RenderLiving<EntityBlackBear>
 {

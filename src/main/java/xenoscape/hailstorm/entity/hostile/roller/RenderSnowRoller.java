@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.hostile.roller;
+package xenoscape.hailstorm.entity.hostile.roller;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

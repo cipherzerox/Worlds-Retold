@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.hostile.blizzard;
+package xenoscape.hailstorm.entity.hostile.blizzard;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -17,11 +17,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.EntitySurfaceMonster;
-import xenoform.hailstorm.entity.ISnowCreature;
-import xenoform.hailstorm.entity.projectiles.hail.EntityHail;
-import xenoform.hailstorm.entity.util.EntityElementalLookHelper;
+import xenoscape.hailstorm.entity.projectiles.hail.EntityHail;
+import xenoscape.hailstorm.entity.ISnowCreature;
+import xenoscape.hailstorm.entity.util.EntityElementalLookHelper;
+import xenoscape.hailstorm.entity.EntitySurfaceMonster;
 
 import javax.annotation.Nullable;
 import java.util.List;

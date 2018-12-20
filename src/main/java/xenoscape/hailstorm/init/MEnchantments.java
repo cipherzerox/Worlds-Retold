@@ -1,18 +1,14 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemSword;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.enchantment.EnchantmentGlacier;
-import xenoform.hailstorm.enchantment.EnchantmentIceboundBlade;
-import xenoform.hailstorm.enchantment.EnchantmentLightningRod;
+import xenoscape.hailstorm.enchantment.EnchantmentLightningRod;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.enchantment.EnchantmentGlacier;
+import xenoscape.hailstorm.enchantment.EnchantmentIceboundBlade;
 
 @Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 public class MEnchantments {

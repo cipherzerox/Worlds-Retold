@@ -1,4 +1,4 @@
-package xenoform.hailstorm.init;
+package xenoscape.hailstorm.init;
 
 import java.util.Set;
 
@@ -9,17 +9,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.config.ConfigEntity;
-import xenoform.hailstorm.entity.hostile.blizzard.EntityBlizzard;
-import xenoform.hailstorm.entity.hostile.guardsman.EntityGuardsman;
-import xenoform.hailstorm.entity.hostile.roller.EntitySnowRoller;
-import xenoform.hailstorm.entity.neutral.automaton.EntityAutomaton;
-import xenoform.hailstorm.entity.neutral.blackbear.EntityBlackBear;
-import xenoform.hailstorm.entity.passive.nix.EntityNix;
-import xenoform.hailstorm.entity.passive.penguin.EntityPenguin;
-import xenoform.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
-import xenoform.hailstorm.entity.projectiles.hail.EntityHail;
+import xenoscape.hailstorm.entity.hostile.roller.EntitySnowRoller;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.config.ConfigEntity;
+import xenoscape.hailstorm.entity.hostile.blizzard.EntityBlizzard;
+import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.neutral.blackbear.EntityBlackBear;
+import xenoscape.hailstorm.entity.passive.nix.EntityNix;
+import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
+import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
+import xenoscape.hailstorm.entity.projectiles.hail.EntityHail;
 
 public class MEntities {
 	private static int EntityID = 0;

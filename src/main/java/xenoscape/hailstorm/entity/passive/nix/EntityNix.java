@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.passive.nix;
+package xenoscape.hailstorm.entity.passive.nix;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -17,8 +17,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.ISnowCreature;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.entity.ISnowCreature;
 
 import javax.annotation.Nullable;
 import java.util.Random;

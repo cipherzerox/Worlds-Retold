@@ -17,10 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
-=======
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/base/BasicItemStatue.java
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
+
 
 public class BasicItemStatue extends BasicItem {
 	protected String name;

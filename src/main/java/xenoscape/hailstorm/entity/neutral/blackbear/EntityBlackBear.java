@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.neutral.blackbear;
+package xenoscape.hailstorm.entity.neutral.blackbear;
 
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.world.World;

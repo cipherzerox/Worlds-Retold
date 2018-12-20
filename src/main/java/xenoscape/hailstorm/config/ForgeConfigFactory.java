@@ -1,4 +1,4 @@
-package xenoform.hailstorm.config;
+package xenoscape.hailstorm.config;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
@@ -9,8 +9,8 @@ import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.DummyConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.init.MConfig;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.init.MConfig;
 
 import java.util.ArrayList;
 import java.util.List;

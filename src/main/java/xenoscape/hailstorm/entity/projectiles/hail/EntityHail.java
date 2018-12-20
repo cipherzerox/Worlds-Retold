@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.projectiles.hail;
+package xenoscape.hailstorm.entity.projectiles.hail;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
@@ -13,9 +13,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.hostile.blizzard.EntityBlizzard;
-import xenoform.hailstorm.init.MPotions;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.entity.hostile.blizzard.EntityBlizzard;
+import xenoscape.hailstorm.init.MPotions;
 
 public class EntityHail extends EntityFireball {
 	private static final DataParameter<Boolean> INVULNERABLE = EntityDataManager.<Boolean>createKey(EntityHail.class,

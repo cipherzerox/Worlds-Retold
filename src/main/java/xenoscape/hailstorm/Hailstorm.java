@@ -12,14 +12,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import xenoscape.hailstorm.main.*;
+
+import xenoscape.hailstorm.init.MClientEvents;
+import xenoscape.hailstorm.init.MConfig;
+import xenoscape.hailstorm.init.MEntities;
+import xenoscape.hailstorm.init.MPotions;
+import xenoscape.hailstorm.init.MVanillaLootInsertion;
+import xenoscape.hailstorm.init.MVillagerTrades;
 import xenoscape.hailstorm.proxy.ServerProxy;
 import xenoscape.hailstorm.world.WorldGenHailstorm;
-=======
-import xenoscape.hailstorm.main.*;
-import xenoscape.hailstorm.proxy.ServerProxy;
-import xenoscape.hailstorm.world.WorldGenHailstorm;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/Hailstorm.java
 
 @Mod(modid = Hailstorm.MODID, name = Hailstorm.NAME, version = Hailstorm.VERSION, guiFactory = Hailstorm.CONFIG)
 public class Hailstorm {

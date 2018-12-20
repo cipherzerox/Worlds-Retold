@@ -1,4 +1,4 @@
-package xenoform.hailstorm.entity.neutral.automaton;
+package xenoscape.hailstorm.entity.neutral.automaton;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;

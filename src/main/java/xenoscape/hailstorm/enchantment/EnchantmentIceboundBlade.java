@@ -7,10 +7,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
-import xenoscape.hailstorm.main.MPotions;
-=======
-import xenoscape.hailstorm.main.MPotions;
->>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/enchantment/EnchantmentIceboundBlade.java
+import xenoscape.hailstorm.init.MPotions;
+
 
 public class EnchantmentIceboundBlade extends Enchantment {
 
