@@ -4,7 +4,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.*;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class MMaterials {
 

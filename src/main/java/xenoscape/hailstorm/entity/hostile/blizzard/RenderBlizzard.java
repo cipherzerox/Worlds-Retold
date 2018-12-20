@@ -1,18 +1,16 @@
 package xenoscape.hailstorm.entity.hostile.blizzard;
 
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.hailstorm.entity.layer.LayerBlizzardCloud;
-import xenoscape.hailstorm.entity.layer.LayerGuardsmanGlow;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
 
 public class RenderBlizzard extends RenderLiving<EntityBlizzard> {
 	private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/blizzard.png");

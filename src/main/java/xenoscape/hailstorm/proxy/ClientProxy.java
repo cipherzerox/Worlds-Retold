@@ -1,5 +1,7 @@
 package xenoscape.hailstorm.proxy;
 
+import java.util.List;
+
 import com.google.common.base.Predicates;
 
 import net.minecraft.block.state.IBlockState;
@@ -40,7 +42,6 @@ import xenoscape.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 import xenoscape.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoscape.hailstorm.init.MBlocks;
 import xenoscape.hailstorm.init.MClientEvents;
-import java.util.List;
 
 public class ClientProxy extends ServerProxy {
 

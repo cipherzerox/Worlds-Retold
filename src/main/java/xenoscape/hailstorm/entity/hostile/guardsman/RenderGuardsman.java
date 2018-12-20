@@ -12,6 +12,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.hailstorm.entity.layer.LayerGuardsmanGlow;
+
 import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;

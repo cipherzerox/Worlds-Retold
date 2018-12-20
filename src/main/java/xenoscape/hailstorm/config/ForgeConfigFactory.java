@@ -1,6 +1,11 @@
 package xenoscape.hailstorm.config;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
@@ -11,10 +16,6 @@ import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 import xenoscape.hailstorm.Hailstorm;
 import xenoscape.hailstorm.init.MConfig;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ForgeConfigFactory implements IModGuiFactory {
 

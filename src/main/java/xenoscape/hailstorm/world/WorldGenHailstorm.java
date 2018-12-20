@@ -1,10 +1,12 @@
 package xenoscape.hailstorm.world;
 
+import java.util.Random;
+
 import com.google.common.base.Predicate;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -18,7 +20,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import xenoscape.hailstorm.init.MBlocks;
 import xenoscape.hailstorm.world.feature.WorldGenOverlayedFlower;
 import xenoscape.hailstorm.world.structure.StructureHailstormShrine;
-import java.util.Random;
 
 public class WorldGenHailstorm implements IWorldGenerator {
 

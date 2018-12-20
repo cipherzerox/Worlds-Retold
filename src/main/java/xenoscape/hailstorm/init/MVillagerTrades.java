@@ -1,5 +1,7 @@
 package xenoscape.hailstorm.init;
 
+import java.util.Random;
+
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;
@@ -9,8 +11,6 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-
-import java.util.Random;
 
 public class MVillagerTrades implements EntityVillager.ITradeList {
 	

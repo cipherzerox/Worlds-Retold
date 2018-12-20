@@ -27,7 +27,7 @@ public class Hailstorm {
 	public static final String MODID = "hailstorm";
 	public static final String NAME = "Hailstorm";
 	public static final String VERSION = "B-1";
-	public static final String CONFIG = "xenoform.hailstorm.config.ForgeConfigFactory";
+	public static final String CONFIG = "xenoscape.hailstorm.config.ForgeConfigFactory";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + Hailstorm.MODID + " </> ");
 
 	@Instance(MODID)

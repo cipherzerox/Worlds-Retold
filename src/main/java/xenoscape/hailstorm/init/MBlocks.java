@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
+import xenoscape.hailstorm.Hailstorm;
 import xenoscape.hailstorm.base.BasicBlock;
 import xenoscape.hailstorm.base.BasicBlockCritter;
 import xenoscape.hailstorm.base.BasicBlockOre;
 import xenoscape.hailstorm.base.BasicBlockOverlayedPlant;
-import xenoscape.hailstorm.Hailstorm;
 
 @ObjectHolder(Hailstorm.MODID)
 public class MBlocks {
