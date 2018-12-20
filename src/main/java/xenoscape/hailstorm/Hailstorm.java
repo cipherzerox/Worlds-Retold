@@ -12,11 +12,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/Hailstorm.java
-
-import xenoform.hailstorm.init.*;
-import xenoform.hailstorm.proxy.ServerProxy;
-import xenoform.hailstorm.world.WorldGenHailstorm;
+import xenoscape.hailstorm.main.*;
+import xenoscape.hailstorm.proxy.ServerProxy;
+import xenoscape.hailstorm.world.WorldGenHailstorm;
 =======
 import xenoscape.hailstorm.main.*;
 import xenoscape.hailstorm.proxy.ServerProxy;
@@ -30,13 +28,13 @@ public class Hailstorm {
 	public static final String VERSION = "B-1";
 	public static final String CONFIG = "xenoform.hailstorm.config.ForgeConfigFactory";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + Hailstorm.MODID + " </> ");
-	
+
 	@Instance(MODID)
 	public static Hailstorm instance = new Hailstorm();
 
 	@SidedProxy(clientSide = "xenoscape.hailstorm.proxy.ClientProxy", serverSide = "xenoscape.hailstorm.proxy.ServerProxy")
 	public static ServerProxy proxy;
-	
+
 	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
     public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
     public static final DamageSource HAIL = new DamageSource("hailstorm.hail");

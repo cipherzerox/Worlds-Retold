@@ -17,8 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/base/BasicItemStatue.java
-import xenoform.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
 =======
 import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
 >>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/base/BasicItemStatue.java

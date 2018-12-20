@@ -6,10 +6,9 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/entity/layer/LayerBlizzardCloud.java
-import xenoform.hailstorm.entity.hostile.blizzard.EntityBlizzard;
-import xenoform.hailstorm.entity.hostile.blizzard.ModelBlizzard;
-import xenoform.hailstorm.entity.hostile.blizzard.RenderBlizzard;
+import xenoscape.hailstorm.entity.blizzard.EntityBlizzard;
+import xenoscape.hailstorm.entity.blizzard.ModelBlizzard;
+import xenoscape.hailstorm.entity.blizzard.RenderBlizzard;
 =======
 import xenoscape.hailstorm.entity.blizzard.EntityBlizzard;
 import xenoscape.hailstorm.entity.blizzard.ModelBlizzard;

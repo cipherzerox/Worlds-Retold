@@ -7,8 +7,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/entity/layer/LayerAutomatonGlow.java
-import xenoform.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
 =======
 import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
 >>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/entity/layer/LayerAutomatonGlow.java

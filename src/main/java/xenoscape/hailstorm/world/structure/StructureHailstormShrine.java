@@ -16,11 +16,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/world/structure/StructureHailstormShrine.java
-import net.minecraft.world.storage.loot.LootTableList;
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.neutral.automaton.EntityAutomaton;
-import xenoform.hailstorm.world.WorldGenHailstorm;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
+import xenoscape.hailstorm.world.WorldGenHailstorm;
 =======
 import xenoscape.hailstorm.Hailstorm;
 import xenoscape.hailstorm.entity.automaton.EntityAutomaton;

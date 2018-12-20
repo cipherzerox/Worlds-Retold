@@ -23,8 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/base/BasicItemHoe.java
-import xenoform.hailstorm.init.MPotions;
+import xenoscape.hailstorm.main.MPotions;
 =======
 import xenoscape.hailstorm.main.MPotions;
 >>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/base/BasicItemHoe.java

@@ -22,11 +22,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/base/BasicItemTool.java
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.init.MPotions;
-import xenoform.hailstorm.util.ModelRegistry;
+import xenoscape.hailstorm.main.MPotions;
+import xenoscape.hailstorm.util.ModelRegistry;
 =======
 import xenoscape.hailstorm.main.MPotions;
 import xenoscape.hailstorm.util.ModelRegistry;

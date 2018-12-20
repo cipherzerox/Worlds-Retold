@@ -4,10 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/potions/PotionFreezing.java
-import xenoform.hailstorm.Hailstorm;
-import xenoform.hailstorm.entity.ISnowCreature;
-import xenoform.hailstorm.init.MSounds;
+import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.entity.ISnowCreature;
+import xenoscape.hailstorm.main.MSounds;
 =======
 import xenoscape.hailstorm.Hailstorm;
 import xenoscape.hailstorm.entity.ISnowCreature;

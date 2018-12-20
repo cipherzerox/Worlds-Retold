@@ -15,10 +15,9 @@ import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/world/WorldGenHailstorm.java
-import xenoform.hailstorm.init.MBlocks;
-import xenoform.hailstorm.world.feature.WorldGenOverlayedFlower;
-import xenoform.hailstorm.world.structure.StructureHailstormShrine;
+import xenoscape.hailstorm.main.MBlocks;
+import xenoscape.hailstorm.world.feature.WorldGenOverlayedFlower;
+import xenoscape.hailstorm.world.structure.StructureHailstormShrine;
 =======
 import xenoscape.hailstorm.main.MBlocks;
 import xenoscape.hailstorm.world.feature.WorldGenOverlayedFlower;

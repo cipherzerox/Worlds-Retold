@@ -6,10 +6,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/entity/projectiles/egg/EntityPenguinEgg.java
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoform.hailstorm.entity.passive.penguin.EntityPenguin;
+import xenoscape.hailstorm.entity.penguin.EntityPenguin;
 =======
 import xenoscape.hailstorm.entity.penguin.EntityPenguin;
 >>>>>>> 2f34effc0ad705294dd03b18a13038d17d9b8376:src/main/java/xenoscape/hailstorm/entity/projectiles/egg/EntityPenguinEgg.java

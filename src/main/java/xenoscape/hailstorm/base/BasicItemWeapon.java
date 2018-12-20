@@ -19,9 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-<<<<<<< HEAD:src/main/java/xenoform/hailstorm/base/BasicItemWeapon.java
-import xenoform.hailstorm.init.MPotions;
-import xenoform.hailstorm.util.ModelRegistry;
+import xenoscape.hailstorm.main.MPotions;
+import xenoscape.hailstorm.util.ModelRegistry;
 =======
 import xenoscape.hailstorm.main.MPotions;
 import xenoscape.hailstorm.util.ModelRegistry;
