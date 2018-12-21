@@ -2,6 +2,7 @@ package xenoscape.hailstorm.base;
 
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
+
 
 public class BasicItemStatue extends BasicItem {
 	protected String name;

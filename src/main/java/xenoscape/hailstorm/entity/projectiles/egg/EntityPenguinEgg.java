@@ -6,7 +6,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import xenoscape.hailstorm.entity.penguin.EntityPenguin;
+import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
+
 
 public class EntityPenguinEgg extends EntityThrowable {
 	public EntityPenguinEgg(World worldIn) {

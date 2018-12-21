@@ -1,5 +1,7 @@
 package xenoscape.hailstorm.proxy;
 
+import java.util.List;
+
 import com.google.common.base.Predicates;
 
 import net.minecraft.block.state.IBlockState;
@@ -22,30 +24,24 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
-import xenoscape.hailstorm.entity.automaton.RenderAutomaton;
-import xenoscape.hailstorm.entity.blizzard.EntityBlizzard;
-import xenoscape.hailstorm.entity.blizzard.RenderBlizzard;
-import xenoscape.hailstorm.entity.blizzard.hail.EntityHail;
-import xenoscape.hailstorm.entity.blizzard.hail.RenderHail;
-import xenoscape.hailstorm.entity.guardsman.EntityGuardsman;
-import xenoscape.hailstorm.entity.guardsman.RenderGuardsman;
-import xenoscape.hailstorm.entity.nix.EntityNix;
-import xenoscape.hailstorm.entity.nix.RenderNix;
-import xenoscape.hailstorm.entity.penguin.EntityPenguin;
-import xenoscape.hailstorm.entity.penguin.RenderPenguin;
+import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
+import xenoscape.hailstorm.entity.hostile.guardsman.RenderGuardsman;
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.neutral.automaton.RenderAutomaton;
+import xenoscape.hailstorm.entity.neutral.sentinel.EntitySentinel;
+import xenoscape.hailstorm.entity.neutral.sentinel.RenderSentinel;
+import xenoscape.hailstorm.entity.passive.nix.EntityNix;
+import xenoscape.hailstorm.entity.passive.nix.RenderNix;
+import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
+import xenoscape.hailstorm.entity.passive.penguin.RenderPenguin;
 import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoscape.hailstorm.entity.projectiles.egg.RenderPenguinEgg;
+import xenoscape.hailstorm.entity.projectiles.hail.EntityHail;
+import xenoscape.hailstorm.entity.projectiles.hail.RenderHail;
 import xenoscape.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 import xenoscape.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
-import xenoscape.hailstorm.entity.roller.EntitySnowRoller;
-import xenoscape.hailstorm.entity.roller.RenderSnowRoller;
-import xenoscape.hailstorm.entity.sentinel.EntitySentinel;
-import xenoscape.hailstorm.entity.sentinel.RenderSentinel;
-import xenoscape.hailstorm.main.MBlocks;
-import xenoscape.hailstorm.main.MClientEvents;
-
-import java.util.List;
+import xenoscape.hailstorm.init.MBlocks;
+import xenoscape.hailstorm.init.MClientEvents;
 
 public class ClientProxy extends ServerProxy {
 
@@ -122,15 +118,16 @@ public class ClientProxy extends ServerProxy {
 	@Override
 	public void preInit(final FMLPreInitializationEvent event) {
 		super.preInit(event);
+		// Passive
 		RenderingRegistry.registerEntityRenderingHandler(EntityPenguin.class, RenderPenguin.FACTORY);
-
-		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
+
+		// Neutral
 		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(EntityGuardsman.class, RenderGuardsman.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(EntitySentinel.class, RenderSentinel.FACTORY);
 
+		// Projectile
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
 				RenderIceScrollProjectile.FACTORY);

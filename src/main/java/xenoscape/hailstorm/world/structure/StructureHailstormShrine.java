@@ -1,5 +1,9 @@
 package xenoscape.hailstorm.world.structure;
 
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
+
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
@@ -17,12 +21,8 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import xenoscape.hailstorm.Hailstorm;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.hailstorm.world.WorldGenHailstorm;
-
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
 
 public class StructureHailstormShrine extends WorldGenerator {
 

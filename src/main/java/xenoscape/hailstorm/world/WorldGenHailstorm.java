@@ -1,23 +1,25 @@
 package xenoscape.hailstorm.world;
 
+import java.util.Random;
+
 import com.google.common.base.Predicate;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import xenoscape.hailstorm.main.MBlocks;
+import xenoscape.hailstorm.init.MBlocks;
 import xenoscape.hailstorm.world.feature.WorldGenOverlayedFlower;
 import xenoscape.hailstorm.world.structure.StructureHailstormShrine;
-
-import java.util.Random;
 
 public class WorldGenHailstorm implements IWorldGenerator {
 
@@ -31,16 +33,16 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		switch (world.provider.getDimension()) {
 		case 0:
 			generateOre(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
-					world, random, chunkX, chunkZ);
-			generateHailstormShrine(world, random, blockX, blockZ);
+					world, random);
 			generateFlowers(world, random, blockX, blockZ);
 			generateBoulders(world, random, blockX, blockZ);
+			generateHailstormShrine(world, random, blockX, blockZ);
 			break;
 		}
 	}
 
 	private void generateOre(IBlockState blockToGen, int blockAmount, int chancesToSpawn, int minHeight, int maxHeight,
-			Predicate<IBlockState> blockToReplace, World world, Random rand, int chunkX, int chunkZ) {
+			Predicate<IBlockState> blockToReplace, World world, Random rand) {
 		if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight)
 			throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
 
@@ -48,11 +50,14 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		int heightdiff = maxHeight - minHeight + 1;
 		for (int i = 0; i < chancesToSpawn; i++) {
 			int y = minHeight + rand.nextInt(heightdiff);
-			BlockPos pos = new BlockPos(chunkX, y, chunkZ);
-			if (world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
-					|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
-					|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
-					|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD) {
+			BlockPos pos = new BlockPos(rand.nextInt(16), y, rand.nextInt(16));
+			Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+			if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) {
 				generator.generate(world, rand, pos);
 			}
 		}
@@ -62,11 +67,14 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		StructureHailstormShrine generator = new StructureHailstormShrine();
 		int y = getGroundFromAbove(world, blockX, blockZ);
 		BlockPos pos = new BlockPos(blockX, y, blockZ);
-		if ((world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
-				|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
-				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
-				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
-				&& rand.nextInt(3) == 0) {
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && rand.nextInt(5) == 0 && biome != null
+				&& generator != null) {
 			generator.generate(world, rand, pos);
 		}
 	}
@@ -75,38 +83,61 @@ public class WorldGenHailstorm implements IWorldGenerator {
 		WorldGenOverlayedFlower generator = new WorldGenOverlayedFlower(MBlocks.ARCTIC_WILLOW);
 		int y = getGroundFromAbove(world, blockX, blockZ);
 		BlockPos pos = new BlockPos(blockX, y, blockZ);
-		if ((world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
-				|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
-				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
-				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
-				&& rand.nextInt(10) == 0) {
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && rand.nextInt(10) == 0 && biome != null
+				&& generator != null) {
 			generator.generate(world, rand, pos);
 		}
 	}
 
 	private void generateBoulders(World world, Random rand, int blockX, int blockZ) {
 		WorldGenBlockBlob generator = null;
-		switch (rand.nextInt(3)) {
-		case 0:
-			generator = new WorldGenBlockBlob(Blocks.STONE, 0);
-			break;
-		case 1:
-			generator = new WorldGenBlockBlob(Blocks.PACKED_ICE, 0);
-			break;
-		case 2:
-			generator = new WorldGenBlockBlob(Blocks.MOSSY_COBBLESTONE, 0);
-			break;
-		case 3:
-			generator = new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
-			break;
+		if (rand.nextInt(3) == 0) {
+			switch (rand.nextInt(3)) {
+			case 0:
+				generator = new WorldGenBlockBlob(MBlocks.STONE_CRITTER_EGG, 2);
+				break;
+			case 1:
+				generator = new WorldGenBlockBlob(MBlocks.PACKEDICE_CRITTER_EGG, 2);
+				break;
+			case 2:
+				generator = new WorldGenBlockBlob(MBlocks.MOSSCOBBLE_CRITTER_EGG, 2);
+				break;
+			case 3:
+				generator = new WorldGenBlockBlob(MBlocks.COBBLE_CRITTER_EGG, 2);
+				break;
+			}
+		} else {
+			switch (rand.nextInt(3)) {
+			case 0:
+				generator = new WorldGenBlockBlob(Blocks.STONE, 2);
+				break;
+			case 1:
+				generator = new WorldGenBlockBlob(Blocks.PACKED_ICE, 2);
+				break;
+			case 2:
+				generator = new WorldGenBlockBlob(Blocks.MOSSY_COBBLESTONE, 0);
+				break;
+			case 3:
+				generator = new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
+				break;
+			}
 		}
 		int y = getGroundFromAbove(world, blockX, blockZ);
-		BlockPos pos = new BlockPos(blockX, y, blockZ);
-		if ((world.getBiome(pos) == Biomes.FROZEN_OCEAN || world.getBiome(pos) == Biomes.FROZEN_RIVER
-				|| world.getBiome(pos) == Biomes.COLD_BEACH || world.getBiome(pos) == Biomes.COLD_TAIGA
-				|| world.getBiome(pos) == Biomes.COLD_TAIGA_HILLS || world.getBiome(pos) == Biomes.ICE_MOUNTAINS
-				|| world.getBiome(pos) == Biomes.ICE_PLAINS || world.getBiome(pos) == Biomes.MUTATED_TAIGA_COLD)
-				&& rand.nextInt(16) == 0 && generator != null) {
+		BlockPos pos = new BlockPos(blockX, y + 1, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && rand.nextInt(25) == 0 && biome != null
+				&& generator != null) {
 			generator.generate(world, rand, pos);
 		}
 	}

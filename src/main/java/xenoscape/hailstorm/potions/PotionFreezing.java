@@ -6,7 +6,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import xenoscape.hailstorm.Hailstorm;
 import xenoscape.hailstorm.entity.ISnowCreature;
-import xenoscape.hailstorm.main.MSounds;
+import xenoscape.hailstorm.init.MSounds;
 
 import java.util.UUID;
 

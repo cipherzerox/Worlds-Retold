@@ -3,9 +3,10 @@ package xenoscape.hailstorm.entity.util;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityElementalLookHelper
+public class EntityElementalLookHelper extends EntityLookHelper
 {
     private final EntityLiving entity;
     /** The amount of change that is made each update for an entity facing a direction. */
@@ -20,6 +21,7 @@ public class EntityElementalLookHelper
 
     public EntityElementalLookHelper(EntityLiving entitylivingIn)
     {
+    	super(entitylivingIn);
         this.entity = entitylivingIn;
     }
 

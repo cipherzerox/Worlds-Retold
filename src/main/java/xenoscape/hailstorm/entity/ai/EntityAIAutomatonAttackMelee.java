@@ -1,7 +1,8 @@
 package xenoscape.hailstorm.entity.ai;
 
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import xenoscape.hailstorm.entity.automaton.EntityAutomaton;
+import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
+
 
 public class EntityAIAutomatonAttackMelee extends EntityAIAttackMelee
 {

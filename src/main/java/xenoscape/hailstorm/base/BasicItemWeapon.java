@@ -19,8 +19,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.hailstorm.main.MPotions;
+import xenoscape.hailstorm.init.MPotions;
 import xenoscape.hailstorm.util.ModelRegistry;
+
 
 public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 

@@ -12,23 +12,30 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import xenoscape.hailstorm.main.*;
+
+import xenoscape.hailstorm.init.MClientEvents;
+import xenoscape.hailstorm.init.MConfig;
+import xenoscape.hailstorm.init.MEntities;
+import xenoscape.hailstorm.init.MPotions;
+import xenoscape.hailstorm.init.MVanillaLootInsertion;
+import xenoscape.hailstorm.init.MVillagerTrades;
 import xenoscape.hailstorm.proxy.ServerProxy;
 import xenoscape.hailstorm.world.WorldGenHailstorm;
 
-@Mod(modid = Hailstorm.MODID, name = Hailstorm.NAME, version = Hailstorm.VERSION)
+@Mod(modid = Hailstorm.MODID, name = Hailstorm.NAME, version = Hailstorm.VERSION, guiFactory = Hailstorm.CONFIG)
 public class Hailstorm {
 	public static final String MODID = "hailstorm";
 	public static final String NAME = "Hailstorm";
 	public static final String VERSION = "B-1";
+	public static final String CONFIG = "xenoscape.hailstorm.config.ForgeConfigFactory";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + Hailstorm.MODID + " </> ");
-	
+
 	@Instance(MODID)
 	public static Hailstorm instance = new Hailstorm();
 
 	@SidedProxy(clientSide = "xenoscape.hailstorm.proxy.ClientProxy", serverSide = "xenoscape.hailstorm.proxy.ServerProxy")
 	public static ServerProxy proxy;
-	
+
 	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
     public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
     public static final DamageSource HAIL = new DamageSource("hailstorm.hail");
@@ -37,6 +44,7 @@ public class Hailstorm {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		proxy.preInit(event);
+		MConfig.preInitConfigs(event);
 		MPotions.registerPotions();
 		MEntities.preInit();
 		MEntities.init();

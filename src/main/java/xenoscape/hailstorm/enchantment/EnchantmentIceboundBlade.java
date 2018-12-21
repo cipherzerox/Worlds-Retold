@@ -7,7 +7,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
-import xenoscape.hailstorm.main.MPotions;
+import xenoscape.hailstorm.init.MPotions;
+
 
 public class EnchantmentIceboundBlade extends Enchantment {
 
@@ -37,7 +38,7 @@ public class EnchantmentIceboundBlade extends Enchantment {
 			((EntityLivingBase) target).addPotionEffect(new PotionEffect(MPotions.FREEZING, 200, 0));
 		}
 	}
-	
+
     public boolean canApplyTogether(Enchantment ench)
     {
         return super.canApplyTogether(ench) && ench != Enchantments.FIRE_ASPECT;

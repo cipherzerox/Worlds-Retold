@@ -7,7 +7,8 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import xenoscape.hailstorm.entity.guardsman.EntityGuardsman;
+import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
+
 
 public class LayerGuardsmanGlow<T extends EntityLivingBase> implements LayerRenderer<T> {
 	public final RenderLivingBase<T> renderer;

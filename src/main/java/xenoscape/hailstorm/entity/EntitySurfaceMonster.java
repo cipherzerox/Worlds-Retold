@@ -155,7 +155,7 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL
+		return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL
 				&& this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS && super.getCanSpawnHere();
 	}
 }
