@@ -30,6 +30,9 @@ public class MBlocks {
 	@ObjectHolder("arctic_willow")
 	public static BasicBlockOverlayedPlant ARCTIC_WILLOW = new BasicBlockOverlayedPlant("arctic_willow")
 			.setCreativeTab(CreativeTabs.DECORATIONS);
+	@ObjectHolder("boreal_orchid")
+	public static BasicBlockOverlayedPlant BOREAL_ORCHID = new BasicBlockOverlayedPlant("boreal_orchid")
+			.setCreativeTab(CreativeTabs.DECORATIONS);
 
 	@ObjectHolder("stone_critter_egg")
 	public static BasicBlockCritter STONE_CRITTER_EGG = new BasicBlockCritter("stone_critter_egg", Blocks.STONE);
@@ -39,9 +42,6 @@ public class MBlocks {
 	@ObjectHolder("mosscobble_critter_egg")
 	public static BasicBlockCritter MOSSCOBBLE_CRITTER_EGG = new BasicBlockCritter("mosscobble_critter_egg",
 			Blocks.MOSSY_COBBLESTONE);
-	@ObjectHolder("packedice_critter_egg")
-	public static BasicBlockCritter PACKEDICE_CRITTER_EGG = new BasicBlockCritter("packedice_critter_egg",
-			Blocks.PACKED_ICE);
 
 	@Mod.EventBusSubscriber(modid = Hailstorm.MODID)
 	public static class RegistrationHandler {
@@ -49,8 +49,8 @@ public class MBlocks {
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event) {
 			final IForgeRegistry<Block> blocks = event.getRegistry();
-			blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, STONE_CRITTER_EGG, COBBLE_CRITTER_EGG,
-					MOSSCOBBLE_CRITTER_EGG, PACKEDICE_CRITTER_EGG);
+			blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, BOREAL_ORCHID, STONE_CRITTER_EGG, COBBLE_CRITTER_EGG,
+					MOSSCOBBLE_CRITTER_EGG);
 		}
 	}
 }

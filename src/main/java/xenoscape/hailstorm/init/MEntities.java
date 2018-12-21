@@ -15,7 +15,7 @@ import xenoscape.hailstorm.config.ConfigEntity;
 import xenoscape.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
-import xenoscape.hailstorm.entity.neutral.blackbear.EntityBlackBear;
+import xenoscape.hailstorm.entity.neutral.sentinel.EntitySentinel;
 import xenoscape.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
@@ -34,8 +34,8 @@ public class MEntities {
 		// Neutral
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
 				"automaton", EntityID++, Hailstorm.instance, 64, 3, true);
-		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "blackbear"), EntityBlackBear.class,
-				"blackbear", EntityID++, Hailstorm.instance, 64, 3, true, 0x00e1ff, 0xffffff);
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "sentinel"), EntitySentinel.class,
+				"sentinel", EntityID++, Hailstorm.instance, 64, 3, true, 0x84b3ff, 0x647796);
 
 		// Hostile
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "guardsman"), EntityGuardsman.class,

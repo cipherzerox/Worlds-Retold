@@ -40,20 +40,13 @@ public class StructureHailstormShrine extends WorldGenerator {
 		}
 
 		PlacementSettings settings = (new PlacementSettings())
-				.setMirror(Mirror.values()[rand.nextInt(Mirror.values().length)])
 				.setRotation(Rotation.values()[rand.nextInt(Rotation.values().length)]).setIgnoreEntities(false);
 
 		BlockPos size = template.getSize();
 		BlockPos generatePos = center(settings, origin, size.getX(), size.getZ());
 
 		BlockPos max = generatePos.add(Template.transformedBlockPos(settings, template.getSize()));
-		if (WorldGenHailstorm.canSpawnHere(worldServer, generatePos, max)
-				&& (world.getBiome(generatePos) == Biomes.ICE_PLAINS
-						|| world.getBiome(generatePos) == Biomes.ICE_MOUNTAINS
-						|| world.getBiome(generatePos) == Biomes.COLD_TAIGA
-						|| world.getBiome(generatePos) == Biomes.COLD_TAIGA_HILLS
-						|| world.getBiome(generatePos) == Biomes.MUTATED_TAIGA_COLD
-						|| world.getBiome(generatePos) == Biomes.MUTATED_ICE_FLATS)) {
+		if (WorldGenHailstorm.canSpawnHere(worldServer, generatePos, max)) {
 			System.out.println("X:" + origin.getX() + " Y:" + origin.getY() + " Z:" + origin.getZ());
 
 			template.addBlocksToWorld(world, generatePos.down(4), settings);

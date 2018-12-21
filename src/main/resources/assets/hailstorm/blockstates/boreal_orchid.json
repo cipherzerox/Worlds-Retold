@@ -1,0 +1,6 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "normal": { "model": "hailstorm:boreal_orchid" }
+    }
+}

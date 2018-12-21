@@ -154,11 +154,11 @@ public class MItems {
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
 			
 			itemblocks.registerItemBlock(MBlocks.ARCTIC_WILLOW);
+			itemblocks.registerItemBlock(MBlocks.BOREAL_ORCHID);
 			
 			itemblocks.registerItemBlock(MBlocks.STONE_CRITTER_EGG);
 			itemblocks.registerItemBlock(MBlocks.COBBLE_CRITTER_EGG);
 			itemblocks.registerItemBlock(MBlocks.MOSSCOBBLE_CRITTER_EGG);
-			itemblocks.registerItemBlock(MBlocks.PACKEDICE_CRITTER_EGG);
 		}
 
 		private static class ItemBlockRegistry {

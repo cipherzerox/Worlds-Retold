@@ -1,0 +1,25 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "hailstorm:boreal_orchid"
+        ]
+    },
+    "criteria": {
+        "has_item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "hailstorm:boreal_orchid"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_item"
+        ]
+    ]
+}

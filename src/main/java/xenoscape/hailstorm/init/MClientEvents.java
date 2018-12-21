@@ -4,6 +4,7 @@ import net.minecraft.entity.*;
 import net.minecraft.util.*;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,5 +37,4 @@ public class MClientEvents {
 		ResourceLocation danger = new ResourceLocation(Hailstorm.MODID, "particle/shielded");
 		event.getMap().registerSprite(danger);
 	}
-
 }

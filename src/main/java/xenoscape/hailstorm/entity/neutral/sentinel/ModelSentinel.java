@@ -1,4 +1,4 @@
-package xenoscape.hailstorm.entity.sentinel;
+package xenoscape.hailstorm.entity.neutral.sentinel;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

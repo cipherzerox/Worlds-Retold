@@ -1,4 +1,4 @@
-package xenoscape.hailstorm.entity.sentinel;
+package xenoscape.hailstorm.entity.neutral.sentinel;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +9,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import xenoscape.hailstorm.entity.guardsman.EntityGuardsman;
+import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 
 import java.util.List;
 

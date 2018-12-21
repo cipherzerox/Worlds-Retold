@@ -24,8 +24,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.hailstorm.entity.hostile.blizzard.EntityBlizzard;
+import xenoscape.hailstorm.entity.hostile.blizzard.RenderBlizzard;
 import xenoscape.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.hailstorm.entity.hostile.guardsman.RenderGuardsman;
+import xenoscape.hailstorm.entity.hostile.roller.EntitySnowRoller;
+import xenoscape.hailstorm.entity.hostile.roller.RenderSnowRoller;
 import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.hailstorm.entity.neutral.automaton.RenderAutomaton;
 import xenoscape.hailstorm.entity.neutral.sentinel.EntitySentinel;
@@ -124,8 +128,12 @@ public class ClientProxy extends ServerProxy {
 
 		// Neutral
 		RenderingRegistry.registerEntityRenderingHandler(EntityAutomaton.class, RenderAutomaton.FACTORY);
-        RenderingRegistry.registerEntityRenderingHandler(EntityGuardsman.class, RenderGuardsman.FACTORY);
-        RenderingRegistry.registerEntityRenderingHandler(EntitySentinel.class, RenderSentinel.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySentinel.class, RenderSentinel.FACTORY);
+
+		// Hostile
+		RenderingRegistry.registerEntityRenderingHandler(EntityGuardsman.class, RenderGuardsman.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
 
 		// Projectile
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
@@ -153,6 +161,6 @@ public class ClientProxy extends ServerProxy {
 				return worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos)
 						: ColorizerGrass.getGrassColor(0.5D, 1.0D);
 			}
-		}, MBlocks.ARCTIC_WILLOW);
+		}, MBlocks.ARCTIC_WILLOW, MBlocks.BOREAL_ORCHID);
 	}
 }

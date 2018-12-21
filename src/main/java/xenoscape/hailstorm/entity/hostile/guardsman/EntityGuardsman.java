@@ -45,9 +45,9 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	protected static final DataParameter<Integer> CHARGE_TICKS = EntityDataManager.createKey(EntityGuardsman.class,
 			DataSerializers.VARINT);
 
-	private Random rand = new Random();
-	private int ticksSinceLastAttack = 0;
-	private int chargeTicks = 0;
+	protected Random rand = new Random();
+	protected int ticksSinceLastAttack = 0;
+	protected int chargeTicks = 0;
 	public int deathTicks;
 
 	public EntityGuardsman(World world) {
@@ -219,7 +219,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 	}
 
-	private void resetStuff() {
+	protected void resetStuff() {
 		setCharging(true);
 		chargeAttack();
 		setTicksSinceLastAttack(0);

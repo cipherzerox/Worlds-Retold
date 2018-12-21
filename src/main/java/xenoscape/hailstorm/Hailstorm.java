@@ -56,7 +56,7 @@ public class Hailstorm {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
-		GameRegistry.registerWorldGenerator(new WorldGenHailstorm(), 0);
+		MinecraftForge.EVENT_BUS.register(new WorldGenHailstorm());
 		MVillagerTrades.registerTrades();
 		Hailstorm.LOGGER.info("Initialization Done");
 	}
