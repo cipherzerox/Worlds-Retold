@@ -128,15 +128,26 @@ public class ModelSentinel extends AdvancedModelBase {
         if (entityIn instanceof EntitySentinel) {
             EntitySentinel sentinel = (EntitySentinel) entityIn;
 
-            if(sentinel.shouldExplode())
-                resetToDefaultPose();
+            if(sentinel.shouldExplode()) {
+                System.out.println("reset");
+                this.resetToDefaultPose();
+            }
+            if(sentinel.isActive()){
+                this.Float1.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
+                this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
+                this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
+                this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
+            }
 
-            if (sentinel.isActive()) {
-                this.Head.rotateAngleX = headPitch / 50f;
-                this.Head.rotateAngleY = netHeadYaw / 50f;
+            if (sentinel.isActive())
+            {
+                this.Head.rotateAngleX = headPitch / 50F;
+                this.Head.rotateAngleY = netHeadYaw / 50F;
 
-                if (sentinel.deathTicks == 0) {
-                    if (sentinel.getSpinning()) {
+                if (sentinel.deathTicks == 0)
+                {
+                    if (sentinel.getSpinning())
+                    {
                         this.Shield1.rotateAngleY = 0.1762F * ageInTicks * 2.6F;
                         this.Shield2.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 1.5F;
                         this.Shield3.rotateAngleY = 0.1762F * ageInTicks * 2.6F + 3.0F;
@@ -156,34 +167,32 @@ public class ModelSentinel extends AdvancedModelBase {
                         this.Shield4.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 1.0F + 2;
                     }
 
-                    this.Float1.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
-                    this.Float2.rotateAngleY = 0.1662F * ageInTicks * 1.2F * -1;
-                    this.Float3.rotateAngleY = 0.1662F * ageInTicks * 1.2F;
-                    this.Head.rotationPointY = MathHelper.cos(0.1F * ageInTicks) * 5.0F + 12.5F;
                 }
             }
             else if(!sentinel.hasExploded() && !sentinel.isActive()){
-                this.Head.rotationPointY = 15;
-                this.Head.rotateAngleX = 10;
+                this.Head.rotationPointY = 24;
+                this.Head.rotateAngleX = 0;
 
                 this.Shield1.rotationPointY = -1;
                 this.Shield1.rotationPointZ = 5;
                 this.Shield1.rotationPointX = 3;
                 this.Shield1.rotateAngleX = 80;
 
-                this.Shield2.rotationPointY = 14;
+                this.Shield2.rotationPointY = 0;
                 this.Shield2.rotationPointZ = -5;
                 this.Shield2.rotationPointX = 3;
-                this.Shield2.rotateAngleZ = -100;
+                this.Shield2.rotateAngleZ = 0;
+                this.Shield2.rotateAngleX = 80;
 
-                this.Shield3.rotationPointY = 14;
+                this.Shield3.rotationPointY = 0;
                 this.Shield3.rotationPointZ = -5;
                 this.Shield3.rotationPointX = -3;
-                this.Shield3.rotateAngleZ = -140;
+                this.Shield3.rotateAngleZ = 0;
+                this.Shield3.rotateAngleX = 80;
 
                 this.Shield4.rotationPointY = -1;
-                this.Shield4.rotationPointZ = -1;
-                this.Shield4.rotationPointX = -7;
+                this.Shield4.rotationPointZ = 5;
+                this.Shield4.rotationPointX = -3;
                 this.Shield4.rotateAngleX = 80;
                 this.Shield4.rotateAngleZ = 0;
 
@@ -193,6 +202,38 @@ public class ModelSentinel extends AdvancedModelBase {
             }
 
         }
+    }
+
+    public void resetToDefaultPose(){
+        this.Head.rotationPointY = 0;
+        this.Head.rotateAngleX = 0;
+
+        this.Shield1.rotationPointY = 0;
+        this.Shield1.rotationPointZ = 0;
+        this.Shield1.rotationPointX = 0;
+        this.Shield1.rotateAngleX = 0;
+
+        this.Shield2.rotationPointY = 0;
+        this.Shield2.rotationPointZ = 0;
+        this.Shield2.rotationPointX = 0;
+        this.Shield2.rotateAngleZ = 0;
+        this.Shield2.rotateAngleX = 0;
+
+        this.Shield3.rotationPointY = 0;
+        this.Shield3.rotationPointZ = 0;
+        this.Shield3.rotationPointX = 0;
+        this.Shield3.rotateAngleZ = 0;
+        this.Shield3.rotateAngleX = 0;
+
+        this.Shield4.rotationPointY = 0;
+        this.Shield4.rotationPointZ = 0;
+        this.Shield4.rotationPointX = 0;
+        this.Shield4.rotateAngleX = 0;
+        this.Shield4.rotateAngleZ = 0;
+
+        this.Float1.rotationPointY = 0;
+        this.Float2.rotationPointY = 0;
+        this.Float3.rotationPointY = 0;
     }
 
 }
