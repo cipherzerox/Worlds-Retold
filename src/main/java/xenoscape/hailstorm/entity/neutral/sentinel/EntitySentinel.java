@@ -59,7 +59,6 @@ public class EntitySentinel extends EntityGuardsman
 
     @Override
     public void onLivingUpdate() {
-      //  setActive(false);
         super.onLivingUpdate();
         if (getAttackTarget() == null) {
             List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
@@ -111,10 +110,10 @@ public class EntitySentinel extends EntityGuardsman
 
         if (!world.isRemote) {
             // System.out.println(getAttackTarget());
-            // System.out.println("Is active? " + isActive());
+        //     System.out.println("Is active? " + isActive());
             // System.out.println(targetDistance);
             //System.out.println("Has Exploded? " + hasExploded());
-          //  System.out.println("Should Explode? " + shouldExplode());
+            System.out.println("Should Explode? " + shouldExplode());
         }
         if (getAttackTarget() != null && isActive()) {
             getNavigator().tryMoveToEntityLiving(getAttackTarget(), .2D);
