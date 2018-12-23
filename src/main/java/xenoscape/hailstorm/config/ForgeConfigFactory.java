@@ -35,7 +35,7 @@ public class ForgeConfigFactory implements IModGuiFactory {
 	}
 	
 	public static List<IConfigElement> generate() {
-		Configuration[] configs = new Configuration[] {MConfig.entity};
+		Configuration[] configs = new Configuration[] {MConfig.entity, MConfig.world_gen};
 		List<IConfigElement> list = Lists.newArrayList();
 		
 		for(Configuration config : configs) {

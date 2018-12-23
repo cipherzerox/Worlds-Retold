@@ -69,7 +69,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50D);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
-		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(100D);
 	}
@@ -84,7 +84,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
 						this.getEntityBoundingBox().expand(64.0D, 64.0D, 64.0D));
 				for (EntityPlayer entity : list) {
-					if (entity != null)
+					if (entity != null && !entity.isCreative())
 						setAttackTarget(entity);
 				}
 			} else {

@@ -93,7 +93,7 @@ public class EntitySentinel extends EntityGuardsman
         if(shouldExplode()){
             if(!world.isRemote){
                 boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
-                float f = 3.0F;
+                float f = 3.5F;
                 this.world.createExplosion(this, this.posX, this.posY, this.posZ, f, flag);
                 setShouldExplode(false);
                 setHasExploded(true);

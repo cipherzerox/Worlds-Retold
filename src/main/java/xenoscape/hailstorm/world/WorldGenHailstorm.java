@@ -23,6 +23,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.hailstorm.Hailstorm;
+import xenoscape.hailstorm.config.ConfigEntity;
+import xenoscape.hailstorm.config.ConfigWorldGen;
 import xenoscape.hailstorm.entity.layer.LayerFreezingRenderer.LayerFreezing;
 import xenoscape.hailstorm.init.MBlocks;
 import xenoscape.hailstorm.potions.PotionFreezing;
@@ -40,10 +42,18 @@ public class WorldGenHailstorm {
 
 		generateOre(MBlocks.CRYONITE_ORE.getDefaultState(), 8, 10, 0, 32, BlockMatcher.forBlock(Blocks.STONE),
 				event.getWorld(), event.getRand());
-		generateBoulders(event.getWorld(), event.getRand(), blockX, blockZ);
-		generateFlowers(event.getWorld(), event.getRand(), blockX, blockZ);
-		generateHailstormShrine(event.getWorld(), event.getRand(), blockX, blockZ);
-		generateSentinelShack(event.getWorld(), event.getRand(), blockX, blockZ);
+		if (ConfigWorldGen.areBouldersEnabled) {
+			generateBoulders(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigWorldGen.areFlowersEnabled) {
+			generateFlowers(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigWorldGen.isHailstormShrineEnabled) {
+			generateHailstormShrine(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigWorldGen.isSentinelShackEnabled) {
+			generateSentinelShack(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
 	}
 
 	private void generateOre(IBlockState blockToGen, int blockAmount, int chancesToSpawn, int minHeight, int maxHeight,
@@ -70,7 +80,7 @@ public class WorldGenHailstorm {
 
 	private void generateBoulders(World world, Random rand, int blockX, int blockZ) {
 		WorldGenBlockBlob generator = null;
-		if (rand.nextInt(3) == 0) {
+		if (rand.nextInt(5) == 0) {
 			switch (rand.nextInt(3)) {
 			case 0:
 				generator = new WorldGenBlockBlob(MBlocks.STONE_CRITTER_EGG, 2);

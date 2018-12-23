@@ -1,4 +1,4 @@
-package xenoscape.hailstorm.entity.projectiles.hail;
+package xenoscape.hailstorm.entity.projectiles;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 /**
  * SnowRoller - Xenoform55 Created using Tabula 7.0.0
  */
-public class ModelHail extends ModelBase {
+public class ModelSphere extends ModelBase {
 	public ModelRenderer Body;
 	public ModelRenderer Top1;
 	public ModelRenderer Bottom1;
@@ -22,7 +22,7 @@ public class ModelHail extends ModelBase {
 	public ModelRenderer Left2;
 	public ModelRenderer Right2;
 
-	public ModelHail() {
+	public ModelSphere() {
 		this.textureWidth = 64;
 		this.textureHeight = 64;
 		this.Top1 = new ModelRenderer(this, 0, 0);

@@ -5,12 +5,13 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import xenoscape.hailstorm.entity.projectiles.ModelSphere;
 
 public class RenderHail extends Render<EntityHail>
 {
     private ResourceLocation TEXTURE = new ResourceLocation("hailstorm:textures/entity/snow_roller.png");
     /** The Skeleton's head model. */
-    private final ModelHail hailModel = new ModelHail();
+    private final ModelSphere hailModel = new ModelSphere();
     public static final RenderHail.Factory FACTORY = new RenderHail.Factory();
 
     public RenderHail(RenderManager renderManagerIn)

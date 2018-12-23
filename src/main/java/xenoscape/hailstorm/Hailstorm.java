@@ -1,5 +1,6 @@
 package xenoscape.hailstorm;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -16,7 +17,9 @@ import org.apache.logging.log4j.Logger;
 import xenoscape.hailstorm.init.MClientEvents;
 import xenoscape.hailstorm.init.MConfig;
 import xenoscape.hailstorm.init.MEntities;
+import xenoscape.hailstorm.init.MItems;
 import xenoscape.hailstorm.init.MPotions;
+import xenoscape.hailstorm.init.MSmeltingRecipes;
 import xenoscape.hailstorm.init.MVanillaLootInsertion;
 import xenoscape.hailstorm.init.MVillagerTrades;
 import xenoscape.hailstorm.proxy.ServerProxy;
@@ -37,19 +40,18 @@ public class Hailstorm {
 	public static ServerProxy proxy;
 
 	public static final DamageSource FROSTBITE = new DamageSource("hailstorm.frostbite").setDamageBypassesArmor();
-    public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
-    public static final DamageSource HAIL = new DamageSource("hailstorm.hail");
-    public static final DamageSource ICE_SCROLL_PROJECTILE = new DamageSource("hailstorm.ice_scroll_projectile");
+	public static final DamageSource ROLLER = new DamageSource("hailstorm.roller");
+	public static final DamageSource HAIL = new DamageSource("hailstorm.hail");
+	public static final DamageSource ICE_SCROLL_PROJECTILE = new DamageSource("hailstorm.ice_scroll_projectile");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		proxy.preInit(event);
-		MConfig.preInitConfigs(event);
-		MPotions.registerPotions();
-		MEntities.preInit();
-		MEntities.init();
 		MinecraftForge.EVENT_BUS.register(new MClientEvents());
 		MinecraftForge.EVENT_BUS.register(new MVanillaLootInsertion());
+		MEntities.preInit();
+		MConfig.preInitConfigs(event);
+		MPotions.registerPotions();
 		Hailstorm.LOGGER.info("Preinitialization Done");
 	}
 
@@ -57,6 +59,8 @@ public class Hailstorm {
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
 		MinecraftForge.EVENT_BUS.register(new WorldGenHailstorm());
+		MEntities.init();
+		MSmeltingRecipes.init();
 		MVillagerTrades.registerTrades();
 		Hailstorm.LOGGER.info("Initialization Done");
 	}

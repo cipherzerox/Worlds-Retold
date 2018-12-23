@@ -27,6 +27,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import xenoscape.hailstorm.entity.EntitySurfaceMonster;
 import xenoscape.hailstorm.entity.ISnowCreature;
+import xenoscape.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
 import xenoscape.hailstorm.entity.util.EntityElementalLookHelper;
 import xenoscape.hailstorm.particle.ParticleShielded;
 
@@ -152,7 +153,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
 						this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
 				for (EntityPlayer entity : list) {
-					if (entity != null) {
+					if (entity != null && !entity.isCreative()) {
 						setAttackTarget(entity);
 					}
 				}
@@ -252,7 +253,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		double d3 = x - d0;
 		double d4 = y - d1;
 		double d5 = z - d2;
-		EntityWitherSkull entitywitherskull = new EntityWitherSkull(this.world, this, d3, d4, d5);
+		EntityFrostShot entitywitherskull = new EntityFrostShot(this.world, this, d3, d4, d5);
 
 		entitywitherskull.posY = d1;
 		entitywitherskull.posX = d0;

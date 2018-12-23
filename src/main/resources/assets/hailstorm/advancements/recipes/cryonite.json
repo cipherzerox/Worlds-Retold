@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "hailstorm:cryonite_sword",
+            "hailstorm:cryonite_shovel",
+            "hailstorm:cryonite_pickaxe",
+            "hailstorm:cryonite_axe",
+            "hailstorm:cryonite_hoe",
+            "hailstorm:cryonite_helmet",
+            "hailstorm:cryonite_chestplate",
+            "hailstorm:cryonite_leggings",
+            "hailstorm:cryonite_boots",
+            "hailstorm:cryonite_block",
+            "hailstorm:cryonite"
+        ]
+    },
+    "criteria": {
+        "has_item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "hailstorm:cryonite"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_item"
+        ]
+    ]
+}

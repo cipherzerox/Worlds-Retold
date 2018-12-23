@@ -19,6 +19,7 @@ import xenoscape.hailstorm.entity.neutral.sentinel.EntitySentinel;
 import xenoscape.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
+import xenoscape.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
 import xenoscape.hailstorm.entity.projectiles.hail.EntityHail;
 
 public class MEntities {
@@ -35,7 +36,7 @@ public class MEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "automaton"), EntityAutomaton.class,
 				"automaton", EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "sentinel"), EntitySentinel.class,
-				"sentinel", EntityID++, Hailstorm.instance, 64, 3, true, 0x84b3ff, 0x647796);
+				"sentinel", EntityID++, Hailstorm.instance, 64, 3, true);
 
 		// Hostile
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "guardsman"), EntityGuardsman.class,
@@ -50,6 +51,8 @@ public class MEntities {
 				EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"),
 				EntityHail.class, "projectile_ice_scroll", EntityID++, Hailstorm.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "frost_shot"),
+				EntityFrostShot.class, "frost_shot", EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "penguin_egg"), EntityPenguinEgg.class,
 				"penguin_egg", EntityID++, Hailstorm.instance, 64, 3, true);
 	}
