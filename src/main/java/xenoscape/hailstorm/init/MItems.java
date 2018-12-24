@@ -22,6 +22,7 @@ import xenoscape.hailstorm.base.BasicItemArmor;
 import xenoscape.hailstorm.base.BasicItemBlizzScroll;
 import xenoscape.hailstorm.base.BasicItemFood;
 import xenoscape.hailstorm.base.BasicItemHoe;
+import xenoscape.hailstorm.base.BasicItemBlackArrow;
 import xenoscape.hailstorm.base.BasicItemPenguinEgg;
 import xenoscape.hailstorm.base.BasicItemStatue;
 import xenoscape.hailstorm.base.BasicItemTool;
@@ -72,6 +73,8 @@ public class MItems {
 	public static BasicItemWeapon RELIC_SWORD = new BasicItemWeapon("relic_sword", MMaterials.RELIC_TOOL, 9F, 3.0D, 0);
 	@ObjectHolder("blizz_scroll")
 	public static BasicItemBlizzScroll BLIZZ_SCROLL = new BasicItemBlizzScroll("blizz_scroll");
+	@ObjectHolder("black_arrow")
+	public static BasicItemBlackArrow BLACK_ARROW = new BasicItemBlackArrow("black_arrow");
 
 	// Tools
 	@ObjectHolder("cryonite_shovel")
@@ -130,13 +133,13 @@ public class MItems {
 			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE,
 					CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS,
 					CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, STATUE);
-			
+
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_ORE);
 			itemblocks.registerItemBlock(MBlocks.CRYONITE_BLOCK);
-			
+
 			itemblocks.registerItemBlock(MBlocks.ARCTIC_WILLOW);
 			itemblocks.registerItemBlock(MBlocks.BOREAL_ORCHID);
-			
+
 			itemblocks.registerItemBlock(MBlocks.STONE_CRITTER_EGG);
 			itemblocks.registerItemBlock(MBlocks.COBBLE_CRITTER_EGG);
 			itemblocks.registerItemBlock(MBlocks.MOSSCOBBLE_CRITTER_EGG);

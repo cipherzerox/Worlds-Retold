@@ -18,6 +18,7 @@ import xenoscape.hailstorm.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.hailstorm.entity.neutral.sentinel.EntitySentinel;
 import xenoscape.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
+import xenoscape.hailstorm.entity.projectiles.black_arrow.EntityBlackArrow;
 import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoscape.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
 import xenoscape.hailstorm.entity.projectiles.hail.EntityHail;
@@ -47,6 +48,8 @@ public class MEntities {
 				"roller", EntityID++, Hailstorm.instance, 64, 3, true, 0xffffff, 0xb7b7b7);
 
 		// Projectiles
+		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "black_arrow"),
+				EntityBlackArrow.class, "black_arrow", EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "hail"), EntityHail.class, "hail",
 				EntityID++, Hailstorm.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Hailstorm.MODID, "projectile_ice_scroll"),

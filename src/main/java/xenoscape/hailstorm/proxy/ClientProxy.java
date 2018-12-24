@@ -38,6 +38,8 @@ import xenoscape.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.hailstorm.entity.passive.nix.RenderNix;
 import xenoscape.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.hailstorm.entity.passive.penguin.RenderPenguin;
+import xenoscape.hailstorm.entity.projectiles.black_arrow.EntityBlackArrow;
+import xenoscape.hailstorm.entity.projectiles.black_arrow.RenderBlackArrow;
 import xenoscape.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoscape.hailstorm.entity.projectiles.egg.RenderPenguinEgg;
 import xenoscape.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
@@ -138,6 +140,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);
 
 		// Projectile
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlackArrow.class, RenderBlackArrow.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHail.class, RenderHail.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceScrollProjectile.class,
 				RenderIceScrollProjectile.FACTORY);
