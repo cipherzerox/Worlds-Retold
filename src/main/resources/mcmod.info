@@ -1,15 +1,12 @@
 [
 {
   "modid": "hailstorm",
+  
   "name": "Hailstorm",
-  "description": "A mod for Winterjam 2018.",
-  "version": "B-1",
+  "version": "1.0.0",
   "mcversion": "1.12.2",
-  "url": "",
-  "updateUrl": "",
   "authorList": ["Xenoform55, T3DK, Anomalocaris101, Scourge"],
- "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
+  "description": "A mod for Winterjam 2018.",
+  "logoFile": ""
 }
 ]

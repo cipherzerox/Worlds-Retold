@@ -29,7 +29,7 @@ import xenoscape.hailstorm.world.WorldGenHailstorm;
 public class Hailstorm {
 	public static final String MODID = "hailstorm";
 	public static final String NAME = "Hailstorm";
-	public static final String VERSION = "B-1";
+	public static final String VERSION = "1.0.0";
 	public static final String CONFIG = "xenoscape.hailstorm.config.ForgeConfigFactory";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + Hailstorm.MODID + " </> ");
 
