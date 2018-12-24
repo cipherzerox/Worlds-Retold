@@ -1,0 +1,23 @@
+{
+    "freezing": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "name": "worldsretold:misc/freezing_1",
+                "stream": true
+            },
+            {
+                "name": "worldsretold:misc/freezing_2",
+                "stream": true
+            },
+            {
+                "name": "worldsretold:misc/freezing_3",
+                "stream": true
+            },
+            {
+                "name": "worldsretold:misc/freezing_4",
+                "stream": true
+            }
+        ]
+    }
+}

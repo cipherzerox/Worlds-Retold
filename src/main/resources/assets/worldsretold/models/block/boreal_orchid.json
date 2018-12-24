@@ -1,0 +1,7 @@
+{
+    "parent": "worldsretold:block/overlayed_plant",
+    "textures": {
+        "cross": "worldsretold:blocks/boreal_orchid",
+        "overlay": "worldsretold:blocks/boreal_orchid_overlay"
+    }
+}

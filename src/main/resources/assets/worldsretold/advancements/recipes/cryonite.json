@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "worldsretold:cryonite_sword",
+            "worldsretold:cryonite_shovel",
+            "worldsretold:cryonite_pickaxe",
+            "worldsretold:cryonite_axe",
+            "worldsretold:cryonite_hoe",
+            "worldsretold:cryonite_helmet",
+            "worldsretold:cryonite_chestplate",
+            "worldsretold:cryonite_leggings",
+            "worldsretold:cryonite_boots",
+            "worldsretold:cryonite_block",
+            "worldsretold:cryonite"
+        ]
+    },
+    "criteria": {
+        "has_item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "worldsretold:cryonite"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_item"
+        ]
+    ]
+}

@@ -1,7 +1,0 @@
-{
-    "parent": "hailstorm:block/overlayed_plant",
-    "textures": {
-        "cross": "hailstorm:blocks/boreal_orchid",
-        "overlay": "hailstorm:blocks/boreal_orchid_overlay"
-    }
-}

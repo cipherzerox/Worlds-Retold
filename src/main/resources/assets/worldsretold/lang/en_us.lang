@@ -1,0 +1,78 @@
+##Blocks##
+
+tile.cryonite_ore.name=Cryonite Ore
+tile.cryonite_block.name=Block of Cryonite
+
+tile.arctic_willow.name=Arctic Willow
+tile.boreal_orchid.name=Boreal Orchid
+
+tile.stone_critter_egg.name=Stone Critter Egg
+tile.cobble_critter_egg.name=Cobblestone Critter Egg
+tile.mosscobble_critter_egg.name=Moss Stone Critter Egg
+tile.packedice_critter_egg.name=Packed Ice Critter Egg
+
+##Items##
+
+item.cryonite_sword.name=Cryonite Sword
+item.avalanche_hammer.name=Avalanche Hammer
+item.relic_sword.name=Relic Sword
+item.blizz_scroll.name=Scroll Of Blizzards
+item.black_arrow.name=Black Arrow
+
+item.cryonite_shovel.name=Cryonite Shovel
+item.cryonite_pickaxe.name=Cryonite Pickaxe
+item.cryonite_axe.name=Cryonite Axe
+item.cryonite_hoe.name=Cryonite Hoe
+
+item.cryonite_helmet.name=Cryonite Helmet
+item.cryonite_chestplate.name=Cryonite Chestplate
+item.cryonite_leggings.name=Cryonite Leggings
+item.cryonite_boots.name=Cryonite Boots
+
+item.worldsretold_helmet.name=Hailstorm Helmet
+item.worldsretold_chestplate.name=Hailstorm Chestplate
+item.worldsretold_leggings.name=Hailstorm Leggings
+item.worldsretold_boots.name=Hailstorm Boots
+
+item.cryonite.name=Cryonite
+
+item.penguin_egg.name=Penguin Egg
+item.penguin_feather.name=Penguin Feather
+item.manchot_raw.name=Raw Manchot
+item.manchot_cooked.name=Cooked Manchot
+
+item.statue.name=Statue
+
+##Entities##
+
+// Passive
+entity.penguin.name=Penguin
+entity.nix.name=Nix
+
+// Neutral
+entity.automaton.name=Automaton
+
+// Hostile
+entity.guardsman.name=Guardsman
+entity.blizzard.name=Blizzard
+entity.roller.name=Snow Roller
+
+##Damage Sources##
+
+death.attack.worldsretold.frostbite=%1$s suffered from frostbite.
+death.attack.worldsretold.roller=%1$s was ran over by a Snow Roller
+death.attack.worldsretold.hail=%1$s was domed by a piece of hail
+
+##Potion##
+
+effect.freezing=Freezing
+potion.effect.freezing=Potion of Freezing
+splash_potion.effect.freezing=Splash Potion of Freezing
+lingering_potion.effect.freezing=Lingering Potion of Freezing
+tipped_arrow.effect.freezing=Arrow of Freezing
+
+##Enchantment##
+
+enchantment.icebound_blade=Icebound Blade
+enchantment.glacier=Glacier
+enchantment.lightning_rod=Lightning Rod

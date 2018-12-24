@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "worldsretold:cryonite"
+    }
+  },
+  "result": {
+    "item": "worldsretold:cryonite_block"
+  }
+}
