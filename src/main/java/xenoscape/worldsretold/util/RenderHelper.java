@@ -1,10 +1,11 @@
 package xenoscape.worldsretold.util;
 
-import java.lang.reflect.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.entity.layers.*;
-import java.util.*;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 public class RenderHelper {
 	private static Field fieldLayerRenderers = ReflectionHelper.findField((Class) RenderLivingBase.class,
@@ -20,12 +21,10 @@ public class RenderHelper {
 					if (cls.isInstance(layer)) {
 						return (T) layer;
 					}
-					continue;
 				} else {
 					if (cls == layer.getClass()) {
 						return (T) layer;
 					}
-					continue;
 				}
 			}
 		} catch (Exception ex) {

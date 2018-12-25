@@ -1,18 +1,8 @@
 package xenoscape.worldsretold.proxy;
 
-import java.util.List;
-
-import com.google.common.base.Predicates;
-
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeColorHelper;
@@ -65,7 +55,8 @@ public class ClientProxy extends ServerProxy {
 		super.preInit(event);
 		if (ConfigModules.isHailstormEnabled == true) {
 			preInitHailstorm(event);
-		}
+            MinecraftForge.EVENT_BUS.register(new HailstormClientEvents());
+        }
 	}
 
 	public void preInitHailstorm(final FMLPreInitializationEvent event) {
