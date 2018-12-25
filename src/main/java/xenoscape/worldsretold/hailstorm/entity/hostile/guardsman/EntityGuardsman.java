@@ -8,22 +8,15 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import xenoscape.worldsretold.hailstorm.entity.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
@@ -320,7 +313,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	}
 
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source != null && !this.getCharging()) {
+		if (source != null && !this.getCharging() && world.isRemote) {
 			spawnSparks(1);
 			spawnSparks(-1);
 		}
