@@ -44,8 +44,8 @@ public class WorldsRetold {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		proxy.preInit(event);
 		WorldsRetoldConfig.preInitConfigs(event);
+		proxy.preInit(event);
 		if (ConfigModules.isHailstormEnabled == true) {
 			HailstormModule.INSTANCE.preInitHailstorm(event);
 		}

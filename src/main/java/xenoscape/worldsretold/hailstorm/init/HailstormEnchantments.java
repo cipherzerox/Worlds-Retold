@@ -6,6 +6,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.config.ConfigModules;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentGlacier;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentIceboundBlade;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentLightningRod;
@@ -22,7 +23,9 @@ public class HailstormEnchantments {
 
 	@SubscribeEvent
 	public static void registerEnchantments(Register<Enchantment> event) {
-		event.getRegistry().registerAll(ICEBOUND_BLADE, GLACIER, LIGHTNING_ROD);
+		if (ConfigModules.isHailstormEnabled == true) {
+			event.getRegistry().registerAll(ICEBOUND_BLADE, GLACIER, LIGHTNING_ROD);
+		}
 	}
 
 }

@@ -50,8 +50,10 @@ public class HailstormBlocks {
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event) {
 			final IForgeRegistry<Block> blocks = event.getRegistry();
-			blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, BOREAL_ORCHID, STONE_CRITTER_EGG,
-					COBBLE_CRITTER_EGG, MOSSCOBBLE_CRITTER_EGG);
+			if (ConfigModules.isHailstormEnabled == true) {
+				blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, BOREAL_ORCHID, STONE_CRITTER_EGG,
+						COBBLE_CRITTER_EGG, MOSSCOBBLE_CRITTER_EGG);
+			}
 		}
 	}
 }

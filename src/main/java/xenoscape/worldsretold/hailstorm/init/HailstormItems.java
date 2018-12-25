@@ -135,19 +135,21 @@ public class HailstormItems {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
-			items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE,
-					CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS, CRYONITE_BOOTS,
-					CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, STATUE);
+			if (ConfigModules.isHailstormEnabled == true) {
+				items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE,
+						CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS,
+						CRYONITE_BOOTS, CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, STATUE);
 
-			itemblocks.registerItemBlock(HailstormBlocks.CRYONITE_ORE);
-			itemblocks.registerItemBlock(HailstormBlocks.CRYONITE_BLOCK);
+				itemblocks.registerItemBlock(HailstormBlocks.CRYONITE_ORE);
+				itemblocks.registerItemBlock(HailstormBlocks.CRYONITE_BLOCK);
 
-			itemblocks.registerItemBlock(HailstormBlocks.ARCTIC_WILLOW);
-			itemblocks.registerItemBlock(HailstormBlocks.BOREAL_ORCHID);
+				itemblocks.registerItemBlock(HailstormBlocks.ARCTIC_WILLOW);
+				itemblocks.registerItemBlock(HailstormBlocks.BOREAL_ORCHID);
 
-			itemblocks.registerItemBlock(HailstormBlocks.STONE_CRITTER_EGG);
-			itemblocks.registerItemBlock(HailstormBlocks.COBBLE_CRITTER_EGG);
-			itemblocks.registerItemBlock(HailstormBlocks.MOSSCOBBLE_CRITTER_EGG);
+				itemblocks.registerItemBlock(HailstormBlocks.STONE_CRITTER_EGG);
+				itemblocks.registerItemBlock(HailstormBlocks.COBBLE_CRITTER_EGG);
+				itemblocks.registerItemBlock(HailstormBlocks.MOSSCOBBLE_CRITTER_EGG);
+			}
 		}
 
 		private static class ItemBlockRegistry {
