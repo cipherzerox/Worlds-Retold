@@ -18,6 +18,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.hailstorm.entity.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
@@ -293,6 +295,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	private void spawnSparks(int yDirec) {
 		ParticleShielded newEffect = new ParticleShielded(world, posX, posY + 1, posZ, rand.nextDouble(),
 				rand.nextDouble() * yDirec, rand.nextFloat());
