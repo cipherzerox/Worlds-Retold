@@ -264,7 +264,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		else if (damageSrc == DamageSource.LAVA)
 			super.damageEntity(damageSrc, damageAmount * 3);
 		else if (getSpinning())
-			super.damageEntity(null, 0);
+			super.damageEntity(damageSrc, damageAmount * 0);
 		else
 			super.damageEntity(damageSrc, damageAmount);
 	}

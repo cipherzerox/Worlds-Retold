@@ -116,16 +116,6 @@ public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreat
 	}
 
 	@Override
-	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-		if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
-			super.damageEntity(damageSrc, damageAmount * 2);
-		else if (damageSrc == DamageSource.LAVA)
-			super.damageEntity(damageSrc, damageAmount * 3);
-		else
-			super.damageEntity(damageSrc, damageAmount);
-	}
-
-	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setFloat("Size", this.getSize());

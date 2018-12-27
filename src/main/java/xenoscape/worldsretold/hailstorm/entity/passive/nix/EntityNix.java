@@ -143,8 +143,6 @@ public class EntityNix extends EntityCreature implements ISnowCreature {
 			super.damageEntity(damageSrc, damageAmount * 2);
 		else if (damageSrc == DamageSource.LAVA)
 			super.damageEntity(damageSrc, damageAmount * 3);
-		else if (damageSrc == HailstormModule.FROSTBITE || damageSrc == HailstormModule.HAIL)
-			super.damageEntity(damageSrc, damageAmount * 0);
 		else
 			super.damageEntity(damageSrc, damageAmount);
 	}
