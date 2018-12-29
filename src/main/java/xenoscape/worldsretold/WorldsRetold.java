@@ -28,12 +28,13 @@ import xenoscape.worldsretold.hailstorm.init.HailstormVillagerTrades;
 import xenoscape.worldsretold.hailstorm.world.WorldGenHailstorm;
 import xenoscape.worldsretold.proxy.ServerProxy;
 
-@Mod(modid = WorldsRetold.MODID, name = WorldsRetold.NAME, version = WorldsRetold.VERSION, guiFactory = WorldsRetold.CONFIG)
+@Mod(modid = WorldsRetold.MODID, name = WorldsRetold.NAME, version = WorldsRetold.VERSION, guiFactory = WorldsRetold.CONFIG, updateJSON = WorldsRetold.UPDATE)
 public class WorldsRetold {
 	public static final String MODID = "worldsretold";
 	public static final String NAME = "Worlds Retold";
-	public static final String VERSION = "1.0.1";
+	public static final String VERSION = "1.0.2";
 	public static final String CONFIG = "xenoscape.worldsretold.config.ForgeConfigFactory";
+	public static final String UPDATE = "https://raw.githubusercontent.com/Xenoform55/Worlds-Retold/master/src/main/resources/worldsretold_changelog.json";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + WorldsRetold.MODID + " </> ");
 
 	@Instance(MODID)

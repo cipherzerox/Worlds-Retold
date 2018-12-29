@@ -49,6 +49,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	public EntityGuardsman(World world) {
 		super(world);
 		setSize(2, 2);
+		this.isImmuneToFire = true;
 		this.lookHelper = new EntityElementalLookHelper(this);
 	}
 
@@ -259,11 +260,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 
 	@Override
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-		if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
-			super.damageEntity(damageSrc, damageAmount * 2);
-		else if (damageSrc == DamageSource.LAVA)
-			super.damageEntity(damageSrc, damageAmount * 3);
-		else if (getSpinning())
+		if (getSpinning())
 			super.damageEntity(damageSrc, damageAmount * 0);
 		else
 			super.damageEntity(damageSrc, damageAmount);

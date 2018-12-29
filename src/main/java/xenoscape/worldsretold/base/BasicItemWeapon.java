@@ -14,6 +14,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,7 +24,7 @@ import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 import xenoscape.worldsretold.util.ModelRegistry;
 
 
-public class BasicItemWeapon extends BasicItem implements ModelRegistry {
+public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 
 	private final Item.ToolMaterial material;
 	protected String name;
@@ -33,7 +34,7 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 
 	public BasicItemWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed,
 			int effect) {
-		super(name);
+		super(material);
 		this.name = name;
 		this.material = material;
 		this.attackDamage = attackDamage;
@@ -41,6 +42,8 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 		this.effect = effect;
 		this.maxStackSize = 1;
 		this.setMaxDamage(material.getMaxUses());
+		setUnlocalizedName(name);
+		setRegistryName(name);
 		setCreativeTab(CreativeTabs.COMBAT);
 	}
 
@@ -48,11 +51,6 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 	public BasicItemWeapon setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
-	}
-
-	@Override
-	public int getEntityLifespan(ItemStack itemStack, World world) {
-		return 24000;
 	}
 
 	@Override
@@ -69,14 +67,17 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 		return multimap;
 	}
 
+	@Override
 	public int getItemEnchantability() {
 		return this.material.getEnchantability();
 	}
 
+	@Override
 	public String getToolMaterialName() {
 		return this.material.toString();
 	}
 
+	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		ItemStack mat = this.material.getRepairItemStack();
 		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false))
@@ -84,18 +85,7 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 		return super.getIsRepairable(toRepair, repair);
 	}
 
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		Block block = state.getBlock();
-
-		if (block == Blocks.WEB) {
-			return 15.0F;
-		} else {
-			Material material = state.getMaterial();
-			return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL
-					&& material != Material.LEAVES && material != Material.GOURD ? 1.0F : 1.5F;
-		}
-	}
-
+	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		stack.damageItem(1, attacker);
 		if (this.effect == 1) {
@@ -106,24 +96,6 @@ public class BasicItemWeapon extends BasicItem implements ModelRegistry {
 			attacker.world.createExplosion(target, target.posX, target.posY + 1, target.posZ, 1.0F, true);
 			((EntityPlayer) attacker).getCooldownTracker().setCooldown(this, 140);
 		}
-		return true;
-	}
-
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
-			EntityLivingBase entityLiving) {
-		if ((double) state.getBlockHardness(worldIn, pos) != 0.0D) {
-			stack.damageItem(2, entityLiving);
-		}
-
-		return true;
-	}
-
-	public boolean canHarvestBlock(IBlockState blockIn) {
-		return blockIn.getBlock() == Blocks.WEB;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public boolean isFull3D() {
 		return true;
 	}
 }

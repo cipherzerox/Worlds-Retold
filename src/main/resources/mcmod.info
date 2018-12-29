@@ -7,6 +7,7 @@
   "mcversion": "${mcversion}",
   "authorList": ["Xenoform55, T3DK, Anomalocaris101, Scourge"],
   "description": "A mod for Winterjam 2018.",
-  "logoFile": ""
+  "logoFile": "",
+   "url": "https://minecraft.curseforge.com/projects/worlds-retold"
 }
 ]

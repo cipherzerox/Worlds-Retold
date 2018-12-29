@@ -140,9 +140,9 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
 		if (this instanceof ISnowCreature) {
 			if (damageSrc == DamageSource.ON_FIRE || damageSrc == DamageSource.HOT_FLOOR)
-				super.damageEntity(damageSrc, damageAmount * 2);
+				super.damageEntity(damageSrc, damageAmount * 1.5F);
 			else if (damageSrc == DamageSource.LAVA)
-				super.damageEntity(damageSrc, damageAmount * 3);
+				super.damageEntity(damageSrc, damageAmount * 2);
 			else
 				super.damageEntity(damageSrc, damageAmount);
 		} else {
