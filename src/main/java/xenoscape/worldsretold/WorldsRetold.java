@@ -34,7 +34,7 @@ public class WorldsRetold {
 	public static final String NAME = "Worlds Retold";
 	public static final String VERSION = "1.0.2";
 	public static final String CONFIG = "xenoscape.worldsretold.config.ForgeConfigFactory";
-	public static final String UPDATE = "https://raw.githubusercontent.com/Xenoform55/Worlds-Retold/master/src/main/resources/worldsretold_changelog.json";
+	public static final String UPDATE = "https://raw.githubusercontent.com/Xenoform55/Worlds-Retold/master/src/main/resources/update_changelog.json";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + WorldsRetold.MODID + " </> ");
 
 	@Instance(MODID)
