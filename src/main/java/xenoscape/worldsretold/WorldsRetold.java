@@ -26,13 +26,14 @@ import xenoscape.worldsretold.hailstorm.init.HailstormSmeltingRecipes;
 import xenoscape.worldsretold.hailstorm.init.HailstormVanillaLootInsertion;
 import xenoscape.worldsretold.hailstorm.init.HailstormVillagerTrades;
 import xenoscape.worldsretold.hailstorm.world.WorldGenHailstorm;
+import xenoscape.worldsretold.heatwave.HeatwaveModule;
 import xenoscape.worldsretold.proxy.ServerProxy;
 
 @Mod(modid = WorldsRetold.MODID, name = WorldsRetold.NAME, version = WorldsRetold.VERSION, guiFactory = WorldsRetold.CONFIG, updateJSON = WorldsRetold.UPDATE)
 public class WorldsRetold {
 	public static final String MODID = "worldsretold";
 	public static final String NAME = "Worlds Retold";
-	public static final String VERSION = "1.0.1";
+	public static final String VERSION = "1.0.3";
 	public static final String CONFIG = "xenoscape.worldsretold.config.ForgeConfigFactory";
 	public static final String UPDATE = "https://raw.githubusercontent.com/Xenoform55/Worlds-Retold/master/src/main/resources/update_changelog.json";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + WorldsRetold.MODID + " </> ");
@@ -50,7 +51,10 @@ public class WorldsRetold {
 		if (ConfigModules.isHailstormEnabled == true) {
 			HailstormModule.INSTANCE.preInitHailstorm(event);
 		}
-		WorldsRetold.LOGGER.info(NAME + " Preinitialization Done");
+		if (ConfigModules.isHeatwaveEnabled == true) {
+			HeatwaveModule.INSTANCE.preInitHeatwave(event);
+		}
+		WorldsRetold.LOGGER.info(NAME + " Preinitialized");
 	}
 
 	@EventHandler
@@ -59,7 +63,10 @@ public class WorldsRetold {
 		if (ConfigModules.isHailstormEnabled == true) {
 			HailstormModule.INSTANCE.initHailstorm(event);
 		}
-		WorldsRetold.LOGGER.info(NAME + " Initialization Done");
+		if (ConfigModules.isHeatwaveEnabled == true) {
+			HeatwaveModule.INSTANCE.initHeatwave(event);
+		}
+		WorldsRetold.LOGGER.info(NAME + " Initialized");
 	}
 
 	@EventHandler
@@ -68,6 +75,9 @@ public class WorldsRetold {
 		if (ConfigModules.isHailstormEnabled == true) {
 			HailstormModule.INSTANCE.postInitHailstorm(event);
 		}
-		WorldsRetold.LOGGER.info(NAME + " Postinitialization Done");
+		if (ConfigModules.isHeatwaveEnabled == true) {
+			HeatwaveModule.INSTANCE.postInitHeatwave(event);
+		}
+		WorldsRetold.LOGGER.info(NAME + " Postinitialized");
 	}
 }

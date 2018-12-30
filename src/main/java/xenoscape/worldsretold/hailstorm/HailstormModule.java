@@ -24,7 +24,7 @@ public class HailstormModule {
 		HailstormEntities.preInit();
 		HailstormConfig.preInitConfigs(event);
 		HailstormPotions.registerPotions();
-		WorldsRetold.LOGGER.info("Hailstorm Preinitialization Done");
+		WorldsRetold.LOGGER.info("Hailstorm Module Preinitialized");
 	}
 
 	public void initHailstorm(FMLInitializationEvent event) {
@@ -32,10 +32,10 @@ public class HailstormModule {
 		HailstormEntities.init();
 		HailstormSmeltingRecipes.init();
 		HailstormVillagerTrades.registerTrades();
-		WorldsRetold.LOGGER.info("Hailstorm Initialization Done");
+		WorldsRetold.LOGGER.info("Hailstorm Module Initialized");
 	}
 
 	public void postInitHailstorm(FMLPostInitializationEvent event) {
-		WorldsRetold.LOGGER.info("Hailstorm Postinitialization Done");
+		WorldsRetold.LOGGER.info("Hailstorm Module Postinitialized");
 	}
 }
