@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.base;
+package xenoscape.worldsretold.basic;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;

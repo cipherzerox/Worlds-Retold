@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.hailstorm.entity.util;
+package xenoscape.worldsretold.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

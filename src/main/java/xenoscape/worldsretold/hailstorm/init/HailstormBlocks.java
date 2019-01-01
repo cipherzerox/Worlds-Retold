@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.base.BasicBlock;
-import xenoscape.worldsretold.base.BasicBlockOre;
-import xenoscape.worldsretold.base.BasicBlockOverlayedPlant;
+import xenoscape.worldsretold.basic.BasicBlock;
+import xenoscape.worldsretold.basic.BasicBlockOre;
+import xenoscape.worldsretold.basic.BasicBlockOverlayedPlant;
 import xenoscape.worldsretold.config.ConfigModules;
 import xenoscape.worldsretold.hailstorm.item.BasicBlockCritter;
 

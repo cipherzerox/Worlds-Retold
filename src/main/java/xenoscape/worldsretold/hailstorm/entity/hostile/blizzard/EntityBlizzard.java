@@ -17,10 +17,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import xenoscape.worldsretold.hailstorm.entity.EntitySurfaceMonster;
+import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.hail.EntityHail;
-import xenoscape.worldsretold.hailstorm.entity.util.EntityElementalLookHelper;
+import xenoscape.worldsretold.util.EntityElementalLookHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;

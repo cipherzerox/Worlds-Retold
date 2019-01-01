@@ -30,7 +30,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.worldsretold.hailstorm.entity.EntitySurfaceMonster;
+import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
 import xenoscape.worldsretold.hailstorm.init.HailstormItems;
 

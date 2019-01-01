@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.base.BasicItemWeapon;
+import xenoscape.worldsretold.basic.BasicItemWeapon;
 import xenoscape.worldsretold.hailstorm.entity.layer.LayerFreezingRenderer.LayerFreezing;
 import xenoscape.worldsretold.hailstorm.potion.PotionFreezing;
 import xenoscape.worldsretold.util.RenderHelper;

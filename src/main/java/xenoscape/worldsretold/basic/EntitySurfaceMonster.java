@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.hailstorm.entity;
+package xenoscape.worldsretold.basic;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 
 public abstract class EntitySurfaceMonster extends EntityCreature implements IMob {
 	protected float targetDistance;

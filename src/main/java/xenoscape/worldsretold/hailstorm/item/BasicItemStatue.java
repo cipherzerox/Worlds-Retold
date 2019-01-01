@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
-import xenoscape.worldsretold.base.BasicItem;
+import xenoscape.worldsretold.basic.BasicItem;
 import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton;
 
 

@@ -17,7 +17,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xenoscape.worldsretold.base.BasicBlock;
+import xenoscape.worldsretold.basic.BasicBlock;
 
 public class BasicBlockCritter extends BasicBlock {
 	protected static String name;

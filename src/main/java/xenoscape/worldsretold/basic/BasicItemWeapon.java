@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.base;
+package xenoscape.worldsretold.basic;
 
 import com.google.common.collect.Multimap;
 

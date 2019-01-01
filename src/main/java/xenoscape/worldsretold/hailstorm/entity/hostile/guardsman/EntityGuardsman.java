@@ -20,11 +20,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.worldsretold.hailstorm.entity.EntitySurfaceMonster;
+import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
-import xenoscape.worldsretold.hailstorm.entity.util.EntityElementalLookHelper;
 import xenoscape.worldsretold.hailstorm.particle.ParticleShielded;
+import xenoscape.worldsretold.util.EntityElementalLookHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;

@@ -41,6 +41,8 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.EntityIceScrol
 import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoscape.worldsretold.hailstorm.init.HailstormBlocks;
 import xenoscape.worldsretold.hailstorm.init.HailstormClientEvents;
+import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
+import xenoscape.worldsretold.heatwave.entity.neutral.camel.RenderCamel;
 
 public class ClientProxy extends ServerProxy {
 
@@ -56,6 +58,9 @@ public class ClientProxy extends ServerProxy {
 		if (ConfigModules.isHailstormEnabled == true) {
 			preInitHailstorm(event);
             MinecraftForge.EVENT_BUS.register(new HailstormClientEvents());
+        }
+		if (ConfigModules.isHeatwaveEnabled == true) {
+			preInitHeatwave(event);
         }
 	}
 
@@ -80,6 +85,17 @@ public class ClientProxy extends ServerProxy {
 				RenderIceScrollProjectile.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityFrostShot.class, RenderFrostShot.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPenguinEgg.class, RenderPenguinEgg.FACTORY);
+	}
+	
+	public void preInitHeatwave(final FMLPreInitializationEvent event) {
+		// Passive
+
+		// Neutral
+		RenderingRegistry.registerEntityRenderingHandler(EntityCamel.class, RenderCamel.FACTORY);
+
+		// Hostile
+
+		// Projectile
 	}
 
 	@Override

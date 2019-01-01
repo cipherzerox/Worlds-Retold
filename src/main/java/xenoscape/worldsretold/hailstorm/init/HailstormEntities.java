@@ -22,7 +22,7 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.hail.EntityHail;
 import java.util.Set;
 
 public class HailstormEntities {
-	private static int EntityID = 0;
+	public static int EntityID = 0;
 
 	public static void preInit() {
 		// Passive

@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.base;
+package xenoscape.worldsretold.basic;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 import xenoscape.worldsretold.util.ModelRegistry;
+
 import java.util.Set;
 
 public class BasicItemTool extends ItemTool implements ModelRegistry {
