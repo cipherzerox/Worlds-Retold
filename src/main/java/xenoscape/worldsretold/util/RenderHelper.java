@@ -8,8 +8,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class RenderHelper {
-	private static Field fieldLayerRenderers = ReflectionHelper.findField((Class) RenderLivingBase.class,
-			new String[] { "layerRenderers", "field_177097_h", "i" });
+	private static Field fieldLayerRenderers = ReflectionHelper.findField(RenderLivingBase.class,
+			"layerRenderers", "field_177097_h", "i");
 
 	public static <T extends LayerRenderer<?>> T getRenderLayer(final RenderLivingBase<?> renderer, final Class<T> cls,
 			final boolean subclasses) {

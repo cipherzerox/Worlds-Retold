@@ -27,7 +27,7 @@ public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreat
 	private float baseSize = 0.35F;
 	private float size = baseSize;
 
-	private static final DataParameter<Float> SIZE = EntityDataManager.<Float>createKey(EntitySnowRoller.class,
+	private static final DataParameter<Float> SIZE = EntityDataManager.createKey(EntitySnowRoller.class,
 			DataSerializers.FLOAT);
 
 	public EntitySnowRoller(World world) {

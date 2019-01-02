@@ -61,7 +61,7 @@ public class HailstormEntities {
 	public static void init() {
 		final Set<Biome> snowBiomes = (Set<Biome>) new ObjectArraySet();
 		for (final Biome biome : Biome.REGISTRY) {
-			final Set<BiomeDictionary.Type> types = (Set<BiomeDictionary.Type>) BiomeDictionary.getTypes(biome);
+			final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
 			if (types.contains(BiomeDictionary.Type.SNOWY) && !types.contains(BiomeDictionary.Type.BEACH)
 					&& !types.contains(BiomeDictionary.Type.OCEAN) && !types.contains(BiomeDictionary.Type.RIVER)
 					&& !types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)) {

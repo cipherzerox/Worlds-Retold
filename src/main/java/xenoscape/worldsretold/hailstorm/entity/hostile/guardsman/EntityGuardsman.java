@@ -146,7 +146,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 			super.onLivingUpdate();
 
 			if (getAttackTarget() == null) {
-				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
+				List<EntityPlayer> list = this.world.getEntitiesWithinAABB(EntityPlayer.class,
 						this.getEntityBoundingBox().expand(22.0D, 22.0D, 22.0D));
 				for (EntityPlayer entity : list) {
 					if (entity != null && !entity.isCreative()) {

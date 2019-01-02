@@ -19,7 +19,7 @@ public class BasicBlockOverlayedPlant extends BlockBush implements ModelRegistry
 	protected static String name;
 
 	public BasicBlockOverlayedPlant(String name) {
-		this.name = name;
+		BasicBlockOverlayedPlant.name = name;
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setHardness(0.0F);

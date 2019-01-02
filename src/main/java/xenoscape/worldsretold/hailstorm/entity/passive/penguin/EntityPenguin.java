@@ -44,7 +44,7 @@ import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.hailstorm.init.HailstormItems;
 
 public class EntityPenguin extends EntityAnimal {
-	private static final DataParameter<Boolean> IS_SLIDING = EntityDataManager.<Boolean>createKey(EntityPenguin.class,
+	private static final DataParameter<Boolean> IS_SLIDING = EntityDataManager.createKey(EntityPenguin.class,
 			DataSerializers.BOOLEAN);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.FISH);
 	public float wingRotation;
@@ -148,7 +148,7 @@ public class EntityPenguin extends EntityAnimal {
 	}
 
 	public boolean isSliding() {
-		return ((Boolean) this.dataManager.get(IS_SLIDING)).booleanValue();
+		return this.dataManager.get(IS_SLIDING).booleanValue();
 	}
 
 	public void setSliding(boolean standing) {

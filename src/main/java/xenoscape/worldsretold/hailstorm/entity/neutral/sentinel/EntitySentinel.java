@@ -61,7 +61,7 @@ public class EntitySentinel extends EntityGuardsman
     public void onLivingUpdate() {
         super.onLivingUpdate();
         if (getAttackTarget() == null) {
-            List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
+            List<EntityPlayer> list = this.world.getEntitiesWithinAABB(EntityPlayer.class,
                     this.getEntityBoundingBox().expand(32.0D, 32.0D, 32.0D));
             for (EntityPlayer entity : list) {
                 if (entity != null && !world.isRemote && !entity.isCreative()) {

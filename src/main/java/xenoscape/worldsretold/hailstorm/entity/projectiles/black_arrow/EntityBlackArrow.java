@@ -46,7 +46,7 @@ public class EntityBlackArrow extends EntityArrow implements IProjectile {
 					return p_apply_1_.canBeCollidedWith();
 				}
 			});
-	private static final DataParameter<Byte> CRITICAL = EntityDataManager.<Byte>createKey(EntityBlackArrow.class,
+	private static final DataParameter<Byte> CRITICAL = EntityDataManager.createKey(EntityBlackArrow.class,
 			DataSerializers.BYTE);
 	private int xTile;
 	private int yTile;
@@ -281,7 +281,6 @@ public class EntityBlackArrow extends EntityArrow implements IProjectile {
 			for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, (double) f4)
 					* (180D / Math.PI)); this.rotationPitch
 							- this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-				;
 			}
 
 			while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -595,7 +594,7 @@ public class EntityBlackArrow extends EntityArrow implements IProjectile {
 	 * it.
 	 */
 	public void setIsCritical(boolean critical) {
-		byte b0 = ((Byte) this.dataManager.get(CRITICAL)).byteValue();
+		byte b0 = this.dataManager.get(CRITICAL).byteValue();
 
 		if (critical) {
 			this.dataManager.set(CRITICAL, Byte.valueOf((byte) (b0 | 1)));
@@ -609,7 +608,7 @@ public class EntityBlackArrow extends EntityArrow implements IProjectile {
 	 * it.
 	 */
 	public boolean getIsCritical() {
-		byte b0 = ((Byte) this.dataManager.get(CRITICAL)).byteValue();
+		byte b0 = this.dataManager.get(CRITICAL).byteValue();
 		return (b0 & 1) != 0;
 	}
 
@@ -632,7 +631,7 @@ public class EntityBlackArrow extends EntityArrow implements IProjectile {
 		}
 	}
 
-	public static enum PickupStatus {
+	public enum PickupStatus {
 		DISALLOWED, ALLOWED, CREATIVE_ONLY;
 
 		public static EntityBlackArrow.PickupStatus getByOrdinal(int ordinal) {

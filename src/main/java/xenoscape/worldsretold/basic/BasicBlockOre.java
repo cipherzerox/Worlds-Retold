@@ -23,7 +23,7 @@ public class BasicBlockOre extends Block implements ModelRegistry {
 
 	public BasicBlockOre(Material material, String name, float hardness, String tool, int level, Item ore) {
 		super(material);
-		this.name = name;
+		BasicBlockOre.name = name;
 		this.ore = ore;
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -43,7 +43,7 @@ public class BasicBlockOre extends Block implements ModelRegistry {
 
 	public int quantityDroppedWithBonus(int fortune, Random random) {
 		if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped(
-				(IBlockState) this.getBlockState().getValidStates().iterator().next(), random, fortune)) {
+				this.getBlockState().getValidStates().iterator().next(), random, fortune)) {
 			int i = random.nextInt(fortune + 2) - 1;
 
 			if (i < 0) {

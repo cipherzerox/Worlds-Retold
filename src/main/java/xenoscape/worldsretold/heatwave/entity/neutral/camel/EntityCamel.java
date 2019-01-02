@@ -38,11 +38,11 @@ import javax.annotation.Nullable;
 
 public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob {
 	private static final DataParameter<Integer> DATA_STRENGTH_ID = EntityDataManager
-			.<Integer>createKey(EntityCamel.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> DATA_COLOR_ID = EntityDataManager.<Integer>createKey(EntityCamel.class,
+			.createKey(EntityCamel.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> DATA_COLOR_ID = EntityDataManager.createKey(EntityCamel.class,
 			DataSerializers.VARINT);
 	private static final DataParameter<Integer> DATA_VARIANT_ID = EntityDataManager
-			.<Integer>createKey(EntityCamel.class, DataSerializers.VARINT);
+			.createKey(EntityCamel.class, DataSerializers.VARINT);
 	private boolean didSpit;
 	@Nullable
 	private EntityCamel caravanHead;
@@ -64,7 +64,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public int getStrength() {
-		return ((Integer) this.dataManager.get(DATA_STRENGTH_ID)).intValue();
+		return this.dataManager.get(DATA_STRENGTH_ID).intValue();
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public int getVariant() {
-		return MathHelper.clamp(((Integer) this.dataManager.get(DATA_VARIANT_ID)).intValue(), 0, 3);
+		return MathHelper.clamp(this.dataManager.get(DATA_VARIANT_ID).intValue(), 0, 3);
 	}
 
 	public void setVariant(int variantIn) {
@@ -214,7 +214,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 		}
 
 		if (flag && !this.isSilent()) {
-			this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LLAMA_EAT,
+			this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LLAMA_EAT,
 					this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 		}
 
@@ -343,13 +343,13 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 		if (this.isArmor(stack)) {
 			this.setColor(EnumDyeColor.byMetadata(stack.getMetadata()));
 		} else {
-			this.setColor((EnumDyeColor) null);
+			this.setColor(null);
 		}
 	}
 
 	@Nullable
 	public EnumDyeColor getColor() {
-		int i = ((Integer) this.dataManager.get(DATA_COLOR_ID)).intValue();
+		int i = this.dataManager.get(DATA_COLOR_ID).intValue();
 		return i == -1 ? null : EnumDyeColor.byMetadata(i);
 	}
 
@@ -386,7 +386,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	private void spit(EntityLivingBase target) {
-		this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LLAMA_SPIT,
+		this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LLAMA_SPIT,
 				this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 		this.didSpit = true;
 	}
@@ -415,7 +415,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 
 			if (iblockstate.getMaterial() != Material.AIR && !this.isSilent()) {
 				SoundType soundtype = block.getSoundType();
-				this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, soundtype.getStepSound(),
+				this.world.playSound(null, this.posX, this.posY, this.posZ, soundtype.getStepSound(),
 						this.getSoundCategory(), soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
 			}
 		}
@@ -469,17 +469,17 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 
 	static class AIDefendTarget extends EntityAINearestAttackableTarget<EntityWolf> {
 		public AIDefendTarget(EntityCamel llama) {
-			super(llama, EntityWolf.class, 16, false, true, (Predicate) null);
+			super(llama, EntityWolf.class, 16, false, true, null);
 		}
 
 		/**
 		 * Returns whether the EntityAIBase should begin execution.
 		 */
 		public boolean shouldExecute() {
-			if (super.shouldExecute() && this.targetEntity != null && !((EntityWolf) this.targetEntity).isTamed()) {
+			if (super.shouldExecute() && this.targetEntity != null && !this.targetEntity.isTamed()) {
 				return true;
 			} else {
-				this.taskOwner.setAttackTarget((EntityLivingBase) null);
+				this.taskOwner.setAttackTarget(null);
 				return false;
 			}
 		}

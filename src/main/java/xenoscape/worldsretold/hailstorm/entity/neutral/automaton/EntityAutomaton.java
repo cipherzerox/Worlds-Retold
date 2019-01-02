@@ -52,17 +52,17 @@ public class EntityAutomaton extends EntitySurfaceMonster {
 	private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
 	private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
 	public static final DataParameter<Rotations> HEAD_ROTATION = EntityDataManager
-			.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+			.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> BODY_ROTATION = EntityDataManager
-			.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+			.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> LEFT_ARM_ROTATION = EntityDataManager
-			.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+			.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> RIGHT_ARM_ROTATION = EntityDataManager
-			.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+			.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> LEFT_LEG_ROTATION = EntityDataManager
-			.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+			.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 	public static final DataParameter<Rotations> RIGHT_LEG_ROTATION = EntityDataManager
-			.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+			.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
 
 	public EntityAutomaton(World world) {
 		super(world);
@@ -161,7 +161,7 @@ public class EntityAutomaton extends EntitySurfaceMonster {
 		super.onLivingUpdate();
 
 		if (getAttackTarget() == null) {
-			List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
+			List<EntityPlayer> list = this.world.getEntitiesWithinAABB(EntityPlayer.class,
 					this.getEntityBoundingBox().expand(32.0D, 32.0D, 32.0D));
 			for (EntityPlayer entity : list) {
 				if (entity != null && !world.isRemote && !entity.isCreative()) {
@@ -207,37 +207,37 @@ public class EntityAutomaton extends EntitySurfaceMonster {
 
 	public void onUpdate() {
 		super.onUpdate();
-		Rotations rotations = (Rotations) this.dataManager.get(HEAD_ROTATION);
+		Rotations rotations = this.dataManager.get(HEAD_ROTATION);
 
 		if (!this.headRotation.equals(rotations)) {
 			this.setHeadRotation(rotations);
 		}
 
-		Rotations rotations1 = (Rotations) this.dataManager.get(BODY_ROTATION);
+		Rotations rotations1 = this.dataManager.get(BODY_ROTATION);
 
 		if (!this.bodyRotation.equals(rotations1)) {
 			this.setBodyRotation(rotations1);
 		}
 
-		Rotations rotations2 = (Rotations) this.dataManager.get(LEFT_ARM_ROTATION);
+		Rotations rotations2 = this.dataManager.get(LEFT_ARM_ROTATION);
 
 		if (!this.leftArmRotation.equals(rotations2)) {
 			this.setLeftArmRotation(rotations2);
 		}
 
-		Rotations rotations3 = (Rotations) this.dataManager.get(RIGHT_ARM_ROTATION);
+		Rotations rotations3 = this.dataManager.get(RIGHT_ARM_ROTATION);
 
 		if (!this.rightArmRotation.equals(rotations3)) {
 			this.setRightArmRotation(rotations3);
 		}
 
-		Rotations rotations4 = (Rotations) this.dataManager.get(LEFT_LEG_ROTATION);
+		Rotations rotations4 = this.dataManager.get(LEFT_LEG_ROTATION);
 
 		if (!this.leftLegRotation.equals(rotations4)) {
 			this.setLeftLegRotation(rotations4);
 		}
 
-		Rotations rotations5 = (Rotations) this.dataManager.get(RIGHT_LEG_ROTATION);
+		Rotations rotations5 = this.dataManager.get(RIGHT_LEG_ROTATION);
 
 		if (!this.rightLegRotation.equals(rotations5)) {
 			this.setRightLegRotation(rotations5);

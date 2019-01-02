@@ -9,9 +9,9 @@ import xenoscape.worldsretold.config.ConfigModules;
 
 public class HailstormSounds {
 
-	public static final SoundEvent FREEZING = createEvent("freezing");;
+	public static final SoundEvent FREEZING = createEvent("freezing");
 
-	@SubscribeEvent
+    @SubscribeEvent
 	public static void registerSounds(final RegistryEvent.Register<SoundEvent> evt) {
 
 		if (ConfigModules.isHailstormEnabled == true) {

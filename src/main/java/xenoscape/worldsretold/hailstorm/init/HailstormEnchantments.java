@@ -15,11 +15,11 @@ import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentLightningRod;
 public class HailstormEnchantments {
 
 	public static final Enchantment ICEBOUND_BLADE = new EnchantmentIceboundBlade(Enchantment.Rarity.RARE,
-			new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
+			EntityEquipmentSlot.MAINHAND);
 	public static final Enchantment GLACIER = new EnchantmentGlacier(Enchantment.Rarity.RARE,
-			new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
+			EntityEquipmentSlot.MAINHAND);
 	public static final Enchantment LIGHTNING_ROD = new EnchantmentLightningRod(Enchantment.Rarity.RARE,
-			new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
+			EntityEquipmentSlot.MAINHAND);
 
 	@SubscribeEvent
 	public static void registerEnchantments(Register<Enchantment> event) {

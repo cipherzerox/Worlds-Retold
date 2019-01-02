@@ -57,7 +57,7 @@ public enum LayerFreezingRenderer
                 GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
                 this.renderer.bindTexture(LayerFreezingRenderer.FREEZING_TEXTURE);
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 0.33f);
-                model.render((Entity)living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+                model.render(living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
                 for (final Map.Entry<ModelRenderer, Boolean> entry : visibilities.entrySet())
                 {

@@ -68,7 +68,7 @@ public class BasicItemHoe extends BasicItem {
 				}
 
 				if (block == Blocks.DIRT) {
-					switch ((BlockDirt.DirtType) iblockstate.getValue(BlockDirt.VARIANT)) {
+					switch (iblockstate.getValue(BlockDirt.VARIANT)) {
 					case DIRT:
 						this.setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
 						return EnumActionResult.SUCCESS;

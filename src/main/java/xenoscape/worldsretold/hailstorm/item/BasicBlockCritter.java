@@ -27,7 +27,7 @@ public class BasicBlockCritter extends BasicBlock {
 	public BasicBlockCritter(String name, Block originalBlockIn) {
 		super(Material.CLAY, name, 0.5F);
 		this.setCreativeTab(CreativeTabs.DECORATIONS);
-		this.name = name;
+		BasicBlockCritter.name = name;
 		this.originalBlock = originalBlockIn;
 	}
 

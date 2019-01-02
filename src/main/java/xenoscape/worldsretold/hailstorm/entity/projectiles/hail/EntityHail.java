@@ -19,7 +19,7 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 
 public class EntityHail extends EntityFireball {
-	private static final DataParameter<Boolean> INVULNERABLE = EntityDataManager.<Boolean>createKey(EntityHail.class,
+	private static final DataParameter<Boolean> INVULNERABLE = EntityDataManager.createKey(EntityHail.class,
 			DataSerializers.BOOLEAN);
 
 	public EntityHail(World worldIn) {

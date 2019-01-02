@@ -56,7 +56,7 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
+		return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
