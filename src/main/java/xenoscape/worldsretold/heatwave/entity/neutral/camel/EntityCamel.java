@@ -1,40 +1,16 @@
 package xenoscape.worldsretold.heatwave.entity.neutral.camel;
 
 import com.google.common.base.Predicate;
-
-import java.util.UUID;
-
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackRanged;
-import net.minecraft.entity.ai.EntityAIFollowParent;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILlamaFollowCaravan;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.ai.EntityAIRunAroundLikeCrazy;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.AbstractChestHorse;
-import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.EntityLlamaSpit;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -46,7 +22,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -58,7 +33,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
+
+import javax.annotation.Nullable;
 
 public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob {
 	private static final DataParameter<Integer> DATA_STRENGTH_ID = EntityDataManager
@@ -157,7 +133,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	protected int getInventorySize() {
-		return this.hasChest() ? 2 + 3 * this.getInventoryColumns() : super.getInventorySize();
+		return this.hasChest() ? 25 : super.getInventorySize();
 	}
 
 	public void updatePassenger(Entity passenger) {
@@ -319,7 +295,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 
 	@Override
 	public int getInventoryColumns() {
-		return this.getStrength() + 2;
+		return 9;
 	}
 
 	public boolean wearsArmor() {
