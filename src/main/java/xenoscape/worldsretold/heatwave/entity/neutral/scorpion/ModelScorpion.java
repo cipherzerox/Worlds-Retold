@@ -180,13 +180,46 @@ public class ModelScorpion extends ModelBase {
         this.head.rotateAngleX = headPitch * 0.017453292F;
         this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         
-        this.rightleg1.rotateAngleY = 0.9599310885968813F + MathHelper.cos(limbSwing * 0.35F + 2.0F + (float)Math.PI) * 0.675F * limbSwingAmount;
-        this.rightleg2.rotateAngleY = 1.3089969389957472F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 0.75F) * 0.675F * limbSwingAmount;
-        this.rightleg3.rotateAngleY = 0.875F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 1.5F) * 0.675F * limbSwingAmount;
-        this.rightleg4.rotateAngleY = 0.875F + MathHelper.cos(limbSwing * 0.35F + 2.0F + 2.25F + (float)Math.PI) * 0.675F * limbSwingAmount;
-        this.leftleg1.rotateAngleY = -0.9599310885968813F + MathHelper.cos(limbSwing * 0.35F + 2.0F) * 0.675F * limbSwingAmount;
-        this.leftleg2.rotateAngleY = -1.3089969389957472F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 0.75F + (float)Math.PI) * 0.675F * limbSwingAmount;
-        this.leftleg3.rotateAngleY = -0.875F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 1.5F + (float)Math.PI) * 0.675F * limbSwingAmount;
-        this.leftleg4.rotateAngleY = -0.875F + MathHelper.cos(limbSwing * 0.35F + 2.0F + 2.25F) * 0.675F * limbSwingAmount;
+        this.rightleg1.rotateAngleY = 0.9599310885968813F + MathHelper.cos(limbSwing * 0.6662F + 1.0F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.rightleg2.rotateAngleY = 1.3089969389957472F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + 0.75F) * 0.75F * limbSwingAmount;
+        this.rightleg3.rotateAngleY = 1.8325957145940461F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + 1.5F) * 0.75F * limbSwingAmount;
+        this.rightleg4.rotateAngleY = 2.356194490192345F + MathHelper.cos(limbSwing * 0.6662F + 1.0F + 2.25F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.leftleg1.rotateAngleY = -0.9599310885968813F + MathHelper.cos(limbSwing * 0.6662F + 1.0F) * 0.75F * limbSwingAmount;
+        this.leftleg2.rotateAngleY = -1.3089969389957472F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + 0.75F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.leftleg3.rotateAngleY = -1.8325957145940461F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + 1.5F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.leftleg4.rotateAngleY = -2.356194490192345F + MathHelper.cos(limbSwing * 0.6662F + 1.0F + 2.25F) * 0.75F * limbSwingAmount;
+        
+        this.rightleg1.rotateAngleX = 0.4363323129985824F + MathHelper.cos(limbSwing * 0.6662F + 2.0F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.rightleg2.rotateAngleX = 0.4363323129985824F - MathHelper.cos(limbSwing * 0.6662F + 2.0F + 0.75F) * 0.75F * limbSwingAmount;
+        this.rightleg3.rotateAngleX = 0.4363323129985824F - MathHelper.cos(limbSwing * 0.6662F + 2.0F + 1.5F) * 0.75F * limbSwingAmount;
+        this.rightleg4.rotateAngleX = 0.4363323129985824F + MathHelper.cos(limbSwing * 0.6662F + 2.0F + 2.25F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.leftleg1.rotateAngleX = 0.4363323129985824F + MathHelper.cos(limbSwing * 0.6662F + 2.0F) * 0.75F * limbSwingAmount;
+        this.leftleg2.rotateAngleX = 0.4363323129985824F - MathHelper.cos(limbSwing * 0.6662F + 2.0F + 0.75F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.leftleg3.rotateAngleX = 0.4363323129985824F - MathHelper.cos(limbSwing * 0.6662F + 2.0F + 1.5F + (float)Math.PI) * 0.75F * limbSwingAmount;
+        this.leftleg4.rotateAngleX = 0.4363323129985824F + MathHelper.cos(limbSwing * 0.6662F + 2.0F + 2.25F) * 0.75F * limbSwingAmount;
+        
+        if (this.rightleg1.rotateAngleX < 0.4363323129985824F)
+        	this.rightleg1.rotateAngleX = 0.4363323129985824F; 
+        
+        if (this.rightleg2.rotateAngleX < 0.4363323129985824F)
+        	this.rightleg2.rotateAngleX = 0.4363323129985824F; 
+        
+        if (this.rightleg3.rotateAngleX < 0.4363323129985824F)
+        	this.rightleg3.rotateAngleX = 0.4363323129985824F;  
+        
+        if (this.rightleg4.rotateAngleX < 0.4363323129985824F)
+        	this.rightleg4.rotateAngleX = 0.4363323129985824F;        
+        
+        if (this.leftleg1.rotateAngleX < 0.4363323129985824F)
+        	this.leftleg1.rotateAngleX = 0.4363323129985824F;
+        
+        if (this.leftleg2.rotateAngleX < 0.4363323129985824F)
+        	this.leftleg2.rotateAngleX = 0.4363323129985824F;
+        
+        if (this.leftleg3.rotateAngleX < 0.4363323129985824F)
+        	this.leftleg3.rotateAngleX = 0.4363323129985824F;
+        
+        if (this.leftleg4.rotateAngleX < 0.4363323129985824F)
+        	this.leftleg4.rotateAngleX = 0.4363323129985824F;
     }
 }
