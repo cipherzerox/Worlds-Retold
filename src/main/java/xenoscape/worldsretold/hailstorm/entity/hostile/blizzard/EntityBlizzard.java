@@ -38,7 +38,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	public EntityBlizzard(World world) 
 	{
 		super(world);
-		setSize(7F, 4F);
+		setSize(7F, 5F);
         this.lookHelper = new EntityElementalLookHelper(this);
 	}
 
@@ -75,14 +75,14 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 
 	public float getEyeHeight() 
 	{
-		return this.height * 0.5F;
+		return this.height * 0.325F - (MathHelper.cos(this.ticksExisted * 0.2F) * 0.325F);
 	}
 
 	@Override
 	protected void applyEntityAttributes() 
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100D);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
 		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);

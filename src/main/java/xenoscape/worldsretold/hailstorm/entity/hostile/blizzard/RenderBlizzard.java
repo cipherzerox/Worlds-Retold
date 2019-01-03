@@ -32,6 +32,7 @@ public class RenderBlizzard extends RenderLiving<EntityBlizzard> {
 	protected void preRenderCallback(EntityBlizzard entitylivingbaseIn, float partialTickTime) {
 		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
 		GlStateManager.scale(3F, 3F, 3F);
+		GlStateManager.translate(0F, -0.5F, 0F);
 		if (entitylivingbaseIn.deathTicks > 0) {
 			float colorTimer = 1.0F - ((entitylivingbaseIn.deathTicks / 100.0F) * 1.5F);
 			GlStateManager.color(colorTimer, colorTimer, colorTimer, 1.0F);
