@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -17,7 +16,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
@@ -72,6 +70,14 @@ public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreat
 
 			if (!world.isRemote) {
 				int i, j, k;
+
+				if(world.isRaining() && world.getBiome(getPosition()).getTemperature(getPosition()) < .15 && ticksExisted % 20 == 0)
+                {
+                    if (getSize() <= 1)
+                        this.setSize(size += .014);
+                    else
+                        this.setSize(size += .025);
+                }
 
 				for (int l = 0; l < 4; ++l) {
 					i = MathHelper.floor(this.posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
