@@ -105,12 +105,15 @@ public class ModelCamel extends ModelBase {
         }
         else
         {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0.0F, 0.0F, 0.5F);
             this.Neck1.render(scale);
             this.Body.render(scale);
             this.LeftFrontLeg.render(scale);
             this.RightFrontLeg.render(scale);
             this.LeftBackLeg.render(scale);
             this.RightBackLeg.render(scale);
+            GlStateManager.popMatrix();
         }
     }
     

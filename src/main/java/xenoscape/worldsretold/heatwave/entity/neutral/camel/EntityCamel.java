@@ -49,7 +49,8 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 	@Nullable
 	private EntityCamel caravanTail;
 
-	public EntityCamel(World worldIn) {
+	public EntityCamel(World worldIn) 
+	{
 		super(worldIn);
 		this.setSize(0.9F, 1.87F);
 	}
@@ -308,7 +309,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 
 	@Override
 	protected float getSoundPitch() {
-		return 0.75F;
+		return super.getSoundPitch() - 0.25F;
 	}
 
 	/**

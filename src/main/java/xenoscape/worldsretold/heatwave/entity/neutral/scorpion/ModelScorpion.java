@@ -3,6 +3,7 @@ package xenoscape.worldsretold.heatwave.entity.neutral.scorpion;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * ModelScorpion - Enderman_of_D00M
@@ -158,17 +159,34 @@ public class ModelScorpion extends ModelBase {
         this.tailbase.addChild(this.tail1);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.body.render(f5);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    {
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        this.body.render(scale);
     }
 
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) 
+    {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
+    }
+    
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    {
+        this.head.rotateAngleX = headPitch * 0.017453292F;
+        this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+        
+        this.rightleg1.rotateAngleY = 0.9599310885968813F + MathHelper.cos(limbSwing * 0.35F + 2.0F + (float)Math.PI) * 0.675F * limbSwingAmount;
+        this.rightleg2.rotateAngleY = 1.3089969389957472F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 0.75F) * 0.675F * limbSwingAmount;
+        this.rightleg3.rotateAngleY = 0.875F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 1.5F) * 0.675F * limbSwingAmount;
+        this.rightleg4.rotateAngleY = 0.875F + MathHelper.cos(limbSwing * 0.35F + 2.0F + 2.25F + (float)Math.PI) * 0.675F * limbSwingAmount;
+        this.leftleg1.rotateAngleY = -0.9599310885968813F + MathHelper.cos(limbSwing * 0.35F + 2.0F) * 0.675F * limbSwingAmount;
+        this.leftleg2.rotateAngleY = -1.3089969389957472F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 0.75F + (float)Math.PI) * 0.675F * limbSwingAmount;
+        this.leftleg3.rotateAngleY = -0.875F - MathHelper.cos(limbSwing * 0.35F + 2.0F + 1.5F + (float)Math.PI) * 0.675F * limbSwingAmount;
+        this.leftleg4.rotateAngleY = -0.875F + MathHelper.cos(limbSwing * 0.35F + 2.0F + 2.25F) * 0.675F * limbSwingAmount;
     }
 }
