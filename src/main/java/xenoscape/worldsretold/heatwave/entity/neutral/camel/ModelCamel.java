@@ -90,12 +90,12 @@ public class ModelCamel extends ModelBase {
         {
             float f = 2.0F;
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, this.childYOffset * scale, this.childZOffset * scale);
+            GlStateManager.translate(0.0F, this.childYOffset * scale + 0.125F, this.childZOffset * scale - 0.25F);
             this.Neck1.render(scale);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+            GlStateManager.translate(0.0F, 24.0F * scale, -0.5F);
             this.Body.render(scale);
             this.LeftFrontLeg.render(scale);
             this.RightFrontLeg.render(scale);
@@ -106,7 +106,7 @@ public class ModelCamel extends ModelBase {
         else
         {
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, 0.0F, 0.5F);
+            GlStateManager.translate(0.0F, 0.0F, -0.5F);
             this.Neck1.render(scale);
             this.Body.render(scale);
             this.LeftFrontLeg.render(scale);
