@@ -3,10 +3,14 @@ package xenoscape.worldsretold.hailstorm.entity.hostile.blizzard;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -26,68 +30,85 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreature {
+public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreature 
+{
 	Random rand = new Random();
 	public int deathTicks;
 
-	public EntityBlizzard(World world) {
+	public EntityBlizzard(World world) 
+	{
 		super(world);
 		setSize(7F, 4F);
         this.lookHelper = new EntityElementalLookHelper(this);
 	}
 
-	@Nullable
-	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound() 
+	{
 		return SoundEvents.ENTITY_LIGHTNING_THUNDER;
 	}
+	
+	protected SoundEvent getHurtSound() 
+	{
+		return SoundEvents.ENTITY_SNOWMAN_HURT;
+	}
 
-	@Nullable
-	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound() 
+	{
 		return SoundEvents.BLOCK_END_PORTAL_SPAWN;
 	}
 
-	protected float getSoundVolume() {
+	protected float getSoundVolume() 
+	{
 		return 2.5F;
 	}
 
 	@Override
-	protected void initEntityAI() {
+	protected void initEntityAI() 
+	{
 		super.initEntityAI();
 		this.tasks.addTask(0, new EntityAIWander(this, 1.8D));
 		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 64));
-		this.tasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
 	}
 
-	public float getEyeHeight() {
-		return this.height - 2F;
+	public float getEyeHeight() 
+	{
+		return this.height * 0.5F;
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
+	protected void applyEntityAttributes() 
+	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50D);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
 		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.4D);
-		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(100D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5D);
 	}
 
 	@Override
-	public void onLivingUpdate() {
-		if (this.isEntityAlive()) {
-
+	public void onLivingUpdate() 
+	{
+		if (this.isEntityAlive()) 
+		{
 			super.onLivingUpdate();
 			
-			if (getAttackTarget() == null) {
-				List<EntityPlayer> list = this.world.getEntitiesWithinAABB(EntityPlayer.class,
-						this.getEntityBoundingBox().expand(64.0D, 64.0D, 64.0D));
-				for (EntityPlayer entity : list) {
+			if (getAttackTarget() == null) 
+			{
+				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
+						this.getEntityBoundingBox().grow(64.0D));
+				
+				for (EntityPlayer entity : list) 
+				{
 					if (entity != null && !entity.isCreative())
 						setAttackTarget(entity);
 				}
-			} else {
+			} else 
+			{
 				this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) this.getHorizontalFaceSpeed(),
 						(float) this.getVerticalFaceSpeed());
 			}
@@ -167,10 +188,22 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		return 1;
 	}
 
-	protected void onDeathUpdate() {
+	protected void onDeathUpdate() 
+	{
 		this.deathTicks++;
-		if (this.deathTicks == 100 && !this.world.isRemote) {
+        boolean flag = this.world.getGameRules().getBoolean("doMobLoot");
+        int j = 50;
+        if (this.deathTicks > 50 && this.deathTicks % 5 == 0 && flag)
+        {
+            while (j > 0)
+            {
+                int i = EntityXPOrb.getXPSplit(j);
+                j -= i;
+                this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, i));
+            }
+        }
+        
+		if (this.deathTicks == 100 && !this.world.isRemote)
 			this.setDead();
-		}
 	}
 }
