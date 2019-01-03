@@ -1,10 +1,12 @@
 package xenoscape.worldsretold.heatwave.entity.neutral.scorpion;
 
 import net.minecraft.client.model.ModelSpider;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -12,7 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderScorpion extends RenderLiving<EntityScorpion>
 {
     private static final ResourceLocation DESERT_SCORPION = new ResourceLocation("textures/entity/spider/spider.png");
-
+	public static final RenderScorpion.Factory FACTORY = new RenderScorpion.Factory();
+    
     public RenderScorpion(RenderManager renderManagerIn)
     {
         super(renderManagerIn, new ModelSpider(), 1.0F);
@@ -30,4 +33,11 @@ public class RenderScorpion extends RenderLiving<EntityScorpion>
     {
         return DESERT_SCORPION;
     }
+    
+	public static class Factory implements IRenderFactory<EntityScorpion> {
+		@Override
+		public Render<? super EntityScorpion> createRenderFor(RenderManager manager) {
+			return new RenderScorpion(manager);
+		}
+	}
 }

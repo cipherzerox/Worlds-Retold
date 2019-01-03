@@ -43,6 +43,8 @@ import xenoscape.worldsretold.hailstorm.init.HailstormBlocks;
 import xenoscape.worldsretold.hailstorm.init.HailstormClientEvents;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.RenderCamel;
+import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
+import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.RenderScorpion;
 
 public class ClientProxy extends ServerProxy {
 
@@ -92,6 +94,7 @@ public class ClientProxy extends ServerProxy {
 
 		// Neutral
 		RenderingRegistry.registerEntityRenderingHandler(EntityCamel.class, RenderCamel.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityScorpion.class, RenderScorpion.FACTORY);
 
 		// Hostile
 
