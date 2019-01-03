@@ -2,6 +2,7 @@ package xenoscape.worldsretold.hailstorm.entity.hostile.blizzard;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -109,7 +110,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 			if (this.getAttackTarget() != null) 
 			{
 				Entity entity = this.getAttackTarget();
-
+				
 				if (entity != null) 
 				{
 					double d0 = entity.posX - this.posX;
@@ -132,17 +133,27 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 				
 				this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
 				this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), 180F, 180F);
+
+				if (!entity.isEntityAlive())
+					this.setAttackTarget(null);
 			}
 			else
 			{
 				this.launchHailToCoords(posX, posY - 1.7, posZ);
 				
-				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
-						this.getEntityBoundingBox().grow(64.0D));
+				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(64.0D));
 				
 				for (EntityPlayer entity : list) 
 				{
 					if (entity != null && !entity.isCreative())
+						setAttackTarget(entity);
+				}
+				
+				List<EntityLivingBase> listother = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(64.0D));
+				
+				for (EntityLivingBase entity : listother) 
+				{
+					if (entity != null && entity.isEntityAlive() && (entity instanceof EntityVillager || entity instanceof EntityIronGolem))
 						setAttackTarget(entity);
 				}
 			}
