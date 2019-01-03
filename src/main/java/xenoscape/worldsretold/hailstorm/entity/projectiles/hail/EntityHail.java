@@ -13,7 +13,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
@@ -90,7 +89,12 @@ public class EntityHail extends EntityFireball {
 		}
 	}
 
-	/**
+    @Override
+    protected void doBlockCollisions() {
+        setDead();
+    }
+
+    /**
 	 * Returns true if other Entities should be prevented from moving through
 	 * this Entity.
 	 */
