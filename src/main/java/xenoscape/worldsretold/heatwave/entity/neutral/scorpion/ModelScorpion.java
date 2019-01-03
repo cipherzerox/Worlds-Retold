@@ -180,6 +180,25 @@ public class ModelScorpion extends ModelBase {
         this.head.rotateAngleX = headPitch * 0.017453292F;
         this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         
+        this.rightarm1.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.leftarm1.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        
+        this.rightclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.rightclaw2.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.leftclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.leftclaw2.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+
+        this.tailbase.rotateAngleX = -1.0471975511965976F + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        this.tailbase.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F) * 0.05F);
+        this.tail1.rotateAngleX = 0.8726646259971648F + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        this.tail1.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.025F) * 0.05F);
+        this.tail2.rotateAngleX = 0.6981317007977318F + (MathHelper.sin(ageInTicks * 0.05F + 0.125F) * 0.05F);
+        this.tail2.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.05F) * 0.05F);
+        this.tail3.rotateAngleX = 1.0471975511965976F + (MathHelper.sin(ageInTicks * 0.05F + 0.25F) * 0.05F);
+        this.tail3.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.075F) * 0.05F);
+        this.tailbulb.rotateAngleX = (MathHelper.sin(ageInTicks * 0.05F + 0.325F) * 0.05F);
+        this.tailbulb.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.1F) * 0.05F);
+        
         this.rightleg1.rotateAngleY = 0.9599310885968813F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + (float)Math.PI) * 0.75F * limbSwingAmount;
         this.rightleg2.rotateAngleY = 1.3089969389957472F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + 0.75F) * 0.75F * limbSwingAmount;
         this.rightleg3.rotateAngleY = 1.8325957145940461F - MathHelper.cos(limbSwing * 0.6662F + 1.0F + 1.5F) * 0.75F * limbSwingAmount;

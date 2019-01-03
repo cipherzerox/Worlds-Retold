@@ -101,8 +101,10 @@ public class EntityScorpion extends EntitySurfaceMonster
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(2D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.325D);
     }
 
     protected SoundEvent getAmbientSound()
@@ -122,7 +124,7 @@ public class EntityScorpion extends EntitySurfaceMonster
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.2F, 0.9F);
     }
 
     @Nullable
