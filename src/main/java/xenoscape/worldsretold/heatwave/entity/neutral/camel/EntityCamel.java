@@ -1,6 +1,5 @@
 package xenoscape.worldsretold.heatwave.entity.neutral.camel;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -34,7 +33,6 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.heatwave.init.HeatwaveGUIs;
 
 import javax.annotation.Nullable;
 
@@ -155,16 +153,6 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 			return false;
 		} else {
 			return super.attackEntityFrom(source, amount);
-		}
-	}
-
-	@Override
-	public void openGUI(EntityPlayer playerEntity)
-	{
-		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)) && this.isTame())
-		{
-			this.horseChest.setCustomName(this.getName());
-			playerEntity.openGui(WorldsRetold.INSTANCE, HeatwaveGUIs.CAMEL, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 
