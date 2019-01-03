@@ -4,18 +4,22 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
@@ -69,7 +73,8 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	protected void initEntityAI() 
 	{
 		super.initEntityAI();
-		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
+		this.tasks.addTask(1, new EntityBlizzard.AIBlizzardAttack(this));
+		this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
@@ -110,29 +115,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 			if (this.getAttackTarget() != null) 
 			{
 				Entity entity = this.getAttackTarget();
-				
-				if (entity != null) 
-				{
-					double d0 = entity.posX - this.posX;
-					double d1 = entity.posZ - this.posZ;
-					double d3 = d0 * d0 + d1 * d1;
-
-					if (d3 > 9.0D) 
-					{
-						double d5 = (double) MathHelper.sqrt(d3);
-						this.motionX += (d0 / d5 * 0.42D - this.motionX) * 0.1000000238418579D;
-						this.motionZ += (d1 / d5 * 0.42D - this.motionZ) * 0.1000000238418579D;
-					}
-				}
-				
-				this.launchHailToCoords(this.getAttackTarget().posX, this.getAttackTarget().posY - this.getEyeHeight() - 1D + (rand.nextDouble() * 2D - 1D), this.getAttackTarget().posZ);
-				this.launchHailToCoords(this.getAttackTarget().posX, this.getAttackTarget().posY - this.getEyeHeight() - 1D + (rand.nextDouble() * 2D - 1D), this.getAttackTarget().posZ);
-				
-				if (this.rand.nextInt(20) == 0)
-					this.playSound(SoundEvents.ITEM_ELYTRA_FLYING, this.getSoundVolume(), this.getSoundPitch());
-				
-				this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
-				this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), 180F, 180F);
 
 				if (!entity.isEntityAlive())
 					this.setAttackTarget(null);
@@ -219,4 +201,126 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		if (this.deathTicks == 100 && !this.world.isRemote)
 			this.setDead();
 	}
+	
+    static class AIBlizzardAttack extends EntityAIBase
+    {
+        private final EntityBlizzard blizzard;
+        private int attackStep;
+        private int attackTime;
+
+        public AIBlizzardAttack(EntityBlizzard blizzardIn)
+        {
+            this.blizzard = blizzardIn;
+            this.setMutexBits(3);
+        }
+
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        public boolean shouldExecute()
+        {
+            EntityLivingBase entitylivingbase = this.blizzard.getAttackTarget();
+            return entitylivingbase != null && entitylivingbase.isEntityAlive();
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void startExecuting()
+        {
+            this.attackStep = 0;
+        }
+
+        /**
+         * Reset the task's internal state. Called when this task is interrupted by another one
+         */
+        public void resetTask()
+        {
+            this.blizzard.setAttackTarget(null);
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void updateTask()
+        {
+            --this.attackTime;
+            EntityLivingBase entitylivingbase = this.blizzard.getAttackTarget();
+            double dou = this.blizzard.getDistanceSq(entitylivingbase);
+
+            if (dou < 25D)
+            {
+                if (this.attackTime <= 0)
+                {
+                    this.attackTime = 20;
+                    this.blizzard.attackEntityAsMob(entitylivingbase);
+                }
+
+                this.blizzard.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+            }
+            else if (dou < this.getFollowDistance() * this.getFollowDistance())
+            {
+				if (entitylivingbase != null) 
+				{
+					double d0 = entitylivingbase.posX - this.blizzard.posX;
+					double d1 = entitylivingbase.posZ - this.blizzard.posZ;
+					double d3 = d0 * d0 + d1 * d1;
+
+					if (d3 > 9.0D) 
+					{
+						double d5 = (double) MathHelper.sqrt(d3);
+						this.blizzard.motionX += (d0 / d5 * 0.42D - this.blizzard.motionX) * 0.1000000238418579D;
+						this.blizzard.motionZ += (d1 / d5 * 0.42D - this.blizzard.motionZ) * 0.1000000238418579D;
+					}
+				}
+            	
+                double d1 = entitylivingbase.posX - this.blizzard.posX;
+                double d2 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (this.blizzard.posY + (double)(this.blizzard.height / 2.0F));
+                double d3 = entitylivingbase.posZ - this.blizzard.posZ;
+
+                if (this.attackTime <= 0)
+                {
+                    ++this.attackStep;
+
+                    if (this.attackStep == 1)
+                    {
+                        this.attackTime = 80;
+                    }
+                    else if (this.attackStep <= 30)
+                    {
+                        this.attackTime = 6;
+                    }
+                    else
+                    {
+                        this.attackTime = 80;
+                        this.attackStep = 0;
+                    }
+
+                    if (this.attackStep > 1)
+                    {
+    					this.blizzard.playSound(SoundEvents.ITEM_ELYTRA_FLYING, this.blizzard.getSoundVolume(), this.blizzard.getSoundPitch());
+        				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
+        				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
+                    }
+                    else
+        				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
+                }
+
+                this.blizzard.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
+            }
+            else
+            {
+                this.blizzard.getNavigator().clearPath();
+                this.blizzard.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+            }
+
+            super.updateTask();
+        }
+
+        private double getFollowDistance()
+        {
+            IAttributeInstance iattributeinstance = this.blizzard.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+            return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
+        }
+    }
 }
