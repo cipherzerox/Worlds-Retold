@@ -285,6 +285,9 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
                 {
                     ++this.attackStep;
 
+                    if (this.attackTime <= 10)
+        				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
+                    
                     if (this.attackStep == 1)
                     {
                         this.attackTime = 100;
@@ -306,8 +309,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
         				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
                     }
                 }
-                else
-    				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
 
                 this.blizzard.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
             }
