@@ -27,7 +27,7 @@ public class HailstormModule {
 		WorldsRetold.LOGGER.info("Hailstorm Module Preinitialized");
 	}
 
-	public void initHailstorm() {
+	public void initHailstorm(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new WorldGenHailstorm());
 		HailstormEntities.init();
 		HailstormSmeltingRecipes.init();
@@ -35,7 +35,7 @@ public class HailstormModule {
 		WorldsRetold.LOGGER.info("Hailstorm Module Initialized");
 	}
 
-	public void postInitHailstorm() {
+	public void postInitHailstorm(FMLPostInitializationEvent event) {
 		WorldsRetold.LOGGER.info("Hailstorm Module Postinitialized");
 	}
 }
