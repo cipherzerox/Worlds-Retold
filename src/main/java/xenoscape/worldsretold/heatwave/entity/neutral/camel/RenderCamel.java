@@ -14,29 +14,32 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import xenoscape.worldsretold.hailstorm.entity.layer.LayerBlizzardCloud;
 
-public class RenderCamel extends RenderLiving<EntityCamel> {
-	private ResourceLocation TEXTURE = new ResourceLocation("worldsretold:textures/entity/blizzard.png");
-	private ResourceLocation DYING_TEXTURE = new ResourceLocation("worldsretold:textures/entity/blizzard_dying.png");
+public class RenderCamel extends RenderLiving<EntityCamel> 
+{
+	private ResourceLocation CAMEL_TEXTURE = new ResourceLocation("worldsretold:textures/entity/camel.png");
 	public static final RenderCamel.Factory FACTORY = new RenderCamel.Factory();
 
-	public RenderCamel(RenderManager renderManagerIn) {
-		super(renderManagerIn, new ModelChicken(), 0.55F);
+	public RenderCamel(RenderManager renderManagerIn) 
+	{
+		super(renderManagerIn, new ModelCamel(), 0.75F);
 	}
 
-	@Override
 	@Nonnull
-	public ResourceLocation getEntityTexture(@Nonnull EntityCamel entity) {
-		return TEXTURE;
+	public ResourceLocation getEntityTexture(@Nonnull EntityCamel entity) 
+	{
+		return CAMEL_TEXTURE;
 	}
 
-	@Override
-	public void doRender(EntityCamel entity, double x, double y, double z, float entityYaw, float partialTicks) {
+	public void doRender(EntityCamel entity, double x, double y, double z, float entityYaw, float partialTicks) 
+	{
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
-	public static class Factory implements IRenderFactory<EntityCamel> {
+	public static class Factory implements IRenderFactory<EntityCamel> 
+	{
 		@Override
-		public Render<? super EntityCamel> createRenderFor(RenderManager manager) {
+		public Render<? super EntityCamel> createRenderFor(RenderManager manager) 
+		{
 			return new RenderCamel(manager);
 		}
 	}

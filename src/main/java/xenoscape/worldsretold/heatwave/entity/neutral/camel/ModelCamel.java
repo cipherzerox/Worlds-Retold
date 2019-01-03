@@ -1,8 +1,10 @@
-package egg;
+package xenoscape.worldsretold.heatwave.entity.neutral.camel;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * ModelCamel - Undefined
@@ -21,6 +23,8 @@ public class ModelCamel extends ModelBase {
     public ModelRenderer Snout;
     public ModelRenderer RightEar;
     public ModelRenderer LeftEar;
+    protected float childYOffset = 8.0F;
+    protected float childZOffset = 4.0F;
 
     public ModelCamel() {
         this.textureWidth = 64;
@@ -42,7 +46,7 @@ public class ModelCamel extends ModelBase {
         this.Head = new ModelRenderer(this, 38, 0);
         this.Head.setRotationPoint(0.0F, -10.0F, 0.0F);
         this.Head.addBox(-3.0F, -4.0F, -4.0F, 6, 5, 7, 0.0F);
-        this.setRotateAngle(Head, -0.3490658503988659F, 0.0F, 0.0F);
+        this.setRotateAngle(Head, -0.35F, 0.0F, 0.0F);
         this.RightBackLeg = new ModelRenderer(this, 48, 23);
         this.RightBackLeg.mirror = true;
         this.RightBackLeg.setRotationPoint(-4.5F, 11.0F, 16.0F);
@@ -66,7 +70,7 @@ public class ModelCamel extends ModelBase {
         this.Neck1 = new ModelRenderer(this, 0, 0);
         this.Neck1.setRotationPoint(0.0F, 3.0F, -2.0F);
         this.Neck1.addBox(-2.5F, -2.5F, -11.0F, 5, 5, 12, 0.0F);
-        this.setRotateAngle(Neck1, 0.3490658503988659F, 0.0F, 0.0F);
+        this.setRotateAngle(Neck1, 0.35F, 0.0F, 0.0F);
         this.Head.addChild(this.RightEar);
         this.Head.addChild(this.Snout);
         this.Neck2.addChild(this.Head);
@@ -75,22 +79,58 @@ public class ModelCamel extends ModelBase {
         this.Head.addChild(this.LeftEar);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.LeftFrontLeg.render(f5);
-        this.Body.render(f5);
-        this.RightBackLeg.render(f5);
-        this.RightFrontLeg.render(f5);
-        this.LeftBackLeg.render(f5);
-        this.Neck1.render(f5);
-    }
+    /**
+     * Sets the models various rotation angles then renders the model.
+     */
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    {
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
+        if (this.isChild)
+        {
+            float f = 2.0F;
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0.0F, this.childYOffset * scale, this.childZOffset * scale);
+            this.Neck1.render(scale);
+            GlStateManager.popMatrix();
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+            this.Body.render(scale);
+            this.LeftFrontLeg.render(scale);
+            this.RightFrontLeg.render(scale);
+            this.LeftBackLeg.render(scale);
+            this.RightBackLeg.render(scale);
+            GlStateManager.popMatrix();
+        }
+        else
+        {
+            this.Neck1.render(scale);
+            this.Body.render(scale);
+            this.LeftFrontLeg.render(scale);
+            this.RightFrontLeg.render(scale);
+            this.LeftBackLeg.render(scale);
+            this.RightBackLeg.render(scale);
+        }
+    }
+    
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) 
+    {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
+    }
+    
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    {
+        this.Neck1.rotateAngleX = 0.35F + headPitch * 0.017453292F;
+        this.Neck1.rotateAngleY = netHeadYaw * 0.017453292F;
+        this.LeftFrontLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.RightFrontLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.LeftBackLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.RightBackLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
     }
 }
