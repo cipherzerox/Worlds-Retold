@@ -10,8 +10,10 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityFlying;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -59,7 +61,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 
 	protected float getSoundVolume() 
 	{
-		return 3F;
+		return 4F;
 	}
 
 	@Override
@@ -70,9 +72,11 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
 	}
 
-	public float getEyeHeight() 
+	public float getEyeHeight()
 	{
 		return this.height * 0.325F - (MathHelper.cos(this.ticksExisted * 0.2F) * 0.325F);
 	}
@@ -86,7 +90,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1D);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7D);
 	}
 
 	@Override
@@ -99,7 +103,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 			boolean minHeight = world.getBlockState(getPosition().down(2)) != Blocks.AIR.getDefaultState();
 
 			if (minHeight)
-				motionY += (0.3D - this.motionY) * 0.1000000238418579D;
+				motionY += (0.2D - this.motionY) * 0.1000000238418579D;
 
 			if (!this.world.isRemote)
 			if (this.getAttackTarget() != null) 
