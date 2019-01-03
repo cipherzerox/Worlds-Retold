@@ -59,15 +59,14 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 
 	protected float getSoundVolume() 
 	{
-		return 2.5F;
+		return 3F;
 	}
 
 	@Override
 	protected void initEntityAI() 
 	{
 		super.initEntityAI();
-		this.tasks.addTask(0, new EntityAIWander(this, 1.8D));
-		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 64));
+		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
@@ -96,9 +95,44 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		if (this.isEntityAlive()) 
 		{
 			super.onLivingUpdate();
-			
-			if (getAttackTarget() == null) 
+
+			boolean minHeight = world.getBlockState(getPosition().down(2)) != Blocks.AIR.getDefaultState();
+
+			if (minHeight)
+				motionY += (0.3D - this.motionY) * 0.1000000238418579D;
+
+			if (!this.world.isRemote)
+			if (this.getAttackTarget() != null) 
 			{
+				Entity entity = this.getAttackTarget();
+
+				if (entity != null) 
+				{
+					double d0 = entity.posX - this.posX;
+					double d1 = entity.posZ - this.posZ;
+					double d3 = d0 * d0 + d1 * d1;
+
+					if (d3 > 9.0D) 
+					{
+						double d5 = (double) MathHelper.sqrt(d3);
+						this.motionX += (d0 / d5 * 0.42D - this.motionX) * 0.1000000238418579D;
+						this.motionZ += (d1 / d5 * 0.42D - this.motionZ) * 0.1000000238418579D;
+					}
+				}
+				
+				this.launchHailToCoords(this.getAttackTarget().posX, this.getAttackTarget().posY - this.getEyeHeight() - 1D + (rand.nextDouble() * 2D - 1D), this.getAttackTarget().posZ);
+				this.launchHailToCoords(this.getAttackTarget().posX, this.getAttackTarget().posY - this.getEyeHeight() - 1D + (rand.nextDouble() * 2D - 1D), this.getAttackTarget().posZ);
+				
+				if (this.rand.nextInt(20) == 0)
+					this.playSound(SoundEvents.ITEM_ELYTRA_FLYING, this.getSoundVolume(), this.getSoundPitch());
+				
+				this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
+				this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), 180F, 180F);
+			}
+			else
+			{
+				this.launchHailToCoords(posX, posY - 1.7, posZ);
+				
 				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class,
 						this.getEntityBoundingBox().grow(64.0D));
 				
@@ -107,41 +141,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 					if (entity != null && !entity.isCreative())
 						setAttackTarget(entity);
 				}
-			} else 
-			{
-				this.getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) this.getHorizontalFaceSpeed(),
-						(float) this.getVerticalFaceSpeed());
 			}
-
-			boolean minHeight = world.getBlockState(getPosition().down(10)) == Blocks.AIR.getDefaultState();
-
-			if (!minHeight)
-				motionY += .1;
-			else
-				motionY = 0;
-
-			if (!this.world.isRemote && this.getAttackTarget() != null) {
-				Entity entity = this.getAttackTarget();
-
-				if (entity != null) {
-					double d0 = entity.posX - this.posX;
-					double d1 = entity.posZ - this.posZ;
-					double d3 = d0 * d0 + d1 * d1;
-
-					if (d3 > 9.0D) {
-						double d5 = (double) MathHelper.sqrt(d3);
-						this.motionX += (d0 / d5 * 0.42D - this.motionX) * 0.1000000238418579D;
-						this.motionZ += (d1 / d5 * 0.42D - this.motionZ) * 0.1000000238418579D;
-					}
-				}
-			}
-
-			if (this.motionX * this.motionX + this.motionZ * this.motionZ >= 0.0025000011722640823D) {
-				this.rotationYaw = (float) MathHelper.atan2(this.motionZ, this.motionX) * (180F / (float) Math.PI)
-						- 90.0F;
-			}
-
-			launchHailToCoords(posX, posY, posZ);
 		}
 	}
 
@@ -152,29 +152,27 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	/**
 	 * Launches a Wither skull toward (par2, par4, par6)
 	 */
-	private void launchHailToCoords(double x, double y, double z) {
-		double d0 = this.posX;
-		double d1 = this.posY + 1.7;
-		double d2 = this.posZ;
-		double d4 = y - d1;
-		EntityHail entityHail = new EntityHail(this.world, this, 0, d4, 0);
-
-		double x0 = d0 - 2;
-		double z0 = d2 - 2;
-
-		entityHail.posX = x0 + rand.nextInt(5);
-		entityHail.posY = d1;
-		entityHail.posZ = z0 + rand.nextInt(5);
-
+	private void launchHailToCoords(double x, double y, double z) 
+	{
+		double d0 = x - this.posX;
+		double d1 = y - this.posY;
+		double d2 = z - this.posZ;
+		EntityHail entityHail = new EntityHail(this.world, this, d0, d1, d2);
+		entityHail.posX += rand.nextDouble() * 5D - 2.5D;
+		entityHail.posY += this.getEyeHeight() + 2D;
+		entityHail.posZ += rand.nextDouble() * 5D - 2.5D;
+		if (!this.world.isRemote)
 		world.spawnEntity(entityHail);
 	}
 
 	@Override
-	public boolean hasNoGravity() {
+	public boolean hasNoGravity() 
+	{
 		return true;
 	}
 
-	public boolean getCanSpawnHere() {
+	public boolean getCanSpawnHere() 
+	{
 		int i = MathHelper.floor(this.posX);
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
@@ -193,7 +191,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		this.deathTicks++;
         boolean flag = this.world.getGameRules().getBoolean("doMobLoot");
         int j = 50;
-        if (this.deathTicks > 50 && this.deathTicks % 5 == 0 && flag)
+        if (this.deathTicks > 50 && this.deathTicks % 5 == 0 && flag && !this.world.isRemote)
         {
             while (j > 0)
             {

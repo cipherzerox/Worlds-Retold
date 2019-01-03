@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -22,6 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
+import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
 import xenoscape.worldsretold.hailstorm.particle.ParticleShielded;
 import xenoscape.worldsretold.util.EntityElementalLookHelper;
@@ -54,11 +57,13 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	}
 
 	@Override
-	protected void initEntityAI() {
+	protected void initEntityAI() 
+	{
 		super.initEntityAI();
-		this.tasks.addTask(0, new EntityAIWander(this, .8D));
-		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 22));
-		this.tasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
+		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
 	}
 
 	@Override
