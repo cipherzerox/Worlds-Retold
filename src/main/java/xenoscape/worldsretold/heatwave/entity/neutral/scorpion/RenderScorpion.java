@@ -13,12 +13,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderScorpion extends RenderLiving<EntityScorpion>
 {
-    private static final ResourceLocation DESERT_SCORPION = new ResourceLocation("textures/entity/spider/spider.png");
+    private static final ResourceLocation DESERT_SCORPION = new ResourceLocation("worldsretold:textures/entity/deathstalker.png");
 	public static final RenderScorpion.Factory FACTORY = new RenderScorpion.Factory();
     
     public RenderScorpion(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelSpider(), 1.0F);
+        super(renderManagerIn, new ModelScorpion(), 1.0F);
     }
 
     protected float getDeathMaxRotation(EntityScorpion entityLivingBaseIn)
