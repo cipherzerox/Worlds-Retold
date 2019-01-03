@@ -47,7 +47,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		return SoundEvents.ENTITY_LIGHTNING_THUNDER;
 	}
 	
-	protected SoundEvent getHurtSound() 
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) 
 	{
 		return SoundEvents.ENTITY_SNOWMAN_HURT;
 	}
