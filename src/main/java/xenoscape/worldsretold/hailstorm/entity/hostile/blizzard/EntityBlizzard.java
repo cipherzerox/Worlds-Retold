@@ -118,6 +118,8 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 
 				if (!entity.isEntityAlive())
 					this.setAttackTarget(null);
+				
+				this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
 			}
 			else
 			{
@@ -256,6 +258,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
                     this.blizzard.attackEntityAsMob(entitylivingbase);
                 }
 
+				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
                 this.blizzard.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
             }
             else if (dou < this.getFollowDistance() * this.getFollowDistance())
@@ -286,9 +289,9 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
                     {
                         this.attackTime = 80;
                     }
-                    else if (this.attackStep <= 30)
+                    else if (this.attackStep <= 40)
                     {
-                        this.attackTime = 6;
+                        this.attackTime = 2;
                     }
                     else
                     {
@@ -302,14 +305,15 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
         				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
         				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
                     }
-                    else
-        				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
                 }
+                else
+    				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
 
                 this.blizzard.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
             }
             else
             {
+				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
                 this.blizzard.getNavigator().clearPath();
                 this.blizzard.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
             }
