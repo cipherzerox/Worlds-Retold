@@ -38,6 +38,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 
 public class EntityScorpion extends EntitySurfaceMonster
@@ -101,7 +102,6 @@ public class EntityScorpion extends EntitySurfaceMonster
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(2D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.325D);
@@ -130,7 +130,7 @@ public class EntityScorpion extends EntitySurfaceMonster
     @Nullable
     protected ResourceLocation getLootTable()
     {
-        return LootTableList.ENTITIES_SPIDER;
+        return new ResourceLocation(WorldsRetold.MODID, "entity/scorpion");
     }
     
     public boolean attackEntityAsMob(Entity entityIn)
@@ -139,20 +139,11 @@ public class EntityScorpion extends EntitySurfaceMonster
         {
             if (entityIn instanceof EntityLivingBase)
             {
-                int i = 5;
-
-                if (this.world.getDifficulty() == EnumDifficulty.NORMAL)
-                {
-                    i = 10;
-                }
-                else if (this.world.getDifficulty() == EnumDifficulty.HARD)
-                {
-                    i = 20;
-                }
+                int i = 10 * this.world.getDifficulty().getDifficultyId();
 
                 if (i > 0)
                 {
-                    ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty() == EnumDifficulty.HARD ? 1 : 0));
+                    ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId() - 1));
                 }
             }
 
@@ -282,7 +273,7 @@ public class EntityScorpion extends EntitySurfaceMonster
             {
                 float f = this.attacker.getBrightness();
 
-                if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0)
+                if ((f >= 0.5F || (this.attacker.getAttackTarget() != null && this.attacker.getAttackTarget().getBrightness() >= 0.5F)) && this.attacker.getRNG().nextInt(100) == 0)
                 {
                     this.attacker.setAttackTarget((EntityLivingBase)null);
                     return false;
@@ -312,7 +303,7 @@ public class EntityScorpion extends EntitySurfaceMonster
             public boolean shouldExecute()
             {
                 float f = this.taskOwner.getBrightness();
-                return f >= 0.5F ? false : super.shouldExecute();
+                return f >= 0.5F || this.target.getBrightness() >= 0.5F ? false : super.shouldExecute();
             }
         }
 
