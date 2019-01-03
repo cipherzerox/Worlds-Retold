@@ -45,14 +45,14 @@ item.statue.name=Statue
 
 ##Entities##
 
-// Passive
+# Passive
 entity.penguin.name=Penguin
 entity.nix.name=Nix
 
-// Neutral
+# Neutral
 entity.automaton.name=Automaton
 
-// Hostile
+# Hostile
 entity.guardsman.name=Guardsman
 entity.blizzard.name=Blizzard
 entity.roller.name=Snow Roller
@@ -60,8 +60,8 @@ entity.roller.name=Snow Roller
 ##Damage Sources##
 
 death.attack.worldsretold.frostbite=%1$s suffered from frostbite.
-death.attack.worldsretold.roller=%1$s was ran over by a Snow Roller
-death.attack.worldsretold.hail=%1$s was domed by a piece of hail
+death.attack.worldsretold.roller=%1$s was ran over by a Snow Roller.
+death.attack.worldsretold.hail=%1$s's skull was smashed by a piece of hail.
 
 ##Potion##
 
