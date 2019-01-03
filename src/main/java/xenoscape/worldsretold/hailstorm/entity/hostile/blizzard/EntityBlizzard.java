@@ -287,24 +287,21 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 
                     if (this.attackStep == 1)
                     {
-                        this.attackTime = 80;
+                        this.attackTime = 100;
                     }
-                    else if (this.attackStep <= 50)
+                    else if (this.attackStep <= 40)
                     {
-                        this.attackTime = 1;
+                        this.attackTime = 2;
                     }
                     else
                     {
-                        this.attackTime = 80;
+                        this.attackTime = 100;
                         this.attackStep = 0;
                     }
 
                     if (this.attackStep > 1)
                     {
     					this.blizzard.playSound(SoundEvents.ITEM_ELYTRA_FLYING, this.blizzard.getSoundVolume(), this.blizzard.getSoundPitch());
-        				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
-        				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
-        				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
         				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
         				this.blizzard.launchHailToCoords(entitylivingbase.posX, entitylivingbase.posY - this.blizzard.getEyeHeight() - 1D + (this.blizzard.rand.nextDouble() * 2D - 1D), this.blizzard.getAttackTarget().posZ);
                     }
