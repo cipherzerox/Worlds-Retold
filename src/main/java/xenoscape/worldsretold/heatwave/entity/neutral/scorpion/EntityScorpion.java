@@ -4,16 +4,20 @@ import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIRestrictSun;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -22,6 +26,7 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -34,6 +39,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -48,12 +54,14 @@ public class EntityScorpion extends EntitySurfaceMonster
     public EntityScorpion(World worldIn)
     {
         super(worldIn);
-        this.setSize(1.4F, 0.9F);
+        this.setSize(1.6F, 0.8F);
     }
 
     protected void initEntityAI()
     {
         this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIRestrictSun(this));
+        this.tasks.addTask(2, new EntityAIFleeSun(this, 1.0D));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         this.tasks.addTask(4, new EntityScorpion.AIScorpionAttack(this));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
@@ -303,9 +311,93 @@ public class EntityScorpion extends EntitySurfaceMonster
             public boolean shouldExecute()
             {
                 float f = this.taskOwner.getBrightness();
-                return f >= 0.5F || this.target.getBrightness() >= 0.5F ? false : super.shouldExecute();
+                return f >= 0.5F || (this.target != null && this.target.getBrightness() >= 0.5F) ? false : super.shouldExecute();
             }
         }
+    
+    public class EntityAISeekShelter extends EntityAIBase
+    {
+        private final EntityScorpion creature;
+        private double shelterX;
+        private double shelterY;
+        private double shelterZ;
+        private final double movementSpeed;
+        private final World world;
+
+        public EntityAISeekShelter(EntityScorpion theCreatureIn, double movementSpeedIn)
+        {
+            this.creature = theCreatureIn;
+            this.movementSpeed = movementSpeedIn;
+            this.world = theCreatureIn.world;
+            this.setMutexBits(1);
+        }
+
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        public boolean shouldExecute()
+        {
+            if (!this.world.isDaytime())
+            {
+                return false;
+            }
+            else if (!this.world.canSeeSky(new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ)))
+            {
+                return false;
+            }
+            else
+            {
+                Vec3d vec3d = this.findPossibleShelter();
+
+                if (vec3d == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    this.shelterX = vec3d.x;
+                    this.shelterY = vec3d.y;
+                    this.shelterZ = vec3d.z;
+                    return true;
+                }
+            }
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean shouldContinueExecuting()
+        {
+            return !this.creature.getNavigator().noPath();
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void startExecuting()
+        {
+            this.creature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
+        }
+
+        @Nullable
+        private Vec3d findPossibleShelter()
+        {
+            Random random = this.creature.getRNG();
+            BlockPos blockpos = new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ);
+
+            for (int i = 0; i < 10; ++i)
+            {
+                BlockPos blockpos1 = blockpos.add(random.nextInt(30) - 15, random.nextInt(10) - 5, random.nextInt(30) - 15);
+
+                if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) < 0.0F)
+                {
+                    return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
+                }
+            }
+
+            return null;
+        }
+    }
 
     public static class GroupData implements IEntityLivingData
         {
