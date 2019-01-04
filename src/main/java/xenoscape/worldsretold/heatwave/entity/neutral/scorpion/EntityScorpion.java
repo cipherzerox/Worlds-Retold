@@ -49,6 +49,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
@@ -63,7 +64,16 @@ public class EntityScorpion extends EntitySurfaceMonster
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
     protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
-
+    protected EntityLivingBase heldEntity;
+    public float stingerBaseRot;
+    public float stinger1Rot;
+    public float stinger2Rot;
+    public float stinger3Rot;
+    public float prevStingerBaseRot;
+    public float prevStinger1Rot;
+    public float prevStinger2Rot;
+    public float prevStinger3Rot;
+    
     public EntityScorpion(World worldIn)
     {
         super(worldIn);
@@ -116,11 +126,58 @@ public class EntityScorpion extends EntitySurfaceMonster
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (this.world.isRemote)
+        {
+        	this.prevStingerBaseRot = this.stingerBaseRot;
+        	this.prevStinger1Rot = this.stinger1Rot;
+        	this.prevStinger2Rot = this.stinger2Rot;
+        	this.prevStinger3Rot = this.stinger3Rot;
+        	
+            if (this.isAggressive())
+            {
+                this.stingerBaseRot = MathHelper.clamp(this.stingerBaseRot + 0.1F, -1.6F, -1.0471975511965976F);
+                this.stinger1Rot = MathHelper.clamp(this.stinger1Rot + 0.1F, 0.0625F, 0.8726646259971648F);
+                this.stinger2Rot = MathHelper.clamp(this.stinger2Rot + 0.1F, 0.0625F, 0.6981317007977318F);
+                this.stinger3Rot = MathHelper.clamp(this.stinger3Rot + 0.1F, 0.0625F, 1.0471975511965976F);
+            }
+            else
+            {
+                this.stingerBaseRot = MathHelper.clamp(this.stingerBaseRot - 0.1F, -1.6F, -1.0471975511965976F);
+                this.stinger1Rot = MathHelper.clamp(this.stinger1Rot - 0.1F, 0.0625F, 0.8726646259971648F);
+                this.stinger2Rot = MathHelper.clamp(this.stinger2Rot - 0.1F, 0.0625F, 0.6981317007977318F);
+                this.stinger3Rot = MathHelper.clamp(this.stinger3Rot - 0.1F, 0.0625F, 1.0471975511965976F);
+            }
+        }
 
         if (!this.world.isRemote)
         {
             this.setBesideClimbableBlock(this.collidedHorizontally);
         }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public float getStingerBaseRot(float p_189795_1_)
+    {
+        return (this.prevStingerBaseRot + (this.stingerBaseRot - this.prevStingerBaseRot) * p_189795_1_);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public float getStinger1Rot(float p_189795_1_)
+    {
+        return (this.prevStinger1Rot + (this.stinger1Rot - this.prevStinger1Rot) * p_189795_1_);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public float getStinger2Rot(float p_189795_1_)
+    {
+        return (this.prevStinger2Rot + (this.stinger2Rot - this.prevStinger2Rot) * p_189795_1_);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public float getStinger3Rot(float p_189795_1_)
+    {
+        return (this.prevStinger3Rot + (this.stinger3Rot - this.prevStinger3Rot) * p_189795_1_);
     }
     
     @SideOnly(Side.CLIENT)
@@ -174,6 +231,11 @@ public class EntityScorpion extends EntitySurfaceMonster
     protected SoundEvent getDeathSound()
     {
         return SoundEvents.ENTITY_SPIDER_DEATH;
+    }
+    
+    protected float getSoundPitch()
+    {
+    	return super.getSoundPitch() + (rand.nextFloat() * 0.2F - 0.1F);
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn)
