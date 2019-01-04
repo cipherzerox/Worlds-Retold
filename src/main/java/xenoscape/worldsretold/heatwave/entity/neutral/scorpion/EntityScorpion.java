@@ -53,6 +53,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
@@ -401,10 +402,42 @@ public class EntityScorpion extends EntitySurfaceMonster
     
     public float getBlockPathWeight(BlockPos pos)
     {
-    	if (this.getAttackTarget() == null && this.world.isDaytime() && this.world.canBlockSeeSky(pos))
-    		this.getNavigator().clearPath();
-    	
-        return this.getAttackTarget() == null && this.world.isDaytime() && this.world.canBlockSeeSky(pos) ? 1.0F : super.getBlockPathWeight(pos);
+        return 0.5F - this.world.getLightBrightness(pos);
+    }
+
+    /**
+     * Checks to make sure the light is not too bright where the mob is spawning
+     */
+    protected boolean isValidLightLevel()
+    {
+        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+
+        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32))
+        {
+            return false;
+        }
+        else
+        {
+            int i = this.world.getLightFromNeighbors(blockpos);
+
+            if (this.world.isThundering())
+            {
+                int j = this.world.getSkylightSubtracted();
+                this.world.setSkylightSubtracted(10);
+                i = this.world.getLightFromNeighbors(blockpos);
+                this.world.setSkylightSubtracted(j);
+            }
+
+            return i <= this.rand.nextInt(8);
+        }
+    }
+
+    /**
+     * Checks if the entity's current position is a valid location to spawn this entity.
+     */
+    public boolean getCanSpawnHere()
+    {
+        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
     }
 
     static class AIScorpionAttack extends EntityAIAttackMelee
@@ -477,18 +510,29 @@ public class EntityScorpion extends EntitySurfaceMonster
          */
         public boolean shouldExecute()
         {
-            Vec3d vec3d = this.findPossibleShelter();
-
-            if (vec3d == null)
+            if (!this.world.isDaytime())
+            {
+                return false;
+            }
+            else if (!this.world.canSeeSky(new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ)))
             {
                 return false;
             }
             else
             {
-                this.shelterX = vec3d.x;
-                this.shelterY = vec3d.y;
-                this.shelterZ = vec3d.z;
-                return this.creature.world.isDaytime() && this.creature.world.canSeeSky(this.creature.getPosition()) && this.creature.getBrightness() > 0.5F;
+                Vec3d vec3d = this.findPossibleShelter();
+
+                if (vec3d == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    this.shelterX = vec3d.x;
+                    this.shelterY = vec3d.y;
+                    this.shelterZ = vec3d.z;
+                    return true;
+                }
             }
         }
 
@@ -515,11 +559,17 @@ public class EntityScorpion extends EntitySurfaceMonster
         @Nullable
         private Vec3d findPossibleShelter()
         {
-            BlockPos blockpos1 = this.creature.getPosition().add(this.creature.getRNG().nextInt(50) - 25, this.creature.getRNG().nextInt(10) - 5, this.creature.getRNG().nextInt(50) - 25);
+            Random random = this.creature.getRNG();
+            BlockPos blockpos = new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ);
 
-            if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) <= 0.0F)
+            for (int i = 0; i < 10; ++i)
             {
-                return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
+                BlockPos blockpos1 = blockpos.add(random.nextInt(40) - 20, random.nextInt(10) - 5, random.nextInt(40) - 20);
+
+                if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) < 0.0F)
+                {
+                    return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
+                }
             }
 
             return null;
