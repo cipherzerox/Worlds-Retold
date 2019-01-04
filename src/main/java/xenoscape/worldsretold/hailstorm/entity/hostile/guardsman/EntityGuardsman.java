@@ -61,7 +61,6 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 	{
 		super.initEntityAI();
 		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
 	}

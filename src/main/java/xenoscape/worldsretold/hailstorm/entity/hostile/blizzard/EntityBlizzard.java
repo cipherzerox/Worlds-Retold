@@ -75,7 +75,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		super.initEntityAI();
 		this.tasks.addTask(1, new EntityBlizzard.AIBlizzardAttack(this));
 		this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityBlizzard.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
@@ -106,7 +105,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		{
 			super.onLivingUpdate();
 
-			boolean minHeight = world.getBlockState(getPosition().down(2)) != Blocks.AIR.getDefaultState();
+			boolean minHeight = world.getBlockState(getPosition().down(5)) != Blocks.AIR.getDefaultState();
 
 			if (minHeight)
 				motionY += (0.2D - this.motionY) * 0.1000000238418579D;
@@ -123,7 +122,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 			}
 			else
 			{
-				this.launchHailToCoords(posX, posY - 1.7, posZ);
 				
 				List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(64.0D));
 				
@@ -141,6 +139,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 						setAttackTarget(entity);
 				}
 			}
+			this.launchHailToCoords(posX, posY - 1.7, posZ);
 		}
 	}
 
@@ -258,7 +257,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
                     this.blizzard.attackEntityAsMob(entitylivingbase);
                 }
 
-				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
                 this.blizzard.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
             }
             else if (dou < this.getFollowDistance() * this.getFollowDistance())
@@ -285,9 +283,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
                 {
                     ++this.attackStep;
 
-                    if (this.attackTime <= 10)
-        				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
-                    
                     if (this.attackStep == 1)
                     {
                         this.attackTime = 100;
@@ -314,7 +309,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
             }
             else
             {
-				this.blizzard.launchHailToCoords(this.blizzard.posX, this.blizzard.posY - 1.7, this.blizzard.posZ);
                 this.blizzard.getNavigator().clearPath();
                 this.blizzard.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
             }
