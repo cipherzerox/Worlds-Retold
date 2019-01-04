@@ -75,7 +75,7 @@ public class EntityFrostShot extends EntityFireball
             {
                 if (this.shootingEntity != null)
                 {
-                    if (result.entityHit.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), 8.0F))
+                    if (result.entityHit.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), 7.0F))
                     {
                         if (result.entityHit.isEntityAlive())
                         {
@@ -85,7 +85,7 @@ public class EntityFrostShot extends EntityFireball
                 }
                 else
                 {
-                    result.entityHit.attackEntityFrom(DamageSource.MAGIC, 5.0F);
+                    result.entityHit.attackEntityFrom(DamageSource.MAGIC, 3.0F);
                 }
 
                 if (result.entityHit instanceof EntityLivingBase)
@@ -98,7 +98,7 @@ public class EntityFrostShot extends EntityFireball
                     }
                     else if (this.world.getDifficulty() == EnumDifficulty.HARD)
                     {
-                        i = 40;
+                        i = 20;
                     }
 
                     if (i > 0)

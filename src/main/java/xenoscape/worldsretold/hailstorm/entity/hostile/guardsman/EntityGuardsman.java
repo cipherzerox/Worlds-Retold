@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -115,7 +116,7 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40D);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(22D);
-		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(.3D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(100D);
 	}
@@ -290,6 +291,13 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 
 	protected void onDeathUpdate() {
 		this.deathTicks++;
+
+		if (!this.world.isRemote) {
+			boolean flag = this.world.getGameRules().getBoolean("doMobLoot");
+			if (this.deathTicks > 50 && this.deathTicks % 5 == 0 && flag) {
+				this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY + 1, this.posZ, 10));
+			}
+		}
 
 		if (this.deathTicks == 100 && !this.world.isRemote) {
 			this.setDead();

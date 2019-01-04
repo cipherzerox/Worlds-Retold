@@ -90,12 +90,11 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	protected void applyEntityAttributes() 
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60D);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
-		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1D);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7D);
 	}
 
 	@Override
@@ -175,7 +174,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(25) == 0
+		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(30) == 0
 				&& this.world.isRaining() && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
 				&& super.getCanSpawnHere();
 	}
@@ -187,7 +186,14 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	protected void onDeathUpdate() 
 	{
 		this.deathTicks++;
-        
+
+		if (!this.world.isRemote) {
+			boolean flag = this.world.getGameRules().getBoolean("doMobLoot");
+			if (this.deathTicks > 50 && this.deathTicks % 5 == 0 && flag) {
+				this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY + 1, this.posZ, 10));
+			}
+		}
+
 		if (this.deathTicks == 100 && !this.world.isRemote)
 			this.setDead();
 	}

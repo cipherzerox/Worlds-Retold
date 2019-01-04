@@ -67,13 +67,13 @@ public class EntityHail extends EntityFireball {
 	 */
 	protected void onImpact(RayTraceResult result) {
 		if (result.entityHit != null) {
-			int i = 3;
+			float i = 2.5F;
 
 			if (result.entityHit instanceof EntityBlizzard) {
 				i = 0;
 			}
 
-			result.entityHit.attackEntityFrom(HailstormModule.HAIL, (float) i);
+			result.entityHit.attackEntityFrom(HailstormModule.HAIL, i);
 
 			if (result.entityHit instanceof EntityLivingBase) {
 				EntityLivingBase target = (EntityLivingBase) result.entityHit;
