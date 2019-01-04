@@ -64,7 +64,7 @@ public class EntityScorpion extends EntitySurfaceMonster
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
     protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
-    protected EntityLivingBase heldEntity;
+    public EntityLivingBase heldEntity;
     public float stingerBaseRot;
     public float stinger1Rot;
     public float stinger2Rot;
@@ -126,6 +126,19 @@ public class EntityScorpion extends EntitySurfaceMonster
     public void onUpdate()
     {
         super.onUpdate();
+
+        if (this.heldEntity != null)
+        {
+        	this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
+        	this.heldEntity.renderYawOffset = this.heldEntity.rotationYaw = this.heldEntity.rotationYawHead = this.rotationYawHead + 180F;
+        	float f2 = this.renderYawOffset * 3.1415927F / 180.0F;
+        	float f19 = MathHelper.sin(f2);
+        	float f3 = MathHelper.cos(f2);
+        	this.heldEntity.fallDistance = 0F;
+        	this.heldEntity.onGround = false;
+        	this.heldEntity.isAirBorne = true;
+        	this.heldEntity.setPosition(this.posX + f19 * -1.5F, this.posY + 0.325D, this.posZ - f3 * -1.5F);
+        }
         
         if (this.world.isRemote)
         {
@@ -213,6 +226,7 @@ public class EntityScorpion extends EntitySurfaceMonster
     protected void updateAITasks()
     {
         super.updateAITasks();
+
         this.setAggressive(this.getAttackTarget() != null);
         if (!this.world.canBlockSeeSky(getPosition()) && !(this.getNavigator() instanceof PathNavigateClimber))
         	this.createNavigator(world);
@@ -251,18 +265,27 @@ public class EntityScorpion extends EntitySurfaceMonster
     
     public boolean attackEntityAsMob(Entity entityIn)
     {
+    	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(((EntityLivingBase)entityIn).getActivePotionEffect(MobEffects.POISON)) && !((EntityLivingBase)entityIn).isPotionActive(MobEffects.POISON))
+    	{
+    		this.heldEntity = (EntityLivingBase)entityIn;
+    		this.playSound(SoundEvents.ENTITY_GENERIC_HURT, 1F, 1F);
+    		this.ticksExisted = 0;
+            return true;
+    	}
         if (super.attackEntityAsMob(entityIn))
         {
-        	this.swingArm(EnumHand.MAIN_HAND);
-            if (entityIn instanceof EntityLivingBase)
+            if (this.heldEntity != null && entityIn == this.heldEntity && entityIn instanceof EntityLivingBase)
             {
                 int i = 10 * this.world.getDifficulty().getDifficultyId();
 
                 if (i > 0)
                 {
                     ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId() - 1));
+                	this.heldEntity = null;
                 }
             }
+            else
+            	this.swingArm(EnumHand.MAIN_HAND);
 
             return true;
         }

@@ -184,26 +184,33 @@ public class ModelScorpion extends ModelBase {
         float base1 = scorpion.getStinger1Rot(f);
         float base2 = scorpion.getStinger2Rot(f);
         float base3 = scorpion.getStinger3Rot(f);
+        
+        float fg = MathHelper.sin(this.swingProgress * (float)Math.PI);
+        float fg1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
+        
         this.head.rotateAngleX = headPitch * 0.017453292F;
         this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         
-        this.rightarm1.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
-        this.leftarm1.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.rightarm1.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F) - (base1 / 2);
+        this.leftarm1.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F) - (base1 / 2);
         
-        this.rightclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.rightarm2.rotateAngleY = -1.5707963267948966F + (base3 / 2) - fg1;
+        this.leftarm2.rotateAngleY = 1.5707963267948966F - (base3 / 2) + fg1;
+        
+        this.rightclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F) + (base1 / 2);
         this.rightclaw2.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
-        this.leftclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
+        this.leftclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F) + (base1 / 2);
         this.leftclaw2.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
 
-        this.tailbase.rotateAngleX = baserot + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F) + (MathHelper.cos(limbSwing * 0.6662F) * (scorpion.isAggressive() ? 0.25F : 0.05F) * limbSwingAmount);
+        this.tailbase.rotateAngleX = (fg1 * 0.5F) + baserot + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F) + (MathHelper.cos(limbSwing * 0.6662F) * (scorpion.isAggressive() ? 0.25F : 0.05F) * limbSwingAmount);
         this.tailbase.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F) * 0.05F);
-        this.tail1.rotateAngleX = base1 + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        this.tail1.rotateAngleX = (fg1 * 0.5F) + base1 + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
         this.tail1.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.025F) * 0.05F);
-        this.tail2.rotateAngleX = base2 + (MathHelper.sin(ageInTicks * 0.05F + 0.125F) * 0.05F);
+        this.tail2.rotateAngleX = -(fg1 * 0.25F) + base2 + (MathHelper.sin(ageInTicks * 0.05F + 0.125F) * 0.05F);
         this.tail2.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.05F) * 0.05F);
-        this.tail3.rotateAngleX = base3 + (MathHelper.sin(ageInTicks * 0.05F + 0.25F) * 0.05F);
+        this.tail3.rotateAngleX = -(fg1 * 0.325F) + base3 + (MathHelper.sin(ageInTicks * 0.05F + 0.25F) * 0.05F);
         this.tail3.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.075F) * 0.05F);
-        this.tailbulb.rotateAngleX = (MathHelper.sin(ageInTicks * 0.05F + 0.325F) * 0.05F);
+        this.tailbulb.rotateAngleX = -(fg1 * 2.0F) + (MathHelper.sin(ageInTicks * 0.05F + 0.325F) * 0.05F);
         this.tailbulb.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.1F) * 0.05F);
         
         this.rightleg1.rotateAngleY = 0.9599310885968813F - MathHelper.cos(limbSwing * 0.6662F + 0.75F) * limbSwingAmount;
