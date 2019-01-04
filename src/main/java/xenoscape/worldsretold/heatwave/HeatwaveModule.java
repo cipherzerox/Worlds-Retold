@@ -21,6 +21,7 @@ public class HeatwaveModule {
 	}
 
 	public void initHeatwave(FMLInitializationEvent event) {
+		HeatwaveEntities.init();
 		WorldsRetold.LOGGER.info("Heatwave Module Initialized");
 	}
 
