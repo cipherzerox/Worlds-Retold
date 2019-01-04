@@ -24,6 +24,9 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.AbstractIllager;
 import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -72,6 +75,9 @@ public class EntityScorpion extends EntitySurfaceMonster
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(2, new EntityScorpion.AIScorpionTarget(this, EntityPlayer.class));
         this.targetTasks.addTask(3, new EntityScorpion.AIScorpionTarget(this, EntityIronGolem.class));
+        this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityChicken.class));
+        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityPig.class));
+        this.targetTasks.addTask(6, new EntityScorpion.AIScorpionTarget(this, EntityBat.class));
     }
 
     /**
