@@ -40,6 +40,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -99,7 +100,7 @@ public class EntityScorpion extends EntitySurfaceMonster
      */
     protected PathNavigate createNavigator(World worldIn)
     {
-        return new PathNavigateClimber(this, worldIn);
+        return this.world.isDaytime() && this.world.canBlockSeeSky(getPosition()) ? new PathNavigateGround(this, worldIn) : new PathNavigateClimber(this, worldIn);
     }
 
     protected void entityInit()
@@ -156,6 +157,8 @@ public class EntityScorpion extends EntitySurfaceMonster
     {
         super.updateAITasks();
         this.setAggressive(this.getAttackTarget() != null);
+        if (!this.world.canBlockSeeSky(getPosition()) && !(this.getNavigator() instanceof PathNavigateClimber))
+        	this.createNavigator(world);
     }
 
     protected SoundEvent getAmbientSound()
@@ -313,7 +316,10 @@ public class EntityScorpion extends EntitySurfaceMonster
     
     public float getBlockPathWeight(BlockPos pos)
     {
-        return this.getAttackTarget() != null && this.world.isDaytime() && !this.world.canBlockSeeSky(pos) ? -1.0F : super.getBlockPathWeight(pos);
+    	if (this.getAttackTarget() == null && this.world.isDaytime() && this.world.canBlockSeeSky(pos))
+    		this.getNavigator().clearPath();
+    	
+        return this.getAttackTarget() == null && this.world.isDaytime() && this.world.canBlockSeeSky(pos) ? 1.0F : super.getBlockPathWeight(pos);
     }
 
     static class AIScorpionAttack extends EntityAIAttackMelee
@@ -414,20 +420,21 @@ public class EntityScorpion extends EntitySurfaceMonster
          */
         public void startExecuting()
         {
-            this.creature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
+        	this.creature.createNavigator(world);
+        	if (!this.world.canSeeSky(new BlockPos(this.shelterX, this.shelterY, this.shelterZ)))
+        		this.creature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
+        	else
+        		this.creature.getNavigator().clearPath();
         }
 
         @Nullable
         private Vec3d findPossibleShelter()
         {
-            for (int i = 0; i < 10; ++i)
-            {
-                BlockPos blockpos1 = this.creature.getPosition().add(this.creature.getRNG().nextInt(30) - 15, this.creature.getRNG().nextInt(10) - 5, this.creature.getRNG().nextInt(30) - 15);
+            BlockPos blockpos1 = this.creature.getPosition().add(this.creature.getRNG().nextInt(50) - 25, this.creature.getRNG().nextInt(10) - 5, this.creature.getRNG().nextInt(50) - 25);
 
-                if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) < 0.0F)
-                {
-                    return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
-                }
+            if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) <= 0.0F)
+            {
+                return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
             }
 
             return null;
