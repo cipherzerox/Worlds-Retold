@@ -11,6 +11,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -22,12 +23,15 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.AbstractIllager;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -39,6 +43,7 @@ import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -67,8 +72,9 @@ public class EntityScorpion extends EntitySurfaceMonster
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIRestrictSun(this));
-        this.tasks.addTask(2, new EntityScorpion.EntityAISeekShelter(this, 1.2D));
+        this.tasks.addTask(0, new EntityAIRestrictSun(this));
+        this.tasks.addTask(1, new EntityScorpion.EntityAISeekShelter(this, 1.2D));
+        this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityEnderman.class, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.5F));
         this.tasks.addTask(4, new EntityScorpion.AIScorpionAttack(this));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
@@ -182,6 +188,7 @@ public class EntityScorpion extends EntitySurfaceMonster
     {
         if (super.attackEntityAsMob(entityIn))
         {
+        	this.swingArm(EnumHand.MAIN_HAND);
             if (entityIn instanceof EntityLivingBase)
             {
                 int i = 10 * this.world.getDifficulty().getDifficultyId();
@@ -303,6 +310,11 @@ public class EntityScorpion extends EntitySurfaceMonster
     {
         return 0.65F;
     }
+    
+    public float getBlockPathWeight(BlockPos pos)
+    {
+        return this.getAttackTarget() != null && this.world.isDaytime() && !this.world.canBlockSeeSky(pos) ? -1.0F : super.getBlockPathWeight(pos);
+    }
 
     static class AIScorpionAttack extends EntityAIAttackMelee
         {
@@ -374,29 +386,18 @@ public class EntityScorpion extends EntitySurfaceMonster
          */
         public boolean shouldExecute()
         {
-            if (!this.world.isDaytime())
-            {
-                return false;
-            }
-            else if (!this.world.canSeeSky(new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ)))
+            Vec3d vec3d = this.findPossibleShelter();
+
+            if (vec3d == null)
             {
                 return false;
             }
             else
             {
-                Vec3d vec3d = this.findPossibleShelter();
-
-                if (vec3d == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    this.shelterX = vec3d.x;
-                    this.shelterY = vec3d.y;
-                    this.shelterZ = vec3d.z;
-                    return true;
-                }
+                this.shelterX = vec3d.x;
+                this.shelterY = vec3d.y;
+                this.shelterZ = vec3d.z;
+                return this.creature.world.isDaytime() && this.creature.world.canSeeSky(this.creature.getPosition()) && this.creature.getBrightness() > 0.5F;
             }
         }
 
@@ -419,12 +420,9 @@ public class EntityScorpion extends EntitySurfaceMonster
         @Nullable
         private Vec3d findPossibleShelter()
         {
-            Random random = this.creature.getRNG();
-            BlockPos blockpos = new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ);
-
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 10; ++i)
             {
-                BlockPos blockpos1 = blockpos.add(random.nextInt(30) - 15, random.nextInt(10) - 5, random.nextInt(30) - 15);
+                BlockPos blockpos1 = this.creature.getPosition().add(this.creature.getRNG().nextInt(30) - 15, this.creature.getRNG().nextInt(10) - 5, this.creature.getRNG().nextInt(30) - 15);
 
                 if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) < 0.0F)
                 {
