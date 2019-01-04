@@ -177,6 +177,8 @@ public class ModelScorpion extends ModelBase {
     
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
     {
+    	EntityScorpion scorpion = (EntityScorpion)entityIn;
+    	
         this.head.rotateAngleX = headPitch * 0.017453292F;
         this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         
@@ -188,13 +190,13 @@ public class ModelScorpion extends ModelBase {
         this.leftclaw1.rotateAngleX = -(MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
         this.leftclaw2.rotateAngleX = (MathHelper.cos(ageInTicks * 0.05F) * 0.05F);
 
-        this.tailbase.rotateAngleX = -1.0471975511965976F + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        this.tailbase.rotateAngleX = (scorpion.isAggressive() ? -1.0471975511965976F : -1.6F) + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F) + (MathHelper.cos(limbSwing * 0.6662F) * (scorpion.isAggressive() ? 0.25F : 0.05F) * limbSwingAmount);
         this.tailbase.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F) * 0.05F);
-        this.tail1.rotateAngleX = 0.8726646259971648F + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        this.tail1.rotateAngleX = (scorpion.isAggressive() ? 0.8726646259971648F : 0.0625F) + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
         this.tail1.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.025F) * 0.05F);
-        this.tail2.rotateAngleX = 0.6981317007977318F + (MathHelper.sin(ageInTicks * 0.05F + 0.125F) * 0.05F);
+        this.tail2.rotateAngleX = (scorpion.isAggressive() ? 0.6981317007977318F : 0.0625F) + (MathHelper.sin(ageInTicks * 0.05F + 0.125F) * 0.05F);
         this.tail2.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.05F) * 0.05F);
-        this.tail3.rotateAngleX = 1.0471975511965976F + (MathHelper.sin(ageInTicks * 0.05F + 0.25F) * 0.05F);
+        this.tail3.rotateAngleX = (scorpion.isAggressive() ? 1.0471975511965976F : 0.0625F) + (MathHelper.sin(ageInTicks * 0.05F + 0.25F) * 0.05F);
         this.tail3.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.075F) * 0.05F);
         this.tailbulb.rotateAngleX = (MathHelper.sin(ageInTicks * 0.05F + 0.325F) * 0.05F);
         this.tailbulb.rotateAngleZ = (MathHelper.cos(ageInTicks * 0.0325F + 0.1F) * 0.05F);

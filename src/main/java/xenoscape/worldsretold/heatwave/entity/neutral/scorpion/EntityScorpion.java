@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.EntityAIRestrictSun;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.AbstractIllager;
 import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,12 +45,15 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 
 public class EntityScorpion extends EntitySurfaceMonster
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
+    protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
 
     public EntityScorpion(World worldIn)
     {
@@ -59,9 +63,9 @@ public class EntityScorpion extends EntitySurfaceMonster
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIRestrictSun(this));
-        this.tasks.addTask(2, new EntityAISeekShelter(this, 1.2D));
+        this.tasks.addTask(2, new EntityScorpion.EntityAISeekShelter(this, 1.2D));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.5F));
         this.tasks.addTask(4, new EntityScorpion.AIScorpionAttack(this));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
@@ -90,6 +94,7 @@ public class EntityScorpion extends EntitySurfaceMonster
     {
         super.entityInit();
         this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
+        this.dataManager.register(AGGRESSIVE, Byte.valueOf((byte)0));
     }
 
     /**
@@ -104,6 +109,28 @@ public class EntityScorpion extends EntitySurfaceMonster
             this.setBesideClimbableBlock(this.collidedHorizontally);
         }
     }
+    
+    @SideOnly(Side.CLIENT)
+    public boolean isAggressive()
+    {
+        return ((Byte)this.dataManager.get(AGGRESSIVE)).byteValue() == 1;
+    }
+
+    public void setAggressive(boolean value)
+    {
+        int i = ((Byte)this.dataManager.get(AGGRESSIVE)).byteValue();
+
+        if (value)
+        {
+            i = i | 1;
+        }
+        else
+        {
+            i = i & ~1;
+        }
+
+        this.dataManager.set(AGGRESSIVE, Byte.valueOf((byte)(i & 255)));
+    }
 
     protected void applyEntityAttributes()
     {
@@ -111,6 +138,12 @@ public class EntityScorpion extends EntitySurfaceMonster
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(2D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.325D);
+    }
+    
+    protected void updateAITasks()
+    {
+        super.updateAITasks();
+        this.setAggressive(this.getAttackTarget() != null);
     }
 
     protected SoundEvent getAmbientSound()
@@ -383,7 +416,7 @@ public class EntityScorpion extends EntitySurfaceMonster
             Random random = this.creature.getRNG();
             BlockPos blockpos = new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ);
 
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 100; ++i)
             {
                 BlockPos blockpos1 = blockpos.add(random.nextInt(30) - 15, random.nextInt(10) - 5, random.nextInt(30) - 15);
 
