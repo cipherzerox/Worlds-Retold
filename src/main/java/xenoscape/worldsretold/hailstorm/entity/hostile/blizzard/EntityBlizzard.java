@@ -187,17 +187,6 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	protected void onDeathUpdate() 
 	{
 		this.deathTicks++;
-        boolean flag = this.world.getGameRules().getBoolean("doMobLoot");
-        int j = 50;
-        if (this.deathTicks > 50 && this.deathTicks % 5 == 0 && flag && !this.world.isRemote)
-        {
-            while (j > 0)
-            {
-                int i = EntityXPOrb.getXPSplit(j);
-                j -= i;
-                this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, i));
-            }
-        }
         
 		if (this.deathTicks == 100 && !this.world.isRemote)
 			this.setDead();
