@@ -69,9 +69,9 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		if (ConfigHailstormEntity.isNixEnabled) {
-			EntityRegistry.addSpawn(EntityCobra.class, 40, 1, 1, EnumCreatureType.CREATURE,
+			EntityRegistry.addSpawn(EntityCobra.class, 40, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
-			EntityRegistry.addSpawn(EntityCobra.class, 10, 1, 1, EnumCreatureType.CREATURE,
+			EntityRegistry.addSpawn(EntityCobra.class, 10, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
 		}
 		if (ConfigHailstormEntity.isBlizzardEnabled) {
