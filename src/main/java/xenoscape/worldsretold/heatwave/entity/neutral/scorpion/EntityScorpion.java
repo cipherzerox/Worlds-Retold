@@ -127,6 +127,12 @@ public class EntityScorpion extends EntitySurfaceMonster
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (this.isBeingRidden() && this.getPassengers() instanceof EntityCreature)
+        {
+            EntityCreature entitycreature = (EntityCreature)this.getPassengers();
+            entitycreature.renderYawOffset = this.renderYawOffset;
+        }
 
         if (this.heldEntity != null)
         {
@@ -139,6 +145,8 @@ public class EntityScorpion extends EntitySurfaceMonster
         	this.heldEntity.onGround = false;
         	this.heldEntity.isAirBorne = true;
         	this.heldEntity.setPosition(this.posX + f19 * -1.5F, this.posY + 0.325D, this.posZ - f3 * -1.5F);
+        	if (!this.heldEntity.isEntityAlive())
+        		this.heldEntity = null;
         }
         
         if (this.world.isRemote)
