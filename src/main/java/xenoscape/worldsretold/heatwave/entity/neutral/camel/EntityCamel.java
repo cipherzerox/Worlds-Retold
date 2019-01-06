@@ -53,6 +53,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob 
 	{
 		super(worldIn);
 		this.setSize(0.9F, 1.87F);
+		spawnableBlock = Blocks.SAND;
 	}
 
 	private void setStrength(int strengthIn) {
