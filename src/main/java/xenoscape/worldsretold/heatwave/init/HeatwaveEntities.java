@@ -14,6 +14,7 @@ import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
+import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 
 import java.util.Set;
@@ -29,6 +30,8 @@ public class HeatwaveEntities {
 				"camel", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "scorpion"), EntityScorpion.class,
 				"scorpion", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "cobra"), EntityCobra.class,
+				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
 
 		// Hostile
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "mummy"), EntityMummy.class,
@@ -48,6 +51,16 @@ public class HeatwaveEntities {
 			}
 		}
 		
+		final Set<Biome> savannahBiomes = (Set<Biome>) new ObjectArraySet();
+		for (final Biome biome : Biome.REGISTRY) {
+			final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
+			if (types.contains(BiomeDictionary.Type.SAVANNA) && !types.contains(BiomeDictionary.Type.BEACH)
+					&& !types.contains(BiomeDictionary.Type.OCEAN) && !types.contains(BiomeDictionary.Type.RIVER)
+					&& !types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)) {
+				savannahBiomes.add(biome);
+			}
+		}
+		
 		// Passive
 
 		// Neutral
@@ -55,9 +68,17 @@ public class HeatwaveEntities {
 			EntityRegistry.addSpawn(EntityCamel.class, 20, 2, 4, EnumCreatureType.CREATURE,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
+		if (ConfigHailstormEntity.isNixEnabled) {
+			EntityRegistry.addSpawn(EntityCobra.class, 40, 1, 1, EnumCreatureType.CREATURE,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+			EntityRegistry.addSpawn(EntityCobra.class, 10, 1, 1, EnumCreatureType.CREATURE,
+					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
+		}
 		if (ConfigHailstormEntity.isBlizzardEnabled) {
 			EntityRegistry.addSpawn(EntityScorpion.class, 100, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+			EntityRegistry.addSpawn(EntityScorpion.class, 10, 1, 1, EnumCreatureType.MONSTER,
+					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
 			EntityRegistry.removeSpawn(EntitySpider.class, EnumCreatureType.MONSTER, 
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}

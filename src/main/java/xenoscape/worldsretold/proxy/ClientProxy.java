@@ -45,6 +45,8 @@ import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.RenderMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.RenderCamel;
+import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
+import xenoscape.worldsretold.heatwave.entity.neutral.cobra.RenderCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.RenderScorpion;
 
@@ -97,6 +99,7 @@ public class ClientProxy extends ServerProxy {
 		// Neutral
 		RenderingRegistry.registerEntityRenderingHandler(EntityCamel.class, RenderCamel.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityScorpion.class, RenderScorpion.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCobra.class, RenderCobra.FACTORY);
 
 		// Hostile
 		RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, RenderMummy.FACTORY);
