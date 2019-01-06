@@ -132,7 +132,6 @@ public class EntityCobra extends EntitySurfaceMonster
     {
         super.onUpdate();
         
-        this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
         
         if (this.getAttackTarget() == null && this.world.getClosestPlayerToEntity(this, 12D) != null && !this.world.getClosestPlayerToEntity(this, 12D).capabilities.disableDamage)
             this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 12D));
@@ -227,7 +226,6 @@ public class EntityCobra extends EntitySurfaceMonster
     {
         if (super.attackEntityAsMob(entityIn))
         {
-        	this.swingArm(EnumHand.MAIN_HAND);
             if (entityIn instanceof EntityLivingBase)
             {
                 int i = 20 * this.world.getDifficulty().getDifficultyId();
@@ -371,7 +369,7 @@ public class EntityCobra extends EntitySurfaceMonster
             }
             else
             {
-                return this.attacker.getDistance(entitylivingbase) <= 12D && !(entitylivingbase instanceof EntityPlayer) || !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).isCreative();
+                return this.attacker.getDistance(entitylivingbase) <= 12D && (!(entitylivingbase instanceof EntityPlayer) || (entitylivingbase instanceof EntityPlayer && !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).isCreative()));
             }
         }
 
@@ -392,9 +390,8 @@ public class EntityCobra extends EntitySurfaceMonster
             EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 
             if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative()))
-            {
                 this.attacker.setAttackTarget((EntityLivingBase)null);
-            }
+
             this.attacker.setAggressive(false);
         }
 
@@ -408,14 +405,6 @@ public class EntityCobra extends EntitySurfaceMonster
             double d0 = this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
             --this.delayCounter;
             this.attacker.getNavigator().clearPath();
-
-            if ((this.targetX != entitylivingbase.posX && this.targetY != entitylivingbase.getEntityBoundingBox().minY && this.targetZ != entitylivingbase.posZ))
-            {
-                this.targetX = entitylivingbase.posX;
-                this.targetY = entitylivingbase.getEntityBoundingBox().minY;
-                this.targetZ = entitylivingbase.posZ;
-            }
-
             this.attackTick = Math.max(this.attackTick - 1, 0);
             this.checkAndPerformAttack(entitylivingbase, d0);
         }
@@ -426,108 +415,16 @@ public class EntityCobra extends EntitySurfaceMonster
 
             if (p_190102_2_ <= d0 && this.attackTick <= 0)
             {
-                this.attackTick = 20;
+                this.attackTick = 10;
                 this.attacker.swingArm(EnumHand.MAIN_HAND);
                 this.attacker.attackEntityAsMob(p_190102_1_);
+                this.attacker.renderYawOffset = this.attacker.rotationYaw = this.attacker.rotationYawHead;
             }
         }
 
         protected double getAttackReachSqr(EntityLivingBase attackTarget)
         {
             return (double)(this.attacker.width * 3.0F * this.attacker.width * 3.0F + attackTarget.width);
-        }
-    }
-    
-    public class EntityCobraSearchForNearestPlayer extends EntityAIBase
-    {
-        /** The entity that use this AI */
-        private final EntityCobra entityLiving;
-        /** The current target */
-        private EntityLivingBase entityTarget;
-
-        public EntityCobraSearchForNearestPlayer(EntityCobra entityLivingIn)
-        {
-            this.entityLiving = entityLivingIn;
-        }
-
-        /**
-         * Returns whether the EntityAIBase should begin execution.
-         */
-        public boolean shouldExecute()
-        {
-            double d0 = this.maxTargetRange();
-            
-            return this.entityLiving.world.getClosestPlayerToEntity(this.entityLiving, d0) != null;
-        }
-
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        public boolean shouldContinueExecuting()
-        {
-            EntityLivingBase entitylivingbase = this.entityLiving.getAttackTarget();
-
-            if (entitylivingbase == null)
-            {
-                return false;
-            }
-            else if (!entitylivingbase.isEntityAlive())
-            {
-                return false;
-            }
-            else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer)entitylivingbase).capabilities.disableDamage)
-            {
-                return false;
-            }
-            else
-            {
-                Team team = this.entityLiving.getTeam();
-                Team team1 = entitylivingbase.getTeam();
-
-                if (team != null && team1 == team)
-                {
-                    return false;
-                }
-                else
-                {
-                    double d0 = this.maxTargetRange();
-
-                    if (this.entityLiving.getDistanceSq(entitylivingbase) > d0 * d0)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return !(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP)entitylivingbase).interactionManager.isCreative();
-                    }
-                }
-            }
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void startExecuting()
-        {
-            this.entityLiving.setAttackTarget(this.entityTarget);
-            super.startExecuting();
-        }
-
-        /**
-         * Reset the task's internal state. Called when this task is interrupted by another one
-         */
-        public void resetTask()
-        {
-            this.entityLiving.setAttackTarget((EntityLivingBase)null);
-            super.startExecuting();
-        }
-
-        /**
-         * Return the max target range of the entiity (16 by default)
-         */
-        protected double maxTargetRange()
-        {
-            return 12D;
         }
     }
     
