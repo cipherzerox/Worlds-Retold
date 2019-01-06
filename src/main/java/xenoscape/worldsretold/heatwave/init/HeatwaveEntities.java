@@ -12,6 +12,7 @@ import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
+import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 
@@ -30,6 +31,8 @@ public class HeatwaveEntities {
 				"scorpion", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
 
 		// Hostile
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "mummy"), EntityMummy.class,
+				"mummy", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
 
 		// Projectiles
 	}

@@ -41,6 +41,8 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.EntityIceScrol
 import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoscape.worldsretold.hailstorm.init.HailstormBlocks;
 import xenoscape.worldsretold.hailstorm.init.HailstormClientEvents;
+import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
+import xenoscape.worldsretold.heatwave.entity.hostile.mummy.RenderMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.RenderCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
@@ -97,6 +99,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityScorpion.class, RenderScorpion.FACTORY);
 
 		// Hostile
+		RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, RenderMummy.FACTORY);
 
 		// Projectile
 	}
