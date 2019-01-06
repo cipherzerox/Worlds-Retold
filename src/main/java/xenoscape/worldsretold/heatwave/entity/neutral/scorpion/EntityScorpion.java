@@ -84,10 +84,9 @@ public class EntityScorpion extends EntitySurfaceMonster
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(0, new EntityAIRestrictSun(this));
-        this.tasks.addTask(1, new EntityScorpion.EntityAISeekShelter(this, 1.2D));
-        this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityEnderman.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.5F));
+        this.tasks.addTask(1, new EntityAIRestrictSun(this));
+        this.tasks.addTask(2, new EntityScorpion.EntityAISeekShelter(this, 1.2D));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityEnderman.class, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(4, new EntityScorpion.AIScorpionAttack(this));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -239,6 +238,21 @@ public class EntityScorpion extends EntitySurfaceMonster
         this.setAggressive(this.getAttackTarget() != null);
         if (!this.world.canBlockSeeSky(getPosition()) && !(this.getNavigator() instanceof PathNavigateClimber))
         	this.createNavigator(world);
+        
+        if (this.getAttackTarget() != null)
+        {
+            double d = this.getDistanceSq(this.getAttackTarget());
+
+            if (d >= 4.0D && d <= 16.0D && this.onGround && this.getRNG().nextInt(5) == 0)
+            {
+                double d0 = this.getAttackTarget().posX - this.posX;
+                double d1 = this.getAttackTarget().posZ - this.posZ;
+                float f = MathHelper.sqrt(d0 * d0 + d1 * d1);
+                this.motionX += d0 / (double)f * 0.5D * 0.800000011920929D + this.motionX * 0.20000000298023224D;
+                this.motionZ += d1 / (double)f * 0.5D * 0.800000011920929D + this.motionZ * 0.20000000298023224D;
+                this.jump();
+            }
+        }
     }
 
     protected SoundEvent getAmbientSound()
