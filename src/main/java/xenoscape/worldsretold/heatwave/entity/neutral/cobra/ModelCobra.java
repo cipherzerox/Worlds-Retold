@@ -89,25 +89,31 @@ public class ModelCobra extends ModelBase {
         float fg1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
         
         this.hood.showModel = cobra.isAggressive();
-        this.head.rotateAngleX = headPitch * 0.017453292F - (rot * 0.9F);
+        this.head.rotateAngleX = headPitch * 0.017453292F + (rot * 1.6F) - (fg1);
+
+        this.frontsec1.rotateAngleX = -(rot * 0.65F) + (fg1 / 3);
+        this.frontsec2.rotateAngleX = -(rot * 0.4F) + (fg1 / 3);
+        this.headsec.rotateAngleX = -(rot * 0.4F) + (fg1 / 3);
         if (cobra.isAggressive())
         {
             this.head.rotateAngleY = 0F;
             this.head.rotateAngleZ = netHeadYaw * 0.017453292F;
+            this.frontsec1.rotateAngleY = 0F;
+            this.frontsec2.rotateAngleY = 0F;
+            this.headsec.rotateAngleY = 0F;
         }
         else
         {
             this.head.rotateAngleY = netHeadYaw * 0.017453292F;
             this.head.rotateAngleZ = 0F;
-            this.frontsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F - 0.25F) * 0.2F * limbSwingAmount;
-            this.frontsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F - 0.5F) * 0.2F * limbSwingAmount;
-            this.headsec.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F - 0.75F) * 0.2F * limbSwingAmount;
-            this.head.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F - 0.75F) * 0.6F * limbSwingAmount;
+            this.frontsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.5F) * 0.2F * limbSwingAmount;
+            this.frontsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.25F) * 0.2F * limbSwingAmount;
+            this.headsec.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.2F * limbSwingAmount;
         }
         
-        this.tailsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.2F * limbSwingAmount;
-        this.tailsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.25F) * 0.2F * limbSwingAmount;
-        this.tailsec3.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.5F) * 0.2F * limbSwingAmount;
-        this.tailend.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.75F) * 0.2F * limbSwingAmount;
+        this.tailsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.75F) * 0.2F * limbSwingAmount + (rot);
+        this.tailsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.0F) * 0.2F * limbSwingAmount + (rot);
+        this.tailsec3.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.25F) * 0.2F * limbSwingAmount + (rot);
+        this.tailend.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.5F) * 0.2F * limbSwingAmount + (rot);
     }
 }

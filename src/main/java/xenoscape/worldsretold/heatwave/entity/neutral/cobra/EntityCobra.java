@@ -115,7 +115,7 @@ public class EntityCobra extends EntitySurfaceMonster
      */
     protected PathNavigate createNavigator(World worldIn)
     {
-        return this.world.isDaytime() && this.world.canBlockSeeSky(getPosition()) ? new PathNavigateGround(this, worldIn) : new PathNavigateClimber(this, worldIn);
+        return new PathNavigateGround(this, worldIn);
     }
 
     protected void entityInit()
@@ -132,11 +132,13 @@ public class EntityCobra extends EntitySurfaceMonster
     {
         super.onUpdate();
         
-        if (this.isBeingRidden() && this.getPassengers() instanceof EntityCreature)
-        {
-            EntityCreature entitycreature = (EntityCreature)this.getPassengers();
-            entitycreature.renderYawOffset = this.renderYawOffset;
-        }
+        this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
+        
+        if (this.getAttackTarget() == null && this.world.getClosestPlayerToEntity(this, 12D) != null && !this.world.getClosestPlayerToEntity(this, 12D).capabilities.disableDamage)
+            this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 12D));
+        
+        if (this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) > 12D)
+        	this.setAttackTarget(null);
         
         if (this.world.isRemote)
         {
@@ -348,29 +350,7 @@ public class EntityCobra extends EntitySurfaceMonster
             }
             else
             {
-                if (canPenalize)
-                {
-                    if (--this.delayCounter <= 0)
-                    {
-                        this.path = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
-                        this.delayCounter = 4 + this.attacker.getRNG().nextInt(7);
-                        return this.path != null;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-                this.path = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
-
-                if (this.path != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return this.getAttackReachSqr(entitylivingbase) >= this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
-                }
+            	return this.attacker.getDistance(entitylivingbase) <= 12D;
             }
         }
 
@@ -424,42 +404,16 @@ public class EntityCobra extends EntitySurfaceMonster
         public void updateTask()
         {
             EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-            this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+            this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 180.0F, 30.0F);
             double d0 = this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
             --this.delayCounter;
+            this.attacker.getNavigator().clearPath();
 
-            if ((this.longMemory || this.attacker.getEntitySenses().canSee(entitylivingbase)) && this.delayCounter <= 0 && (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D || entitylivingbase.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D || this.attacker.getRNG().nextFloat() < 0.05F))
+            if ((this.targetX != entitylivingbase.posX && this.targetY != entitylivingbase.getEntityBoundingBox().minY && this.targetZ != entitylivingbase.posZ))
             {
                 this.targetX = entitylivingbase.posX;
                 this.targetY = entitylivingbase.getEntityBoundingBox().minY;
                 this.targetZ = entitylivingbase.posZ;
-                this.delayCounter = 4 + this.attacker.getRNG().nextInt(7);
-
-                if (this.canPenalize)
-                {
-                    this.delayCounter += failedPathFindingPenalty;
-                    if (this.attacker.getNavigator().getPath() != null)
-                    {
-                        net.minecraft.pathfinding.PathPoint finalPathPoint = this.attacker.getNavigator().getPath().getFinalPathPoint();
-                        if (finalPathPoint != null && entitylivingbase.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
-                        else
-                            failedPathFindingPenalty += 10;
-                    }
-                    else
-                    {
-                        failedPathFindingPenalty += 10;
-                    }
-                }
-
-                if (d0 > 1024.0D)
-                {
-                    this.delayCounter += 10;
-                }
-                else if (d0 > 256.0D)
-                {
-                    this.delayCounter += 5;
-                }
             }
 
             this.attackTick = Math.max(this.attackTick - 1, 0);
@@ -480,7 +434,7 @@ public class EntityCobra extends EntitySurfaceMonster
 
         protected double getAttackReachSqr(EntityLivingBase attackTarget)
         {
-            return (double)(this.attacker.width * 2.0F * this.attacker.width * 2.0F + attackTarget.width);
+            return (double)(this.attacker.width * 3.0F * this.attacker.width * 3.0F + attackTarget.width);
         }
     }
     
