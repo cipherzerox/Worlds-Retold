@@ -263,7 +263,11 @@ public class EntityCobra extends EntitySurfaceMonster {
      * Checks if the entity's current position is a valid location to spawn this entity.
      */
     public boolean getCanSpawnHere() {
-        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(50) == 0 && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+    }
+
+    public int getMaxSpawnedInChunk() {
+        return 1;
     }
 
     public class AICobraAttack extends EntityAIBase {
