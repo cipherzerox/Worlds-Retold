@@ -32,7 +32,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
-        this.getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0D);
+        this.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0D);
     }
 
     protected boolean shouldBurnInDay()
