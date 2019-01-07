@@ -225,16 +225,14 @@ public class EntityCobra extends EntitySurfaceMonster
     
     public boolean attackEntityAsMob(Entity entityIn)
     {
-        if (super.attackEntityAsMob(entityIn))
+        int i = 20 * this.world.getDifficulty().getDifficultyId();
+        PotionEffect poison = new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId());
+        
+        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && super.attackEntityAsMob(entityIn))
         {
-            if (entityIn instanceof EntityLivingBase)
+            if (i > 0)
             {
-                int i = 20 * this.world.getDifficulty().getDifficultyId();
-
-                if (i > 0)
-                {
-                    ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId()));
-                }
+                ((EntityLivingBase)entityIn).addPotionEffect(poison);
             }
 
             return true;
