@@ -3,6 +3,7 @@ package xenoscape.worldsretold.heatwave.init;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -84,7 +85,9 @@ public class HeatwaveEntities {
 		}
 		// Hostile
 		if (ConfigHailstormEntity.isBlizzardEnabled) {
-			EntityRegistry.addSpawn(EntityMummy.class, 1, 1, 4, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityMummy.class, 100, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 	}

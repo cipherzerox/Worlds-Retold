@@ -174,7 +174,7 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(30) == 0
+		return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(30) == 0
 				&& this.world.isRaining() && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
 				&& super.getCanSpawnHere();
 	}
