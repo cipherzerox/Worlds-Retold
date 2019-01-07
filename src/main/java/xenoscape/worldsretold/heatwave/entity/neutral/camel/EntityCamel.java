@@ -33,10 +33,11 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 
 import javax.annotation.Nullable;
 
-public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob {
+public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob, IDesertCreature {
 	private static final DataParameter<Integer> DATA_STRENGTH_ID = EntityDataManager
 			.createKey(EntityCamel.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> DATA_COLOR_ID = EntityDataManager.createKey(EntityCamel.class,

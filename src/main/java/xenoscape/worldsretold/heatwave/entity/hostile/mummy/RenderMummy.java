@@ -13,17 +13,12 @@ import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.ModelScorpion;
 @SideOnly(Side.CLIENT)
 public class RenderMummy extends RenderLiving<EntityMummy>
 {
-    private static final ResourceLocation DESERT_SCORPION = new ResourceLocation("worldsretold:textures/entity/mummy.png");
+    private static final ResourceLocation MUMMY = new ResourceLocation("worldsretold:textures/entity/mummy.png");
 	public static final RenderMummy.Factory FACTORY = new RenderMummy.Factory();
 
     public RenderMummy(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelMummy(), 1.0F);
-    }
-
-    protected float getDeathMaxRotation(EntityMummy entityLivingBaseIn)
-    {
-        return 180.0F;
+        super(renderManagerIn, new ModelMummy(), 0.5F);
     }
 
     /**
@@ -31,7 +26,7 @@ public class RenderMummy extends RenderLiving<EntityMummy>
      */
     protected ResourceLocation getEntityTexture(EntityMummy entity)
     {
-        return DESERT_SCORPION;
+        return MUMMY;
     }
     
 	public static class Factory implements IRenderFactory<EntityMummy> {

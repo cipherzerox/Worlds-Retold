@@ -60,9 +60,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
+import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 
-public class EntityScorpion extends EntitySurfaceMonster
+public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreature
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
     protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);

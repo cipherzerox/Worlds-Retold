@@ -16,20 +16,13 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 
-public class EntityMummy extends EntityZombie
+public class EntityMummy extends EntityZombie implements IDesertCreature
 {
     public EntityMummy(World worldIn)
     {
         super(worldIn);
-    }
-
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        return super.getCanSpawnHere() && this.world.canSeeSky(new BlockPos(this));
     }
 
     protected boolean shouldBurnInDay()
@@ -71,6 +64,8 @@ public class EntityMummy extends EntityZombie
         {
             float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
             ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 140 * (int)f));
+            if (f > 3F)
+                ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 20 * (int)f));
         }
 
         return flag;
