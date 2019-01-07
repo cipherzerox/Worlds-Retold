@@ -60,6 +60,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
+import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 
 public class EntityScorpion extends EntitySurfaceMonster
 {
@@ -95,6 +96,7 @@ public class EntityScorpion extends EntitySurfaceMonster
         this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityChicken.class));
         this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityPig.class));
         this.targetTasks.addTask(6, new EntityScorpion.AIScorpionTarget(this, EntityBat.class));
+        this.targetTasks.addTask(7, new EntityScorpion.AIScorpionTarget(this, EntityCobra.class));
     }
 
     /**

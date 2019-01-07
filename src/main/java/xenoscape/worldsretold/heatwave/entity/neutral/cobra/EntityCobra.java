@@ -86,7 +86,7 @@ public class EntityCobra extends EntitySurfaceMonster
     public EntityCobra(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.4F, 0.4F);
+        this.setSize(0.4F, 0.2F);
     }
 
     protected void initEntityAI()
@@ -153,7 +153,7 @@ public class EntityCobra extends EntitySurfaceMonster
             }
         }
         
-        this.setSize(0.4F, 0.4F + rearingRot);
+        this.setSize(0.4F, 0.2F + rearingRot);
 
         if (!this.world.isRemote)
         {
@@ -194,6 +194,7 @@ public class EntityCobra extends EntitySurfaceMonster
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12D);
     }
 
     protected SoundEvent getAmbientSound()
