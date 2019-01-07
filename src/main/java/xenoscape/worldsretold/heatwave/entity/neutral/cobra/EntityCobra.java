@@ -205,12 +205,12 @@ public class EntityCobra extends EntitySurfaceMonster
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return SoundEvents.ENTITY_SILVERFISH_HURT;
+        return SoundEvents.ENTITY_SPIDER_HURT;
     }
 
     protected SoundEvent getDeathSound()
     {
-        return SoundEvents.ENTITY_SILVERFISH_DEATH;
+        return SoundEvents.ENTITY_SPIDER_DEATH;
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn)
