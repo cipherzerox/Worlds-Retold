@@ -76,21 +76,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 
-public class EntityCobra extends EntitySurfaceMonster
-{
+public class EntityCobra extends EntitySurfaceMonster {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityCobra.class, DataSerializers.BYTE);
     protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityCobra.class, DataSerializers.BYTE);
     public float rearingRot;
     public float prevRearingRot;
-    
-    public EntityCobra(World worldIn)
-    {
+
+    public EntityCobra(World worldIn) {
         super(worldIn);
         this.setSize(0.4F, 0.2F);
     }
 
-    protected void initEntityAI()
-    {
+    protected void initEntityAI() {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityCobra.AICobraAttack(this, false));
         this.tasks.addTask(2, new EntityAIRestrictSun(this));
@@ -105,92 +102,76 @@ public class EntityCobra extends EntitySurfaceMonster
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getMountedYOffset()
-    {
-        return (double)(this.height * 0.5F);
+    public double getMountedYOffset() {
+        return (double) (this.height * 0.5F);
     }
 
     /**
      * Returns new PathNavigateGround instance
      */
-    protected PathNavigate createNavigator(World worldIn)
-    {
+    protected PathNavigate createNavigator(World worldIn) {
         return new PathNavigateGround(this, worldIn);
     }
 
-    protected void entityInit()
-    {
+    protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
-        this.dataManager.register(AGGRESSIVE, Byte.valueOf((byte)0));
+        this.dataManager.register(CLIMBING, Byte.valueOf((byte) 0));
+        this.dataManager.register(AGGRESSIVE, Byte.valueOf((byte) 0));
     }
 
     /**
      * Called to update the entity's position/logic.
      */
-    public void onUpdate()
-    {
+    public void onUpdate() {
         super.onUpdate();
-        
-        
+
+
         if (this.getAttackTarget() == null && this.world.getClosestPlayerToEntity(this, 6D) != null && this.canEntityBeSeen(this.world.getClosestPlayerToEntity(this, 6D)) && !this.world.getClosestPlayerToEntity(this, 6D).capabilities.disableDamage)
             this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 6D));
-        
+
         if (this.getAttackTarget() != null && (this.getDistance(this.getAttackTarget()) > 12D || !this.canEntityBeSeen(this.getAttackTarget())))
-        	this.setAttackTarget(null);
-        
-        if (this.world.isRemote)
-        {
-        	this.prevRearingRot = this.rearingRot;
-        	
-            if (this.isAggressive())
-            {
+            this.setAttackTarget(null);
+
+        if (this.world.isRemote) {
+            this.prevRearingRot = this.rearingRot;
+
+            if (this.isAggressive()) {
                 this.rearingRot = MathHelper.clamp(this.rearingRot + 0.1F, 0F, 1F);
-            }
-            else
-            {
+            } else {
                 this.rearingRot = MathHelper.clamp(this.rearingRot - 0.1F, 0F, 1F);
             }
         }
-        
+
         this.setSize(0.4F, 0.2F + rearingRot);
 
-        if (!this.world.isRemote)
-        {
+        if (!this.world.isRemote) {
             this.setBesideClimbableBlock(this.collidedHorizontally);
         }
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public float getRearingRot(float p_189795_1_)
-    {
+    public float getRearingRot(float p_189795_1_) {
         return (this.prevRearingRot + (this.rearingRot - this.prevRearingRot) * p_189795_1_);
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public boolean isAggressive()
-    {
-        return ((Byte)this.dataManager.get(AGGRESSIVE)).byteValue() == 1;
+    public boolean isAggressive() {
+        return ((Byte) this.dataManager.get(AGGRESSIVE)).byteValue() == 1;
     }
 
-    public void setAggressive(boolean value)
-    {
-        int i = ((Byte)this.dataManager.get(AGGRESSIVE)).byteValue();
+    public void setAggressive(boolean value) {
+        int i = ((Byte) this.dataManager.get(AGGRESSIVE)).byteValue();
 
-        if (value)
-        {
+        if (value) {
             i = i | 1;
-        }
-        else
-        {
+        } else {
             i = i & ~1;
         }
 
-        this.dataManager.set(AGGRESSIVE, Byte.valueOf((byte)(i & 255)));
+        this.dataManager.set(AGGRESSIVE, Byte.valueOf((byte) (i & 255)));
     }
 
-    protected void applyEntityAttributes()
-    {
+    protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1D);
@@ -198,48 +179,38 @@ public class EntityCobra extends EntitySurfaceMonster
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12D);
     }
 
-    protected SoundEvent getAmbientSound()
-    {
+    protected SoundEvent getAmbientSound() {
         return this.isAggressive() ? SoundEvents.ENTITY_CAT_HISS : SoundEvents.ENTITY_SILVERFISH_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return SoundEvents.ENTITY_SPIDER_HURT;
     }
 
-    protected SoundEvent getDeathSound()
-    {
+    protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_SPIDER_DEATH;
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
-    {
+    protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.2F, 0.9F);
     }
 
     @Nullable
-    protected ResourceLocation getLootTable()
-    {
+    protected ResourceLocation getLootTable() {
         return new ResourceLocation(WorldsRetold.MODID, "entity/scorpion");
     }
-    
-    public boolean attackEntityAsMob(Entity entityIn)
-    {
+
+    public boolean attackEntityAsMob(Entity entityIn) {
         int i = 20 * this.world.getDifficulty().getDifficultyId();
         PotionEffect poison = new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId());
-        
-        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && super.attackEntityAsMob(entityIn))
-        {
-            if (i > 0)
-            {
-                ((EntityLivingBase)entityIn).addPotionEffect(poison);
+
+        if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isPotionApplicable(poison) && super.attackEntityAsMob(entityIn)) {
+            if (i > 0) {
+                ((EntityLivingBase) entityIn).addPotionEffect(poison);
             }
 
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -248,13 +219,11 @@ public class EntityCobra extends EntitySurfaceMonster
      * Returns true if this entity should move as if it were on a ladder (either because it's actually on a ladder, or
      * for AI reasons)
      */
-    public boolean isOnLadder()
-    {
+    public boolean isOnLadder() {
         return this.isBesideClimbableBlock();
     }
 
-    public boolean isPotionApplicable(PotionEffect potioneffectIn)
-    {
+    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
         return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
     }
 
@@ -262,58 +231,55 @@ public class EntityCobra extends EntitySurfaceMonster
      * Returns true if the WatchableObject (Byte) is 0x01 otherwise returns false. The WatchableObject is updated using
      * setBesideClimableBlock.
      */
-    public boolean isBesideClimbableBlock()
-    {
-        return (((Byte)this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
+    public boolean isBesideClimbableBlock() {
+        return (((Byte) this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
     }
 
     /**
      * Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is
      * false.
      */
-    public void setBesideClimbableBlock(boolean climbing)
-    {
-        byte b0 = ((Byte)this.dataManager.get(CLIMBING)).byteValue();
+    public void setBesideClimbableBlock(boolean climbing) {
+        byte b0 = ((Byte) this.dataManager.get(CLIMBING)).byteValue();
 
-        if (climbing)
-        {
-            b0 = (byte)(b0 | 1);
-        }
-        else
-        {
-            b0 = (byte)(b0 & -2);
+        if (climbing) {
+            b0 = (byte) (b0 | 1);
+        } else {
+            b0 = (byte) (b0 & -2);
         }
 
         this.dataManager.set(CLIMBING, Byte.valueOf(b0));
     }
 
-    public float getEyeHeight()
-    {
+    public float getEyeHeight() {
         return 0.1F + this.rearingRot;
     }
-    
-    public float getBlockPathWeight(BlockPos pos)
-    {
+
+    public float getBlockPathWeight(BlockPos pos) {
         return 0.5F - this.world.getLightBrightness(pos);
     }
 
     /**
      * Checks if the entity's current position is a valid location to spawn this entity.
      */
-    public boolean getCanSpawnHere()
-    {
+    public boolean getCanSpawnHere() {
         return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
     }
 
-    public class AICobraAttack extends EntityAIBase
-    {
+    public class AICobraAttack extends EntityAIBase {
         World world;
         protected EntityCobra attacker;
-        /** An amount of decrementing ticks that allows the entity to attack once the tick reaches 0. */
+        /**
+         * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
+         */
         protected int attackTick;
-        /** When true, the mob will continue chasing its target, even if it can't find a path to them right now. */
+        /**
+         * When true, the mob will continue chasing its target, even if it can't find a path to them right now.
+         */
         boolean longMemory;
-        /** The PathEntity of our entity. */
+        /**
+         * The PathEntity of our entity.
+         */
         Path path;
         private int delayCounter;
         private double targetX;
@@ -323,8 +289,7 @@ public class EntityCobra extends EntitySurfaceMonster
         private int failedPathFindingPenalty = 0;
         private boolean canPenalize = false;
 
-        public AICobraAttack(EntityCobra creature, boolean useLongMemory)
-        {
+        public AICobraAttack(EntityCobra creature, boolean useLongMemory) {
             this.attacker = creature;
             this.world = creature.world;
             this.longMemory = useLongMemory;
@@ -334,41 +299,29 @@ public class EntityCobra extends EntitySurfaceMonster
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
-        public boolean shouldExecute()
-        {
+        public boolean shouldExecute() {
             EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 
-            if (entitylivingbase == null)
-            {
+            if (entitylivingbase == null) {
                 return false;
-            }
-            else if (!entitylivingbase.isEntityAlive())
-            {
+            } else if (!entitylivingbase.isEntityAlive()) {
                 return false;
-            }
-            else
-            {
-            	return this.attacker.getDistance(entitylivingbase) <= 12D;
+            } else {
+                return this.attacker.getDistance(entitylivingbase) <= 12D;
             }
         }
 
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean shouldContinueExecuting()
-        {
+        public boolean shouldContinueExecuting() {
             EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 
-            if (entitylivingbase == null)
-            {
+            if (entitylivingbase == null) {
                 return false;
-            }
-            else if (!entitylivingbase.isEntityAlive())
-            {
+            } else if (!entitylivingbase.isEntityAlive()) {
                 return false;
-            }
-            else
-            {
+            } else {
                 return this.attacker.getDistance(entitylivingbase) <= 12D;
             }
         }
@@ -376,8 +329,7 @@ public class EntityCobra extends EntitySurfaceMonster
         /**
          * Execute a one shot task or start executing a continuous task
          */
-        public void startExecuting()
-        {
+        public void startExecuting() {
             this.delayCounter = 0;
             this.attacker.setAggressive(true);
         }
@@ -385,12 +337,11 @@ public class EntityCobra extends EntitySurfaceMonster
         /**
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
-        public void resetTask()
-        {
+        public void resetTask() {
             EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 
-            if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative()))
-                this.attacker.setAttackTarget((EntityLivingBase)null);
+            if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer) entitylivingbase).isSpectator() || ((EntityPlayer) entitylivingbase).isCreative()))
+                this.attacker.setAttackTarget((EntityLivingBase) null);
 
             this.attacker.setAggressive(false);
         }
@@ -398,8 +349,7 @@ public class EntityCobra extends EntitySurfaceMonster
         /**
          * Keep ticking a continuous task that has already been started
          */
-        public void updateTask()
-        {
+        public void updateTask() {
             EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
             this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 180.0F, 30.0F);
             double d0 = this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
@@ -409,12 +359,10 @@ public class EntityCobra extends EntitySurfaceMonster
             this.checkAndPerformAttack(entitylivingbase, d0);
         }
 
-        protected void checkAndPerformAttack(EntityLivingBase p_190102_1_, double p_190102_2_)
-        {
+        protected void checkAndPerformAttack(EntityLivingBase p_190102_1_, double p_190102_2_) {
             double d0 = this.getAttackReachSqr(p_190102_1_);
 
-            if (p_190102_2_ <= d0 && this.attackTick <= 0)
-            {
+            if (p_190102_2_ <= d0 && this.attackTick <= 0) {
                 this.attackTick = 10;
                 this.attacker.swingArm(EnumHand.MAIN_HAND);
                 this.attacker.attackEntityAsMob(p_190102_1_);
@@ -422,14 +370,12 @@ public class EntityCobra extends EntitySurfaceMonster
             }
         }
 
-        protected double getAttackReachSqr(EntityLivingBase attackTarget)
-        {
-            return (double)(this.attacker.width * 3.0F * this.attacker.width * 3.0F + attackTarget.width);
+        protected double getAttackReachSqr(EntityLivingBase attackTarget) {
+            return (double) (this.attacker.width * 5.0F * this.attacker.width * 5.0F + attackTarget.width);
         }
     }
-    
-    public class EntityAISeekShelter extends EntityAIBase
-    {
+
+    public class EntityAISeekShelter extends EntityAIBase {
         private final EntityCobra creature;
         private double shelterX;
         private double shelterY;
@@ -437,8 +383,7 @@ public class EntityCobra extends EntitySurfaceMonster
         private final double movementSpeed;
         private final World world;
 
-        public EntityAISeekShelter(EntityCobra theCreatureIn, double movementSpeedIn)
-        {
+        public EntityAISeekShelter(EntityCobra theCreatureIn, double movementSpeedIn) {
             this.creature = theCreatureIn;
             this.movementSpeed = movementSpeedIn;
             this.world = theCreatureIn.world;
@@ -448,26 +393,17 @@ public class EntityCobra extends EntitySurfaceMonster
         /**
          * Returns whether the EntityAIBase should begin execution.
          */
-        public boolean shouldExecute()
-        {
-            if (!this.world.isDaytime())
-            {
+        public boolean shouldExecute() {
+            if (!this.world.isDaytime()) {
                 return false;
-            }
-            else if (!this.world.canSeeSky(new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ)))
-            {
+            } else if (!this.world.canSeeSky(new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ))) {
                 return false;
-            }
-            else
-            {
+            } else {
                 Vec3d vec3d = this.findPossibleShelter();
 
-                if (vec3d == null)
-                {
+                if (vec3d == null) {
                     return false;
-                }
-                else
-                {
+                } else {
                     this.shelterX = vec3d.x;
                     this.shelterY = vec3d.y;
                     this.shelterZ = vec3d.z;
@@ -479,36 +415,31 @@ public class EntityCobra extends EntitySurfaceMonster
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean shouldContinueExecuting()
-        {
+        public boolean shouldContinueExecuting() {
             return !this.creature.getNavigator().noPath();
         }
 
         /**
          * Execute a one shot task or start executing a continuous task
          */
-        public void startExecuting()
-        {
-        	this.creature.createNavigator(world);
-        	if (!this.world.canSeeSky(new BlockPos(this.shelterX, this.shelterY, this.shelterZ)))
-        		this.creature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
-        	else
-        		this.creature.getNavigator().clearPath();
+        public void startExecuting() {
+            this.creature.createNavigator(world);
+            if (!this.world.canSeeSky(new BlockPos(this.shelterX, this.shelterY, this.shelterZ)))
+                this.creature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
+            else
+                this.creature.getNavigator().clearPath();
         }
 
         @Nullable
-        private Vec3d findPossibleShelter()
-        {
+        private Vec3d findPossibleShelter() {
             Random random = this.creature.getRNG();
             BlockPos blockpos = new BlockPos(this.creature.posX, this.creature.getEntityBoundingBox().minY, this.creature.posZ);
 
-            for (int i = 0; i < 10; ++i)
-            {
+            for (int i = 0; i < 10; ++i) {
                 BlockPos blockpos1 = blockpos.add(random.nextInt(40) - 20, random.nextInt(10) - 5, random.nextInt(40) - 20);
 
-                if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) < 0.0F)
-                {
-                    return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
+                if (!this.world.canSeeSky(blockpos1) && this.creature.getBlockPathWeight(blockpos1) < 0.0F) {
+                    return new Vec3d((double) blockpos1.getX(), (double) blockpos1.getY(), (double) blockpos1.getZ());
                 }
             }
 
@@ -516,30 +447,21 @@ public class EntityCobra extends EntitySurfaceMonster
         }
     }
 
-    public static class GroupData implements IEntityLivingData
-        {
-            public Potion effect;
+    public static class GroupData implements IEntityLivingData {
+        public Potion effect;
 
-            public void setRandomEffect(Random rand)
-            {
-                int i = rand.nextInt(5);
+        public void setRandomEffect(Random rand) {
+            int i = rand.nextInt(5);
 
-                if (i <= 1)
-                {
-                    this.effect = MobEffects.SPEED;
-                }
-                else if (i <= 2)
-                {
-                    this.effect = MobEffects.STRENGTH;
-                }
-                else if (i <= 3)
-                {
-                    this.effect = MobEffects.REGENERATION;
-                }
-                else if (i <= 4)
-                {
-                    this.effect = MobEffects.INVISIBILITY;
-                }
+            if (i <= 1) {
+                this.effect = MobEffects.SPEED;
+            } else if (i <= 2) {
+                this.effect = MobEffects.STRENGTH;
+            } else if (i <= 3) {
+                this.effect = MobEffects.REGENERATION;
+            } else if (i <= 4) {
+                this.effect = MobEffects.INVISIBILITY;
             }
         }
+    }
 }
