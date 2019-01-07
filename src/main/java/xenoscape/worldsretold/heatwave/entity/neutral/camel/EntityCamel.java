@@ -115,10 +115,17 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob,
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 		this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.0D);
 	}
+	
+    /**
+     * Returns randomized max health
+     */
+    protected float getModifiedMaxHealth()
+    {
+        return 35.0F + (float)this.rand.nextInt(25);
+    }
 
 	protected void entityInit() {
 		super.entityInit();
