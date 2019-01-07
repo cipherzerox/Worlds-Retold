@@ -291,7 +291,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
     
     public boolean attackEntityAsMob(Entity entityIn)
     {
-        int i = 3 * this.world.getDifficulty().getDifficultyId();
+        int i = 3 * (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
         PotionEffect poison = new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId() - 1);
         
     	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && !((EntityLivingBase)entityIn).isPotionActive(MobEffects.POISON))

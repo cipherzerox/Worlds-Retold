@@ -30,7 +30,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
         this.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(0D);
     }
@@ -73,8 +73,12 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         if (flag && this.getHeldItemMainhand().isEmpty() && entityIn instanceof EntityLivingBase)
         {
             float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-            ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 140 * (int)f));
-            if (f > 1.5F)
+            ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 240 * (int)f));
+            if (f >= 1F)
+            	((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 160 * (int)f));
+            if (f >= 1.5F)
+            	((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80 * (int)f));
+            if (f >= 2F)
                 ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
         }
 
