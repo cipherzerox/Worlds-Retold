@@ -36,8 +36,12 @@ public class PotionVenom extends Potion {
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
-		if (target instanceof EntityPlayer && ((EntityPlayer)target).getFoodStats().getFoodLevel() <= 10)
+		if (target instanceof EntityPlayer)
+		{
+			((EntityPlayer)target).getFoodStats().addExhaustion(0.25F);
+			if (((EntityPlayer)target).getFoodStats().getFoodLevel() <= 10)
 	    		target.attackEntityFrom(HeatwaveModule.VENOM, 1F);
+		}
         if (!(target instanceof EntityPlayer) || (target instanceof EntityPlayer && ((EntityPlayer)target).getFoodStats().getFoodLevel() > 10 && target.getHealth() > 1.0F))
     		target.attackEntityFrom(HeatwaveModule.VENOM, 1F);
 	}
