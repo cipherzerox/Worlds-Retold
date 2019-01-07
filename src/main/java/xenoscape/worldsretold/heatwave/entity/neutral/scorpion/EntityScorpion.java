@@ -62,6 +62,7 @@ import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
+import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
 public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreature
 {
@@ -291,8 +292,8 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
     
     public boolean attackEntityAsMob(Entity entityIn)
     {
-        int i = 3 * (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-        PotionEffect poison = new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId() - 1);
+        int i = 5 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+        PotionEffect poison = new PotionEffect(HeatwavePotions.VENOM, i * 20, this.world.getDifficulty().getDifficultyId() - 1);
         
     	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && !((EntityLivingBase)entityIn).isPotionActive(MobEffects.POISON))
     	{

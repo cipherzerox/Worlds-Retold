@@ -76,6 +76,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
+import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
 public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityCobra.class, DataSerializers.BYTE);
@@ -199,8 +200,8 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
-        int i = 20 * (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-        PotionEffect poison = new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId());
+        int i = 20 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+        PotionEffect poison = new PotionEffect(HeatwavePotions.VENOM, i * 20, this.world.getDifficulty().getDifficultyId());
 
         if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isPotionApplicable(poison) && super.attackEntityAsMob(entityIn)) {
             if (i > 0) {
