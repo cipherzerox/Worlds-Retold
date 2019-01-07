@@ -290,7 +290,10 @@ public class EntityScorpion extends EntitySurfaceMonster
     
     public boolean attackEntityAsMob(Entity entityIn)
     {
-    	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(((EntityLivingBase)entityIn).getActivePotionEffect(MobEffects.POISON)) && !((EntityLivingBase)entityIn).isPotionActive(MobEffects.POISON))
+        int i = 10 * this.world.getDifficulty().getDifficultyId();
+        PotionEffect poison = new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId() - 1);
+        
+    	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && !((EntityLivingBase)entityIn).isPotionActive(MobEffects.POISON))
     	{
     		this.heldEntity = (EntityLivingBase)entityIn;
     		this.playSound(SoundEvents.ENTITY_GENERIC_HURT, 1F, 1F);
@@ -301,11 +304,10 @@ public class EntityScorpion extends EntitySurfaceMonster
         {
             if (this.heldEntity != null && entityIn == this.heldEntity && entityIn instanceof EntityLivingBase)
             {
-                int i = 10 * this.world.getDifficulty().getDifficultyId();
 
                 if (i > 0)
                 {
-                    ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, this.world.getDifficulty().getDifficultyId() - 1));
+                    ((EntityLivingBase)entityIn).addPotionEffect(poison);
                 	this.heldEntity = null;
                 }
             }
