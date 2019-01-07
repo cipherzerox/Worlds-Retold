@@ -295,7 +295,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
         int i = 5 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
         PotionEffect poison = new PotionEffect(HeatwavePotions.VENOM, i * 20, this.world.getDifficulty().getDifficultyId() - 1);
         
-    	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && !((EntityLivingBase)entityIn).isPotionActive(MobEffects.POISON))
+    	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && !((EntityLivingBase)entityIn).isPotionActive(HeatwavePotions.VENOM))
     	{
     		this.heldEntity = (EntityLivingBase)entityIn;
     		this.playSound(SoundEvents.ENTITY_GENERIC_HURT, 1F, 1F);

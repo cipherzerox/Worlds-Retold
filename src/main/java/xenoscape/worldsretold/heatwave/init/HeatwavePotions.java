@@ -8,13 +8,13 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import xenoscape.worldsretold.hailstorm.potion.PotionFreezing;
+import xenoscape.worldsretold.heatwave.potion.PotionVenom;
 
 public class HeatwavePotions {
 
-	public static final Potion VENOM = new PotionFreezing("venom", true, 569088, 1, 0)
+	public static final Potion VENOM = new PotionVenom("venom", true, 569088, 1, 0)
 			.registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED,
-			PotionFreezing.MODIFIER_UUID.toString(), -0.25D, 1);
+					PotionVenom.MODIFIER_UUID.toString(), -0.25D, 1);
 
 	public static final PotionType NORMAL_VENOM = new PotionType("venom",
 			new PotionEffect[] { new PotionEffect(VENOM, 900) }).setRegistryName("venom");
