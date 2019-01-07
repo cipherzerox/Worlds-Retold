@@ -133,10 +133,10 @@ public class EntityCobra extends EntitySurfaceMonster
         super.onUpdate();
         
         
-        if (this.getAttackTarget() == null && this.world.getClosestPlayerToEntity(this, 12D) != null && !this.world.getClosestPlayerToEntity(this, 12D).capabilities.disableDamage)
-            this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 12D));
+        if (this.getAttackTarget() == null && this.world.getClosestPlayerToEntity(this, 6D) != null && this.canEntityBeSeen(this.world.getClosestPlayerToEntity(this, 6D)) && !this.world.getClosestPlayerToEntity(this, 6D).capabilities.disableDamage)
+            this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 6D));
         
-        if (this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) > 12D)
+        if (this.getAttackTarget() != null && (this.getDistance(this.getAttackTarget()) > 12D || !this.canEntityBeSeen(this.getAttackTarget())))
         	this.setAttackTarget(null);
         
         if (this.world.isRemote)
@@ -195,6 +195,7 @@ public class EntityCobra extends EntitySurfaceMonster
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12D);
     }
 
     protected SoundEvent getAmbientSound()
@@ -368,7 +369,7 @@ public class EntityCobra extends EntitySurfaceMonster
             }
             else
             {
-                return this.attacker.getDistance(entitylivingbase) <= 12D && (!(entitylivingbase instanceof EntityPlayer) || (entitylivingbase instanceof EntityPlayer && !((EntityPlayer)entitylivingbase).isSpectator() && !((EntityPlayer)entitylivingbase).isCreative()));
+                return this.attacker.getDistance(entitylivingbase) <= 12D;
             }
         }
 
