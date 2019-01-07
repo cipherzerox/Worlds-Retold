@@ -138,14 +138,14 @@ public class EntityScorpion extends EntitySurfaceMonster
         if (this.heldEntity != null)
         {
         	this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
-        	this.heldEntity.renderYawOffset = this.heldEntity.rotationYaw = this.heldEntity.rotationYawHead = this.rotationYawHead + 180F;
+        	this.heldEntity.renderYawOffset = this.heldEntity.rotationYaw = this.heldEntity.rotationYawHead;
         	float f2 = this.renderYawOffset * 3.1415927F / 180.0F;
         	float f19 = MathHelper.sin(f2);
         	float f3 = MathHelper.cos(f2);
         	this.heldEntity.fallDistance = 0F;
         	this.heldEntity.onGround = false;
         	this.heldEntity.isAirBorne = true;
-        	this.heldEntity.setPosition(this.posX + f19 * -1.5F, this.posY + 0.325D, this.posZ - f3 * -1.5F);
+        	this.heldEntity.setLocationAndAngles(this.posX + f19 * -1.5F, this.posY + 0.5D, this.posZ - f3 * -1.5F, this.rotationYawHead + 180F, 20F);
         	if (!this.heldEntity.isEntityAlive())
         		this.heldEntity = null;
         }
