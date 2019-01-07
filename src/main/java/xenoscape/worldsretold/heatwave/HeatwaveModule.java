@@ -10,13 +10,17 @@ import xenoscape.worldsretold.hailstorm.config.HailstormConfig;
 import xenoscape.worldsretold.hailstorm.init.*;
 import xenoscape.worldsretold.hailstorm.world.WorldGenHailstorm;
 import xenoscape.worldsretold.heatwave.init.HeatwaveEntities;
+import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
 public class HeatwaveModule {
 
 	public static HeatwaveModule INSTANCE = new HeatwaveModule();
+	
+	public static final DamageSource VENOM = new DamageSource("worldsretold.venom");
 
 	public void preInitHeatwave(FMLPreInitializationEvent event) {
 		HeatwaveEntities.preInit();
+		HeatwavePotions.registerPotions();
 		WorldsRetold.LOGGER.info("Heatwave Module Preinitialized");
 	}
 

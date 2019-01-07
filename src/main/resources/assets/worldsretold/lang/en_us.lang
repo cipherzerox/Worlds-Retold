@@ -40,6 +40,10 @@ item.penguin_egg.name=Penguin Egg
 item.penguin_feather.name=Penguin Feather
 item.manchot_raw.name=Raw Manchot
 item.manchot_cooked.name=Cooked Manchot
+item.snake_fang.name=Snake Fang
+item.scorpion_bulb.name=Scorpion Tail Bulb
+
+item.venom_sword.name=Venom Sword
 
 item.statue.name=Statue
 
@@ -54,12 +58,12 @@ entity.automaton.name=Automaton
 entity.camel.name=Camel
 entity.scorpion.name=Scorpion
 entity.cobra.name=Cobra
+entity.antlion.name=Antlion
 
 # Hostile
 entity.guardsman.name=Guardsman
 entity.blizzard.name=Blizzard
 entity.roller.name=Snow Roller
-entity.antlion.name=Antlion
 entity.mummy.name=Mummy
 entity.anubite.name=Anubite
 
@@ -68,6 +72,7 @@ entity.anubite.name=Anubite
 death.attack.worldsretold.frostbite=%1$s suffered from frostbite.
 death.attack.worldsretold.roller=%1$s was ran over by a Snow Roller.
 death.attack.worldsretold.hail=%1$s's skull was smashed by a piece of hail.
+death.attack.worldsretold.venom=%1$s died from venom.
 
 ##Potion##
 
@@ -76,6 +81,12 @@ potion.effect.freezing=Potion of Freezing
 splash_potion.effect.freezing=Splash Potion of Freezing
 lingering_potion.effect.freezing=Lingering Potion of Freezing
 tipped_arrow.effect.freezing=Arrow of Freezing
+
+effect.venom=Venom
+potion.effect.venom=Potion of Venom
+splash_potion.effect.venom=Splash Potion of Venom
+lingering_potion.effect.venom=Lingering Potion of Venom
+tipped_arrow.effect.venom=Arrow of Venom
 
 ##Enchantment##
 

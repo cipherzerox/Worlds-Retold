@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
+import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 import xenoscape.worldsretold.util.ModelRegistry;
 
 
@@ -95,6 +96,9 @@ public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 			target.addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 100));
 			attacker.world.createExplosion(target, target.posX, target.posY + 1, target.posZ, 1.0F, true);
 			((EntityPlayer) attacker).getCooldownTracker().setCooldown(this, 140);
+		}
+		if (this.effect == 3) {
+			target.addPotionEffect(new PotionEffect(HeatwavePotions.VENOM, 100, 0));
 		}
 		return true;
 	}

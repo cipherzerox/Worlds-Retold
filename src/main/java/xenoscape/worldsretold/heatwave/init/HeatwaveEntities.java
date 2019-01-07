@@ -83,5 +83,9 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		// Hostile
+		if (ConfigHailstormEntity.isBlizzardEnabled) {
+			EntityRegistry.addSpawn(EntityMummy.class, 1, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+		}
 	}
 }
