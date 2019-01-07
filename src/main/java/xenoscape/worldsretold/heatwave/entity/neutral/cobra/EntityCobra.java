@@ -200,7 +200,7 @@ public class EntityCobra extends EntitySurfaceMonster
 
     protected SoundEvent getAmbientSound()
     {
-        return SoundEvents.ENTITY_SILVERFISH_AMBIENT;
+        return this.isAggressive() ? SoundEvents.ENTITY_CAT_HISS : SoundEvents.ENTITY_SILVERFISH_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
