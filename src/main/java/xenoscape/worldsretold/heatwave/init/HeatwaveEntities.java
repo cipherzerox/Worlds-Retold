@@ -29,15 +29,15 @@ public class HeatwaveEntities {
 
 		// Neutral
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "camel"), EntityCamel.class,
-				"camel", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
+				"camel", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 11773813, 7824967);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "scorpion"), EntityScorpion.class,
-				"scorpion", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
+				"scorpion", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 14987315, 6440746);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "cobra"), EntityCobra.class,
-				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
+				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6569510, 4269587);
 
 		// Hostile
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "mummy"), EntityMummy.class,
-				"mummy", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0, 0);
+				"mummy", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 12956006, 0);
 
 		// Projectiles
 	}
