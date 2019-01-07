@@ -135,11 +135,11 @@ public class EntityCobra extends EntitySurfaceMonster {
         if (this.world.isRemote) {
             this.prevRearingRot = this.rearingRot;
 
-            if (this.isAggressive()) {
+            if (this.isAggressive())
                 this.rearingRot = MathHelper.clamp(this.rearingRot + 0.1F, 0F, 1F);
-            } else {
+            else 
                 this.rearingRot = MathHelper.clamp(this.rearingRot - 0.1F, 0F, 1F);
-            }
+            
         }
 
         this.setSize(0.4F, 0.2F + rearingRot);
