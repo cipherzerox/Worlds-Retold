@@ -133,15 +133,12 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         if (this.getAttackTarget() != null && (this.getDistance(this.getAttackTarget()) > 12D || !this.canEntityBeSeen(this.getAttackTarget())))
             this.setAttackTarget(null);
 
-        if (this.world.isRemote) {
-            this.prevRearingRot = this.rearingRot;
+        this.prevRearingRot = this.rearingRot;
 
-            if (this.isAggressive())
-                this.rearingRot = MathHelper.clamp(this.rearingRot + 0.1F, 0F, 1F);
-            else 
-                this.rearingRot = MathHelper.clamp(this.rearingRot - 0.1F, 0F, 1F);
-            
-        }
+        if (this.isAggressive())
+            this.rearingRot = MathHelper.clamp(this.rearingRot + 0.1F, 0F, 1F);
+        else 
+            this.rearingRot = MathHelper.clamp(this.rearingRot - 0.1F, 0F, 1F);
 
         this.setSize(0.4F, 0.2F + rearingRot);
 
@@ -264,7 +261,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
      * Checks if the entity's current position is a valid location to spawn this entity.
      */
     public boolean getCanSpawnHere() {
-        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(50) == 0 && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(5) == 0 && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
     }
 
     public int getMaxSpawnedInChunk() {
