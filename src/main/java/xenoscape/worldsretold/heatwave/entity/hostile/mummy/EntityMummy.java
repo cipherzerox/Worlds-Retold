@@ -74,7 +74,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         {
             float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
             ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, 140 * (int)f));
-            if (f > 3F)
+            if (f > 1.5F)
                 ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 20 * (int)f));
         }
 
