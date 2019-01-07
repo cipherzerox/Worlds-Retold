@@ -107,15 +107,15 @@ public class ModelCobra extends ModelBase {
         {
             this.head.rotateAngleY = netHeadYaw * 0.017453292F;
             this.head.rotateAngleZ = 0F;
-            this.midsec.rotationPointX = MathHelper.cos(limbSwing * 0.6662F + 0.9F) * 6F * limbSwingAmount;
-            this.frontsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.6F) * limbSwingAmount;
-            this.frontsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.3F) * limbSwingAmount;
+            this.midsec.rotationPointX = MathHelper.cos(limbSwing * 0.6662F + 1.2F) * 12F * limbSwingAmount;
+            this.frontsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.8F) * limbSwingAmount;
+            this.frontsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.4F) * limbSwingAmount;
             this.headsec.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
         }
         
-        this.tailsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.2F) * limbSwingAmount + (rot);
-        this.tailsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.5F) * limbSwingAmount + (rot);
-        this.tailsec3.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.8F) * limbSwingAmount + (rot);
-        this.tailend.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 2.1F) * limbSwingAmount + (rot);
+        this.tailsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.6F) * limbSwingAmount + (rot);
+        this.tailsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 2.0F) * limbSwingAmount + (rot);
+        this.tailsec3.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 2.4F) * limbSwingAmount + (rot);
+        this.tailend.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 2.8F) * limbSwingAmount + (rot);
     }
 }
