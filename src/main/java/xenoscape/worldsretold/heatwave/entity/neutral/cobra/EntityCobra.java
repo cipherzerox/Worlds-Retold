@@ -11,12 +11,14 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.base.Predicate;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -270,6 +272,70 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
 
     public int getMaxSpawnedInChunk() {
         return 1;
+    }
+    
+    public void travel(float strafe, float vertical, float forward)
+    {
+    	if (this.isEntityAlive())
+    	{
+    		super.travel(strafe, vertical, forward);
+    	}
+    	else
+    	{
+            float f6 = 0.91F;
+            BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain(this.posX, this.getEntityBoundingBox().minY - 1.0D, this.posZ);
+
+            if (this.onGround)
+            {
+                IBlockState underState = this.world.getBlockState(blockpos$pooledmutableblockpos);
+                f6 = underState.getBlock().getSlipperiness(underState, this.world, blockpos$pooledmutableblockpos, this) * 0.91F;
+            }
+
+            float f7 = 0.16277136F / (f6 * f6 * f6);
+            float f8;
+
+            if (this.onGround)
+            {
+                f8 = this.getAIMoveSpeed() * f7;
+            }
+            else
+            {
+                f8 = this.jumpMovementFactor;
+            }
+
+            this.moveRelative(strafe, vertical, forward, f8);
+            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+            if (this.isPotionActive(MobEffects.LEVITATION))
+            {
+                this.motionY += (0.05D * (double)(this.getActivePotionEffect(MobEffects.LEVITATION).getAmplifier() + 1) - this.motionY) * 0.2D;
+            }
+            else
+            {
+                blockpos$pooledmutableblockpos.setPos(this.posX, 0.0D, this.posZ);
+
+                if (!this.world.isRemote || this.world.isBlockLoaded(blockpos$pooledmutableblockpos) && this.world.getChunkFromBlockCoords(blockpos$pooledmutableblockpos).isLoaded())
+                {
+                    if (!this.hasNoGravity())
+                    {
+                        this.motionY -= 0.08D;
+                    }
+                }
+                else if (this.posY > 0.0D)
+                {
+                    this.motionY = -0.1D;
+                }
+                else
+                {
+                    this.motionY = 0.0D;
+                }
+            }
+
+            this.motionY *= 0.9800000190734863D;
+            this.motionX *= (double)f6;
+            this.motionZ *= (double)f6;
+            this.prevLimbSwingAmount = this.limbSwingAmount;
+            this.limbSwing = this.limbSwingAmount;
+    	}
     }
 
     public class AICobraAttack extends EntityAIBase {
