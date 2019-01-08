@@ -35,7 +35,7 @@ public class PotionFreezing extends Potion {
 			target.removePotionEffect(this);
 		} else {
 			target.playSound(HailstormSounds.FREEZING, 0.3F, 1.0F);
-			target.attackEntityFrom(HailstormModule.FROSTBITE, 1.0F);
+            target.attackEntityFrom(WorldsRetold.FROSTBITE, 1.0F);
 		}
 	}
 

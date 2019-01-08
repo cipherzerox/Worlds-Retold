@@ -171,7 +171,7 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob,
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-        return this.world.provider.getDimension() == 0 && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && super.getCanSpawnHere();
+		return this.world.provider.getDimension() == 0 && this.rand.nextInt(50) == 0 && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && super.getCanSpawnHere();
 	}
 
 	/**

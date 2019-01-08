@@ -52,7 +52,7 @@ public class EntityIceScrollProjectile extends EntityThrowable {
 	 */
 	protected void onImpact(RayTraceResult result) {
 		if (result.entityHit != null) {
-			result.entityHit.attackEntityFrom(HailstormModule.ICE_SCROLL_PROJECTILE, 60);
+            result.entityHit.attackEntityFrom(WorldsRetold.ICE_SCROLL_PROJECTILE, 60);
 		}
 
 		if (!this.world.isRemote) {

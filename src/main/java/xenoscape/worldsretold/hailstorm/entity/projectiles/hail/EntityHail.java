@@ -13,6 +13,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
@@ -73,7 +74,7 @@ public class EntityHail extends EntityFireball {
 				i = 0;
 			}
 
-			result.entityHit.attackEntityFrom(HailstormModule.HAIL, i);
+            result.entityHit.attackEntityFrom(WorldsRetold.HAIL, i);
 
 			if (result.entityHit instanceof EntityLivingBase) {
 				EntityLivingBase target = (EntityLivingBase) result.entityHit;

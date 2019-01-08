@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
@@ -111,7 +112,7 @@ public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreat
 				this.motionZ *= 0.6D;
 			}
 
-			entityIn.attackEntityFrom(HailstormModule.ROLLER, 1 + getSize() * 2);
+            entityIn.attackEntityFrom(WorldsRetold.ROLLER, 1 + getSize() * 2);
 
 			if (getSize() > baseSize)
 				this.dropItem(Items.SNOWBALL, (int) getSize() * 3);

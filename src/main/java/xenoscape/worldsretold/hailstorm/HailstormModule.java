@@ -14,11 +14,6 @@ public class HailstormModule {
 
 	public static HailstormModule INSTANCE = new HailstormModule();
 
-	public static final DamageSource FROSTBITE = new DamageSource("worldsretold.frostbite").setDamageBypassesArmor();
-	public static final DamageSource ROLLER = new DamageSource("worldsretold.roller");
-	public static final DamageSource HAIL = new DamageSource("worldsretold.hail");
-	public static final DamageSource ICE_SCROLL_PROJECTILE = new DamageSource("worldsretold.ice_scroll_projectile");
-
 	public void preInitHailstorm(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new HailstormVanillaLootInsertion());
 		HailstormEntities.preInit();

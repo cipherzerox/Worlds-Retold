@@ -1,5 +1,6 @@
 package xenoscape.worldsretold;
 
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -29,6 +30,11 @@ public class WorldsRetold {
 
 	@SidedProxy(clientSide = "xenoscape.worldsretold.proxy.ClientProxy", serverSide = "xenoscape.worldsretold.proxy.ServerProxy")
 	private static ServerProxy proxy;
+
+	public static final DamageSource FROSTBITE = new DamageSource("worldsretold.frostbite").setDamageBypassesArmor();
+	public static final DamageSource ROLLER = new DamageSource("worldsretold.roller");
+	public static final DamageSource HAIL = new DamageSource("worldsretold.hail");
+	public static final DamageSource ICE_SCROLL_PROJECTILE = new DamageSource("worldsretold.ice_scroll_projectile");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
