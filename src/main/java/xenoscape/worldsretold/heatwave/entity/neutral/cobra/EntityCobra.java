@@ -443,7 +443,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         }
 
         protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-            return (double) (this.attacker.width * 6F * this.attacker.width * 6F + attackTarget.width);
+            return (double) (this.attacker.width * 5F * this.attacker.width * 5F + attackTarget.width);
         }
     }
 
