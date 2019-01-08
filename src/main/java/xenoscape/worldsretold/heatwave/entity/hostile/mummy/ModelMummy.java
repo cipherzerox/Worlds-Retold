@@ -97,7 +97,6 @@ public class ModelMummy extends ModelBase {
             this.Body1.render(scale);
             this.RightArm.render(scale);
             this.Body2.render(scale);
-            this.Cloth1.render(scale);
             this.LeftLeg.render(scale);
             this.RightLeg.render(scale);
             this.LeftArm.render(scale);
@@ -114,7 +113,6 @@ public class ModelMummy extends ModelBase {
             this.Body1.render(scale);
             this.RightArm.render(scale);
             this.Body2.render(scale);
-            this.Cloth1.render(scale);
             this.LeftLeg.render(scale);
             this.RightLeg.render(scale);
             this.LeftArm.render(scale);
@@ -192,9 +190,6 @@ public class ModelMummy extends ModelBase {
         this.LeftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
 
         copyModelAngles(this.Head, this.Hat);
-        copyModelAngles(this.Head, this.Cloth1);
-        this.Cloth1.rotateAngleX += 0.17453292519943295F;
-        this.Cloth1.setRotationPoint(0.0F, -6.0F, 4.25F);
         boolean flags = entityIn instanceof EntityMummy && ((EntityMummy)entityIn).isArmsRaised();
         float fn = MathHelper.sin(this.swingProgress * (float)Math.PI);
         float f1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
