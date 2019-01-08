@@ -53,10 +53,13 @@ item.statue.name=Statue
 entity.penguin.name=Penguin
 entity.caribou.name=Caribou
 entity.nix.name=Nix
-entity.fennec_fox.name=Fennec Fox
+entity.kitsune.name=Kitsune
 
 # Neutral
 entity.automaton.name=Automaton
+entity.sentinel.name=Sentinel
+entity.warder.name=Warder
+entity.scout.name=Scout
 entity.camel.name=Camel
 entity.scorpion.name=Scorpion
 entity.cobra.name=Cobra
@@ -66,8 +69,14 @@ entity.antlion.name=Antlion
 entity.guardsman.name=Guardsman
 entity.blizzard.name=Blizzard
 entity.roller.name=Snow Roller
+entity.haunt.name=Haunt
+entity.abominable.name=Abominable
 entity.mummy.name=Mummy
 entity.anubite.name=Anubite
+entity.sandstorm.name=Sandstorm
+entity.ammos.name=Ammos
+entity.ghoul.name=Ghoul
+entity.mimic.name=Mimic
 
 ##Damage Sources##
 
