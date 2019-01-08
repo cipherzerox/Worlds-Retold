@@ -100,12 +100,12 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob,
 
 	protected void initEntityAI() {
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
-		this.tasks.addTask(3, new EntityAIAttackRanged(this, 0.5D, 40, 20.0F));
-		this.tasks.addTask(3, new EntityAIPanic(this, 1.2D));
+		this.tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIAttackRanged(this, 0.75D, 40, 20.0F));
+		this.tasks.addTask(3, new EntityAIPanic(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIMate(this, 0.5D));
-		this.tasks.addTask(5, new EntityAIFollowParent(this, 0.5D));
-		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.35D));
+		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.5D));
 		this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(8, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityCamel.AIHurtByTarget(this));
@@ -115,7 +115,8 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob,
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.325D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3D);
 		this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.0D);
 	}
 	
