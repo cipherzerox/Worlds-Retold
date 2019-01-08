@@ -350,7 +350,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn)
     {
-        return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() == MobEffects.POISON || potioneffectIn.getPotion() == HeatwavePotions.VENOM ? false : super.isPotionApplicable(potioneffectIn);
     }
 
     /**

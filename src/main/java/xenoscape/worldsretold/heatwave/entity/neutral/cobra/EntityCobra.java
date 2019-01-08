@@ -223,7 +223,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() == MobEffects.POISON || potioneffectIn.getPotion() == HeatwavePotions.VENOM ? false : super.isPotionApplicable(potioneffectIn);
     }
 
     /**
@@ -374,7 +374,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         }
 
         protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-            return (double) (this.attacker.width * 5.0F * this.attacker.width * 5.0F + attackTarget.width);
+            return (double) (this.attacker.width * 6F * this.attacker.width * 6F + attackTarget.width);
         }
     }
 
