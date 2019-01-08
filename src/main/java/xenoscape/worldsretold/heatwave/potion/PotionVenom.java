@@ -45,7 +45,7 @@ public class PotionVenom extends Potion {
 		
 		if (target instanceof EntityPlayer)
 		{
-			((EntityPlayer)target).addPotionEffect(new PotionEffect(MobEffects.POISON, 40));
+			((EntityPlayer)target).addPotionEffect(new PotionEffect(MobEffects.POISON, 21));
 			((EntityPlayer)target).cameraYaw += target.getRNG().nextFloat() - 0.5F;
 			((EntityPlayer)target).getFoodStats().addExhaustion(0.3331F);
 			if (((EntityPlayer)target).getFoodStats().getFoodLevel() <= 10)
@@ -58,7 +58,7 @@ public class PotionVenom extends Potion {
 
 	@Override
 	public boolean isReady(int duration, int amplifier) {
-        int j = 25 >> amplifier;
+        int j = 20 >> amplifier;
 
         if (j > 0)
         {

@@ -107,10 +107,10 @@ public class ModelCobra extends ModelBase {
         {
             this.head.rotateAngleY = netHeadYaw * 0.017453292F;
             this.head.rotateAngleZ = 0F;
-            this.midsec.rotationPointX = MathHelper.cos(limbSwing * 0.6662F + 1.8F) * 12F * limbSwingAmount;
-            this.frontsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.2F) * 0.75F * limbSwingAmount;
-            this.frontsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.6F) * 0.75F * limbSwingAmount;
-            this.headsec.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.75F * limbSwingAmount;
+            this.midsec.rotationPointX = MathHelper.cos(limbSwing * 0.6662F) * 12F * limbSwingAmount;
+            this.frontsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 0.6F) * 0.75F * limbSwingAmount;
+            this.frontsec2.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + 1.2F) * 0.75F * limbSwingAmount;
+            this.headsec.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * -1.5F * limbSwingAmount;
         }
         
         this.tailsec1.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F - 0.6F) * 0.75F * limbSwingAmount + (rot);
