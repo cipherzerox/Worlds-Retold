@@ -202,7 +202,9 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
     public boolean attackEntityAsMob(Entity entityIn) {
         int i = 20 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
         PotionEffect poison = new PotionEffect(HeatwavePotions.VENOM, i * 20, this.world.getDifficulty().getDifficultyId());
-
+        this.playSound(this.getAmbientSound(), this.getSoundVolume(), this.getSoundPitch() + 0.3F);
+        this.playSound(SoundEvents.ENTITY_GENERIC_HURT, this.getSoundVolume(), this.getSoundPitch() + 0.5F);
+        entityIn.hurtResistantTime = 0;
         if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isPotionApplicable(poison) && super.attackEntityAsMob(entityIn)) {
             if (i > 0) {
                 ((EntityLivingBase) entityIn).addPotionEffect(poison);

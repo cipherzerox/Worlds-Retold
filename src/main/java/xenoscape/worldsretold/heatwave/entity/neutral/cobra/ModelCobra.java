@@ -89,7 +89,7 @@ public class ModelCobra extends ModelBase {
         float fg1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
         
         this.hood.showModel = cobra.isAggressive();
-        this.head.rotateAngleX = headPitch * 0.017453292F + (rot * 1.6F) - (fg1);
+        this.head.rotateAngleX = headPitch * 0.017453292F + (rot * 1.5F) - (fg1);
 
         this.frontsec1.rotateAngleX = -(rot * 0.65F) + (fg1 / 2);
         this.frontsec2.rotateAngleX = -(rot * 0.4F) + (fg1 / 2);
