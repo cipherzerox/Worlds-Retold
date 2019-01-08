@@ -51,7 +51,9 @@ item.statue.name=Statue
 
 # Passive
 entity.penguin.name=Penguin
+entity.caribou.name=Caribou
 entity.nix.name=Nix
+entity.fennec_fox.name=Fennec Fox
 
 # Neutral
 entity.automaton.name=Automaton
