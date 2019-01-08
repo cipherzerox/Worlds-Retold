@@ -18,6 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
+import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 
 public abstract class EntitySurfaceMonster extends EntityCreature implements IMob {
 	protected float targetDistance;
@@ -56,6 +57,9 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (this instanceof EntityCobra && source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase && ((EntityLivingBase)source.getTrueSource()).getHeldItemMainhand().isEmpty())
+			this.attackEntityAsMob(source.getTrueSource());
+		
 		return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
 	}
 

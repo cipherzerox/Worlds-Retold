@@ -38,7 +38,7 @@ public class PotionVenom extends Potion {
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
-		if (!target.isPotionApplicable(new PotionEffect(MobEffects.POISON, 40)))
+		if (!target.isPotionApplicable(new PotionEffect(MobEffects.POISON, 40)) || target.isEntityUndead())
 			target.removeActivePotionEffect(this);
 		
 		target.rotationYawHead += target.getRNG().nextFloat() * 10F - 5F;
