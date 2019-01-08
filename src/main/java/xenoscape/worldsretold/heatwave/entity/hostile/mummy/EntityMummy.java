@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
@@ -97,5 +100,10 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     protected ItemStack getSkullDrop()
     {
         return ItemStack.EMPTY;
+    }
+
+    public boolean getCanSpawnHere() {
+        return this.world.provider.getDimension() == 0
+                && super.getCanSpawnHere();
     }
 }

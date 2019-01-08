@@ -465,7 +465,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
      */
     public boolean getCanSpawnHere()
     {
-        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this) && this.getBlockPathWeight(new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
+        return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this) && this.getBlockPathWeight(new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
     }
 
     static class AIScorpionAttack extends EntityAIAttackMelee

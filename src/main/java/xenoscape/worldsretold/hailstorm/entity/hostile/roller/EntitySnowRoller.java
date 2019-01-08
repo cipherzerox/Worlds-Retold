@@ -149,4 +149,14 @@ public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreat
 	public int getVerticalFaceSpeed() {
 		return 500;
 	}
+
+    public boolean getCanSpawnHere() {
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL
+                && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
+                && super.getCanSpawnHere();
+    }
 }

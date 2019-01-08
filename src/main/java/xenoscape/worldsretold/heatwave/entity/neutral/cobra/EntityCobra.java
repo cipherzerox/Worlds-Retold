@@ -260,11 +260,12 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         return 0.5F - this.world.getLightBrightness(pos);
     }
 
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
     public boolean getCanSpawnHere() {
-        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(5) == 0 && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
     }
 
     public int getMaxSpawnedInChunk() {
