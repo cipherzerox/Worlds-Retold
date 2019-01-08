@@ -118,6 +118,9 @@ public class ModelCobra extends ModelBase {
         }
         else
         {
+            this.frontsec1.rotateAngleZ = 0F;
+            this.frontsec2.rotateAngleZ = 0F;
+            this.headsec.rotateAngleZ = 0F;
             this.midsec.rotateAngleY = 0F;
             this.head.rotateAngleY = netHeadYaw * 0.017453292F;
             this.midsec.rotationPointX = MathHelper.cos(limbSwing * 0.6662F) * 12F * limbSwingAmount;
