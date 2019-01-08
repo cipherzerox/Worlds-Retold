@@ -104,3 +104,10 @@ tipped_arrow.effect.venom=Arrow of Venom
 enchantment.icebound_blade=Icebound Blade
 enchantment.glacier=Glacier
 enchantment.lightning_rod=Lightning Rod
+
+##Sound Subtitles##
+
+subtitles.snake.hiss=Snake warn
+subtitles.snake.hurt=Snake hurt
+subtitles.snake.death=Snake death
+subtitles.snake.strike=Snake attack

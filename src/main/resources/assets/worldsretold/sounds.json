@@ -1,4 +1,40 @@
 {
+    "snakehiss": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/neutral/snake/snakeambient1",
+        "worldsretold:entity/neutral/snake/snakeambient2",
+        "worldsretold:entity/neutral/snake/snakeambient3",
+        "worldsretold:entity/neutral/snake/snakeambient4",
+        "worldsretold:entity/neutral/snake/snakeambient5",
+        "worldsretold:entity/neutral/snake/snakeambient6"
+        ],
+        "subtitle": "subtitles.snake.hiss"
+    },
+    "snakehurt": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/neutral/snake/snakehurt1",
+        "worldsretold:entity/neutral/snake/snakehurt2",
+        "worldsretold:entity/neutral/snake/snakehurt3",
+        "worldsretold:entity/neutral/snake/snakehurt4"
+        ],
+        "subtitle": "subtitles.snake.hurt"
+    },
+    "snakedeath": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/neutral/snake/snakedeath"
+        ],
+        "subtitle": "subtitles.snake.death"
+    },
+    "snakestrike": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/neutral/snake/snakestrike"
+        ],
+        "subtitle": "subtitles.snake.strike"
+    },
     "freezing": {
         "category": "neutral",
         "sounds": [
@@ -18,6 +54,7 @@
                 "name": "worldsretold:misc/freezing_4",
                 "stream": true
             }
-        ]
+        ],
+        "subtitle": "subtitles.freezing"
     }
 }

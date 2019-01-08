@@ -77,6 +77,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
+import xenoscape.worldsretold.hailstorm.init.HailstormSounds;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
@@ -181,15 +182,15 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.isAggressive() ? SoundEvents.ENTITY_CAT_HISS : SoundEvents.ENTITY_SILVERFISH_AMBIENT;
+        return this.isAggressive() ? HailstormSounds.ENTITY_SNAKE_HISS : null;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SPIDER_HURT;
+        return HailstormSounds.ENTITY_SNAKE_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SPIDER_DEATH;
+        return HailstormSounds.ENTITY_SNAKE_DEATH;
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn) {
@@ -205,7 +206,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         int i = 20 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
         PotionEffect poison = new PotionEffect(HeatwavePotions.VENOM, i * 20, this.world.getDifficulty().getDifficultyId());
         this.playSound(this.getAmbientSound(), this.getSoundVolume(), this.getSoundPitch() + 0.3F);
-        this.playSound(SoundEvents.ENTITY_GENERIC_HURT, this.getSoundVolume(), this.getSoundPitch() + 0.5F);
+        this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, this.getSoundVolume(), this.getSoundPitch());
         entityIn.hurtResistantTime = 0;
         if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isPotionApplicable(poison) && super.attackEntityAsMob(entityIn)) {
             if (i > 0) {
