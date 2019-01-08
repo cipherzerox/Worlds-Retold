@@ -47,7 +47,7 @@ public class PotionVenom extends Potion {
 		{
 			((EntityPlayer)target).addPotionEffect(new PotionEffect(MobEffects.POISON, 21));
 			((EntityPlayer)target).cameraYaw += target.getRNG().nextFloat() - 0.5F;
-			((EntityPlayer)target).getFoodStats().addExhaustion(0.3331F);
+			((EntityPlayer)target).getFoodStats().addExhaustion(0.25F);
 			if (((EntityPlayer)target).getFoodStats().getFoodLevel() <= 10)
 	    		target.attackEntityFrom(HeatwaveModule.VENOM, 1F);
 		}
