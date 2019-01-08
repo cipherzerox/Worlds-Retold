@@ -18,7 +18,7 @@ public class RenderCobra extends RenderLiving<EntityCobra>
     
     public RenderCobra(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelCobra(), 0.5F);
+        super(renderManagerIn, new ModelCobra(), 0.0F);
     }
 
     protected float getDeathMaxRotation(EntityCobra entityLivingBaseIn)
