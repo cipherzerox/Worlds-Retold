@@ -38,21 +38,18 @@ public class PotionVenom extends Potion {
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
-		if (!target.isPotionApplicable(new PotionEffect(MobEffects.POISON, 40)) || target.isEntityUndead())
-			target.removeActivePotionEffect(this);
-		
 		target.rotationYawHead += target.getRNG().nextFloat() * 10F - 5F;
 		
 		if (target instanceof EntityPlayer)
 		{
 			((EntityPlayer)target).addPotionEffect(new PotionEffect(MobEffects.POISON, 21));
 			((EntityPlayer)target).cameraYaw += target.getRNG().nextFloat() - 0.5F;
-			((EntityPlayer)target).getFoodStats().addExhaustion(0.25F);
+			((EntityPlayer)target).getFoodStats().addExhaustion(0.1F);
 			if (((EntityPlayer)target).getFoodStats().getFoodLevel() <= 10)
-	    		target.attackEntityFrom(HeatwaveModule.VENOM, 1F);
+	    		target.attackEntityFrom(WorldsRetold.VENOM, 1F);
 		}
-        if (!(target instanceof EntityPlayer) || (target instanceof EntityPlayer && ((EntityPlayer)target).getFoodStats().getFoodLevel() > 10 && target.getHealth() > 1.0F))
-        	target.attackEntityFrom(HeatwaveModule.VENOM, 1F);
+        if (target.isPotionApplicable(new PotionEffect(MobEffects.POISON)) && target.isPotionApplicable(new PotionEffect(this)) && !target.isEntityUndead() && (!(target instanceof EntityPlayer) || (target instanceof EntityPlayer && ((EntityPlayer)target).getFoodStats().getFoodLevel() > 10 && target.getHealth() > 1.0F)))
+        	target.attackEntityFrom(WorldsRetold.VENOM, 1F);
 
 	}
 

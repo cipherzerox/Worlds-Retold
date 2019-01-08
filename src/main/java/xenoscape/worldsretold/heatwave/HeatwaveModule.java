@@ -15,8 +15,6 @@ import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 public class HeatwaveModule {
 
 	public static HeatwaveModule INSTANCE = new HeatwaveModule();
-	
-	public static final DamageSource VENOM = new DamageSource("worldsretold.venom").setDamageBypassesArmor().setDamageIsAbsolute();
 
 	public void preInitHeatwave(FMLPreInitializationEvent event) {
 		HeatwaveEntities.preInit();
