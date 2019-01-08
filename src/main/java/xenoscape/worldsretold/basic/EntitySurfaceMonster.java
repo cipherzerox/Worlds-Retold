@@ -57,8 +57,8 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (this instanceof EntityCobra && source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase && ((EntityLivingBase)source.getTrueSource()).getHeldItemMainhand().isEmpty())
-			this.attackEntityAsMob(source.getTrueSource());
+		if (this instanceof EntityCobra && source.getImmediateSource() != null && source.getImmediateSource() instanceof EntityLivingBase && ((EntityLivingBase)source.getImmediateSource()).getHeldItemMainhand().isEmpty())
+			this.attackEntityAsMob(source.getImmediateSource());
 		
 		return !this.isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
 	}
