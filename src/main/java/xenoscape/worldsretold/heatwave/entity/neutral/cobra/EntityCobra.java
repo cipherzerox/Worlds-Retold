@@ -101,7 +101,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
     }
 
     /**
@@ -134,8 +134,11 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         if (this.getAttackTarget() == null && this.world.getClosestPlayerToEntity(this, 6D) != null && this.canEntityBeSeen(this.world.getClosestPlayerToEntity(this, 6D)) && !this.world.getClosestPlayerToEntity(this, 6D).capabilities.disableDamage)
             this.setAttackTarget(this.world.getClosestPlayerToEntity(this, 6D));
 
-        if (this.getAttackTarget() != null && (this.getDistance(this.getAttackTarget()) > 12D || !this.canEntityBeSeen(this.getAttackTarget())))
+        if (this.getAttackTarget() != null && (!this.getAttackTarget().isEntityAlive() || this.getDistance(this.getAttackTarget()) > 12D || !this.canEntityBeSeen(this.getAttackTarget())))
             this.setAttackTarget(null);
+        
+        if (this.getRevengeTarget() != null && !this.getRevengeTarget().isEntityAlive())
+        	this.setRevengeTarget(null);
 
         this.prevRearingRot = this.rearingRot;
 
