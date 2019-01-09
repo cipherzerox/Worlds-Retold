@@ -318,32 +318,30 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 		Minecraft.getMinecraft().effectRenderer.addEffect(newEffect3);
 	}
 
-	public float getEyeHeight() {
+	public float getEyeHeight() 
+	{
 		return this.height - 1F;
 	}
 
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source != null && !this.getCharging() && world.isRemote) {
+	public boolean attackEntityFrom(DamageSource source, float amount) 
+	{
+		if (source != null && !this.getCharging() && world.isRemote) 
+		{
 			spawnSparks(1);
 			spawnSparks(-1);
 		}
 		return super.attackEntityFrom(source, amount);
 	}
 
-	public void fall(float distance, float damageMultiplier) {
+	public void fall(float distance, float damageMultiplier) {}
+
+	public int getSpawnType()
+	{
+		return 3;
 	}
 
-	public boolean getCanSpawnHere() {
-		int i = MathHelper.floor(this.posX);
-		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-		int k = MathHelper.floor(this.posZ);
-		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL
-				&& this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
-				&& super.getCanSpawnHere();
-	}
-
-    public int getMaxSpawnedInChunk() {
+    public int getMaxSpawnedInChunk() 
+    {
         return 1;
     }
 }

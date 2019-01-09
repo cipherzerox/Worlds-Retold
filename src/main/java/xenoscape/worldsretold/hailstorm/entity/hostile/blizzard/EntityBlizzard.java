@@ -167,19 +167,19 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	{
 		return true;
 	}
+	
+	public int getSpawnType()
+	{
+		return 6;
+	}
 
 	public boolean getCanSpawnHere() 
 	{
-		int i = MathHelper.floor(this.posX);
-		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-		int k = MathHelper.floor(this.posZ);
-		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.rand.nextInt(30) == 0
-				&& this.world.isRaining() && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
-				&& super.getCanSpawnHere();
+		return this.world.provider.getDimension() == 0 && this.rand.nextInt(10) == 0 && super.getCanSpawnHere();
 	}
 
-	public int getMaxSpawnedInChunk() {
+	public int getMaxSpawnedInChunk() 
+	{
 		return 1;
 	}
 

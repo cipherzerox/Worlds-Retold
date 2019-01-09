@@ -433,40 +433,10 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
         return 0.5F - this.world.getLightBrightness(pos);
     }
 
-    /**
-     * Checks to make sure the light is not too bright where the mob is spawning
-     */
-    protected boolean isValidLightLevel()
-    {
-        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
-
-        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32))
-        {
-            return false;
-        }
-        else
-        {
-            int i = this.world.getLightFromNeighbors(blockpos);
-
-            if (this.world.isThundering())
-            {
-                int j = this.world.getSkylightSubtracted();
-                this.world.setSkylightSubtracted(10);
-                i = this.world.getLightFromNeighbors(blockpos);
-                this.world.setSkylightSubtracted(j);
-            }
-
-            return i <= this.rand.nextInt(8);
-        }
-    }
-
-    /**
-     * Checks if the entity's current position is a valid location to spawn this entity.
-     */
-    public boolean getCanSpawnHere()
-    {
-        return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this) && this.getBlockPathWeight(new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
-    }
+	public int getSpawnType()
+	{
+		return 2;
+	}
 
     static class AIScorpionAttack extends EntityAIAttackMelee
         {

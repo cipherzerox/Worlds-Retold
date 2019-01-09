@@ -227,5 +227,4 @@ public class EntitySentinel extends EntityGuardsman
     public void travel(float strafe, float vertical, float forward) {
         super.travel(strafe, vertical, forward);
     }
-
 }
