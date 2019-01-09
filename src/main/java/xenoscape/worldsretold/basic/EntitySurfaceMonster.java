@@ -16,6 +16,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
@@ -154,13 +155,75 @@ public abstract class EntitySurfaceMonster extends EntityCreature implements IMo
 			super.damageEntity(damageSrc, damageAmount);
 		}
 	}
+	
+	public int getSpawnType()
+	{
+		return 0;
+	}
+	
+    /**
+     * Checks to make sure the light is not too bright where the mob is spawning
+     */
+    protected boolean isValidLightLevel()
+    {
+        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
-	public boolean getCanSpawnHere() {
-		int i = MathHelper.floor(this.posX);
-		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-		int k = MathHelper.floor(this.posZ);
-		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0 && this.world.getDifficulty() != EnumDifficulty.PEACEFUL
-				&& this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS && super.getCanSpawnHere();
+        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32))
+        {
+            return false;
+        }
+        else
+        {
+            int i = this.world.getLightFromNeighbors(blockpos);
+
+            if (this.world.isThundering())
+            {
+                int j = this.world.getSkylightSubtracted();
+                this.world.setSkylightSubtracted(10);
+                i = this.world.getLightFromNeighbors(blockpos);
+                this.world.setSkylightSubtracted(j);
+            }
+
+            return i <= this.rand.nextInt(8);
+        }
+    }
+
+	public boolean getCanSpawnHere() 
+	{
+		if (this.getSpawnType() == 1)
+		{
+	        int i = MathHelper.floor(this.posX);
+	        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+	        int k = MathHelper.floor(this.posZ);
+	        BlockPos blockpos = new BlockPos(i, j, k);
+	        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS && this.world.getLight(blockpos) > 8 && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		}
+		
+		if (this.getSpawnType() == 2)
+		{
+	        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		}
+		
+		if (this.getSpawnType() == 3)
+		{
+	        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		}
+		
+		if (this.getSpawnType() == 4)
+		{
+	        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		}
+		
+		if (this.getSpawnType() == 5)
+		{
+	        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		}
+		
+		if (this.getSpawnType() == 6)
+		{
+	        return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.world.isRaining() && this.isValidLightLevel() && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		}
+		
+		return super.getCanSpawnHere();
 	}
 }
