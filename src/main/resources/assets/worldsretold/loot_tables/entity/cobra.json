@@ -33,7 +33,7 @@
             "entries": [
                 {
                     "type": "item",
-                    "name": "minecraft:spider_eye",
+                    "name": "worldsretold:snake_fang",
                     "weight": 1,
                     "functions": [
                         {
