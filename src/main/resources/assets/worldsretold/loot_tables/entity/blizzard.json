@@ -74,7 +74,7 @@
             "rolls": 1,
             "entries": [
                 {
-                    "type": "item",
+                    "type": "block",
                     "name": "minecraft:ice",
                     "weight": 1
                 }
