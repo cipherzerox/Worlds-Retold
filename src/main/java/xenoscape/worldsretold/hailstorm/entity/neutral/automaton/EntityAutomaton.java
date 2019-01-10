@@ -22,6 +22,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +31,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ai.EntityAIAutomatonAttackMelee;
 import xenoscape.worldsretold.hailstorm.init.HailstormItems;
@@ -79,6 +81,11 @@ public class EntityAutomaton extends EntitySurfaceMonster {
 	public EntityAutomaton(World worldIn, double posX, double posY, double posZ) {
 		this(worldIn);
 		this.setPosition(posX, posY, posZ);
+	}
+	
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/automaton");
 	}
 
 	@Nullable

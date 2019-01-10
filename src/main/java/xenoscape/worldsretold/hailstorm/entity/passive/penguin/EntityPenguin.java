@@ -137,8 +137,8 @@ public class EntityPenguin extends EntityAnimal {
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
 	}
 
-	@Nullable
-	protected ResourceLocation getLootTable() {
+	protected ResourceLocation getLootTable() 
+	{
 		return new ResourceLocation(WorldsRetold.MODID, "entity/penguin");
 	}
 

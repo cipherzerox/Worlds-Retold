@@ -1,12 +1,12 @@
 {
     "pools": [
         {
-            "name": "penguin_feather",
+        "name": "blizzard_drop",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
-                    "name": "worldsretold:penguin_feather",
+                    "name": "minecraft:iron_nugget",
                     "weight": 1,
                     "functions": [
                         {
@@ -28,25 +28,20 @@
             ]
         },
         {
-            "name": "penguin_meat",
+        "name": "blizzard_snowball",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
-                    "name": "worldsretold:manchot_raw",
+                    "name": "minecraft:snowball",
                     "weight": 1,
                     "functions": [
                         {
-                            "function": "furnace_smelt",
-                            "conditions": [
-                                {
-                                    "condition": "entity_properties",
-                                    "entity": "this",
-                                    "properties": {
-                                        "on_fire": true
-                                    }
-                                }
-                            ]
+                            "function": "set_count",
+                            "count": {
+                                "min": 0,
+                                "max": 2
+                            }
                         },
                         {
                             "function": "looting_enchant",
@@ -56,6 +51,32 @@
                             }
                         }
                     ]
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "killed_by_player"
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "condition": "killed_by_player"
+                },
+                {
+                    "condition": "random_chance_with_looting",
+                    "chance": 0.025,
+                    "looting_multiplier": 0.1
+                }
+            ],
+            "name": "rare_drops",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:ice",
+                    "weight": 1
                 }
             ]
         }

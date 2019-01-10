@@ -13,6 +13,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
@@ -97,6 +98,11 @@ public class EntitySnowRoller extends EntitySurfaceMonster implements ISnowCreat
 				}
 			}
 		}
+	}
+	
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/snow_roller");
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {

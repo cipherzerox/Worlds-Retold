@@ -23,6 +23,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 
 public class EntityMummy extends EntityZombie implements IDesertCreature
@@ -72,11 +73,10 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         return SoundEvents.ENTITY_HUSK_STEP;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_HUSK;
-    }
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/mummy");
+	}
 
     public boolean attackEntityAsMob(Entity entityIn)
     {

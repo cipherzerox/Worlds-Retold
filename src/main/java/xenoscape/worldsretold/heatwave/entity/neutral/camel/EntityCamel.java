@@ -306,9 +306,9 @@ public class EntityCamel extends AbstractChestHorse implements IRangedAttackMob,
 		}
 	}
 
-	@Nullable
-	protected ResourceLocation getLootTable() {
-		return LootTableList.ENTITIES_LLAMA;
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/camel");
 	}
 
 	@Override

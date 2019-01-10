@@ -18,6 +18,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -25,6 +26,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
@@ -107,6 +109,11 @@ public class EntityGuardsman extends EntitySurfaceMonster implements ISnowCreatu
 
 	public void setChargeTicks(int ticks) {
 		this.dataManager.set(CHARGE_TICKS, ticks);
+	}
+	
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/guardsman");
 	}
 
 	@Override

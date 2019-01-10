@@ -13,6 +13,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -108,6 +109,11 @@ public class EntityNix extends EntityCreature implements ISnowCreature {
     public void setShrink(Boolean b) {
         this.dataManager.set(SHRINK, Boolean.valueOf(b));
     }
+    
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/nix");
+	}
 
     @Nullable
     @Override

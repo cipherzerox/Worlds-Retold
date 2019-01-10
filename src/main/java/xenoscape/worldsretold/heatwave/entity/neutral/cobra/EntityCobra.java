@@ -200,10 +200,10 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         this.playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.2F, 0.9F);
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return new ResourceLocation(WorldsRetold.MODID, "entity/scorpion");
-    }
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/scorpion");
+	}
 
     public boolean attackEntityAsMob(Entity entityIn) {
         int i = 20 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();

@@ -39,6 +39,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetold;
 
 public class EntityCaribou extends EntityAnimal
 {
@@ -177,11 +178,10 @@ public class EntityCaribou extends EntityAnimal
         return 0.4F;
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_COW;
-    }
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/caribou");
+	}
     
     /**
      * Play the taming effect, will either be hearts or smoke depending on status

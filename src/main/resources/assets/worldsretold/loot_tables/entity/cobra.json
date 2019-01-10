@@ -1,12 +1,12 @@
 {
     "pools": [
         {
-            "name": "penguin_feather",
+        "name": "cobra_drop",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
-                    "name": "worldsretold:penguin_feather",
+                    "name": "minecraft:string",
                     "weight": 1,
                     "functions": [
                         {
@@ -28,25 +28,20 @@
             ]
         },
         {
-            "name": "penguin_meat",
+        "name": "cobra_fang",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
-                    "name": "worldsretold:manchot_raw",
+                    "name": "minecraft:spider_eye",
                     "weight": 1,
                     "functions": [
                         {
-                            "function": "furnace_smelt",
-                            "conditions": [
-                                {
-                                    "condition": "entity_properties",
-                                    "entity": "this",
-                                    "properties": {
-                                        "on_fire": true
-                                    }
-                                }
-                            ]
+                            "function": "set_count",
+                            "count": {
+                                "min": -1,
+                                "max": 1
+                            }
                         },
                         {
                             "function": "looting_enchant",
@@ -56,6 +51,11 @@
                             }
                         }
                     ]
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "killed_by_player"
                 }
             ]
         }

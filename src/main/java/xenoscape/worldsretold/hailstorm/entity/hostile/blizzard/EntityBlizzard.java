@@ -23,11 +23,13 @@ import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.hail.EntityHail;
@@ -62,6 +64,11 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 	protected SoundEvent getDeathSound() 
 	{
 		return SoundEvents.BLOCK_END_PORTAL_SPAWN;
+	}
+	
+	protected ResourceLocation getLootTable() 
+	{
+		return new ResourceLocation(WorldsRetold.MODID, "entity/blizzard");
 	}
 
 	protected float getSoundVolume() 
