@@ -202,7 +202,7 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
 
 	protected ResourceLocation getLootTable() 
 	{
-		return new ResourceLocation(WorldsRetold.MODID, "entity/scorpion");
+		return new ResourceLocation(WorldsRetold.MODID, "entity/cobra");
 	}
 
     public boolean attackEntityAsMob(Entity entityIn) {
