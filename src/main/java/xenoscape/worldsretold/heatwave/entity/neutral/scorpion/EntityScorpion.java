@@ -28,7 +28,9 @@ import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -60,6 +62,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.basic.EntitySurfaceMonster;
+import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
@@ -95,10 +98,13 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(2, new EntityScorpion.AIScorpionTarget(this, EntityPlayer.class));
         this.targetTasks.addTask(3, new EntityScorpion.AIScorpionTarget(this, EntityIronGolem.class));
-        this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityChicken.class));
-        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityPig.class));
-        this.targetTasks.addTask(6, new EntityScorpion.AIScorpionTarget(this, EntityBat.class));
         this.targetTasks.addTask(7, new EntityScorpion.AIScorpionTarget(this, EntityCobra.class));
+        this.targetTasks.addTask(6, new EntityScorpion.AIScorpionTarget(this, EntityBat.class));
+        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityParrot.class));
+        this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityChicken.class));
+        this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityPenguin.class));
+        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityPig.class));
+        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntitySheep.class));
     }
 
     /**
