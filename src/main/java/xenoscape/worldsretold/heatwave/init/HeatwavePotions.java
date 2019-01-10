@@ -34,8 +34,14 @@ public class HeatwavePotions {
 
 	public static void registerPotions() {
 		registerPotion(NORMAL_VENOM, LONG_VENOM, STRONG_VENOM, VENOM);
-		registerPotion(NORMAL_WITHER, LONG_WITHER, STRONG_WITHER, MobEffects.WITHER);
+		registerPotionForExistingEffect(NORMAL_WITHER, LONG_WITHER, STRONG_WITHER);
 		registerPotionRecipes();
+	}
+	
+	private static void registerPotionForExistingEffect(PotionType defaultPotion, PotionType longPotion, PotionType strongPotion) {
+		ForgeRegistries.POTION_TYPES.register(defaultPotion);
+		ForgeRegistries.POTION_TYPES.register(longPotion);
+		ForgeRegistries.POTION_TYPES.register(strongPotion);
 	}
 
 	private static void registerPotion(PotionType defaultPotion, PotionType longPotion, PotionType strongPotion, Potion effect) {
