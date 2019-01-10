@@ -121,9 +121,13 @@ public class HailstormItems {
 	@ObjectHolder("penguin_feather")
 	public static BasicItem PENGUIN_FEATHER = new BasicItem("penguin_feather").setCreativeTab(CreativeTabs.MISC);
 	@ObjectHolder("manchot_raw")
-	public static BasicItemFood MANCHOT_RAW = new BasicItemFood("manchot_raw", 32, 2, 1.2F, true, EnumAction.EAT);
+	public static BasicItemFood MANCHOT_RAW = new BasicItemFood("manchot_raw", 32, 2, 0.3F, true, EnumAction.EAT);
 	@ObjectHolder("manchot_cooked")
-	public static BasicItemFood MANCHOT_COOKED = new BasicItemFood("manchot_cooked", 32, 4, 3.0F, true, EnumAction.EAT);
+	public static BasicItemFood MANCHOT_COOKED = new BasicItemFood("manchot_cooked", 32, 6, 0.6F, true, EnumAction.EAT);
+	@ObjectHolder("venison_raw")
+	public static BasicItemFood VENISON_RAW = new BasicItemFood("venison_raw", 32, 3, 0.3F, true, EnumAction.EAT);
+	@ObjectHolder("venison_cooked")
+	public static BasicItemFood VENISON_COOKED = new BasicItemFood("venison_cooked", 32, 10, 1.0F, true, EnumAction.EAT);
 
 	@ObjectHolder("statue")
 	public static BasicItemStatue STATUE = new BasicItemStatue("statue");
@@ -138,7 +142,7 @@ public class HailstormItems {
 			if (ConfigModules.isHailstormEnabled == true) {
 				items.registerAll(CRYONITE_SWORD, RELIC_SWORD, BLIZZ_SCROLL, CRYONITE_SHOVEL, CRYONITE_PICKAXE,
 						CRYONITE_AXE, CRYONITE_HOE, CRYONITE_HELMET, CRYONITE_CHESTPLATE, CRYONITE_LEGGINGS,
-						CRYONITE_BOOTS, CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, STATUE);
+						CRYONITE_BOOTS, CRYONITE, PENGUIN_EGG, PENGUIN_FEATHER, MANCHOT_RAW, MANCHOT_COOKED, VENISON_RAW, VENISON_COOKED, STATUE);
 
 				itemblocks.registerItemBlock(HailstormBlocks.CRYONITE_ORE);
 				itemblocks.registerItemBlock(HailstormBlocks.CRYONITE_BLOCK);
