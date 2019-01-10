@@ -55,7 +55,6 @@ public class EntityCaribou extends EntityAnimal
 
     protected void initEntityAI()
     {
-        this.aiTempt = new EntityAITempt(this, 0.6D, Items.WHEAT, true);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIPanic(this, 1.5D));
         this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
@@ -125,23 +124,15 @@ public class EntityCaribou extends EntityAnimal
     protected void setupTamedAI()
     {
         if (this.avoidEntity == null)
-        {
             this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
-        }
         
         if (this.aiTempt == null)
-        {
         	this.aiTempt = new EntityAITempt(this, 0.5D, Items.WHEAT, true);
-        }
 
         if (this.isTamed())
-        {
         	this.aiTempt = new EntityAITempt(this, 1.0D, Items.WHEAT, false);
-        }
         else
-        {
         	this.aiTempt = new EntityAITempt(this, 0.5D, Items.WHEAT, true);
-        }
 
         this.tasks.removeTask(this.aiTempt);
         this.tasks.removeTask(this.avoidEntity);
@@ -237,7 +228,7 @@ public class EntityCaribou extends EntityAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.FISH && player.getDistanceSq(this) < 9.0D)
+        if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.WHEAT && player.getDistanceSq(this) < 9.0D)
         {
             if (!player.capabilities.isCreativeMode)
             {
