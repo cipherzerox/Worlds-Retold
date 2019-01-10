@@ -11,6 +11,7 @@ public class ConfigHailstormEntity extends Configuration {
 	private static final String CATEGORY_HOSTILE = "hostile";
 
 	// Passive
+	public static boolean isCaribouEnabled;
 	public static boolean isPenguinEnabled;
 	public static boolean isNixEnabled;
 	
@@ -30,6 +31,8 @@ public class ConfigHailstormEntity extends Configuration {
 	public void reload() {
 		this.load();
 		// Passive
+		isCaribouEnabled = getBoolean("Enable Caribou", CATEGORY_PASSIVE, true,
+				"A herdable animal that will run away from you unless you tame it.");
 		isPenguinEnabled = getBoolean("Enable Penguin", CATEGORY_PASSIVE, true,
 				"A cute little fellow that spawns in snow biomes.");
 		isNixEnabled = getBoolean("Enable Nix", CATEGORY_PASSIVE, true,

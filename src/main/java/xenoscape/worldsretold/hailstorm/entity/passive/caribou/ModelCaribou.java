@@ -120,7 +120,7 @@ public class ModelCaribou extends ModelBase {
     {
     	this.LeftAntler.isHidden = this.isChild;
     	this.RightAntler.isHidden = this.isChild;
-        this.Head.rotateAngleX = headPitch * 0.017453292F;
+        this.Head.rotateAngleX = headPitch * 0.017453292F + 0.17453292519943295F;
         this.Head.rotateAngleY = netHeadYaw * 0.017453292F;
         this.RightBackLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.LeftBackLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;

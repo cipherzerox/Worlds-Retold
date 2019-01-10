@@ -12,6 +12,7 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.worldsretold.hailstorm.entity.hostile.roller.EntitySnowRoller;
 import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.black_arrow.EntityBlackArrow;
@@ -26,6 +27,8 @@ public class HailstormEntities {
 
 	public static void preInit() {
 		// Passive
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "caribou"), EntityCaribou.class,
+				"caribou", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x000000, 0xFFFFFF);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "penguin"), EntityPenguin.class,
 				"penguin", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x000000, 0xFFFFFF);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "nix"), EntityNix.class, "nix",
@@ -70,6 +73,10 @@ public class HailstormEntities {
 		}
 
 		// Passive
+		if (ConfigHailstormEntity.isCaribouEnabled) {
+			EntityRegistry.addSpawn(EntityCaribou.class, 30, 1, 4, EnumCreatureType.CREATURE,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+		}
 		if (ConfigHailstormEntity.isPenguinEnabled) {
 			EntityRegistry.addSpawn(EntityPenguin.class, 60, 8, 12, EnumCreatureType.CREATURE,
 					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));

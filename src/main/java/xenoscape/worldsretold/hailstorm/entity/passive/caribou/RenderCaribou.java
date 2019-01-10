@@ -1,11 +1,15 @@
 package xenoscape.worldsretold.hailstorm.entity.passive.caribou;
 
 import net.minecraft.client.model.ModelCow;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
+import xenoscape.worldsretold.hailstorm.entity.passive.nix.RenderNix;
 
 @SideOnly(Side.CLIENT)
 public class RenderCaribou extends RenderLiving<EntityCaribou>
@@ -23,5 +27,15 @@ public class RenderCaribou extends RenderLiving<EntityCaribou>
     protected ResourceLocation getEntityTexture(EntityCaribou entity)
     {
         return CARIBOU_TEXTURES;
+    }
+
+    public static class Factory implements IRenderFactory<EntityCaribou>
+    {
+
+        @Override
+        public Render<? super EntityCaribou> createRenderFor(RenderManager manager) {
+            return new RenderCaribou(manager);
+        }
+
     }
 }
