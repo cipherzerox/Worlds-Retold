@@ -58,10 +58,10 @@ public class EntityCaribou extends EntityAnimal
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIPanic(this, 1.5D));
         this.tasks.addTask(3, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIFollowParent(this, 1.5D));
-        this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 0.75D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.tasks.addTask(4, new EntityAIFollowParent(this, 1.5D));
+        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.75D));
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(7, new EntityAILookIdle(this));
     }
     
     protected void entityInit()
@@ -124,7 +124,7 @@ public class EntityCaribou extends EntityAnimal
     protected void setupTamedAI()
     {
         if (this.avoidEntity == null)
-            this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 24.0F, 1.25D, 1.5D);
+            this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 24.0F, 1.75D, 2.0D);
         
         if (this.aiTempt == null)
         	this.aiTempt = new EntityAITempt(this, 0.5D, Items.WHEAT, true);
@@ -139,13 +139,13 @@ public class EntityCaribou extends EntityAnimal
 
         if (!this.isTamed())
         {
-            this.tasks.addTask(1, this.aiTempt);
-            this.tasks.addTask(2, this.avoidEntity);
+            this.tasks.addTask(0, this.aiTempt);
+            this.tasks.addTask(1, this.avoidEntity);
         }
         
         if (this.isTamed())
         {
-            this.tasks.addTask(1, this.aiTempt);
+            this.tasks.addTask(0, this.aiTempt);
         }
     }
 
