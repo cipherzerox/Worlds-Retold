@@ -117,14 +117,14 @@ public class EntityCaribou extends EntityAnimal
         }
         else
         {
-            return this.isTamed() ? I18n.translateToLocal("entity.Cat.name") : super.getName();
+            return this.isTamed() ? I18n.translateToLocal("entity.reindeer.name") : super.getName();
         }
     }
 
     protected void setupTamedAI()
     {
         if (this.avoidEntity == null)
-            this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
+            this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 24.0F, 1.25D, 1.5D);
         
         if (this.aiTempt == null)
         	this.aiTempt = new EntityAITempt(this, 0.5D, Items.WHEAT, true);
@@ -262,7 +262,7 @@ public class EntityCaribou extends EntityAnimal
     {
     	EntityCaribou baby = new EntityCaribou(this.world);
     	
-    	if (this.isTamed() && ((EntityCaribou) ageable).isTamed())
+    	if (this.isTamed())
     		baby.setTamed(true);
     	
         return baby;

@@ -52,6 +52,7 @@ item.statue.name=Statue
 # Passive
 entity.penguin.name=Penguin
 entity.caribou.name=Caribou
+entity.reindeer.name=Reindeer
 entity.nix.name=Nix
 entity.kitsune.name=Kitsune
 
