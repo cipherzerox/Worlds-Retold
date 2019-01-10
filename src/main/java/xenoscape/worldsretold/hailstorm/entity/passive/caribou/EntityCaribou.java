@@ -228,7 +228,7 @@ public class EntityCaribou extends EntityAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if ((this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.WHEAT && player.getDistanceSq(this) < 9.0D)
+        if (!this.isTamed() && (this.aiTempt == null || this.aiTempt.isRunning()) && itemstack.getItem() == Items.WHEAT && player.getDistanceSq(this) < 9.0D)
         {
             if (!player.capabilities.isCreativeMode)
             {
