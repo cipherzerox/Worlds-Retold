@@ -18,6 +18,7 @@ item.avalanche_hammer.name=Avalanche Hammer
 item.relic_sword.name=Relic Sword
 item.blizz_scroll.name=Scroll Of Blizzards
 item.black_arrow.name=Black Arrow
+item.venom_sword.name=Venom Sword
 
 item.cryonite_shovel.name=Cryonite Shovel
 item.cryonite_pickaxe.name=Cryonite Pickaxe
@@ -40,10 +41,10 @@ item.penguin_egg.name=Penguin Egg
 item.penguin_feather.name=Penguin Feather
 item.manchot_raw.name=Raw Manchot
 item.manchot_cooked.name=Cooked Manchot
+item.venison_raw.name=Raw Venison
+item.vension_cooked.name=Cooked Venison
 item.snake_fang.name=Snake Fang
 item.scorpion_bulb.name=Scorpion Tail Bulb
-
-item.venom_sword.name=Venom Sword
 
 item.statue.name=Statue
 
@@ -72,12 +73,14 @@ entity.blizzard.name=Blizzard
 entity.roller.name=Snow Roller
 entity.haunt.name=Haunt
 entity.abominable.name=Abominable
+entity.wight.name=Wight
 entity.mummy.name=Mummy
 entity.anubite.name=Anubite
-entity.sandstorm.name=Sandstorm
+entity.jinn.name=Jinn
 entity.ammos.name=Ammos
 entity.ghoul.name=Ghoul
 entity.mimic.name=Mimic
+entity.fester.name=Fester
 
 ##Damage Sources##
 
