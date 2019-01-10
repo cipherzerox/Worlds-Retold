@@ -17,7 +17,7 @@ public abstract class WorldsRetoldTabs extends CreativeTabs {
         W_TAB = new WorldsRetoldTabs("tabWorldsRetold") {
             @SideOnly(Side.CLIENT)
             public ItemStack getTabIconItem() {
-                return new ItemStack(Items.ENCHANTED_BOOK);
+                return new ItemStack(Items.KNOWLEDGE_BOOK);
             }
         };
     }
