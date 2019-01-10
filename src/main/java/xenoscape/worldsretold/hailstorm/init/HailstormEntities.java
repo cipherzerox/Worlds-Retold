@@ -2,6 +2,7 @@ package xenoscape.worldsretold.hailstorm.init;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -75,6 +76,8 @@ public class HailstormEntities {
 		// Passive
 		if (ConfigHailstormEntity.isCaribouEnabled) {
 			EntityRegistry.addSpawn(EntityCaribou.class, 30, 1, 4, EnumCreatureType.CREATURE,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+			EntityRegistry.addSpawn(EntityPolarBear.class, 10, 1, 4, EnumCreatureType.CREATURE,
 					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
 		}
 		if (ConfigHailstormEntity.isPenguinEnabled) {
