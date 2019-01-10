@@ -12,6 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.util.ModelRegistry;
 
 public class BasicItemFood extends ItemFood implements ModelRegistry {
@@ -36,7 +37,7 @@ public class BasicItemFood extends ItemFood implements ModelRegistry {
 		this.saturationModifier = saturation;
 		this.isWolfsFavoriteMeat = isWolfFood;
 		this.action = action;
-		this.setCreativeTab(CreativeTabs.FOOD);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 	}

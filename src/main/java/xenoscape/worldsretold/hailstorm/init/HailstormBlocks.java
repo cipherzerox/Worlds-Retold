@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicBlock;
 import xenoscape.worldsretold.basic.BasicBlockOre;
 import xenoscape.worldsretold.basic.BasicBlockOverlayedPlant;
@@ -23,17 +24,17 @@ public class HailstormBlocks {
 	@ObjectHolder("cryonite_ore")
 	public static BasicBlockOre CRYONITE_ORE = new BasicBlockOre(Material.ROCK, "cryonite_ore", 3.0f, "pickaxe", 2,
 			HailstormItems.CRYONITE).setResistance(5.0F).setSoundType(SoundType.STONE)
-					.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+			.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	@ObjectHolder("cryonite_block")
 	public static BasicBlock CRYONITE_BLOCK = new BasicBlock(Material.IRON, "cryonite_block", 5.0f, "pickaxe", 2)
-			.setResistance(10.0F).setSoundType(SoundType.METAL).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+			.setResistance(10.0F).setSoundType(SoundType.METAL).setCreativeTab(WorldsRetoldTabs.W_TAB);
 
 	@ObjectHolder("arctic_willow")
 	public static BasicBlockOverlayedPlant ARCTIC_WILLOW = new BasicBlockOverlayedPlant("arctic_willow")
-			.setCreativeTab(CreativeTabs.DECORATIONS);
+			.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	@ObjectHolder("boreal_orchid")
 	public static BasicBlockOverlayedPlant BOREAL_ORCHID = new BasicBlockOverlayedPlant("boreal_orchid")
-			.setCreativeTab(CreativeTabs.DECORATIONS);
+			.setCreativeTab(WorldsRetoldTabs.W_TAB);
 
 	@ObjectHolder("stone_critter_egg")
 	public static BasicBlockCritter STONE_CRITTER_EGG = new BasicBlockCritter("stone_critter_egg", Blocks.STONE);

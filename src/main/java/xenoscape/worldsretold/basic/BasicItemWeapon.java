@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 import xenoscape.worldsretold.util.ModelRegistry;
@@ -45,7 +46,7 @@ public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 		this.setMaxDamage(material.getMaxUses());
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(CreativeTabs.COMBAT);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	}
 
 	@Override

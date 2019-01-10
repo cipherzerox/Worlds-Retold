@@ -7,6 +7,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.util.ModelRegistry;
 
 public class BasicItemArmor extends ItemArmor implements ModelRegistry {
@@ -29,7 +30,7 @@ public class BasicItemArmor extends ItemArmor implements ModelRegistry {
 		this.chestTexture = chestTexture;
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		this.setCreativeTab(CreativeTabs.COMBAT);
+        this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	}
 
 	@SideOnly(Side.CLIENT)

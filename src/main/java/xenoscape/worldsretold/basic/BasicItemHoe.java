@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 
 
@@ -39,7 +40,7 @@ public class BasicItemHoe extends BasicItem {
 		this.effect = effect;
 		this.maxStackSize = 1;
 		this.setMaxDamage(material.getMaxUses());
-		this.setCreativeTab(CreativeTabs.TOOLS);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 		this.speed = material.getAttackDamage() + 1.0F;
 	}
 

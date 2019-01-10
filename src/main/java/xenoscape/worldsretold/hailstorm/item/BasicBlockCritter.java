@@ -17,6 +17,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicBlock;
 
 public class BasicBlockCritter extends BasicBlock {
@@ -26,7 +27,7 @@ public class BasicBlockCritter extends BasicBlock {
 
 	public BasicBlockCritter(String name, Block originalBlockIn) {
 		super(Material.CLAY, name, 0.5F);
-		this.setCreativeTab(CreativeTabs.DECORATIONS);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 		BasicBlockCritter.name = name;
 		this.originalBlock = originalBlockIn;
 	}

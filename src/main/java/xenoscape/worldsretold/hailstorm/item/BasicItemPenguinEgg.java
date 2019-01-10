@@ -10,6 +10,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicItem;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 
@@ -19,7 +20,7 @@ public class BasicItemPenguinEgg extends BasicItem {
 	public BasicItemPenguinEgg(String name) {
 		super(name);
 		this.maxStackSize = 16;
-		this.setCreativeTab(CreativeTabs.MATERIALS);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	}
 
 	/**

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicItem;
 import xenoscape.worldsretold.basic.BasicItemArmor;
 import xenoscape.worldsretold.basic.BasicItemFood;
@@ -114,12 +115,12 @@ public class HailstormItems {
 			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png");
 
 	@ObjectHolder("cryonite")
-	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(CreativeTabs.MISC);
+	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(WorldsRetoldTabs.W_TAB);
 
 	@ObjectHolder("penguin_egg")
 	public static BasicItemPenguinEgg PENGUIN_EGG = new BasicItemPenguinEgg("penguin_egg");
 	@ObjectHolder("penguin_feather")
-	public static BasicItem PENGUIN_FEATHER = new BasicItem("penguin_feather").setCreativeTab(CreativeTabs.MISC);
+	public static BasicItem PENGUIN_FEATHER = new BasicItem("penguin_feather").setCreativeTab(WorldsRetoldTabs.W_TAB);
 	@ObjectHolder("manchot_raw")
 	public static BasicItemFood MANCHOT_RAW = new BasicItemFood("manchot_raw", 32, 2, 0.3F, true, EnumAction.EAT);
 	@ObjectHolder("manchot_cooked")

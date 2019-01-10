@@ -22,6 +22,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 import xenoscape.worldsretold.util.ModelRegistry;
 
@@ -49,7 +50,7 @@ public class BasicItemTool extends ItemTool implements ModelRegistry {
 		this.damageVsEntity = attackDamageIn + material.getAttackDamage();
 		this.attackSpeed = attackSpeedIn;
 		this.effect = effect;
-		this.setCreativeTab(CreativeTabs.TOOLS);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		if (this.tooltype == 0) {

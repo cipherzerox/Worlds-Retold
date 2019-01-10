@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicItem;
 import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton;
 
@@ -28,7 +29,7 @@ public class BasicItemStatue extends BasicItem {
 	public BasicItemStatue(String name) {
 		super(name);
 		this.name = name;
-		this.setCreativeTab(CreativeTabs.MISC);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	}
 
 	/**

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicItem;
 import xenoscape.worldsretold.basic.BasicItemArmor;
 import xenoscape.worldsretold.basic.BasicItemFood;
@@ -45,9 +46,9 @@ public class HeatwaveItems {
 
 	// Misc
 	@ObjectHolder("snake_fang")
-	public static BasicItem SNAKE_FANG = new BasicItem("snake_fang").setCreativeTab(CreativeTabs.MISC);
+	public static BasicItem SNAKE_FANG = new BasicItem("snake_fang").setCreativeTab(WorldsRetoldTabs.W_TAB);
 	@ObjectHolder("scorpion_bulb")
-	public static BasicItem SCORPION_BULB = new BasicItem("scorpion_bulb").setCreativeTab(CreativeTabs.MISC);
+	public static BasicItem SCORPION_BULB = new BasicItem("scorpion_bulb").setCreativeTab(WorldsRetoldTabs.W_TAB);
 
 
 	@Mod.EventBusSubscriber(modid = WorldsRetold.MODID)

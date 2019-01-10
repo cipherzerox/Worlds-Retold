@@ -10,6 +10,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import xenoscape.worldsretold.WorldsRetoldTabs;
 import xenoscape.worldsretold.basic.BasicItem;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.EntityIceScrollProjectile;
 
@@ -21,7 +22,7 @@ public class BasicItemBlizzScroll extends BasicItem {
 		this.name = name;
 		this.maxStackSize = 1;
         this.setMaxDamage(4);
-		this.setCreativeTab(CreativeTabs.COMBAT);
+		this.setCreativeTab(WorldsRetoldTabs.W_TAB);
 	}
 
 	@Override
