@@ -50,7 +50,7 @@ public class EntityCaribou extends EntityAnimal
     public EntityCaribou(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 1.4F);
+        this.setSize(0.95F, 1.6F);
     }
 
     protected void initEntityAI()
@@ -270,6 +270,6 @@ public class EntityCaribou extends EntityAnimal
 
     public float getEyeHeight()
     {
-        return this.isChild() ? this.height : 1.3F;
+        return this.isChild() ? this.height : 1.4F;
     }
 }
