@@ -25,6 +25,8 @@ import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton
 import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.RenderAutomaton;
 import xenoscape.worldsretold.hailstorm.entity.neutral.sentinel.EntitySentinel;
 import xenoscape.worldsretold.hailstorm.entity.neutral.sentinel.RenderSentinel;
+import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
+import xenoscape.worldsretold.hailstorm.entity.passive.caribou.RenderCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.RenderNix;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
@@ -72,6 +74,7 @@ public class ClientProxy extends ServerProxy {
 
 	public void preInitHailstorm(final FMLPreInitializationEvent event) {
 		// Passive
+		RenderingRegistry.registerEntityRenderingHandler(EntityCaribou.class, RenderCaribou.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPenguin.class, RenderPenguin.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityNix.class, RenderNix.FACTORY);
 
