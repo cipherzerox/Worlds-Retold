@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "worldsretold:scorpion_bulb"
+    }
+  },
+  "result": {
+    "item": "worldsretold:venom_sword"
+  }
+}
