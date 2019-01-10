@@ -124,7 +124,7 @@ public class EntityCaribou extends EntityAnimal
     protected void setupTamedAI()
     {
         if (this.avoidEntity == null)
-            this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 24.0F, 1.25D, 1.5D);
+            this.avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 30F, 1.5D, 1.75D);
         
         if (this.aiTempt == null)
         	this.aiTempt = new EntityAITempt(this, 0.5D, Items.WHEAT, true);
