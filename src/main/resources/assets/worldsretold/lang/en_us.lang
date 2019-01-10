@@ -103,11 +103,6 @@ splash_potion.effect.venom=Splash Potion of Venom
 lingering_potion.effect.venom=Lingering Potion of Venom
 tipped_arrow.effect.venom=Arrow of Venom
 
-potion.effect.wither=Potion of Decay
-splash_potion.effect.wither=Splash Potion of Decay
-lingering_potion.effect.wither=Lingering Potion of Decay
-tipped_arrow.effect.wither=Arrow of Decay
-
 ##Enchantment##
 
 enchantment.icebound_blade=Icebound Blade
