@@ -38,7 +38,7 @@ public class HeatwaveItems {
 
 	// Weapons
 	@ObjectHolder("venom_sword")
-	public static BasicItemWeapon VENOM_SWORD = new BasicItemWeapon("venom_sword", HailstormMaterials.VENOM_TOOL, 7F, 3.0D, 3);
+	public static BasicItemWeapon VENOM_SWORD = new BasicItemWeapon("venom_sword", HeatwaveMaterials.VENOM_TOOL, 3F, 3.0D, 3);
 
 	// Tools
 

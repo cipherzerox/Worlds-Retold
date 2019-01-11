@@ -18,7 +18,6 @@ public class HailstormMaterials {
 	public static Item.ToolMaterial CRYONITE_TOOL = EnumHelper.addToolMaterial("CRYONITE", 2, 693, 5.0F, 2.5F, 18);
 	public static Item.ToolMaterial UNIQUE_TOOL = EnumHelper.addToolMaterial("UNIQUE", 3, 1561, 10.0F, 4.0F, 30);
 	public static Item.ToolMaterial RELIC_TOOL = EnumHelper.addToolMaterial("RELIC", 0, 52, 0.0F, 0.0F, 0);
-	public static Item.ToolMaterial VENOM_TOOL = EnumHelper.addToolMaterial("VENOM", 0, 510, 0.0F, 3.0F, 10);
 
 	public static void initRepairMaterials() {
 
