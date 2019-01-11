@@ -23,8 +23,8 @@ public class ModelCamel extends ModelBase {
     public ModelRenderer Snout;
     public ModelRenderer RightEar;
     public ModelRenderer LeftEar;
-    protected float childYOffset = 8.0F;
-    protected float childZOffset = 4.0F;
+    protected float childYOffset = 10.0F;
+    protected float childZOffset = 0.0F;
 
     public ModelCamel() {
         this.textureWidth = 64;
@@ -91,6 +91,7 @@ public class ModelCamel extends ModelBase {
             float f = 2.0F;
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, this.childYOffset * scale + 0.125F, this.childZOffset * scale - 0.25F);
+            GlStateManager.scale(0.65F, 0.65F, 0.65F);
             this.Neck1.render(scale);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();

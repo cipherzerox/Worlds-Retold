@@ -19,6 +19,8 @@ public class ModelPenguin extends ModelBase {
 	public ModelRenderer Beak;
 	public ModelRenderer RFlipper;
 	public ModelRenderer LFlipper;
+    protected float childYOffset = 7.0F;
+    protected float childZOffset = -0.3F;
 
 	public ModelPenguin() {
 		this.textureWidth = 46;
@@ -48,7 +50,7 @@ public class ModelPenguin extends ModelBase {
 		this.Beak.setRotationPoint(0.0F, -1.5F, -3.0F);
 		this.Beak.addBox(-1.0F, -0.5F, -1.5F, 2, 1, 2, 0.0F);
 		this.Head = new ModelRenderer(this, 11, 0);
-		this.Head.setRotationPoint(0.0F, -5.0F, 0.5F);
+        this.Head.setRotationPoint(0.0F, 11.0F, 0.5F);
 		this.Head.addBox(-3.5F, -5.0F, -3.0F, 7, 5, 6, 0.0F);
 		this.LLeg = new ModelRenderer(this, 29, 12);
 		this.LLeg.setRotationPoint(2.3F, 6.0F, 0.5F);
@@ -59,19 +61,23 @@ public class ModelPenguin extends ModelBase {
 		this.Body.addChild(this.RLeg);
 		this.Body.addChild(this.RArm);
 		this.Head.addChild(this.Beak);
-		this.Body.addChild(this.Head);
 		this.Body.addChild(this.LLeg);
 	}
 
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		if (this.isChild) {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0.0F, this.childYOffset * f5, this.childZOffset * f5);
+            this.Head.render(f5);
+            GlStateManager.popMatrix();
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			GlStateManager.translate(0.0F, 24.0F * f5, 0.0F);
 			this.Body.render(f5);
 			GlStateManager.popMatrix();
 		} else {
+            this.Head.render(f5);
 			this.Body.render(f5);
 		}
 	}

@@ -29,7 +29,7 @@ public class HailstormEntities {
 	public static void preInit() {
 		// Passive
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "caribou"), EntityCaribou.class,
-				"caribou", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x000000, 0xFFFFFF);
+                "caribou", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x5A4E49, 0xA9A4A1);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "penguin"), EntityPenguin.class,
 				"penguin", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x000000, 0xFFFFFF);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "nix"), EntityNix.class, "nix",
