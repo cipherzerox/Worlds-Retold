@@ -95,8 +95,11 @@ public class ModelPenguin extends ModelBase {
 			float headPitch, float scaleFactor, Entity entityIn) {
 		EntityPenguin entity = (EntityPenguin) entityIn;
 		if (entity.isSliding()) {
-			this.Head.rotateAngleX = -70.65f;
+			this.Head.rotateAngleX = 0f;
 			this.Head.rotateAngleY = 0f;
+			this.Head.offsetY = 0.4f;
+			this.Head.offsetZ = -0.4f;
+
 			this.Body.rotateAngleX = 89.5f;
 			this.Body.offsetY = 0.2f;
 			this.RArm.rotateAngleZ = ageInTicks + 19.3F;
@@ -104,6 +107,9 @@ public class ModelPenguin extends ModelBase {
 		} else {
 			this.Head.rotateAngleX = headPitch / 57.295776f;
 			this.Head.rotateAngleY = netHeadYaw / 57.295776f;
+			this.Head.offsetY = 0.0f;
+			this.Head.offsetZ = 0.0f;
+
 			this.Body.rotateAngleX = 0f;
 			this.Body.offsetY = 0f;
 			this.RArm.rotateAngleZ = ageInTicks + 6.5F;
