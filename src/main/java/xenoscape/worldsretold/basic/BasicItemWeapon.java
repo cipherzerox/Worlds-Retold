@@ -30,17 +30,17 @@ public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 
 	private final Item.ToolMaterial material;
 	protected String name;
-	protected final double attackDamage;
-	protected final double attackSpeed;
+	protected final double damage;
+	protected final double speed;
 	protected final int effect;
 
-	public BasicItemWeapon(String name, Item.ToolMaterial material, double attackDamage, double attackSpeed,
-			int effect) {
+	public BasicItemWeapon(String name, Item.ToolMaterial material, double damage, double speed,
+						   int effect) {
 		super(material);
 		this.name = name;
 		this.material = material;
-		this.attackDamage = attackDamage;
-		this.attackSpeed = attackSpeed;
+		this.damage = damage;
+		this.speed = speed;
 		this.effect = effect;
 		this.maxStackSize = 1;
 		this.setMaxDamage(material.getMaxUses());
@@ -61,9 +61,9 @@ public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", attackDamage, 0));
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", damage, 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -attackSpeed, 0));
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -speed, 0));
 		}
 
 		return multimap;
