@@ -3,7 +3,6 @@ package xenoscape.worldsretold.hailstorm.init;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -11,11 +10,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.WorldsRetoldTabs;
-import xenoscape.worldsretold.basic.BasicBlock;
-import xenoscape.worldsretold.basic.BasicBlockOre;
-import xenoscape.worldsretold.basic.BasicBlockOverlayedPlant;
-import xenoscape.worldsretold.config.ConfigModules;
+import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
+import xenoscape.worldsretold.defaultmod.basic.BasicBlock;
+import xenoscape.worldsretold.defaultmod.basic.BasicBlockOre;
+import xenoscape.worldsretold.defaultmod.basic.BasicBlockOverlayedPlant;
+import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 import xenoscape.worldsretold.hailstorm.item.BasicBlockCritter;
 
 @ObjectHolder(WorldsRetold.MODID)

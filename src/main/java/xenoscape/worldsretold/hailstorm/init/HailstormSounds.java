@@ -5,7 +5,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.config.ConfigModules;
+import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 
 public class HailstormSounds {
 

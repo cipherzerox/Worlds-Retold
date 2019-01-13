@@ -12,7 +12,7 @@ import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.worldsretold.hailstorm.entity.hostile.roller.EntitySnowRoller;
-import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;

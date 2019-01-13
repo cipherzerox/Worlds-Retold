@@ -7,31 +7,20 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.entity.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.config.ConfigHailstormWorldGen;
-import xenoscape.worldsretold.hailstorm.entity.layer.LayerFreezingRenderer.LayerFreezing;
 import xenoscape.worldsretold.hailstorm.init.HailstormBlocks;
-import xenoscape.worldsretold.hailstorm.potion.PotionFreezing;
 import xenoscape.worldsretold.hailstorm.world.feature.WorldGenOverlayedFlower;
 import xenoscape.worldsretold.hailstorm.world.structure.StructureHailstormShrine;
 import xenoscape.worldsretold.hailstorm.world.structure.StructureSentinelShack;
-import xenoscape.worldsretold.util.RenderHelper;
 
 public class WorldGenHailstorm {
 

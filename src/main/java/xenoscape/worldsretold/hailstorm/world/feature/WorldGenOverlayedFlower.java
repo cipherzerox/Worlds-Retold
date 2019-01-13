@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import xenoscape.worldsretold.basic.BasicBlockOverlayedPlant;
+import xenoscape.worldsretold.defaultmod.basic.BasicBlockOverlayedPlant;
 
 public class WorldGenOverlayedFlower extends WorldGenerator {
 	private BasicBlockOverlayedPlant flower;

@@ -6,7 +6,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.config.ConfigModules;
+import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentGlacier;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentIceboundBlade;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentLightningRod;

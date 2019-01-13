@@ -10,25 +10,25 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import xenoscape.worldsretold.config.ConfigModules;
-import xenoscape.worldsretold.config.WorldsRetoldConfig;
+import xenoscape.worldsretold.defaultmod.config.ConfigModules;
+import xenoscape.worldsretold.defaultmod.config.WorldsRetoldConfig;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.heatwave.HeatwaveModule;
-import xenoscape.worldsretold.proxy.ServerProxy;
+import xenoscape.worldsretold.defaultmod.proxy.ServerProxy;
 
 @Mod(modid = WorldsRetold.MODID, name = WorldsRetold.NAME, version = WorldsRetold.VERSION, guiFactory = WorldsRetold.CONFIG, updateJSON = WorldsRetold.UPDATE)
 public class WorldsRetold {
 	public static final String MODID = "worldsretold";
 	public static final String NAME = "Worlds Retold";
 	public static final String VERSION = "1.0.3";
-	public static final String CONFIG = "xenoscape.worldsretold.config.ForgeConfigFactory";
+    public static final String CONFIG = "ForgeConfigFactory";
 	public static final String UPDATE = "https://raw.githubusercontent.com/Xenoform55/Worlds-Retold/master/src/main/resources/update_changelog.json";
 	public static final Logger LOGGER = LogManager.getLogger(" </> " + WorldsRetold.MODID + " </> ");
 
 	@Instance(MODID)
 	public static WorldsRetold INSTANCE = new WorldsRetold();
 
-	@SidedProxy(clientSide = "xenoscape.worldsretold.proxy.ClientProxy", serverSide = "xenoscape.worldsretold.proxy.ServerProxy")
+    @SidedProxy(clientSide = "ClientProxy", serverSide = "ServerProxy")
 	private static ServerProxy proxy;
 
 	public static final DamageSource FROSTBITE = new DamageSource("worldsretold.frostbite").setDamageBypassesArmor();

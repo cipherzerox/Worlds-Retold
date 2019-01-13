@@ -1,6 +1,5 @@
 package xenoscape.worldsretold.hailstorm.item;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -10,8 +9,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import xenoscape.worldsretold.WorldsRetoldTabs;
-import xenoscape.worldsretold.basic.BasicItem;
+import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
+import xenoscape.worldsretold.defaultmod.basic.BasicItem;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 
 public class BasicItemPenguinEgg extends BasicItem {

@@ -3,22 +3,14 @@ package xenoscape.worldsretold.hailstorm.item;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xenoscape.worldsretold.WorldsRetoldTabs;
-import xenoscape.worldsretold.basic.BasicBlock;
+import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
+import xenoscape.worldsretold.defaultmod.basic.BasicBlock;
 
 public class BasicBlockCritter extends BasicBlock {
 	protected static String name;

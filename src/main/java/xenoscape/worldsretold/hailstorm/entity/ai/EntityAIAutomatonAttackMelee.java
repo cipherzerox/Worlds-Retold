@@ -1,7 +1,7 @@
 package xenoscape.worldsretold.hailstorm.entity.ai;
 
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
 
 
 public class EntityAIAutomatonAttackMelee extends EntityAIAttackMelee

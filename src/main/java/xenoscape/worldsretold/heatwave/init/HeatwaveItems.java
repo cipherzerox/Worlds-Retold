@@ -1,14 +1,6 @@
 package xenoscape.worldsretold.heatwave.init;
 
-import java.util.Set;
-
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
@@ -17,19 +9,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.WorldsRetoldTabs;
-import xenoscape.worldsretold.basic.BasicItem;
-import xenoscape.worldsretold.basic.BasicItemArmor;
-import xenoscape.worldsretold.basic.BasicItemFood;
-import xenoscape.worldsretold.basic.BasicItemHoe;
-import xenoscape.worldsretold.basic.BasicItemTool;
-import xenoscape.worldsretold.basic.BasicItemWeapon;
-import xenoscape.worldsretold.config.ConfigModules;
-import xenoscape.worldsretold.hailstorm.init.HailstormMaterials;
-import xenoscape.worldsretold.hailstorm.item.BasicItemBlackArrow;
-import xenoscape.worldsretold.hailstorm.item.BasicItemBlizzScroll;
-import xenoscape.worldsretold.hailstorm.item.BasicItemPenguinEgg;
-import xenoscape.worldsretold.hailstorm.item.BasicItemStatue;
+import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
+import xenoscape.worldsretold.defaultmod.basic.BasicItem;
+import xenoscape.worldsretold.defaultmod.basic.BasicItemWeapon;
+import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 
 @ObjectHolder(WorldsRetold.MODID)
 public class HeatwaveItems {

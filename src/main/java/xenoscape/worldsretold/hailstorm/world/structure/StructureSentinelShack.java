@@ -4,16 +4,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -21,8 +18,7 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.hailstorm.entity.neutral.automaton.EntityAutomaton;
-import xenoscape.worldsretold.hailstorm.entity.neutral.sentinel.EntitySentinel;
+import xenoscape.worldsretold.defaultmod.entity.neutral.sentinel.EntitySentinel;
 import xenoscape.worldsretold.hailstorm.world.WorldGenHailstorm;
 
 public class StructureSentinelShack extends WorldGenerator {
