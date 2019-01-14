@@ -7,16 +7,12 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigHailstormEntity extends Configuration {
 
 	private static final String CATEGORY_PASSIVE = "passive";
-	private static final String CATEGORY_NEUTRAL = "neutral";
 	private static final String CATEGORY_HOSTILE = "hostile";
 
 	// Passive
 	public static boolean isCaribouEnabled;
 	public static boolean isPenguinEnabled;
 	public static boolean isNixEnabled;
-	
-	// Neutral
-	public static boolean isAutomatonEnabled;
 	
 	//Hostile
 	public static boolean isGuardsmanEnabled;
@@ -37,10 +33,6 @@ public class ConfigHailstormEntity extends Configuration {
 				"A cute little fellow that spawns in snow biomes.");
 		isNixEnabled = getBoolean("Enable Nix", CATEGORY_PASSIVE, true,
 				"A farmable ice creature that spawns packed ice randomly.");
-
-		// Neutral
-		isAutomatonEnabled = getBoolean("Enable Automaton", CATEGORY_NEUTRAL, true,
-				"A strange, almost lifelike statue that spawns in dungeons.");
 		
 		// Hostile
 		isGuardsmanEnabled = getBoolean("Enable Guardsman", CATEGORY_HOSTILE, true,

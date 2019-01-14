@@ -7,10 +7,13 @@ import java.io.File;
 public class WorldsRetoldConfig {
 	
 	public static ConfigModules modules;
+    public static ConfigDefaultEntity entity;
 
 	public static void preInitConfigs(FMLPreInitializationEvent event) {
 		File worldsRetoldFolder = new File(event.getModConfigurationDirectory().getAbsolutePath(), "worldsretold");
 		modules = new ConfigModules(new File(worldsRetoldFolder, "modules.cfg"));
+        File defaultFolder = new File(worldsRetoldFolder, "default");
+        entity = new ConfigDefaultEntity(new File(defaultFolder, "entity.cfg"));
 	}
 
 }

@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import xenoscape.worldsretold.defaultmod.DefaultModule;
 import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 import xenoscape.worldsretold.defaultmod.config.WorldsRetoldConfig;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
@@ -41,6 +42,7 @@ public class WorldsRetold {
 	public void preInit(FMLPreInitializationEvent event) {
 		WorldsRetoldConfig.preInitConfigs(event);
 		proxy.preInit(event);
+		DefaultModule.INSTANCE.preInitDefault(event);
 		if (ConfigModules.isHailstormEnabled) {
 			HailstormModule.INSTANCE.preInitHailstorm(event);
 		}
@@ -53,6 +55,7 @@ public class WorldsRetold {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
+		DefaultModule.INSTANCE.initDefault(event);
 		if (ConfigModules.isHailstormEnabled) {
 			HailstormModule.INSTANCE.initHailstorm(event);
 		}
@@ -65,6 +68,7 @@ public class WorldsRetold {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
+		DefaultModule.INSTANCE.postInitDefault(event);
 		if (ConfigModules.isHailstormEnabled) {
 			HailstormModule.INSTANCE.postInitHailstorm(event);
 		}

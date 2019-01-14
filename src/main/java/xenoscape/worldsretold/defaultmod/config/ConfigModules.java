@@ -21,7 +21,7 @@ public class ConfigModules extends Configuration {
 
 		isHailstormEnabled = getBoolean("Enable Hailstorm Module", CATEGORY_MODULES, true,
 				"Adds new life and flora to the snow biomes of Minecraft.");
-		isHeatwaveEnabled = getBoolean("Enable Heatwave Module", CATEGORY_MODULES, true,
+        isHeatwaveEnabled = getBoolean("Enable Heatwave Module", CATEGORY_MODULES, false,
 				"Adds new life and flora to the desert biome of Minecraft.");
 
 		this.save();

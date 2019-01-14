@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.defaultmod.init.DefaultEntities;
 import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
@@ -24,7 +25,7 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.hail.EntityHail;
 import java.util.Set;
 
 public class HailstormEntities {
-	public static int EntityID = 0;
+	public static int EntityID = DefaultEntities.EntityID;
 
 	public static void preInit() {
 		// Passive
@@ -34,12 +35,6 @@ public class HailstormEntities {
 				"penguin", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x000000, 0xFFFFFF);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "nix"), EntityNix.class, "nix",
 				EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x00e1ff, 0xffffff);
-
-		// Neutral
-		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "automaton"), EntityAutomaton.class,
-				"automaton", EntityID++, WorldsRetold.INSTANCE, 64, 3, true);
-	//	EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "sentinel"), EntitySentinel.class,
-	//			"sentinel", EntityID++, WorldsRetold.INSTANCE, 64, 3, true);
 
 		// Hostile
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "guardsman"), EntityGuardsman.class,
@@ -88,8 +83,6 @@ public class HailstormEntities {
 			EntityRegistry.addSpawn(EntityNix.class, 35, 1, 4, EnumCreatureType.CREATURE,
 					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
 		}
-
-		// Neutral
 
 		// Hostile
 		if (ConfigHailstormEntity.isGuardsmanEnabled) {
