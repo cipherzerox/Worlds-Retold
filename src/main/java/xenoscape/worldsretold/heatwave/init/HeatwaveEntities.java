@@ -2,6 +2,7 @@ package xenoscape.worldsretold.heatwave.init;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.EntityZombieVillager;
@@ -15,6 +16,7 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
 import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
+import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
@@ -37,6 +39,8 @@ public class HeatwaveEntities {
 				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6569510, 4269587);
 
 		// Hostile
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "fester"), EntityMummy.class,
+				"fester", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6575187, 3484972);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "mummy"), EntityMummy.class,
 				"mummy", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 12956006, 0);
 
@@ -86,6 +90,14 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		// Hostile
+        if (ConfigHeatwaveEntity.isFesterEnabled) {
+			EntityRegistry.addSpawn(EntityFester.class, 80, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+			EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+			EntityRegistry.addSpawn(EntitySkeleton.class, 20, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+		}
         if (ConfigHeatwaveEntity.isMummyEnabled) {
 			EntityRegistry.addSpawn(EntityMummy.class, 20, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));

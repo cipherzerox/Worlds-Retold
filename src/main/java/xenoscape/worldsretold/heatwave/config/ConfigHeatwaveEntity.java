@@ -16,6 +16,7 @@ public class ConfigHeatwaveEntity extends Configuration {
     public static boolean isCobraEnabled;
 
     //Hostile
+    public static boolean isFesterEnabled;
     public static boolean isMummyEnabled;
 
     public ConfigHeatwaveEntity(File file) {
@@ -35,6 +36,8 @@ public class ConfigHeatwaveEntity extends Configuration {
                 "A desert snake that you probably shouldn't poke.");
 
         // Hostile
+        isFesterEnabled = getBoolean("Enable Fester", CATEGORY_HOSTILE, true,
+                "A dried up skeleton that shoots hunger arrows at you.");
         isMummyEnabled = getBoolean("Enable Mummy", CATEGORY_HOSTILE, true,
                 "A fully-covered Husk. Much more classier and intelligent.");
         this.save();
