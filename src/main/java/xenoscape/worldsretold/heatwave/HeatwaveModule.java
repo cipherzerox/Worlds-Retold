@@ -9,6 +9,7 @@ import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.hailstorm.config.HailstormConfig;
 import xenoscape.worldsretold.hailstorm.init.*;
 import xenoscape.worldsretold.hailstorm.world.WorldGenHailstorm;
+import xenoscape.worldsretold.heatwave.config.HeatwaveConfig;
 import xenoscape.worldsretold.heatwave.init.HeatwaveEntities;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
@@ -18,6 +19,7 @@ public class HeatwaveModule {
 
 	public void preInitHeatwave(FMLPreInitializationEvent event) {
 		HeatwaveEntities.preInit();
+        HeatwaveConfig.preInitConfigs(event);
 		HeatwavePotions.registerPotions();
 		WorldsRetold.LOGGER.info("Heatwave Module Preinitialized");
 	}

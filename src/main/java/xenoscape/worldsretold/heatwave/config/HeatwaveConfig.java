@@ -8,14 +8,12 @@ import java.io.File;
 
 public class HeatwaveConfig {
 
-    public static ConfigHailstormEntity entity;
-    public static ConfigHailstormWorldGen world_gen;
+    public static ConfigHeatwaveEntity entity;
 
     public static void preInitConfigs(FMLPreInitializationEvent event) {
         File worldsRetoldFolder = new File(event.getModConfigurationDirectory().getAbsolutePath(), "worldsretold");
-        File hailstormFolder = new File(worldsRetoldFolder, "hailstorm");
-        entity = new ConfigHailstormEntity(new File(hailstormFolder, "entity.cfg"));
-        world_gen = new ConfigHailstormWorldGen(new File(hailstormFolder, "world_gen.cfg"));
+        File heatwaveFolder = new File(worldsRetoldFolder, "heatwave");
+        entity = new ConfigHeatwaveEntity(new File(heatwaveFolder, "entity.cfg"));
     }
 
 }

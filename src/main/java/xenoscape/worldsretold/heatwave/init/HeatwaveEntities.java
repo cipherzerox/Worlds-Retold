@@ -14,6 +14,7 @@ import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
+import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
@@ -66,17 +67,17 @@ public class HeatwaveEntities {
 		// Passive
 
 		// Neutral
-		if (ConfigHailstormEntity.isPenguinEnabled) {
+        if (ConfigHeatwaveEntity.isCamelEnabled) {
 			EntityRegistry.addSpawn(EntityCamel.class, 6, 2, 4, EnumCreatureType.CREATURE,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
-		if (ConfigHailstormEntity.isNixEnabled) {
+        if (ConfigHeatwaveEntity.isCobraEnabled) {
 			EntityRegistry.addSpawn(EntityCobra.class, 30, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 			EntityRegistry.addSpawn(EntityCobra.class, 10, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
 		}
-		if (ConfigHailstormEntity.isBlizzardEnabled) {
+        if (ConfigHeatwaveEntity.isScorpionEnabled) {
 			EntityRegistry.addSpawn(EntityScorpion.class, 100, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 			EntityRegistry.addSpawn(EntityScorpion.class, 10, 1, 1, EnumCreatureType.MONSTER,
@@ -85,7 +86,7 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		// Hostile
-		if (ConfigHailstormEntity.isBlizzardEnabled) {
+        if (ConfigHeatwaveEntity.isMummyEnabled) {
 			EntityRegistry.addSpawn(EntityMummy.class, 20, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.MONSTER,
