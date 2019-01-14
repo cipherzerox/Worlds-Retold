@@ -28,7 +28,7 @@ public class WorldsRetold {
 	@Instance(MODID)
 	public static WorldsRetold INSTANCE = new WorldsRetold();
 
-    @SidedProxy(clientSide = "ClientProxy", serverSide = "ServerProxy")
+	@SidedProxy(clientSide = "xenoscape.worldsretold.defaultmod.proxy.ClientProxy", serverSide = "xenoscape.worldsretold.defaultmod.proxy.ServerProxy")
 	private static ServerProxy proxy;
 
 	public static final DamageSource FROSTBITE = new DamageSource("worldsretold.frostbite").setDamageBypassesArmor();
