@@ -3,6 +3,7 @@ package xenoscape.worldsretold.hailstorm.enchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -32,10 +33,12 @@ public class EnchantmentIceboundBlade extends Enchantment {
 
 	@Override
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-		if (level == 2) {
-			((EntityLivingBase) target).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 400, 0));
-		} else {
-			((EntityLivingBase) target).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 200, 0));
+		if (target instanceof EntityLivingBase) {
+			if (level == 2) {
+				((EntityLivingBase) target).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 400, 0));
+			} else {
+				((EntityLivingBase) target).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 200, 0));
+			}
 		}
 	}
 

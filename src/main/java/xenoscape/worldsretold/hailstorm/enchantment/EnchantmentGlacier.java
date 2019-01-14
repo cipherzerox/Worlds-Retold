@@ -32,7 +32,9 @@ public class EnchantmentGlacier extends Enchantment {
 
 	@Override
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-		((EntityLivingBase) target).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 300, 0));
+		if (target instanceof EntityLivingBase) {
+			((EntityLivingBase) target).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 300, 0));
+		}
 	}
 
     public boolean canApplyTogether(Enchantment ench)

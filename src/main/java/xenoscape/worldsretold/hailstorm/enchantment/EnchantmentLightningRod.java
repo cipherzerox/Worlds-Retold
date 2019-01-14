@@ -32,13 +32,15 @@ public class EnchantmentLightningRod extends Enchantment {
 
 	@Override
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-		if ((user.world.isThundering() || user.world.isRaining()) && (target.world.canSeeSky(target.getPosition()))) {
-			IBlockState iblockstate = user.world.getBlockState(target.getPosition());
-			if (!(iblockstate.getMaterial() == Material.WATER)
-					&& (!(iblockstate.getBlock() == net.minecraft.init.Blocks.WATER)
-							|| !(iblockstate.getBlock() == net.minecraft.init.Blocks.FLOWING_WATER))) {
-				user.world.addWeatherEffect(
-						new EntityLightningBolt(user.world, target.posX, target.posY, target.posZ, false));
+		if (target instanceof EntityLivingBase) {
+			if ((user.world.isThundering() || user.world.isRaining()) && (target.world.canSeeSky(target.getPosition()))) {
+				IBlockState iblockstate = user.world.getBlockState(target.getPosition());
+				if (!(iblockstate.getMaterial() == Material.WATER)
+						&& (!(iblockstate.getBlock() == net.minecraft.init.Blocks.WATER)
+						|| !(iblockstate.getBlock() == net.minecraft.init.Blocks.FLOWING_WATER))) {
+					user.world.addWeatherEffect(
+							new EntityLightningBolt(user.world, target.posX, target.posY, target.posZ, false));
+				}
 			}
 		}
 	}
