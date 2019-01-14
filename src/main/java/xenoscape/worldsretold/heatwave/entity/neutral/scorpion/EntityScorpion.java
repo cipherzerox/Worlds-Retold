@@ -52,6 +52,7 @@ import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.defaultmod.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
+import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
@@ -387,7 +388,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
 
         if (this.world.rand.nextInt(100) == 0)
         {
-            EntityHusk entityskeleton = new EntityHusk(this.world);
+            EntityFester entityskeleton = new EntityFester(this.world);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
             entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData)null);
             this.world.spawnEntity(entityskeleton);
