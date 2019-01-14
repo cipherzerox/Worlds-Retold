@@ -85,14 +85,17 @@ public class ModelCaribou extends ModelBase {
 
         if (this.isChild)
         {
-            float f = 2.0F;
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, this.childYOffset * scale, this.childZOffset * scale);
+            GlStateManager.popMatrix();
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.71428573F, 0.64935064F, 0.7936508F);
+            GlStateManager.translate(0.0F, 21.0F * scale, 0.22F);
             this.Head.render(scale);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+            GlStateManager.scale(0.625F, 0.45454544F, 0.45454544F);
+            GlStateManager.translate(0.0F, 33.0F * scale, 0.0F);
             this.Body.render(scale);
             this.RightBackLeg.render(scale);
             this.LeftBackLeg.render(scale);

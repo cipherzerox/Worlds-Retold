@@ -19,7 +19,7 @@ public class ModelPenguin extends ModelBase {
 	public ModelRenderer Beak;
 	public ModelRenderer RFlipper;
 	public ModelRenderer LFlipper;
-    protected float childYOffset = 7.0F;
+	protected float childYOffset = 14.0F;
     protected float childZOffset = -0.3F;
 
 	public ModelPenguin() {
@@ -68,6 +68,7 @@ public class ModelPenguin extends ModelBase {
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		if (this.isChild) {
             GlStateManager.pushMatrix();
+			GlStateManager.scale(0.7F, 0.7F, 0.7F);
             GlStateManager.translate(0.0F, this.childYOffset * f5, this.childZOffset * f5);
             this.Head.render(f5);
             GlStateManager.popMatrix();
