@@ -50,6 +50,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     public EntityMummy(World worldIn)
     {
         super(worldIn);
+        this.experienceValue = 10;
     }
     
     protected void applyEntityAttributes()
