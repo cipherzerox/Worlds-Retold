@@ -50,6 +50,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     public EntityMummy(World worldIn)
     {
         super(worldIn);
+        this.setCombatTask();
     }
     
     protected void applyEntityAttributes()
@@ -65,7 +66,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -138,6 +138,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
         if (f >= 2F)
         	target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
         this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, 1.0F);
+        this.setCombatTask();
     }
     
     /**
@@ -170,7 +171,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
     {
     	super.setAttackTarget(entitylivingbaseIn);
-        this.setCombatTask();
     }
 
     protected ItemStack getSkullDrop()
