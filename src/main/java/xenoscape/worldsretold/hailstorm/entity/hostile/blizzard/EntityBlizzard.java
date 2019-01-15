@@ -154,8 +154,9 @@ public class EntityBlizzard extends EntitySurfaceMonster implements ISnowCreatur
 		entityHail.posX += rand.nextDouble() * 5D - 2.5D;
 		entityHail.posY += this.getEyeHeight() + 2D;
 		entityHail.posZ += rand.nextDouble() * 5D - 2.5D;
-		if (!this.world.isRemote)
-		world.spawnEntity(entityHail);
+		if (!this.world.isRemote) {
+			world.spawnEntity(entityHail);
+		}
 	}
 
 	@Override

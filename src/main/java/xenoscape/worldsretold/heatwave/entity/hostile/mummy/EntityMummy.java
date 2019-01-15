@@ -45,7 +45,7 @@ import xenoscape.worldsretold.hailstorm.init.HailstormSounds;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
-public class EntityMummy extends EntityZombie implements IDesertCreature, IRangedAttackMob
+public class EntityMummy extends EntityZombie implements IDesertCreature
 {
     public EntityMummy(World worldIn)
     {
@@ -65,26 +65,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 8.0F, 1.2D, 1.5D));
-        this.tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 20, 10.0F)
-        {
-            public boolean shouldExecute()
-            {
-                EntityLivingBase entitylivingbase = EntityMummy.this.getAttackTarget();
-
-                if (entitylivingbase == null)
-                {
-                    return false;
-                }
-                else if (entitylivingbase.isPotionActive(HeatwavePotions.VENOM))
-                {
-                    return false;
-                }
-                else
-                {
-                    return super.shouldExecute();
-                }
-            }
-        });
         this.tasks.addTask(3, new EntityAIZombieAttack(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
@@ -140,54 +120,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
         }
 
         return flag;
-    }
-    
-    /**
-     * Attack the specified entity using a ranged attack.
-     */
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
-    {
-    	if (target.isEntityAlive() && this.getDistance(target) <= 10D)
-    	{
-            float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-            this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, this.isChild() ? 1.5F : 1.0F);
-            if (target instanceof EntityVillager)
-            {
-                EntityVillager entityvillager = (EntityVillager)target;
-                entityvillager.spawnExplosionParticle();
-                entityvillager.world.setEntityState(entityvillager, (byte)3);
-                entityvillager.attackEntityFrom((new DamageSource("convert")).setDamageBypassesArmor().setDamageIsAbsolute(), entityvillager.getMaxHealth());
-                EntityMummy entityzombievillager = new EntityMummy(this.world);
-                entityzombievillager.copyLocationAndAnglesFrom(entityvillager);
-                this.world.removeEntity(entityvillager);
-                entityzombievillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityzombievillager)), null);
-                entityzombievillager.setChild(entityvillager.isChild());
-                entityzombievillager.setNoAI(entityvillager.isAIDisabled());
-
-                if (entityvillager.hasCustomName())
-                {
-                    entityzombievillager.setCustomNameTag(entityvillager.getCustomNameTag());
-                    entityzombievillager.setAlwaysRenderNameTag(entityvillager.getAlwaysRenderNameTag());
-                }
-
-                this.world.spawnEntity(entityzombievillager);
-                this.world.playEvent((EntityPlayer)null, 1026, new BlockPos(this), 0);
-            }
-            else
-            {
-                target.attackEntityFrom(DamageSource.STARVE, f);
-                target.addPotionEffect(new PotionEffect(HeatwavePotions.VENOM, 200));
-                target.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 240 * (int)f));
-                if (f >= 1F)
-                	target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 160 * (int)f));
-                if (f >= 1.5F)
-                	target.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80 * (int)f));
-                if (f >= 2F)
-                	target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
-                if (target instanceof EntityMob)
-                	((EntityMob)target).setRevengeTarget(this);
-            }
-    	}
     }
 
     protected ItemStack getSkullDrop()
