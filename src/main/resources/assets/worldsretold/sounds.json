@@ -1,4 +1,28 @@
 {
+    "wightambient": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/wight/wightidle1",
+        "worldsretold:entity/hostile/wight/wightidle2",
+        "worldsretold:entity/hostile/wight/wightidle3"
+        ],
+        "subtitle": "subtitles.wight.ambient"
+    },
+    "wighthurt": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/wight/wighthurt1",
+        "worldsretold:entity/hostile/wight/wighthurt2"
+        ],
+        "subtitle": "subtitles.wight.hurt"
+    },
+    "wightdeath": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/wight/wightdeath"
+        ],
+        "subtitle": "subtitles.wight.death"
+    },
     "mummyambient": {
         "category": "hostile",
         "sounds": [

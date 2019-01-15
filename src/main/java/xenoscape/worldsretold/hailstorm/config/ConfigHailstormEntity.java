@@ -15,6 +15,7 @@ public class ConfigHailstormEntity extends Configuration {
 	public static boolean isNixEnabled;
 	
 	//Hostile
+	public static boolean isWightEnabled;
 	public static boolean isGuardsmanEnabled;
 	public static boolean isBlizzardEnabled;
 	public static boolean isSnowRollerEnabled;
@@ -35,6 +36,8 @@ public class ConfigHailstormEntity extends Configuration {
 				"A farmable ice creature that spawns packed ice randomly.");
 		
 		// Hostile
+		isWightEnabled = getBoolean("Enable Wight", CATEGORY_HOSTILE, true,
+				"A frozen undead corpse with a paralyzing touch.");
 		isGuardsmanEnabled = getBoolean("Enable Guardsman", CATEGORY_HOSTILE, true,
 				"An armored ice elemental spawning on the surface of snow biomes.");
 		isBlizzardEnabled = getBoolean("Enable Blizzard", CATEGORY_HOSTILE, true,

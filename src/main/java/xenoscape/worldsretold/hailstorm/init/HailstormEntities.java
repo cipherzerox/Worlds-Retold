@@ -3,6 +3,9 @@ package xenoscape.worldsretold.hailstorm.init;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityPolarBear;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -13,6 +16,7 @@ import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.worldsretold.hailstorm.entity.hostile.roller.EntitySnowRoller;
+import xenoscape.worldsretold.hailstorm.entity.hostile.wight.EntityWight;
 import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
@@ -21,6 +25,8 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.black_arrow.EntityBla
 import xenoscape.worldsretold.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.hail.EntityHail;
+import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
+import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 
 import java.util.Set;
 
@@ -37,6 +43,8 @@ public class HailstormEntities {
 				EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x00e1ff, 0xffffff);
 
 		// Hostile
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "wight"), EntityWight.class,
+				"wight", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0xdfdfdf, 0xf9f9f9);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "guardsman"), EntityGuardsman.class,
 				"guardsman", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 0x84b3ff, 0x647796);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "blizzard"), EntityBlizzard.class,
@@ -85,6 +93,18 @@ public class HailstormEntities {
 		}
 
 		// Hostile
+        if (ConfigHailstormEntity.isWightEnabled) {
+			EntityRegistry.addSpawn(EntityWight.class, 80, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.MONSTER,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+			EntityRegistry.removeSpawn(EntityZombieVillager.class, EnumCreatureType.MONSTER,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+			EntityRegistry.addSpawn(EntityZombie.class, 19, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+			EntityRegistry.addSpawn(EntityZombie.class, 1, 1, 4, EnumCreatureType.MONSTER,
+					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
+		}
 		if (ConfigHailstormEntity.isGuardsmanEnabled) {
 			EntityRegistry.addSpawn(EntityGuardsman.class, 15, 1, 1, EnumCreatureType.CREATURE,
 					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
