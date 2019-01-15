@@ -67,6 +67,11 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
     }
+    
+    public boolean isPreventingPlayerRest(EntityPlayer playerIn)
+    {
+        return this.isAggressive();
+    }
 
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
