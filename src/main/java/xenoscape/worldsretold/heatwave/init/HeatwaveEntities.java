@@ -93,8 +93,6 @@ public class HeatwaveEntities {
         if (ConfigHeatwaveEntity.isFesterEnabled) {
 			EntityRegistry.addSpawn(EntityFester.class, 80, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
-			EntityRegistry.removeSpawn(EntitySkeleton.class, EnumCreatureType.MONSTER,
-					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 			EntityRegistry.addSpawn(EntitySkeleton.class, 20, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}

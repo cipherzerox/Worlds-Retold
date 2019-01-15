@@ -96,10 +96,6 @@ public class HailstormEntities {
         if (ConfigHailstormEntity.isWightEnabled) {
 			EntityRegistry.addSpawn(EntityWight.class, 80, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
-			EntityRegistry.removeSpawn(EntityZombie.class, EnumCreatureType.MONSTER,
-					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
-			EntityRegistry.removeSpawn(EntityZombieVillager.class, EnumCreatureType.MONSTER,
-					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
 			EntityRegistry.addSpawn(EntityZombie.class, 19, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) snowBiomes.toArray(new Biome[snowBiomes.size()]));
 			EntityRegistry.addSpawn(EntityZombie.class, 1, 1, 4, EnumCreatureType.MONSTER,
