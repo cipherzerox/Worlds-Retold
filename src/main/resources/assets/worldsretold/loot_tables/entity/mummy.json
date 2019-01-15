@@ -1,7 +1,6 @@
 {
     "pools": [
         {
-        "name": "mummy_flesh",
             "rolls": 1,
             "entries": [
                 {
@@ -28,7 +27,6 @@
             ]
         },
         {
-        "name": "mummy_bone",
             "rolls": 1,
             "entries": [
                 {
@@ -55,7 +53,6 @@
             ]
         },
         {
-        "name": "mummy_paper",
             "rolls": 1,
             "entries": [
                 {
