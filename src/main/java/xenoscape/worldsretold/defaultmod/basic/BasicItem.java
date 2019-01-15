@@ -26,5 +26,28 @@ public class BasicItem extends Item implements ModelRegistry {
 		super.setCreativeTab(tab);
 		return this;
 	}
+	
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
 
+        if (itemstack.getItem() == HeatwaveItems.BANDAGE_CLEAN)
+        {
+        	if (!worldIn.isRemote && playerIn.getHealth() < playerIn.getMaxHealth())
+        	{
+        		playerIn.heal(2F);
+        		itemstack.shrink(1);
+                return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+        	}
+        	else
+        	{
+                return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+        	}
+
+        }
+        else
+        {
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+        }
+    }
 }
