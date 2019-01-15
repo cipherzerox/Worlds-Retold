@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
@@ -145,7 +146,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
         float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-        target.attackEntityFrom(DamageSource.causeThrownDamage(this, this), 5F);
+        target.attackEntityFrom(DamageSource.STARVE, 3F);
         target.addPotionEffect(new PotionEffect(HeatwavePotions.VENOM, 200));
         target.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 240 * (int)f));
         if (f >= 1F)
@@ -155,6 +156,8 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
         if (f >= 2F)
         	target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
         this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, this.isChild() ? 1.5F : 1.0F);
+        if (target instanceof EntityMob)
+        	((EntityMob)target).setRevengeTarget(this);
     }
 
     protected ItemStack getSkullDrop()
