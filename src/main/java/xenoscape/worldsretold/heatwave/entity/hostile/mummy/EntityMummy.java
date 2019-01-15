@@ -44,13 +44,9 @@ import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
 public class EntityMummy extends EntityZombie implements IDesertCreature, IRangedAttackMob
 {
-    private final EntityAIAttackRanged aiRangedAttack = new EntityAIAttackRanged(this, 1.0D, 20, 15.0F);
-    private final EntityAIZombieAttack aiMeleeAttack = new EntityAIZombieAttack(this, 1.0D, false);
-	
     public EntityMummy(World worldIn)
     {
         super(worldIn);
-        this.setCombatTask();
     }
     
     protected void applyEntityAttributes()
@@ -66,6 +62,27 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 20, 15.0F)
+        {
+            public boolean shouldExecute()
+            {
+                EntityLivingBase entitylivingbase = EntityMummy.this.getAttackTarget();
+
+                if (entitylivingbase == null)
+                {
+                    return false;
+                }
+                else if (entitylivingbase.isPotionActive(HeatwavePotions.VENOM))
+                {
+                    return false;
+                }
+                else
+                {
+                    return super.shouldExecute();
+                }
+            }
+        });
+        this.tasks.addTask(3, new EntityAIZombieAttack(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -138,39 +155,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
         if (f >= 2F)
         	target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
         this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, 1.0F);
-        this.setCombatTask();
-    }
-    
-    /**
-     * sets this entity's combat AI.
-     */
-    public void setCombatTask()
-    {
-        if (this.world != null && !this.world.isRemote)
-        {
-            this.tasks.removeTask(this.aiMeleeAttack);
-            this.tasks.removeTask(this.aiRangedAttack);
-
-            if (this.getAttackTarget() != null && !this.getAttackTarget().isPotionActive(HeatwavePotions.VENOM))
-            {
-                this.tasks.addTask(2, this.aiRangedAttack);
-            }
-            else
-            {
-                this.tasks.addTask(2, this.aiMeleeAttack);
-            }
-        }
-    }
-    
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        this.setCombatTask();
-    }
-    
-    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
-    {
-    	super.setAttackTarget(entitylivingbaseIn);
     }
 
     protected ItemStack getSkullDrop()
