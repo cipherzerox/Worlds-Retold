@@ -154,7 +154,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
         	target.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80 * (int)f));
         if (f >= 2F)
         	target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
-        this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, 1.0F);
+        this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, this.isChild() ? 1.5F : 1.0F);
     }
 
     protected ItemStack getSkullDrop()
