@@ -1,4 +1,35 @@
 {
+    "mummyambient": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/mummy/mummyidle1",
+        "worldsretold:entity/hostile/mummy/mummyidle2",
+        "worldsretold:entity/hostile/mummy/mummyidle3",
+        "worldsretold:entity/hostile/mummy/mummyidle4"
+        ],
+        "subtitle": "subtitles.mummy.ambient"
+    },
+    "mummyhurt": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/mummy/mummyhurt"
+        ],
+        "subtitle": "subtitles.mummy.hurt"
+    },
+    "mummydeath": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/mummy/mummydeath"
+        ],
+        "subtitle": "subtitles.mummy.death"
+    },
+    "mummyinfect": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/mummy/mummyinfect"
+        ],
+        "subtitle": "subtitles.mummy.infect"
+    },
     "snakehiss": {
         "category": "hostile",
         "sounds": [

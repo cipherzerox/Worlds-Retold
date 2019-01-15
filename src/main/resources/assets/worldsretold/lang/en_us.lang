@@ -119,3 +119,7 @@ subtitles.snake.hiss=Snake warn
 subtitles.snake.hurt=Snake hurt
 subtitles.snake.death=Snake death
 subtitles.snake.strike=Snake attack
+subtitles.mummy.ambient=Mummy grumbles
+subtitles.mummy.hurt=Mummy hurt
+subtitles.mummy.death=Mummy death
+subtitles.mummy.infect=Mummy attack

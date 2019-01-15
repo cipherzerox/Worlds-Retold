@@ -4,12 +4,25 @@ import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackRanged;
+import net.minecraft.entity.ai.EntityAIAttackRangedBow;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityAIZombieAttack;
+import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -24,10 +37,15 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.hailstorm.init.HailstormSounds;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
+import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
-public class EntityMummy extends EntityZombie implements IDesertCreature
+public class EntityMummy extends EntityZombie implements IDesertCreature, IRangedAttackMob
 {
+    private final EntityAIAttackRanged aiRangedAttack = new EntityAIAttackRanged(this, 1.0D, 20, 15.0F);
+    private final EntityAIZombieAttack aiMeleeAttack = new EntityAIZombieAttack(this, 1.0D, false);
+	
     public EntityMummy(World worldIn)
     {
         super(worldIn);
@@ -44,8 +62,14 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     
     protected void initEntityAI()
     {
-    	super.initEntityAI();
+        this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(2, new EntityAIZombieAttack(this, 1.0D, false));
+        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
+        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+        this.applyEntityAI();
     }
 
     protected boolean shouldBurnInDay()
@@ -55,22 +79,22 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
 
     protected SoundEvent getAmbientSound()
     {
-        return SoundEvents.ENTITY_HUSK_AMBIENT;
+        return HailstormSounds.ENTITY_MUMMY_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return SoundEvents.ENTITY_HUSK_HURT;
+        return HailstormSounds.ENTITY_MUMMY_HURT;
     }
 
     protected SoundEvent getDeathSound()
     {
-        return SoundEvents.ENTITY_HUSK_DEATH;
+        return HailstormSounds.ENTITY_MUMMY_DEATH;
     }
 
     protected SoundEvent getStepSound()
     {
-        return SoundEvents.ENTITY_HUSK_STEP;
+        return SoundEvents.BLOCK_CLOTH_BREAK;
     }
 
 	protected ResourceLocation getLootTable() 
@@ -96,6 +120,45 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
 
         return flag;
     }
+    
+    /**
+     * Attack the specified entity using a ranged attack.
+     */
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
+    {
+        float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
+        target.attackEntityFrom(DamageSource.causeThrownDamage(this, this), 5F);
+        target.addPotionEffect(new PotionEffect(HeatwavePotions.VENOM, 200));
+        target.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 240 * (int)f));
+        if (f >= 1F)
+        	target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 160 * (int)f));
+        if (f >= 1.5F)
+        	target.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80 * (int)f));
+        if (f >= 2F)
+        	target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 80 * (int)f));
+        this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3.0F, 1.0F);
+    }
+    
+    /**
+     * sets this entity's combat AI.
+     */
+    public void setCombatTask()
+    {
+        if (this.world != null && !this.world.isRemote)
+        {
+            this.tasks.removeTask(this.aiMeleeAttack);
+            this.tasks.removeTask(this.aiRangedAttack);
+
+            if (this.getAttackTarget() != null && !this.getAttackTarget().isPotionActive(HeatwavePotions.VENOM))
+            {
+                this.tasks.addTask(4, this.aiRangedAttack);
+            }
+            else
+            {
+                this.tasks.addTask(4, this.aiMeleeAttack);
+            }
+        }
+    }
 
     protected ItemStack getSkullDrop()
     {
@@ -106,4 +169,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         return this.world.provider.getDimension() == 0
                 && super.getCanSpawnHere();
     }
+
+	public void setSwingingArms(boolean swingingArms) {}
 }
