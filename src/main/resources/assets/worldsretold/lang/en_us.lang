@@ -49,6 +49,8 @@ item.venison_raw.name=Raw Venison
 item.venison_cooked.name=Cooked Venison
 item.snake_fang.name=Snake Fang
 item.scorpion_bulb.name=Scorpion Tail Bulb
+item.bandage_dirty.name=Mummy Bandages
+item.bandage_clean.name=Clean Bandages
 
 item.statue.name=Statue
 

@@ -32,6 +32,10 @@ public class HeatwaveItems {
 	public static BasicItem SNAKE_FANG = new BasicItem("snake_fang").setCreativeTab(WorldsRetoldTabs.W_TAB);
 	@ObjectHolder("scorpion_bulb")
 	public static BasicItem SCORPION_BULB = new BasicItem("scorpion_bulb").setCreativeTab(WorldsRetoldTabs.W_TAB);
+	@ObjectHolder("bandage_dirty")
+	public static BasicItem BANDAGE_DIRTY = new BasicItem("bandage_dirty").setCreativeTab(WorldsRetoldTabs.W_TAB);
+	@ObjectHolder("bandage_clean")
+	public static BasicItem BANDAGE_CLEAN = new BasicItem("bandage_clean").setCreativeTab(WorldsRetoldTabs.W_TAB);
 
 
 	@Mod.EventBusSubscriber(modid = WorldsRetold.MODID)
@@ -42,7 +46,7 @@ public class HeatwaveItems {
 			final IForgeRegistry<Item> items = event.getRegistry();
 			final ItemBlockRegistry itemblocks = new ItemBlockRegistry(event.getRegistry());
 			if (ConfigModules.isHeatwaveEnabled == true) {
-				items.registerAll(VENOM_SWORD, SNAKE_FANG, SCORPION_BULB);
+				items.registerAll(VENOM_SWORD, SNAKE_FANG, SCORPION_BULB, BANDAGE_DIRTY, BANDAGE_CLEAN);
 
 			}
 		}
