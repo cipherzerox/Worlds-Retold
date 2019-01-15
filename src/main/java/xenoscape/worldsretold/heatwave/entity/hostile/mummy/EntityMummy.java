@@ -26,6 +26,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -64,7 +65,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(2, new EntityAIZombieAttack(this, 1.0D, false));
+
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -151,13 +152,25 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
 
             if (this.getAttackTarget() != null && !this.getAttackTarget().isPotionActive(HeatwavePotions.VENOM))
             {
-                this.tasks.addTask(4, this.aiRangedAttack);
+                this.tasks.addTask(2, this.aiRangedAttack);
             }
             else
             {
-                this.tasks.addTask(4, this.aiMeleeAttack);
+                this.tasks.addTask(2, this.aiMeleeAttack);
             }
         }
+    }
+    
+    public void readEntityFromNBT(NBTTagCompound compound)
+    {
+        super.readEntityFromNBT(compound);
+        this.setCombatTask();
+    }
+    
+    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
+    {
+    	super.setAttackTarget(entitylivingbaseIn);
+        this.setCombatTask();
     }
 
     protected ItemStack getSkullDrop()
