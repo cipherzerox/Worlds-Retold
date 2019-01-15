@@ -61,7 +61,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature, IRange
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 8.0F, 1.2D, 1.5D));
         this.tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 20, 15.0F)
         {
             public boolean shouldExecute()
