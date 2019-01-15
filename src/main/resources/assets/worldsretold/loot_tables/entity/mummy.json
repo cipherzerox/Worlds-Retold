@@ -1,12 +1,12 @@
 {
     "pools": [
         {
-        "name": "mummy_paper",
+        "name": "mummy_bandages",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
-                    "name": "minecraft:paper",
+                    "name": "worldsretold:bandage_dirty",
                     "weight": 1,
                     "functions": [
                         {
