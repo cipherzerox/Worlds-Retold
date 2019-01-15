@@ -69,7 +69,7 @@ entity.scout.name=Scout
 entity.camel.name=Camel
 entity.scorpion.name=Scorpion
 entity.cobra.name=Cobra
-entity.antlion.name=Antlion
+entity.trapjaw.name=Trap jaw
 
 # Hostile
 entity.guardsman.name=Guardsman
