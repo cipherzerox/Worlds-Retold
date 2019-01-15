@@ -101,7 +101,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
      */
     public double getMountedYOffset()
     {
-        return (double)(this.height * 0.5F);
+        return (double)(this.height * 0.75F);
     }
 
     /**
