@@ -21,6 +21,8 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.RenderGuardsman;
 import xenoscape.worldsretold.hailstorm.entity.hostile.roller.EntitySnowRoller;
 import xenoscape.worldsretold.hailstorm.entity.hostile.roller.RenderSnowRoller;
+import xenoscape.worldsretold.hailstorm.entity.hostile.wight.EntityWight;
+import xenoscape.worldsretold.hailstorm.entity.hostile.wight.RenderWight;
 import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.RenderAutomaton;
 import xenoscape.worldsretold.defaultmod.entity.neutral.sentinel.EntitySentinel;
@@ -85,6 +87,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySentinel.class, RenderSentinel.FACTORY);
 
 		// Hostile
+		RenderingRegistry.registerEntityRenderingHandler(EntityWight.class, RenderWight.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityGuardsman.class, RenderGuardsman.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlizzard.class, RenderBlizzard.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRoller.class, RenderSnowRoller.FACTORY);

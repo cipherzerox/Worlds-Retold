@@ -1,18 +1,23 @@
 package xenoscape.worldsretold.hailstorm.entity.hostile.wight;
 
 import net.minecraft.client.model.ModelZombie;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
+import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.RenderGuardsman;
 
 @SideOnly(Side.CLIENT)
 public class RenderWight extends RenderBiped<EntityWight>
 {
     private static final ResourceLocation WIGHT_TEXTURE = new ResourceLocation("worldsretold:textures/entity/wight.png");
-
+	public static final RenderWight.Factory FACTORY = new RenderWight.Factory();
+	
     public RenderWight(RenderManager renderManagerIn)
     {
         super(renderManagerIn, new ModelZombie(), 0.5F);
@@ -33,4 +38,11 @@ public class RenderWight extends RenderBiped<EntityWight>
     {
         return WIGHT_TEXTURE;
     }
+    
+	public static class Factory implements IRenderFactory<EntityWight> {
+		@Override
+		public Render<? super EntityWight> createRenderFor(RenderManager manager) {
+			return new RenderWight(manager);
+		}
+	}
 }
