@@ -21,8 +21,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 
-public class EntityFester extends AbstractSkeleton
+public class EntityFester extends AbstractSkeleton implements IDesertCreature
 {
     public EntityFester(World worldIn)
     {
