@@ -41,6 +41,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
@@ -101,17 +102,27 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     	
     	this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(this.isHidden() ? 1D : 0.05D);
     	
-    	if (this.getAttackTarget() == null && rand.nextInt(500) == 0 && this.ticksExisted % 20 == 0)
+    	if (this.isHidden())
+    	{
+    		this.motionX *= 0.25D;
+    		this.motionZ *= 0.25D;
+    		if (this.motionY > 0D)
+        		this.motionY = 0D;
+    	}
+    	
+    	if (this.getAttackTarget() == null && this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid() && rand.nextInt(500) == 0 && this.ticksExisted % 20 == 0)
     		this.setHidden(true);
     	
-    	if (this.isHidden() && (this.getAttackTarget() != null || this.getRevengeTarget() != null || this.hurtResistantTime > 0))
+    	if (this.isHidden() && (this.getAttackTarget() != null || this.getRevengeTarget() != null || this.hurtResistantTime > 0 || !this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid()))
     	{
     		this.setHidden(false);
     		this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3F, this.isChild() ? 1.5F : 1F);
     	}
     	
-        this.setSize(0.5F, 1.8F - (this.risingTime * 1.5F));
-    	
+        this.height = (1.95F - ((this.prevRisingTime + (this.risingTime - this.prevRisingTime)) * 1.75F)) * (this.isChild() ? 0.5F : 1F);
+        double d0 = (double)width / 2.0D;
+        this.setEntityBoundingBox(new AxisAlignedBB(this.posX - d0, this.posY, this.posZ - d0, this.posX + d0, this.posY + (double)this.height, this.posZ + d0));
+        
         this.prevRisingTime = this.risingTime;
 
         if (this.isHidden())
@@ -225,6 +236,18 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     public boolean getCanSpawnHere() {
         return this.world.provider.getDimension() == 0
                 && super.getCanSpawnHere();
+    }
+    
+    public float getEyeHeight()
+    {
+        float f = 1.74F - ((this.prevRisingTime + (this.risingTime - this.prevRisingTime)) * 1.5F);
+
+        if (this.isChild())
+        {
+            f = (float)((double)f - 0.81D);
+        }
+
+        return f;
     }
 
 	public void setSwingingArms(boolean swingingArms) {}
