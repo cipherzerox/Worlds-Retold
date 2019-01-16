@@ -34,15 +34,22 @@ item.cryonite_chestplate.name=Cryonite Chestplate
 item.cryonite_leggings.name=Cryonite Leggings
 item.cryonite_boots.name=Cryonite Boots
 
-item.worldsretold_helmet.name=Hailstorm Helmet
-item.worldsretold_chestplate.name=Hailstorm Chestplate
-item.worldsretold_leggings.name=Hailstorm Leggings
-item.worldsretold_boots.name=Hailstorm Boots
+item.hailstorm_helmet.name=Hailstorm Helmet
+item.hailstorm_chestplate.name=Hailstorm Chestplate
+item.hailstorm_leggings.name=Hailstorm Leggings
+item.hailstorm_boots.name=Hailstorm Boots
+
+item.wrapping_helmet.name=Wrapped Cap
+item.wrapping_chestplate.name=Wrapped Chest
+item.wrapping_leggings.name=Wrapped Legs
+item.wrapping_boots.name=Wrapped Shoes
 
 item.cryonite.name=Cryonite
-
+item.elemental_heart.name=Elemental Heart
 item.penguin_egg.name=Penguin Egg
 item.penguin_feather.name=Penguin Feather
+item.nimbus.name=Nimbus
+item.guardsman_shard.name=Guardsman Shard
 item.manchot_raw.name=Raw Manchot
 item.manchot_cooked.name=Cooked Manchot
 item.venison_raw.name=Raw Venison
