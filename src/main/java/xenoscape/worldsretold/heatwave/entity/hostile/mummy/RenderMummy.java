@@ -1,8 +1,10 @@
 package xenoscape.worldsretold.heatwave.entity.hostile.mummy;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,6 +29,14 @@ public class RenderMummy extends RenderLiving<EntityMummy>
     protected ResourceLocation getEntityTexture(EntityMummy entity)
     {
         return MUMMY;
+    }
+    
+    /**
+     * Allows the render to do state modifications necessary before the model is rendered.
+     */
+    protected void preRenderCallback(EntityMummy entitylivingbaseIn, float partialTickTime)
+    {
+        GlStateManager.translate(0F, entitylivingbaseIn.getRisingRot(partialTickTime), 0F);
     }
     
 	public static class Factory implements IRenderFactory<EntityMummy> {
