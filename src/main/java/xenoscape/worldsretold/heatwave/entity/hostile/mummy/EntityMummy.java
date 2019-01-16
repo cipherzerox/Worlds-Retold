@@ -99,8 +99,13 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     {
     	super.onLivingUpdate();
     	
+    	this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(this.isHidden() ? 1D : 0.05D);
+    	
     	if (this.getAttackTarget() == null && rand.nextInt(500) == 0 && this.ticksExisted % 20 == 0)
     		this.setHidden(true);
+    	
+    	if (this.getAttackTarget() != null || this.getRevengeTarget() != null || this.hurtResistantTime > 0)
+    		this.setHidden(false);
     	
         this.prevRisingTime = this.risingTime;
 
@@ -111,7 +116,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         
         this.setSize(0.5F, 1.8F - (this.risingTime * 1.5F));
         
-        if (this.risingTime > 0.5F && this.risingTime < 0.99F)
+        if (this.risingTime > 0.25F && this.risingTime < 0.99F)
         	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
         
         this.setInvisible(this.risingTime == 1F);

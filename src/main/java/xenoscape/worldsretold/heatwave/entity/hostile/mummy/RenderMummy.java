@@ -37,6 +37,8 @@ public class RenderMummy extends RenderLiving<EntityMummy>
     protected void preRenderCallback(EntityMummy entitylivingbaseIn, float partialTickTime)
     {
         GlStateManager.translate(0F, entitylivingbaseIn.getRisingRot(partialTickTime), 0F);
+        if (!entitylivingbaseIn.isChild())
+            GlStateManager.translate(0F, entitylivingbaseIn.getRisingRot(partialTickTime), 0F);
     }
     
 	public static class Factory implements IRenderFactory<EntityMummy> {
