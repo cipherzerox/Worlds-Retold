@@ -52,6 +52,7 @@ public class EntityWight extends EntityZombie implements ISnowCreature
     public EntityWight(World worldIn)
     {
         super(worldIn);
+        this.setSize(0.9F, 3.2F);
     }
     
     protected void applyEntityAttributes()
@@ -60,6 +61,18 @@ public class EntityWight extends EntityZombie implements ISnowCreature
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28);
+    }
+    
+    public float getEyeHeight()
+    {
+        float f = 2.76F;
+
+        if (this.isChild())
+        {
+            f = (float)((double)f - 0.81D);
+        }
+
+        return f;
     }
 
     protected boolean shouldBurnInDay()
