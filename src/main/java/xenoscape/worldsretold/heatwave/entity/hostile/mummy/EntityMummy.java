@@ -111,7 +111,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         
         this.setSize(0.5F, 1.8F - (this.risingTime * 1.5F));
         
-        if (this.risingTime > 0.5F)
+        if (this.risingTime > 0.5F && this.risingTime < 0.99F)
         	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
         
         this.setInvisible(this.risingTime == 1F);
@@ -167,7 +167,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
 
     protected SoundEvent getAmbientSound()
     {
-        return HailstormSounds.ENTITY_MUMMY_AMBIENT;
+        return this.isHidden() ? null : HailstormSounds.ENTITY_MUMMY_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
@@ -182,7 +182,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
 
     protected SoundEvent getStepSound()
     {
-        return SoundEvents.BLOCK_CLOTH_BREAK;
+        return this.isHidden() ? null : SoundEvents.BLOCK_CLOTH_BREAK;
     }
 
 	protected ResourceLocation getLootTable() 
