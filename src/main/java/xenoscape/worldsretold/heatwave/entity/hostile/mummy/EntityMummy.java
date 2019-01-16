@@ -64,6 +64,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     {
         super(worldIn);
         this.experienceValue = 10;
+        this.setSize(0.5F, 1.8F);
     }
     
     protected void applyEntityAttributes()
@@ -87,6 +88,13 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         this.applyEntityAI();
     }
     
+
+    protected void entityInit() 
+    {
+        super.entityInit();
+        this.dataManager.register(HIDDEN, Byte.valueOf((byte) 0));
+    }
+    
     public void onLivingUpdate()
     {
     	super.onLivingUpdate();
@@ -100,6 +108,8 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
             this.risingTime = MathHelper.clamp(this.risingTime + 0.025F, 0F, 1F);
         else 
             this.risingTime = MathHelper.clamp(this.risingTime - 0.025F, 0F, 1F);
+        
+        this.setSize(0.5F, 1.8F - (this.risingTime * 1.5F));
         
         if (this.risingTime > 0.5F)
         	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
