@@ -104,8 +104,13 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     	if (this.getAttackTarget() == null && rand.nextInt(500) == 0 && this.ticksExisted % 20 == 0)
     		this.setHidden(true);
     	
-    	if (this.getAttackTarget() != null || this.getRevengeTarget() != null || this.hurtResistantTime > 0)
+    	if (this.isHidden() && (this.getAttackTarget() != null || this.getRevengeTarget() != null || this.hurtResistantTime > 0))
+    	{
     		this.setHidden(false);
+    		this.playSound(HailstormSounds.ENTITY_MUMMY_INFECT, 3F, this.isChild() ? 1.5F : 1F);
+    	}
+    	
+        this.setSize(0.5F, 1.8F - (this.risingTime * 1.5F));
     	
         this.prevRisingTime = this.risingTime;
 
@@ -113,8 +118,6 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
             this.risingTime = MathHelper.clamp(this.risingTime + 0.025F, 0F, 1F);
         else 
             this.risingTime = MathHelper.clamp(this.risingTime - 0.025F, 0F, 1F);
-        
-        this.setSize(0.5F, 1.8F - (this.risingTime * 1.5F));
         
         if (this.risingTime > 0.25F && this.risingTime < 0.99F)
         	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
@@ -133,7 +136,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setBoolean("Hidden", this.isBreakDoorsTaskSet());
+        compound.setBoolean("Hidden", this.isHidden());
     }
 
     /**
@@ -142,7 +145,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-        this.setBreakDoorsAItask(compound.getBoolean("Hidden"));
+        this.setHidden(compound.getBoolean("Hidden"));
     }
     
     public boolean isHidden() 
