@@ -1,6 +1,7 @@
 package xenoscape.worldsretold.hailstorm.entity.hostile.wight;
 
 import net.minecraft.client.model.ModelZombie;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -29,6 +30,12 @@ public class RenderWight extends RenderBiped<EntityWight>
                 this.modelArmor = new ModelZombie(1.0F, true);
             }
         });
+    }
+
+    @Override
+    protected void preRenderCallback(EntityWight entitylivingbaseIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, partialTickTime);
+        GlStateManager.scale(1.6F, 1.6F, 1.6F);
     }
 
     /**

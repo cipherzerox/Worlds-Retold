@@ -59,6 +59,7 @@ public class EntityWight extends EntityZombie implements ISnowCreature
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28);
     }
 
     protected boolean shouldBurnInDay()
@@ -103,6 +104,14 @@ public class EntityWight extends EntityZombie implements ISnowCreature
         }
 
         return flag;
+    }
+
+    public boolean getCanSpawnHere() {
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        return this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this) && super.getCanSpawnHere();
     }
 
     protected ItemStack getSkullDrop()

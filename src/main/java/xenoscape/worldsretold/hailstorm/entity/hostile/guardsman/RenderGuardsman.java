@@ -41,7 +41,7 @@ public class RenderGuardsman extends RenderLiving<EntityGuardsman> {
 	@Override
 	protected void preRenderCallback(EntityGuardsman entitylivingbaseIn, float partialTickTime) {
 		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-		GlStateManager.scale(2F, 2F, 2F);
+        GlStateManager.scale(1.85F, 1.85F, 1.85F);
 		if (entitylivingbaseIn.deathTicks > 0) {
 			float colorTimer = 1.0F - ((entitylivingbaseIn.deathTicks / 100.0F) * 1.5F);
 			GlStateManager.color(colorTimer, colorTimer, colorTimer, 1.0F);
