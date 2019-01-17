@@ -96,22 +96,22 @@ public class HailstormItems {
 	public static BasicItemArmor CRYONITE_HELMET = new BasicItemArmor("cryonite_helmet",
 			HailstormMaterials.CRYONITE_ARMOR, 0, EntityEquipmentSlot.HEAD,
 			WorldsRetold.MODID + ":textures/armor/cryonite_leggings.png",
-			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png");
+			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png", 1);
 	@ObjectHolder("cryonite_chestplate")
 	public static BasicItemArmor CRYONITE_CHESTPLATE = new BasicItemArmor("cryonite_chestplate",
 			HailstormMaterials.CRYONITE_ARMOR, 0, EntityEquipmentSlot.CHEST,
 			WorldsRetold.MODID + ":textures/armor/cryonite_leggings.png",
-			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png");
+			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png", 1);
 	@ObjectHolder("cryonite_leggings")
 	public static BasicItemArmor CRYONITE_LEGGINGS = new BasicItemArmor("cryonite_leggings",
 			HailstormMaterials.CRYONITE_ARMOR, 1, EntityEquipmentSlot.LEGS,
 			WorldsRetold.MODID + ":textures/armor/cryonite_leggings.png",
-			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png");
+			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png", 1);
 	@ObjectHolder("cryonite_boots")
 	public static BasicItemArmor CRYONITE_BOOTS = new BasicItemArmor("cryonite_boots",
 			HailstormMaterials.CRYONITE_ARMOR, 0, EntityEquipmentSlot.FEET,
 			WorldsRetold.MODID + ":textures/armor/cryonite_leggings.png",
-			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png");
+			WorldsRetold.MODID + ":textures/armor/cryonite_armor.png", 1);
 
 	@ObjectHolder("cryonite")
 	public static BasicItem CRYONITE = new BasicItem("cryonite").setCreativeTab(WorldsRetoldTabs.W_TAB);
