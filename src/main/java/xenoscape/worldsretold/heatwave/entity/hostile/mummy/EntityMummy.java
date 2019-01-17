@@ -110,7 +110,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         		this.motionY = 0D;
     	}
     	
-    	if (this.getAttackTarget() == null && this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid() && rand.nextInt(500) == 0 && this.ticksExisted % 20 == 0)
+    	if (this.getAttackTarget() == null && this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid() && rand.nextInt(this.world.isDaytime() && this.world.canSeeSky(new BlockPos(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ)) ? 5 : 500) == 0 && this.ticksExisted % 20 == 0)
     		this.setHidden(true);
     	
     	if (this.isHidden() && (this.getAttackTarget() != null || this.getRevengeTarget() != null || this.hurtResistantTime > 0 || !this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid()))
@@ -240,13 +240,16 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     
     public float getEyeHeight()
     {
-        float f = 1.74F - ((this.prevRisingTime + (this.risingTime - this.prevRisingTime)) * 1.5F);
+        float f = 1.75F - ((this.prevRisingTime + (this.risingTime - this.prevRisingTime)) * 1.5F);
 
         if (this.isChild())
         {
             f = (float)((double)f - 0.81D);
         }
 
+        if (f <= 0.15F)
+        	f = 0.15F;
+        
         return f;
     }
 
