@@ -5,6 +5,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.defaultmod.packets.PacketSyncKeys;
 
 public class ServerProxy {
 	
@@ -19,5 +22,7 @@ public class ServerProxy {
 	}
 
 	public void preInit(FMLPreInitializationEvent e) {
+        int id = 0;
+        WorldsRetold.NETWORK.registerMessage(PacketSyncKeys.Handler.class, PacketSyncKeys.class, id++, Side.SERVER);
 	}
 }

@@ -19,6 +19,9 @@ public class PacketSyncKeys implements IMessage {
     private UUID player;
     private String keyName;
 
+    public PacketSyncKeys() {
+    }
+
     public PacketSyncKeys(String keyName, boolean isKeyPressed, UUID player) {
 
         this.keyName = keyName;

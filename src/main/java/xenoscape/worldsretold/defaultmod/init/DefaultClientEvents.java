@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.defaultmod.packets.PacketArmorAbility;
 import xenoscape.worldsretold.defaultmod.util.RenderHelper;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.entity.layer.LayerFreezingRenderer.LayerFreezing;
@@ -42,19 +43,9 @@ public class DefaultClientEvents {
             WorldsRetold.LOGGER.info("Player Found");
             if (WorldsRetold.KEYS.armor_ability(player)) {
                 WorldsRetold.LOGGER.info("Key Triggered");
-                if (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem().equals(HailstormItems.CRYONITE_HELMET)
-                        && player.inventory.armorItemInSlot(2) != null && player.inventory.armorItemInSlot(2).getItem().equals(HailstormItems.CRYONITE_CHESTPLATE)
-                        && player.inventory.armorItemInSlot(1) != null && player.inventory.armorItemInSlot(1).getItem().equals(HailstormItems.CRYONITE_LEGGINGS)
-                        && player.inventory.armorItemInSlot(0) != null && player.inventory.armorItemInSlot(0).getItem().equals(HailstormItems.CRYONITE_BOOTS)) {
-                    WorldsRetold.LOGGER.info("Calls Passed");
-                    List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(5.0D, 5.0D, 5.0D));
-                    for (Entity entity : entities)
-                        if (entity instanceof IMob && entity instanceof EntityLivingBase && !(entity instanceof ISnowCreature) && entity != null && !((EntityLivingBase) entity).isPotionActive(HailstormPotions.FREEZING)) {
-                            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 600, 0));
-                        }
-                }
+                WorldsRetold.NETWORK
+                        .sendToServer(new PacketArmorAbility(player.getEntityId()));
             }
-
         }
     }
 
