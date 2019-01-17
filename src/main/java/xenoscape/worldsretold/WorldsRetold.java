@@ -8,11 +8,14 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xenoscape.worldsretold.defaultmod.DefaultModule;
 import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 import xenoscape.worldsretold.defaultmod.config.WorldsRetoldConfig;
+import xenoscape.worldsretold.defaultmod.init.WorldsRetoldKeys;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.heatwave.HeatwaveModule;
 import xenoscape.worldsretold.defaultmod.proxy.ServerProxy;
@@ -28,6 +31,8 @@ public class WorldsRetold {
 
 	@Instance(MODID)
 	public static WorldsRetold INSTANCE = new WorldsRetold();
+	public static SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(WorldsRetold.MODID);
+	public static final WorldsRetoldKeys KEYS = new WorldsRetoldKeys();
 
 	@SidedProxy(clientSide = "xenoscape.worldsretold.defaultmod.proxy.ClientProxy", serverSide = "xenoscape.worldsretold.defaultmod.proxy.ServerProxy")
 	private static ServerProxy proxy;

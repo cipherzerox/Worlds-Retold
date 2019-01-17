@@ -2,12 +2,14 @@ package xenoscape.worldsretold.defaultmod.proxy;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -15,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.defaultmod.config.ConfigModules;
+import xenoscape.worldsretold.defaultmod.init.WorldsRetoldKeys;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.RenderBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
@@ -67,6 +70,7 @@ public class ClientProxy extends ServerProxy {
 	@Override
 	public void preInit(final FMLPreInitializationEvent event) {
 		super.preInit(event);
+		WorldsRetoldKeys.ARMOR_ABILITY = new KeyBinding("Armor Ability", 45, "Worlds Retold");
 		if (ConfigModules.isHailstormEnabled == true) {
 			preInitHailstorm(event);
             MinecraftForge.EVENT_BUS.register(new HailstormClientEvents());
@@ -119,6 +123,7 @@ public class ClientProxy extends ServerProxy {
 	@Override
 	public void init(final FMLInitializationEvent event) {
 		super.init(event);
+		ClientRegistry.registerKeyBinding(WorldsRetoldKeys.ARMOR_ABILITY);
 		if (ConfigModules.isHailstormEnabled == true) {
 			initHailstorm(event);
 		}

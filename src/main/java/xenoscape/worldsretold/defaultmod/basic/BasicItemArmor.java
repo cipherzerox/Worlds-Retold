@@ -27,10 +27,9 @@ public class BasicItemArmor extends ItemArmor implements ModelRegistry {
 	public final EntityEquipmentSlot armorType;
 	public final String leggingsTexture;
 	public final String chestTexture;
-	protected final int effect;
 
 	public BasicItemArmor(String name, ItemArmor.ArmorMaterial materialIn, int renderIndexIn,
-						  EntityEquipmentSlot equipmentSlotIn, String leggingsTexture, String chestTexture, int effect) {
+						  EntityEquipmentSlot equipmentSlotIn, String leggingsTexture, String chestTexture) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.name = name;
 		this.material = materialIn;
@@ -38,7 +37,6 @@ public class BasicItemArmor extends ItemArmor implements ModelRegistry {
 		this.armorType = equipmentSlotIn;
 		this.leggingsTexture = leggingsTexture;
 		this.chestTexture = chestTexture;
-		this.effect = effect;
 		setUnlocalizedName(name);
 		setRegistryName(name);
         this.setCreativeTab(WorldsRetoldTabs.W_TAB);
@@ -51,21 +49,5 @@ public class BasicItemArmor extends ItemArmor implements ModelRegistry {
 			return leggingsTexture;
 		}
 		return chestTexture;
-	}
-
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (this.effect == 1) {
-			if (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem().equals(HailstormItems.CRYONITE_HELMET)
-					&& player.inventory.armorItemInSlot(2) != null && player.inventory.armorItemInSlot(2).getItem().equals(HailstormItems.CRYONITE_CHESTPLATE)
-					&& player.inventory.armorItemInSlot(1) != null && player.inventory.armorItemInSlot(1).getItem().equals(HailstormItems.CRYONITE_LEGGINGS)
-					&& player.inventory.armorItemInSlot(0) != null && player.inventory.armorItemInSlot(0).getItem().equals(HailstormItems.CRYONITE_BOOTS)) {
-				List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(5.0D, 5.0D, 5.0D));
-				for (Entity entity : entities)
-					if (entity instanceof IMob && entity instanceof EntityLivingBase && !(entity instanceof ISnowCreature) && entity != null && !((EntityLivingBase) entity).isPotionActive(HailstormPotions.FREEZING)) {
-						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 600, 0));
-					}
-			}
-		}
 	}
 }
