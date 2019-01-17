@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
 import xenoscape.worldsretold.defaultmod.util.ModelRegistry;
+import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
 import xenoscape.worldsretold.hailstorm.init.HailstormItems;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 
@@ -59,9 +60,9 @@ public class BasicItemArmor extends ItemArmor implements ModelRegistry {
 					&& player.inventory.armorItemInSlot(2) != null && player.inventory.armorItemInSlot(2).getItem().equals(HailstormItems.CRYONITE_CHESTPLATE)
 					&& player.inventory.armorItemInSlot(1) != null && player.inventory.armorItemInSlot(1).getItem().equals(HailstormItems.CRYONITE_LEGGINGS)
 					&& player.inventory.armorItemInSlot(0) != null && player.inventory.armorItemInSlot(0).getItem().equals(HailstormItems.CRYONITE_BOOTS)) {
-				List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
+				List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(5.0D, 5.0D, 5.0D));
 				for (Entity entity : entities)
-					if (entity instanceof IMob && entity instanceof EntityLivingBase && entity != null) {
+					if (entity instanceof IMob && entity instanceof EntityLivingBase && !(entity instanceof ISnowCreature) && entity != null && !((EntityLivingBase) entity).isPotionActive(HailstormPotions.FREEZING)) {
 						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(HailstormPotions.FREEZING, 600, 0));
 					}
 			}

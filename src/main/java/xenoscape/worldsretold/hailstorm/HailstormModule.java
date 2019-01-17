@@ -15,6 +15,7 @@ public class HailstormModule {
 	public static HailstormModule INSTANCE = new HailstormModule();
 
 	public void preInitHailstorm(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(new HailstormClientEvents());
 		MinecraftForge.EVENT_BUS.register(new HailstormVanillaLootInsertion());
 		HailstormEntities.preInit();
 		HailstormConfig.preInitConfigs(event);
