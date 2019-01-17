@@ -52,7 +52,7 @@ public class EntityWight extends EntityZombie implements ISnowCreature
     public EntityWight(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.9F, 3.2F);
+        this.setSize(0.6F, 1.975F);
     }
     
     protected void applyEntityAttributes()
@@ -65,7 +65,7 @@ public class EntityWight extends EntityZombie implements ISnowCreature
     
     public float getEyeHeight()
     {
-        float f = 2.76F;
+        float f = 1.95F;
 
         if (this.isChild())
         {
