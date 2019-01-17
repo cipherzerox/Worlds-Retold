@@ -35,7 +35,7 @@ public class RenderWight extends RenderBiped<EntityWight>
     @Override
     protected void preRenderCallback(EntityWight entitylivingbaseIn, float partialTickTime) {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.scale(1.6F, 1.6F, 1.6F);
+        GlStateManager.scale(1.15F, 1.15F, 1.15F);
     }
 
     /**

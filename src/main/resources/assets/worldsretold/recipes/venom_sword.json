@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "X",
+    "I",
     "X",
     "#"
   ],
@@ -11,6 +11,9 @@
     },
     "X": {
       "item": "worldsretold:scorpion_bulb"
+    },
+    "I": {
+      "item": "worldsretold:snake_fang"
     }
   },
   "result": {
