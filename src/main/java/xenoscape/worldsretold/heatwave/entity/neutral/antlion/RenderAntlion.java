@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.neutral.trapjaw;
+package xenoscape.worldsretold.heatwave.entity.neutral.antlion;
 
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.entity.Render;
@@ -11,17 +11,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderTrapjaw extends RenderLiving<EntityTrapjaw>
+public class RenderAntlion extends RenderLiving<EntityAntlion>
 {
     private static final ResourceLocation TRAPJAW = new ResourceLocation("worldsretold:textures/entity/trap_jaw.png");
-	public static final RenderTrapjaw.Factory FACTORY = new RenderTrapjaw.Factory();
+	public static final RenderAntlion.Factory FACTORY = new RenderAntlion.Factory();
     
-    public RenderTrapjaw(RenderManager renderManagerIn)
+    public RenderAntlion(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelTrapjaw(), 1.0F);
+        super(renderManagerIn, new ModelAntlion(), 1.0F);
     }
 
-    protected float getDeathMaxRotation(EntityTrapjaw entityLivingBaseIn)
+    protected float getDeathMaxRotation(EntityAntlion entityLivingBaseIn)
     {
         return 180.0F;
     }
@@ -29,15 +29,15 @@ public class RenderTrapjaw extends RenderLiving<EntityTrapjaw>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityTrapjaw entity)
+    protected ResourceLocation getEntityTexture(EntityAntlion entity)
     {
         return TRAPJAW;
     }
     
-	public static class Factory implements IRenderFactory<EntityTrapjaw> {
+	public static class Factory implements IRenderFactory<EntityAntlion> {
 		@Override
-		public Render<? super EntityTrapjaw> createRenderFor(RenderManager manager) {
-			return new RenderTrapjaw(manager);
+		public Render<? super EntityAntlion> createRenderFor(RenderManager manager) {
+			return new RenderAntlion(manager);
 		}
 	}
 }

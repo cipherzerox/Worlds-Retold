@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.neutral.trapjaw;
+package xenoscape.worldsretold.heatwave.entity.neutral.antlion;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * ModelTrapjaw - Enderman_of_D00M
  * Created using Tabula 7.0.0
  */
-public class ModelTrapjaw extends ModelBase {
+public class ModelAntlion extends ModelBase {
     public ModelRenderer body;
     public ModelRenderer head;
     public ModelRenderer rightleg1;
@@ -20,7 +20,7 @@ public class ModelTrapjaw extends ModelBase {
     public ModelRenderer leftmouthpart;
     public ModelRenderer rightmouthpart;
 
-    public ModelTrapjaw() {
+    public ModelAntlion() {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.head = new ModelRenderer(this, 0, 0);

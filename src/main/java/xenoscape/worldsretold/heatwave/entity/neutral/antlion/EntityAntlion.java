@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.neutral.trapjaw;
+package xenoscape.worldsretold.heatwave.entity.neutral.antlion;
 
 import java.util.Random;
 import javax.annotation.Nullable;
@@ -56,15 +56,15 @@ import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
-public class EntityTrapjaw extends EntitySurfaceMonster implements IDesertCreature
+public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreature
 {
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityTrapjaw.class, DataSerializers.BYTE);
-    protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityTrapjaw.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityAntlion.class, DataSerializers.BYTE);
+    protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityAntlion.class, DataSerializers.BYTE);
     public EntityLivingBase heldEntity;
     public float stingerBaseRot;
     public float prevStingerBaseRot;
     
-    public EntityTrapjaw(World worldIn)
+    public EntityAntlion(World worldIn)
     {
         super(worldIn);
         this.setSize(1.4F, 0.8F);
@@ -74,20 +74,20 @@ public class EntityTrapjaw extends EntitySurfaceMonster implements IDesertCreatu
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIRestrictSun(this));
-        this.tasks.addTask(2, new EntityTrapjaw.EntityAISeekShelter(this, 1.2D));
+        this.tasks.addTask(2, new EntityAntlion.EntityAISeekShelter(this, 1.2D));
         this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityEnderman.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(4, new EntityTrapjaw.AIScorpionAttack(this));
+        this.tasks.addTask(4, new EntityAntlion.AIScorpionAttack(this));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityTrapjaw.AIScorpionTarget(this, EntityPlayer.class));
-        this.targetTasks.addTask(3, new EntityTrapjaw.AIScorpionTarget(this, EntityIronGolem.class));
-        this.targetTasks.addTask(7, new EntityTrapjaw.AIScorpionTarget(this, EntityCobra.class));
-        this.targetTasks.addTask(6, new EntityTrapjaw.AIScorpionTarget(this, EntityBat.class));
-        this.targetTasks.addTask(5, new EntityTrapjaw.AIScorpionTarget(this, EntityParrot.class));
-        this.targetTasks.addTask(4, new EntityTrapjaw.AIScorpionTarget(this, EntityChicken.class));
-        this.targetTasks.addTask(4, new EntityTrapjaw.AIScorpionTarget(this, EntityPenguin.class));
-        this.targetTasks.addTask(5, new EntityTrapjaw.AIScorpionTarget(this, EntityPig.class));
-        this.targetTasks.addTask(5, new EntityTrapjaw.AIScorpionTarget(this, EntitySheep.class));
+        this.targetTasks.addTask(2, new EntityAntlion.AIScorpionTarget(this, EntityPlayer.class));
+        this.targetTasks.addTask(3, new EntityAntlion.AIScorpionTarget(this, EntityIronGolem.class));
+        this.targetTasks.addTask(7, new EntityAntlion.AIScorpionTarget(this, EntityCobra.class));
+        this.targetTasks.addTask(6, new EntityAntlion.AIScorpionTarget(this, EntityBat.class));
+        this.targetTasks.addTask(5, new EntityAntlion.AIScorpionTarget(this, EntityParrot.class));
+        this.targetTasks.addTask(4, new EntityAntlion.AIScorpionTarget(this, EntityChicken.class));
+        this.targetTasks.addTask(4, new EntityAntlion.AIScorpionTarget(this, EntityPenguin.class));
+        this.targetTasks.addTask(5, new EntityAntlion.AIScorpionTarget(this, EntityPig.class));
+        this.targetTasks.addTask(5, new EntityAntlion.AIScorpionTarget(this, EntitySheep.class));
     }
 
     /**
@@ -364,17 +364,17 @@ public class EntityTrapjaw extends EntitySurfaceMonster implements IDesertCreatu
 
         if (livingdata == null)
         {
-            livingdata = new EntityTrapjaw.GroupData();
+            livingdata = new EntityAntlion.GroupData();
 
             if (this.world.getDifficulty() == EnumDifficulty.HARD && this.world.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty())
             {
-                ((EntityTrapjaw.GroupData)livingdata).setRandomEffect(this.world.rand);
+                ((EntityAntlion.GroupData)livingdata).setRandomEffect(this.world.rand);
             }
         }
 
-        if (livingdata instanceof EntityTrapjaw.GroupData)
+        if (livingdata instanceof EntityAntlion.GroupData)
         {
-            Potion potion = ((EntityTrapjaw.GroupData)livingdata).effect;
+            Potion potion = ((EntityAntlion.GroupData)livingdata).effect;
 
             if (potion != null)
             {
@@ -402,7 +402,7 @@ public class EntityTrapjaw extends EntitySurfaceMonster implements IDesertCreatu
 
     static class AIScorpionAttack extends EntityAIAttackMelee
         {
-            public AIScorpionAttack(EntityTrapjaw spider)
+            public AIScorpionAttack(EntityAntlion spider)
             {
                 super(spider, 1.0D, true);
             }
@@ -433,7 +433,7 @@ public class EntityTrapjaw extends EntitySurfaceMonster implements IDesertCreatu
 
     static class AIScorpionTarget<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T>
         {
-            public AIScorpionTarget(EntityTrapjaw spider, Class<T> classTarget)
+            public AIScorpionTarget(EntityAntlion spider, Class<T> classTarget)
             {
                 super(spider, classTarget, true);
             }
@@ -450,14 +450,14 @@ public class EntityTrapjaw extends EntitySurfaceMonster implements IDesertCreatu
     
     public class EntityAISeekShelter extends EntityAIBase
     {
-        private final EntityTrapjaw creature;
+        private final EntityAntlion creature;
         private double shelterX;
         private double shelterY;
         private double shelterZ;
         private final double movementSpeed;
         private final World world;
 
-        public EntityAISeekShelter(EntityTrapjaw theCreatureIn, double movementSpeedIn)
+        public EntityAISeekShelter(EntityAntlion theCreatureIn, double movementSpeedIn)
         {
             this.creature = theCreatureIn;
             this.movementSpeed = movementSpeedIn;
