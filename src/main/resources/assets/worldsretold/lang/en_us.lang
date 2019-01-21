@@ -78,9 +78,10 @@ entity.scout.name=Scout
 entity.camel.name=Camel
 entity.scorpion.name=Scorpion
 entity.cobra.name=Cobra
-entity.trapjaw.name=Trap jaw
+entity.antlion.name=Antlion
 
 # Hostile
+entity.redead.name=Redead
 entity.guardsman.name=Guardsman
 entity.blizzard.name=Blizzard
 entity.roller.name=Snow Roller
@@ -89,10 +90,13 @@ entity.wight.name=Wight
 entity.mummy.name=Mummy
 entity.anubite.name=Anubite
 entity.jinn.name=Jinn
-entity.ammos.name=Ammos
 entity.ghoul.name=Ghoul
 entity.mimic.name=Mimic
 entity.fester.name=Fester
+
+# Boss
+entity.frostboar.name=Frost Boar
+entity.prophet.name=Prophet
 
 ##Damage Sources##
 
