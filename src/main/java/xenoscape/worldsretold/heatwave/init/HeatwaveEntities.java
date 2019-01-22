@@ -73,9 +73,9 @@ public class HeatwaveEntities {
 		
 		// Passive
         if (ConfigHeatwaveEntity.isRoadrunnerEnabled) {
-			EntityRegistry.addSpawn(EntityRoadrunner.class, 20, 1, 4, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityRoadrunner.class, 5, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
-			EntityRegistry.addSpawn(EntityCobra.class, 5, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityCobra.class, 1, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
 		}
 
