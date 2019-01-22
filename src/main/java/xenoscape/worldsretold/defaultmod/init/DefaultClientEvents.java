@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.defaultmod.config.ConfigDefaultMisc;
 import xenoscape.worldsretold.defaultmod.packets.PacketArmorAbility;
 import xenoscape.worldsretold.defaultmod.util.RenderHelper;
 import xenoscape.worldsretold.hailstorm.entity.ISnowCreature;
@@ -30,6 +31,7 @@ import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 import xenoscape.worldsretold.hailstorm.potion.PotionFreezing;
 
 import java.util.List;
+import java.util.Random;
 
 public class DefaultClientEvents {
 
@@ -51,15 +53,20 @@ public class DefaultClientEvents {
 
     @SubscribeEvent
     public void onPlayerEveryLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        event.player.sendMessage(
-                new TextComponentString(TextFormatting.GOLD + event.player.getDisplayName().getFormattedText()
-                        + TextFormatting.GOLD + ", thank you for downloading Worlds Retold!"));
-        ClickEvent discordLink = new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/xRdGTTH");
-        Style clickableDiscordLink = new Style().setClickEvent(discordLink);
-        TextComponentString discordLinkChatComponent = new TextComponentString(
-                TextFormatting.AQUA + "[CLICK HERE!]" + TextFormatting.AQUA + " to join our Discord.");
-        discordLinkChatComponent.setStyle(clickableDiscordLink);
-        event.player.sendMessage(discordLinkChatComponent);
+        Random rand = new Random();
+        if (rand.nextInt(3) == 0) {
+            if (ConfigDefaultMisc.isLoginMessageEnabled) {
+                event.player.sendMessage(
+                        new TextComponentString(TextFormatting.GOLD + event.player.getDisplayName().getFormattedText()
+                                + TextFormatting.GOLD + ", thank you for downloading Worlds Retold!"));
+                ClickEvent discordLink = new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/xRdGTTH");
+                Style clickableDiscordLink = new Style().setClickEvent(discordLink);
+                TextComponentString discordLinkChatComponent = new TextComponentString(
+                        TextFormatting.AQUA + "[CLICK HERE!]" + TextFormatting.AQUA + " to join our Discord.");
+                discordLinkChatComponent.setStyle(clickableDiscordLink);
+                event.player.sendMessage(discordLinkChatComponent);
+            }
+        }
     }
 
 }
