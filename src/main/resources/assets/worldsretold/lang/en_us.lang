@@ -69,6 +69,7 @@ entity.caribou.name=Caribou
 entity.reindeer.name=Reindeer
 entity.nix.name=Nix
 entity.kitsune.name=Kitsune
+entity.roadrunner.name=Roadrunner
 
 # Neutral
 entity.automaton.name=Automaton
