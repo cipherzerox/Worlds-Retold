@@ -58,6 +58,7 @@ public class EntityRoadrunner extends EntityAnimal
 		this.setSize(0.4F, 0.6F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
 		this.stepHeight = 1F;
+	    this.spawnableBlock = Blocks.SAND;
 	}
 
 	protected void initEntityAI() {
@@ -65,13 +66,21 @@ public class EntityRoadrunner extends EntityAnimal
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
 		this.tasks.addTask(2, new EntityAIFollowParent(this, 1.25D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.5D));
+		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.5D, 0.01F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
 	}
 
 	public float getEyeHeight() {
 		return this.height - 0.15F;
 	}
+	
+	/**
+     * Determines if an entity can be despawned, used on idle far away entities
+     */
+    protected boolean canDespawn()
+    {
+        return true;
+    }
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
@@ -146,14 +155,5 @@ public class EntityRoadrunner extends EntityAnimal
 	public boolean isBreedingItem(ItemStack stack) 
 	{
 		return false;
-	}
-
-	public boolean getCanSpawnHere() {
-		int i = MathHelper.floor(this.posX);
-		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-		int k = MathHelper.floor(this.posZ);
-		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0
-				&& this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && super.getCanSpawnHere();
 	}
 }

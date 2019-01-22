@@ -58,6 +58,8 @@ import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.RenderCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.RenderScorpion;
+import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
+import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.RenderRoadrunner;
 
 public class ClientProxy extends ServerProxy {
 
@@ -107,6 +109,7 @@ public class ClientProxy extends ServerProxy {
 	
 	public void preInitHeatwave(final FMLPreInitializationEvent event) {
 		// Passive
+		RenderingRegistry.registerEntityRenderingHandler(EntityRoadrunner.class, RenderRoadrunner.FACTORY);
 
 		// Neutral
 		RenderingRegistry.registerEntityRenderingHandler(EntityCamel.class, RenderCamel.FACTORY);

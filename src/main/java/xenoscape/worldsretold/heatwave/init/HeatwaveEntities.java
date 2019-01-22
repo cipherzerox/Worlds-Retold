@@ -21,6 +21,7 @@ import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
+import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
 
 import java.util.Set;
 
@@ -29,7 +30,9 @@ public class HeatwaveEntities {
 
 	public static void preInit() {
 		// Passive
-
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "roadrunner"), EntityRoadrunner.class,
+				"roadrunner", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 5920331, 921101);
+		
 		// Neutral
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "camel"), EntityCamel.class,
 				"camel", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 11773813, 7824967);
@@ -69,6 +72,10 @@ public class HeatwaveEntities {
 		}
 		
 		// Passive
+        if (ConfigHeatwaveEntity.isRoadrunnerEnabled) {
+			EntityRegistry.addSpawn(EntityRoadrunner.class, 15, 1, 4, EnumCreatureType.AMBIENT,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+		}
 
 		// Neutral
         if (ConfigHeatwaveEntity.isCamelEnabled) {
