@@ -9,6 +9,9 @@ public class ConfigHeatwaveEntity extends Configuration {
     private static final String CATEGORY_PASSIVE = "passive";
     private static final String CATEGORY_NEUTRAL = "neutral";
     private static final String CATEGORY_HOSTILE = "hostile";
+    
+    // Passive
+    public static boolean isRoadrunnerEnabled;
 
     // Neutral
     public static boolean isCamelEnabled;
@@ -26,6 +29,9 @@ public class ConfigHeatwaveEntity extends Configuration {
 
     public void reload() {
         this.load();
+        // Passive
+        isRoadrunnerEnabled = getBoolean("Enable Camel", CATEGORY_PASSIVE, true,
+                "A fast moving bird that runs from you, and you have no ACME to use either.");
 
         // Neutral
         isCamelEnabled = getBoolean("Enable Camel", CATEGORY_NEUTRAL, true,
