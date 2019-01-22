@@ -30,7 +30,7 @@ public class ConfigHeatwaveEntity extends Configuration {
     public void reload() {
         this.load();
         // Passive
-        isRoadrunnerEnabled = getBoolean("Enable Camel", CATEGORY_PASSIVE, true,
+        isRoadrunnerEnabled = getBoolean("Enable Roadrunner", CATEGORY_PASSIVE, true,
                 "A fast moving bird that runs from you, and you have no ACME to use either.");
 
         // Neutral
@@ -43,7 +43,7 @@ public class ConfigHeatwaveEntity extends Configuration {
 
         // Hostile
         isFesterEnabled = getBoolean("Enable Fester", CATEGORY_HOSTILE, true,
-                "A dried up skeleton that shoots hunger arrows at you.");
+                "A dried up skeleton that shoots hunger arrows at you, and sometimes hold a sword.");
         isMummyEnabled = getBoolean("Enable Mummy", CATEGORY_HOSTILE, true,
                 "A fully-covered Husk. Much more classier and intelligent.");
         this.save();
