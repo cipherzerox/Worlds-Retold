@@ -115,6 +115,6 @@ public class ModelRoadrunner extends ModelBase {
         this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.rightWing.rotateAngleZ = ageInTicks;
         this.leftWing.rotateAngleZ = -ageInTicks;
-        this.tail.rotateAngleX = 1.5707963267948966F + (limbSwing * 0.3331F);
+        this.tail.rotateAngleX = 1.5707963267948966F + (limbSwingAmount * 0.5F);
     }
 }

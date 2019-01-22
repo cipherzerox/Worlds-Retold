@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
@@ -55,7 +56,7 @@ public class EntityRoadrunner extends EntityAnimal
 
 	public EntityRoadrunner(World worldIn) {
 		super(worldIn);
-		this.setSize(0.4F, 0.6F);
+		this.setSize(0.4F, 0.7F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
 		this.stepHeight = 1F;
 	    this.spawnableBlock = Blocks.SAND;
@@ -63,15 +64,15 @@ public class EntityRoadrunner extends EntityAnimal
 
 	protected void initEntityAI() {
 		this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-		this.tasks.addTask(2, new EntityAIFollowParent(this, 1.25D));
+        this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0F, 1.0D, 1.5D));
+		this.tasks.addTask(3, new EntityAIPanic(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.5D, 0.01F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
 	}
 
 	public float getEyeHeight() {
-		return this.height - 0.15F;
+		return this.height - 0.1F;
 	}
 	
 	/**
