@@ -100,6 +100,11 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     {
     	super.onLivingUpdate();
     	
+        if (this.ticksExisted % 60 == 0)
+        {
+            this.heal(1.0F);
+        }
+    	
     	this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(this.isHidden() ? 1D : 0.05D);
     	
     	if (this.isHidden())
