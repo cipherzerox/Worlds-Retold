@@ -10,6 +10,8 @@ import xenoscape.worldsretold.defaultmod.config.ConfigModules;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentGlacier;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentIceboundBlade;
 import xenoscape.worldsretold.hailstorm.enchantment.EnchantmentLightningRod;
+import xenoscape.worldsretold.heatwave.enchantment.EnchantmentAssassinate;
+import xenoscape.worldsretold.heatwave.enchantment.EnchantmentVenomTippedArrows;
 
 @Mod.EventBusSubscriber(modid = WorldsRetold.MODID)
 public class HailstormEnchantments {
@@ -23,9 +25,8 @@ public class HailstormEnchantments {
 
 	@SubscribeEvent
 	public static void registerEnchantments(Register<Enchantment> event) {
-		if (ConfigModules.isHailstormEnabled == true) {
+		if (ConfigModules.isHailstormEnabled == true)
 			event.getRegistry().registerAll(ICEBOUND_BLADE, GLACIER, LIGHTNING_ROD);
-		}
 	}
 
 }
