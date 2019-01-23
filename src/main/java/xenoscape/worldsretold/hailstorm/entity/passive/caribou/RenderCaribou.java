@@ -29,11 +29,10 @@ public class RenderCaribou extends RenderLiving<EntityCaribou>
 
     public static class Factory implements IRenderFactory<EntityCaribou>
     {
-
         @Override
-        public Render<? super EntityCaribou> createRenderFor(RenderManager manager) {
+        public Render<? super EntityCaribou> createRenderFor(RenderManager manager) 
+        {
             return new RenderCaribou(manager);
         }
-
     }
 }

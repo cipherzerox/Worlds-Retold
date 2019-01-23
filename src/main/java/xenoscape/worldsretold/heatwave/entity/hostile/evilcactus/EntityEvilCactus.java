@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIRestrictSun;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
@@ -39,9 +40,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -60,12 +63,14 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.DAMAGE_CACTUS, 0.0F);
         this.setPathPriority(PathNodeType.DANGER_CACTUS, 0.0F);
+        this.setSize(0.9375F, 0.99F + this.getSize() - 1);
     }
 
     protected void initEntityAI() {
         this.tasks.addTask(0, new EntityEvilCactus.AIWait());
         this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
     
     public boolean isPreventingPlayerRest(EntityPlayer playerIn)
@@ -81,11 +86,14 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
 
     protected void setSize(int size, boolean resetHealth)
     {
+    	if (size < 1)
+    		size = 1;
         this.dataManager.set(SIZE, Integer.valueOf(size));
-        this.setSize(0.9375F, 0.99F + (float)size);
+        this.setSize(0.9375F, 0.99F + (float)size - 1);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20D + (double)(size * 20));
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D + (double)(size * 2));
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue((double)(size * 4));
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)(size * 20));
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2D + (double)(size * 2));
 
         if (resetHealth)
         {
@@ -103,7 +111,37 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         return ((Integer)this.dataManager.get(SIZE)).intValue();
     }
     
+    public void notifyDataManagerChange(DataParameter<?> key)
+    {
+        if (SIZE.equals(key))
+        {
+            int i = this.getSize();
+            this.setSize(0.9375F, 0.99F + (float)i - 1);
+            this.rotationYaw = this.rotationYawHead;
+            this.renderYawOffset = this.rotationYawHead;
 
+            if (this.isInWater() && this.rand.nextInt(20) == 0)
+            {
+                this.doWaterSplashEffect();
+            }
+        }
+
+        super.notifyDataManagerChange(key);
+    }
+
+    /**
+     * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
+     * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory
+     */
+    @Nullable
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+    {
+        this.setSize(this.rand.nextInt(4), true);
+        if (rand.nextFloat() <= 0.01F)
+            this.setSize(this.getSize() + 1, true);
+		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead = 180F;
+        return super.onInitialSpawn(difficulty, livingdata);
+    }
 
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
@@ -163,6 +201,20 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         return SoundEvents.BLOCK_CLOTH_BREAK;
     }
 
+    /**
+     * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
+     * this entity is not solid.
+     *  
+     * For general purposes, use {@link #width} and {@link #height}.
+     *  
+     * @see getEntityBoundingBox
+     */
+    @Nullable
+    public AxisAlignedBB getCollisionBoundingBox()
+    {
+        return this.isEntityAlive() && !this.isAggressive() ? this.getEntityBoundingBox() : null;
+    }
+
 	protected ResourceLocation getLootTable() 
 	{
 		return new ResourceLocation(WorldsRetold.MODID, "entity/cobra");
@@ -182,12 +234,27 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         return 1;
     }
     
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (this.isEntityInvulnerable(source)) {
+	public boolean attackEntityFrom(DamageSource source, float amount) 
+	{
+		if (this.isEntityInvulnerable(source)) 
+		{
 			return false;
-		} else if (source == DamageSource.CACTUS) {
+		} 
+		else if (source == DamageSource.CACTUS) 
+		{
 			return false;
-		} else {
+		} 
+		else 
+		{
+	        if (!source.isMagicDamage() && source.getImmediateSource() instanceof EntityLivingBase)
+	        {
+	            EntityLivingBase entitylivingbase = (EntityLivingBase)source.getImmediateSource();
+
+	            if (!source.isExplosion())
+	            {
+	                entitylivingbase.attackEntityFrom(DamageSource.CACTUS, 1F);
+	            }
+	        }
 			return super.attackEntityFrom(source, amount);
 		}
 	}
@@ -195,6 +262,8 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     public void onLivingUpdate()
     {
     	super.onLivingUpdate();
+    	
+    	this.setAggressive(this.getAttackTarget() != null);
     	
     	if (this.isAggressive())
     		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;

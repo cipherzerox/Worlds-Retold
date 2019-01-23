@@ -16,6 +16,7 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
 import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
+import xenoscape.worldsretold.heatwave.entity.hostile.evilcactus.EntityEvilCactus;
 import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
@@ -42,6 +43,8 @@ public class HeatwaveEntities {
 				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6569510, 4269587);
 
 		// Hostile
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "evilcactus"), EntityEvilCactus.class,
+				"evilcactus", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 1146656, 606736);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "fester"), EntityFester.class,
 				"fester", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6575187, 3484972);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "mummy"), EntityMummy.class,
