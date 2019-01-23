@@ -1,6 +1,7 @@
 package xenoscape.worldsretold.heatwave.entity.hostile.evilcactus;
 
 
+import java.util.List;
 import java.util.Random;
 import javax.annotation.Nullable;
 
@@ -37,6 +38,7 @@ import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -267,6 +269,17 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     	
     	if (this.isAggressive())
     		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;
+    	
+        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0D, 0.25D), EntitySelectors.getTeamCollisionPredicate(this));
+
+        if (!list.isEmpty())
+        {
+            for (int l = 0; l < list.size(); ++l)
+            {
+                Entity entity = list.get(l);
+                entity.attackEntityFrom(DamageSource.CACTUS, 1F);
+            }
+        }
     }
 
     class AIWait extends EntityAIBase
