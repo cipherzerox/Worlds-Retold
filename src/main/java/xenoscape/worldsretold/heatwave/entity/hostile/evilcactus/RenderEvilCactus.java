@@ -60,22 +60,18 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.5F, 1.5F, 0.5F);
             GlStateManager.scale(-1F, -1F, 1F);
+            GlStateManager.translate(-0.5F, -2.5F, 0.5F);
             int i = entitylivingbaseIn.getBrightnessForRender();
             int j = i % 65536;
             int k = i / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-            for (int co = 0; co < entitylivingbaseIn.getSize(); ++co)
+            for (float co = 0; co < (float)entitylivingbaseIn.getSize(); ++co)
             {
-	            GlStateManager.translate(0, co, co);
-	            if (co > 1)
-	            GlStateManager.translate(0, -co * 0.5F, -co * 0.5F);
-	            if (co > 2)
-	            GlStateManager.translate(0, -co * 0.16675F, -co * 0.16675F);
-	            blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
+                GlStateManager.translate(0F, 1F, co > 0 ? 1F : 0F);
+	            blockrendererdispatcher.renderBlockBrightness(iblockstate, entitylivingbaseIn.getBrightness());
             }
             GlStateManager.popMatrix();
             GlStateManager.disableRescaleNormal();
