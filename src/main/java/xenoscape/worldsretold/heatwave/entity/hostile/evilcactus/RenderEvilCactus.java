@@ -76,6 +76,8 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
 		            GlStateManager.translate(0, co, co);
 		            if (co > 1)
 		            GlStateManager.translate(0, -co * 0.5F, -co * 0.5F);
+		            if (co > 2)
+		            GlStateManager.translate(0, -co * 0.16675F, -co * 0.16675F);
 		            blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
 	            }
 	            GlStateManager.popMatrix();
