@@ -326,7 +326,7 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0 && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		return this.world.provider.getDimension() == 0 && this.world.getBlockState(blockpos.south()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.north()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.west()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.east()).getBlock() == Blocks.AIR && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
 	}
 
     class AIWait extends EntityAIBase
