@@ -307,9 +307,9 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
             		this.heal(1F);
         	}
         	
-            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0.125D, 0.25D).offset(-0.125D, 0D, -0.125D), EntitySelectors.getTeamCollisionPredicate(this));
+            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0.125D, 0.25D).offset(-0.125D, 0D, -0.125D), null);
 
-            if (!list.isEmpty())
+            if (!list.isEmpty() && this.isEntityAlive())
             {
                 for (int l = 0; l < list.size(); ++l)
                 {
