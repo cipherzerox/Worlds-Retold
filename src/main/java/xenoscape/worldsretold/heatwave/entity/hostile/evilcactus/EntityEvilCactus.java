@@ -93,7 +93,7 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         this.dataManager.set(SIZE, Integer.valueOf(size));
         this.setSize(0.9375F, 0.99F + (float)size - 1);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue((double)(size * 4));
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(9D + (double)(size));
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)(size * 20));
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2D + (double)(size * 2));
 
