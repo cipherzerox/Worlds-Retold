@@ -63,7 +63,7 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
             GlStateManager.pushMatrix();
             GlStateManager.scale(-1F, -1F, 1F);
             GlStateManager.translate(-0.5F, -2.5F, 0.5F);
-            if (entitylivingbaseIn.isAggressive())
+            if (entitylivingbaseIn.isAggressive() && entitylivingbaseIn.isEntityAlive())
             GlStateManager.translate(0F, MathHelper.cos(limbSwing * 0.9993F) * limbSwingAmount + (limbSwingAmount > 0 ? 0.5F : 0F), 0F);
             int i = entitylivingbaseIn.getBrightnessForRender();
             int j = i % 65536;
