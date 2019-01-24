@@ -25,6 +25,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
@@ -291,7 +292,11 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         	else
         	{
         		if (this.getAttackTarget() != null)
+        		{
                     this.setAggressive(true);
+                	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
+                    this.motionY += 0.6D;
+        		}
             	this.setInvisible(true);
             	if (this.ticksExisted % 60 == 0)
             		this.heal(1F);
@@ -309,6 +314,15 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
             }
     	}
     }
+    
+	public boolean getCanSpawnHere() 
+	{
+		int i = MathHelper.floor(this.posX);
+		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+		int k = MathHelper.floor(this.posZ);
+		BlockPos blockpos = new BlockPos(i, j, k);
+		return this.world.provider.getDimension() == 0 && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+	}
 
     class AIWait extends EntityAIBase
     {
