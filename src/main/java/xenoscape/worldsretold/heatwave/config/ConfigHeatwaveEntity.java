@@ -19,6 +19,7 @@ public class ConfigHeatwaveEntity extends Configuration {
     public static boolean isCobraEnabled;
 
     //Hostile
+    public static boolean isCactorEnabled;
     public static boolean isFesterEnabled;
     public static boolean isMummyEnabled;
 
@@ -42,6 +43,8 @@ public class ConfigHeatwaveEntity extends Configuration {
                 "A desert snake that you probably shouldn't poke.");
 
         // Hostile
+        isCactorEnabled = getBoolean("Enable Cactor", CATEGORY_HOSTILE, true,
+                "An evil cactus that waits until you get close, then lifts up and attacks you.");
         isFesterEnabled = getBoolean("Enable Fester", CATEGORY_HOSTILE, true,
                 "A dried up skeleton that shoots hunger arrows at you, and sometimes hold a sword.");
         isMummyEnabled = getBoolean("Enable Mummy", CATEGORY_HOSTILE, true,

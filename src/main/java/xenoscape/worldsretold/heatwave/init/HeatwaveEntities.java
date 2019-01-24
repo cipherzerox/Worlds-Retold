@@ -102,6 +102,10 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		// Hostile
+        if (ConfigHeatwaveEntity.isCactorEnabled) {
+			EntityRegistry.addSpawn(EntityEvilCactus.class, 20, 1, 1, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+		}
         if (ConfigHeatwaveEntity.isFesterEnabled) {
 			EntityRegistry.addSpawn(EntityFester.class, 80, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));

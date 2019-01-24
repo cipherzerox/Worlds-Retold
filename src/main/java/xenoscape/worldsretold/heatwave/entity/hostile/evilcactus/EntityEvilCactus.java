@@ -270,7 +270,7 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     	if (this.isAggressive())
     		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;
     	
-        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0D, 0.25D), EntitySelectors.getTeamCollisionPredicate(this));
+        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0.125D, 0.25D).offset(-0.125D, 0D, -0.125D), EntitySelectors.getTeamCollisionPredicate(this));
 
         if (!list.isEmpty())
         {

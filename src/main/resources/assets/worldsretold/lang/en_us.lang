@@ -94,7 +94,7 @@ entity.jinn.name=Jinn
 entity.ghoul.name=Ghoul
 entity.mimic.name=Mimic
 entity.fester.name=Fester
-entity.evilcactus.name=Cactors
+entity.evilcactus.name=Cactor
 
 # Boss
 entity.frostboar.name=Frost Boar
