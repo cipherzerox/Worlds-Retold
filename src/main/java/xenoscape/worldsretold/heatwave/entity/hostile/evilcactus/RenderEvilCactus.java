@@ -57,6 +57,7 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
 
 	    public void doRenderLayer(EntityEvilCactus entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	    {
+	        float f = MathHelper.cos(limbSwing * 0.9993F) * limbSwingAmount;
 	        IBlockState iblockstate = Blocks.CACTUS.getDefaultState();
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
@@ -64,7 +65,7 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
             GlStateManager.scale(-1F, -1F, 1F);
             GlStateManager.translate(-0.5F, -2.5F, 0.5F);
             if (entitylivingbaseIn.isAggressive() && entitylivingbaseIn.isEntityAlive())
-            GlStateManager.translate(0F, MathHelper.cos(limbSwing * 0.9993F) * limbSwingAmount + (limbSwingAmount > 0 ? 0.5F : 0F), 0F);
+            GlStateManager.translate(0F, (0.05F + 0.1F * f) * ((float)Math.PI * 2F), 0F);
             int i = entitylivingbaseIn.getBrightnessForRender();
             int j = i % 65536;
             int k = i / 65536;
