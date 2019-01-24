@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.RenderCaribou;
@@ -62,6 +63,8 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
             GlStateManager.pushMatrix();
             GlStateManager.scale(-1F, -1F, 1F);
             GlStateManager.translate(-0.5F, -2.5F, 0.5F);
+            if (entitylivingbaseIn.isAggressive())
+            GlStateManager.translate(0F, MathHelper.cos(limbSwing * 0.9993F) * limbSwingAmount + (limbSwingAmount > 0 ? 0.5F : 0F), 0F);
             int i = entitylivingbaseIn.getBrightnessForRender();
             int j = i % 65536;
             int k = i / 65536;
