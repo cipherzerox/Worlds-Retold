@@ -142,12 +142,17 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     {
         int i = this.rand.nextInt(3);
 
-        if (this.rand.nextFloat() < 0.25F * difficulty.getClampedAdditionalDifficulty())
+        if (this.rand.nextFloat() < 0.5F * difficulty.getClampedAdditionalDifficulty())
         {
             ++i;
         }
 
-        if (this.rand.nextFloat() < 0.01F * difficulty.getClampedAdditionalDifficulty())
+        if (this.rand.nextFloat() < 0.05F * difficulty.getClampedAdditionalDifficulty())
+        {
+            ++i;
+        }
+
+        if (this.rand.nextFloat() < 0.001F * difficulty.getClampedAdditionalDifficulty())
         {
             ++i;
         }
