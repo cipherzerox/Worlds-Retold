@@ -57,32 +57,28 @@ public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
 	    public void doRenderLayer(EntityEvilCactus entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	    {
 	        IBlockState iblockstate = Blocks.CACTUS.getDefaultState();
-	    	
-	        if (!entitylivingbaseIn.isInvisible())
-	        {
-	            BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-	            GlStateManager.enableRescaleNormal();
-	            GlStateManager.pushMatrix();
-	            GlStateManager.translate(0.5F, 1.5F, 0.5F);
-	            GlStateManager.scale(-1F, -1F, 1F);
-	            int i = entitylivingbaseIn.getBrightnessForRender();
-	            int j = i % 65536;
-	            int k = i / 65536;
-	            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
-	            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-	            this.endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-	            for (int co = 0; co < entitylivingbaseIn.getSize(); ++co)
-	            {
-		            GlStateManager.translate(0, co, co);
-		            if (co > 1)
-		            GlStateManager.translate(0, -co * 0.5F, -co * 0.5F);
-		            if (co > 2)
-		            GlStateManager.translate(0, -co * 0.16675F, -co * 0.16675F);
-		            blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
-	            }
-	            GlStateManager.popMatrix();
-	            GlStateManager.disableRescaleNormal();
-	        }
+            BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+            GlStateManager.enableRescaleNormal();
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0.5F, 1.5F, 0.5F);
+            GlStateManager.scale(-1F, -1F, 1F);
+            int i = entitylivingbaseIn.getBrightnessForRender();
+            int j = i % 65536;
+            int k = i / 65536;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            for (int co = 0; co < entitylivingbaseIn.getSize(); ++co)
+            {
+	            GlStateManager.translate(0, co, co);
+	            if (co > 1)
+	            GlStateManager.translate(0, -co * 0.5F, -co * 0.5F);
+	            if (co > 2)
+	            GlStateManager.translate(0, -co * 0.16675F, -co * 0.16675F);
+	            blockrendererdispatcher.renderBlockBrightness(iblockstate, 1.0F);
+            }
+            GlStateManager.popMatrix();
+            GlStateManager.disableRescaleNormal();
 	    }
 
 	    public boolean shouldCombineTextures()

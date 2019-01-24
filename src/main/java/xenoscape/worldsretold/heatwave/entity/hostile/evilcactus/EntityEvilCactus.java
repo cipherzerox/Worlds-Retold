@@ -47,6 +47,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -138,9 +139,19 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        this.setSize(this.rand.nextInt(4), true);
-        if (rand.nextFloat() <= 0.01F)
-            this.setSize(this.getSize() + 1, true);
+        int i = this.rand.nextInt(3);
+
+        if (this.rand.nextFloat() < 0.25F * difficulty.getClampedAdditionalDifficulty())
+        {
+            ++i;
+        }
+
+        if (this.rand.nextFloat() < 0.01F * difficulty.getClampedAdditionalDifficulty())
+        {
+            ++i;
+        }
+    	
+        this.setSize(i, true);
 		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead = 180F;
         return super.onInitialSpawn(difficulty, livingdata);
     }
@@ -265,21 +276,27 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     {
     	super.onLivingUpdate();
     	
-    	this.setAggressive(this.getAttackTarget() != null);
+    	if (this.getAttackTarget() != null && !this.getAttackTarget().isEntityAlive())
+    		this.setAttackTarget(null);
     	
-    	if (this.isAggressive())
-    		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;
-    	
-        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0.125D, 0.25D).offset(-0.125D, 0D, -0.125D), EntitySelectors.getTeamCollisionPredicate(this));
+    	if (!this.world.isRemote)
+    	{
+            this.setAggressive(this.getAttackTarget() != null);
+        	this.setInvisible(!this.isAggressive());
+        	if (this.isAggressive())
+        		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;
+        	
+            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.25D, 0.125D, 0.25D).offset(-0.125D, 0D, -0.125D), EntitySelectors.getTeamCollisionPredicate(this));
 
-        if (!list.isEmpty())
-        {
-            for (int l = 0; l < list.size(); ++l)
+            if (!list.isEmpty())
             {
-                Entity entity = list.get(l);
-                entity.attackEntityFrom(DamageSource.CACTUS, 1F);
+                for (int l = 0; l < list.size(); ++l)
+                {
+                    Entity entity = list.get(l);
+                    entity.attackEntityFrom(DamageSource.CACTUS, 1F);
+                }
             }
-        }
+    	}
     }
 
     class AIWait extends EntityAIBase
@@ -303,7 +320,7 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         public void updateTask()
         {
         	EntityEvilCactus.this.motionX = 0.0D;
-        	EntityEvilCactus.this.motionY = 0.0D;
+        	EntityEvilCactus.this.motionY = EntityEvilCactus.this.motionY > 0D ? 0D : EntityEvilCactus.this.motionY;
         	EntityEvilCactus.this.motionZ = 0.0D;
         	EntityEvilCactus.this.prevRenderYawOffset = 180.0F;
         	EntityEvilCactus.this.renderYawOffset = 180.0F;
