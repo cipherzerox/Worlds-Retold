@@ -21,6 +21,9 @@ public class HailstormSounds {
 	public static final SoundEvent ENTITY_WIGHT_AMBIENT = createEvent("wightambient");
 	public static final SoundEvent ENTITY_WIGHT_HURT = createEvent("wighthurt");
 	public static final SoundEvent ENTITY_WIGHT_DEATH = createEvent("wightdeath");
+	public static final SoundEvent ENTITY_ANUBITE_AMBIENT = createEvent("anubiteambient");
+	public static final SoundEvent ENTITY_ANUBITE_HURT = createEvent("anubitehurt");
+	public static final SoundEvent ENTITY_ANUBITE_DEATH = createEvent("anubitedeath");
 
     @SubscribeEvent
 	public static void registerSounds(final RegistryEvent.Register<SoundEvent> evt) {
@@ -38,6 +41,9 @@ public class HailstormSounds {
 			evt.getRegistry().register(HailstormSounds.ENTITY_WIGHT_AMBIENT);
 			evt.getRegistry().register(HailstormSounds.ENTITY_WIGHT_HURT);
 			evt.getRegistry().register(HailstormSounds.ENTITY_WIGHT_DEATH);
+			evt.getRegistry().register(HailstormSounds.ENTITY_ANUBITE_AMBIENT);
+			evt.getRegistry().register(HailstormSounds.ENTITY_ANUBITE_HURT);
+			evt.getRegistry().register(HailstormSounds.ENTITY_ANUBITE_DEATH);
 		}
 	}
 

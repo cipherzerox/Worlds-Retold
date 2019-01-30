@@ -1,4 +1,30 @@
 {
+    "anubiteambient": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/anubite/anubiteidle1",
+        "worldsretold:entity/hostile/anubite/anubiteidle2",
+        "worldsretold:entity/hostile/anubite/anubiteidle3",
+        "worldsretold:entity/hostile/anubite/anubiteidle4"
+        ],
+        "subtitle": "subtitles.anubite.ambient"
+    },
+    "anubitehurt": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/anubite/anubitehurt1",
+        "worldsretold:entity/hostile/anubite/anubitehurt2",
+        "worldsretold:entity/hostile/anubite/anubitehurt2"
+        ],
+        "subtitle": "subtitles.anubite.hurt"
+    },
+    "anubitedeath": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/anubite/anubitedeath"
+        ],
+        "subtitle": "subtitles.anubite.death"
+    },
     "wightambient": {
         "category": "hostile",
         "sounds": [
