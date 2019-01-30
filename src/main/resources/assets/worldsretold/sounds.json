@@ -14,7 +14,7 @@
         "sounds": [
         "worldsretold:entity/hostile/anubite/anubitehurt1",
         "worldsretold:entity/hostile/anubite/anubitehurt2",
-        "worldsretold:entity/hostile/anubite/anubitehurt2"
+        "worldsretold:entity/hostile/anubite/anubitehurt3"
         ],
         "subtitle": "subtitles.anubite.hurt"
     },
