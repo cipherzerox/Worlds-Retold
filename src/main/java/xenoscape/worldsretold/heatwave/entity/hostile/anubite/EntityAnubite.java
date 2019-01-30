@@ -78,15 +78,14 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     protected void initEntityAI()
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.2D, true));
+        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
+        this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 0.75D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
     }
 
     protected void applyEntityAttributes()
@@ -322,6 +321,16 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
 
         return f;
     }
+    
+    public float getBlockPathWeight(BlockPos pos)
+    {
+        return 0.5F - this.world.getLightBrightness(pos);
+    }
+
+	public int getSpawnType()
+	{
+		return 2;
+	}
 
     /**
      * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called

@@ -16,6 +16,7 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
 import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
+import xenoscape.worldsretold.heatwave.entity.hostile.anubite.EntityAnubite;
 import xenoscape.worldsretold.heatwave.entity.hostile.evilcactus.EntityEvilCactus;
 import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
@@ -43,6 +44,8 @@ public class HeatwaveEntities {
 				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6569510, 4269587);
 
 		// Hostile
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "anubite"), EntityAnubite.class,
+				"anubite", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 14193267, 15323177);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "evilcactus"), EntityEvilCactus.class,
 				"evilcactus", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 1146656, 606736);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "fester"), EntityFester.class,
@@ -102,6 +105,10 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		// Hostile
+        if (ConfigHeatwaveEntity.isAnubiteEnabled) {
+			EntityRegistry.addSpawn(EntityAnubite.class, 1, 1, 1, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+		}
         if (ConfigHeatwaveEntity.isCactorEnabled) {
 			EntityRegistry.addSpawn(EntityEvilCactus.class, 20, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
