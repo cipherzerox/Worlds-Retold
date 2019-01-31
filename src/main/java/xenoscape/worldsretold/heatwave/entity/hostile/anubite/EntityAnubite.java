@@ -89,6 +89,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     {
         super(worldIn);
         this.setSize(0.6F, 1.95F);
+        this.experienceValue = 10;
     }
 
     protected void initEntityAI()
@@ -242,13 +243,14 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
             
             this.playSound(SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, 1F, 1F);
         	this.setJumpCooldown(200);
-        	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
+        	this.world.playEvent(2001, this.getPosition(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
 
             if (!state.getBlock().isAir(state, world, this.getPosition().down()))
             {
                 int i1 = (int)(150.0D * 2.5D);
                 if (!state.getBlock().addLandingEffects(state, (WorldServer)this.world, this.getPosition().down(), state, this, i1))
                 ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i1, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(state));
+                ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i1, 0.0D, 0.0D, 0.0D, 0.2000000596046448D, Block.getStateId(state));
             }
         }
     }
