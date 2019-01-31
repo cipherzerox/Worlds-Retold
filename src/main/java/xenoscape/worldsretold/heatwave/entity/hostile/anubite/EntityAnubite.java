@@ -53,6 +53,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -61,6 +62,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -194,9 +196,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         if (!this.world.isRemote && this.getAttackTarget() != null && this.onGround)
         	this.setJumpPos(this.getAttackTarget().getPosition());
         
-        if (!this.world.isRemote && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 256D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
+        if (!this.world.isRemote && this.onGround && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 256D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
         {
-        	this.setJumpCooldown(200);
         	this.setJumpPos(this.getAttackTarget().getPosition());
         	double d01 = this.getAttackTarget().posX - this.posX;
         	double d11 = this.getAttackTarget().posZ - this.posZ;
@@ -224,30 +225,30 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         float f = potioneffect == null ? 0.0F : (float)(potioneffect.getAmplifier() + 1);
         int i = MathHelper.ceil((distance - 3.0F - f) * damageMultiplier);
 
-        if (i > 0)
+        if (i > 0 && this.getAttackTarget() != null && this.getJumpCooldown() <= 0)
         {
-        	if (this.getAttackTarget() != null)
-        	{
-                List<Entity> list = this.world.getEntitiesInAABBexcluding(this.getAttackTarget(), this.getAttackTarget().getEntityBoundingBox().grow(3D), EntitySelectors.getTeamCollisionPredicate(this));
+            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(2D), EntitySelectors.getTeamCollisionPredicate(this));
 
-                if (!list.isEmpty())
-                {
-                    for (int l = 0; l < list.size(); ++l)
-                    {
-                        Entity entity = list.get(l);
-                        this.attackEntityAsMob(entity);
-                    }
-                }
-        	}
-            int j = MathHelper.floor(this.posX);
-            int k = MathHelper.floor(this.posY - 0.20000000298023224D);
-            int l = MathHelper.floor(this.posZ);
-            IBlockState iblockstate = this.world.getBlockState(new BlockPos(j, k, l));
-            this.playStepSound(new BlockPos(j, k, l), iblockstate.getBlock());
-            if (iblockstate.getMaterial() != Material.AIR)
+            if (!list.isEmpty())
             {
-                SoundType soundtype = iblockstate.getBlock().getSoundType(iblockstate, world, new BlockPos(j, k, l), this);
-                this.playSound(soundtype.getFallSound(), soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
+                for (int l = 0; l < list.size(); ++l)
+                {
+                    Entity entity = list.get(l);
+                    if (!(entity instanceof EntityAnubite))
+                    this.attackEntityAsMob(entity);
+                }
+            }
+            IBlockState state = this.world.getBlockState(this.getPosition().down());
+            
+            this.playSound(SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, 1F, 1F);
+        	this.setJumpCooldown(200);
+        	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
+
+            if (!state.getBlock().isAir(state, world, this.getPosition().down()))
+            {
+                int i1 = (int)(150.0D * 2.5D);
+                if (!state.getBlock().addLandingEffects(state, (WorldServer)this.world, this.getPosition().down(), state, this, i1))
+                ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i1, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(state));
             }
         }
     }
@@ -339,7 +340,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(!this.onGround ? SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD : SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
     }
 
     @Nullable
