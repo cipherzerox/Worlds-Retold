@@ -4,7 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
+
+import com.google.common.base.Optional;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,12 +32,15 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -40,8 +49,10 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -56,6 +67,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.defaultmod.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.init.HailstormSounds;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
+import xenoscape.worldsretold.heatwave.init.HeatwaveItems;
 
 public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreature
 {
@@ -64,6 +76,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     private static final UUID BABY_SPEED_BOOST_ID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
     private static final AttributeModifier BABY_SPEED_BOOST = new AttributeModifier(BABY_SPEED_BOOST_ID, "Baby speed boost", 0.5D, 1);
     private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityAnubite.class, DataSerializers.BOOLEAN);
+    protected static final DataParameter<Optional<BlockPos>> JUMP_BLOCK_POS = EntityDataManager.<Optional<BlockPos>>createKey(EntityAnubite.class, DataSerializers.OPTIONAL_BLOCK_POS);
+    private static final DataParameter<Integer> JUMP_COOLDOWN = EntityDataManager.<Integer>createKey(EntityAnubite.class, DataSerializers.VARINT);
     /** The width of the entity */
     private float zombieWidth = -1.0F;
     /** The height of the the entity. */
@@ -91,10 +105,10 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(24.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(3.0D);
         this.getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(this.rand.nextDouble() * 0.25D);
     }
@@ -103,6 +117,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     {
         super.entityInit();
         this.getDataManager().register(IS_CHILD, Boolean.valueOf(false));
+        this.getDataManager().register(JUMP_BLOCK_POS, Optional.absent());
+        this.getDataManager().register(JUMP_COOLDOWN, Integer.valueOf(0));
     }
 
     /**
@@ -163,8 +179,77 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
      */
     public void onLivingUpdate()
     {
-
         super.onLivingUpdate();
+        
+        if (this.getJumpCooldown() > 0)
+        {
+        	this.setJumpCooldown(this.getJumpCooldown() - 1);
+        	if (!this.onGround && this.getJumpPos() != null)
+        	{
+        		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
+        		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
+        	}
+        }
+        
+        if (!this.world.isRemote && this.getAttackTarget() != null && this.onGround)
+        	this.setJumpPos(this.getAttackTarget().getPosition());
+        
+        if (!this.world.isRemote && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 256D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
+        {
+        	this.setJumpCooldown(200);
+        	this.setJumpPos(this.getAttackTarget().getPosition());
+        	double d01 = this.getAttackTarget().posX - this.posX;
+        	double d11 = this.getAttackTarget().posZ - this.posZ;
+        	float f21 = MathHelper.sqrt(d01 * d01 + d11 * d11);
+        	double hor = f21 / this.getDistance(this.getAttackTarget()) * 1.375D;
+        	this.motionX = (d01 / f21 * hor * hor + this.motionX * hor);
+        	this.motionZ = (d11 / f21 * hor * hor + this.motionZ * hor);
+        	this.motionY = 1D + (this.getAttackTarget().posY - this.posY) * 0.1D;
+        }
+    }
+    
+    public void fall(float distance, float damageMultiplier)
+    {
+        float[] ret = net.minecraftforge.common.ForgeHooks.onLivingFall(this, distance, damageMultiplier);
+        if (ret == null) return;
+        distance = ret[0]; damageMultiplier = ret[1];
+        if (this.isBeingRidden())
+        {
+            for (Entity entity : this.getPassengers())
+            {
+                entity.fall(distance, damageMultiplier);
+            }
+        }
+        PotionEffect potioneffect = this.getActivePotionEffect(MobEffects.JUMP_BOOST);
+        float f = potioneffect == null ? 0.0F : (float)(potioneffect.getAmplifier() + 1);
+        int i = MathHelper.ceil((distance - 3.0F - f) * damageMultiplier);
+
+        if (i > 0)
+        {
+        	if (this.getAttackTarget() != null)
+        	{
+                List<Entity> list = this.world.getEntitiesInAABBexcluding(this.getAttackTarget(), this.getAttackTarget().getEntityBoundingBox().grow(3D), EntitySelectors.getTeamCollisionPredicate(this));
+
+                if (!list.isEmpty())
+                {
+                    for (int l = 0; l < list.size(); ++l)
+                    {
+                        Entity entity = list.get(l);
+                        this.attackEntityAsMob(entity);
+                    }
+                }
+        	}
+            int j = MathHelper.floor(this.posX);
+            int k = MathHelper.floor(this.posY - 0.20000000298023224D);
+            int l = MathHelper.floor(this.posZ);
+            IBlockState iblockstate = this.world.getBlockState(new BlockPos(j, k, l));
+            this.playStepSound(new BlockPos(j, k, l), iblockstate.getBlock());
+            if (iblockstate.getMaterial() != Material.AIR)
+            {
+                SoundType soundtype = iblockstate.getBlock().getSoundType(iblockstate, world, new BlockPos(j, k, l), this);
+                this.playSound(soundtype.getFallSound(), soundtype.getVolume() * 0.5F, soundtype.getPitch() * 0.75F);
+            }
+        }
     }
 
     /**
@@ -254,7 +339,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
+        this.playSound(!this.onGround ? SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD : SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
     }
 
     @Nullable
@@ -268,26 +353,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        super.setEquipmentBasedOnDifficulty(difficulty);
-
-        if (this.rand.nextFloat() < (this.world.getDifficulty() == EnumDifficulty.HARD ? 0.05F : 0.01F))
-        {
-            int i = this.rand.nextInt(3);
-
-            if (i == 0)
-            {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-            }
-            else
-            {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
-            }
-        }
-    }
-
-    public static void registerFixesZombie(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityAnubite.class);
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(HeatwaveItems.VENOM_SWORD));
+        this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(HeatwaveItems.VENOM_SWORD));
     }
 
     /**
@@ -296,8 +363,19 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-
+        compound.setInteger("JC", this.getJumpCooldown());
         compound.setBoolean("IsBaby", this.isChild());
+        if (compound.hasKey("JPX"))
+        {
+            int i = compound.getInteger("JPX");
+            int j = compound.getInteger("JPY");
+            int k = compound.getInteger("JPZ");
+            this.dataManager.set(JUMP_BLOCK_POS, Optional.of(new BlockPos(i, j, k)));
+        }
+        else
+        {
+            this.dataManager.set(JUMP_BLOCK_POS, Optional.absent());
+        }
     }
 
     /**
@@ -306,8 +384,37 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
-
+        this.setJumpCooldown(compound.getInteger("JC"));
         this.setChild(compound.getBoolean("IsBaby"));
+        BlockPos blockpos = this.getJumpPos();
+
+        if (blockpos != null)
+        {
+            compound.setInteger("JPX", blockpos.getX());
+            compound.setInteger("JPY", blockpos.getY());
+            compound.setInteger("JPZ", blockpos.getZ());
+        }
+    }
+
+    @Nullable
+    public BlockPos getJumpPos()
+    {
+        return (BlockPos)((Optional)this.dataManager.get(JUMP_BLOCK_POS)).orNull();
+    }
+
+    public void setJumpPos(@Nullable BlockPos pos)
+    {
+        this.dataManager.set(JUMP_BLOCK_POS, Optional.fromNullable(pos));
+    }
+
+    public int getJumpCooldown()
+    {
+        return ((Integer)this.dataManager.get(JUMP_COOLDOWN)).intValue();
+    }
+
+    public void setJumpCooldown(int time)
+    {
+        this.dataManager.set(JUMP_COOLDOWN, Integer.valueOf(time));
     }
 
     public float getEyeHeight()
