@@ -36,8 +36,6 @@ public class HeatwaveEntities {
 				"roadrunner", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 5920331, 921101);
 		
 		// Neutral
-		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "camel"), EntityCamel.class,
-				"camel", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 11773813, 7824967);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "scorpion"), EntityScorpion.class,
 				"scorpion", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 14987315, 6440746);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "cobra"), EntityCobra.class,
@@ -86,10 +84,6 @@ public class HeatwaveEntities {
 		}
 
 		// Neutral
-        if (ConfigHeatwaveEntity.isCamelEnabled) {
-			EntityRegistry.addSpawn(EntityCamel.class, 6, 2, 4, EnumCreatureType.CREATURE,
-					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
-		}
         if (ConfigHeatwaveEntity.isCobraEnabled) {
 			EntityRegistry.addSpawn(EntityCobra.class, 30, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));

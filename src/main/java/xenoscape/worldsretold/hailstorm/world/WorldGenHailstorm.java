@@ -69,19 +69,6 @@ public class WorldGenHailstorm {
 
 	private void generateBoulders(World world, Random rand, int blockX, int blockZ) {
 		WorldGenBlockBlob generator = null;
-		if (rand.nextInt(5) == 0) {
-			switch (rand.nextInt(3)) {
-			case 0:
-				generator = new WorldGenBlockBlob(HailstormBlocks.STONE_CRITTER_EGG, 2);
-				break;
-			case 1:
-				generator = new WorldGenBlockBlob(HailstormBlocks.MOSSCOBBLE_CRITTER_EGG, 2);
-				break;
-			case 2:
-				generator = new WorldGenBlockBlob(HailstormBlocks.COBBLE_CRITTER_EGG, 2);
-				break;
-			}
-		} else {
 			switch (rand.nextInt(3)) {
 			case 0:
 				generator = new WorldGenBlockBlob(Blocks.STONE, 2);
@@ -92,7 +79,6 @@ public class WorldGenHailstorm {
 			case 3:
 				generator = new WorldGenBlockBlob(Blocks.COBBLESTONE, 0);
 				break;
-			}
 		}
 		int y = getGroundFromAbove(world, blockX, blockZ);
 		BlockPos pos = new BlockPos(blockX, y + 1, blockZ);

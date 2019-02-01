@@ -15,7 +15,6 @@ import xenoscape.worldsretold.defaultmod.basic.BasicBlock;
 import xenoscape.worldsretold.defaultmod.basic.BasicBlockOre;
 import xenoscape.worldsretold.defaultmod.basic.BasicBlockOverlayedPlant;
 import xenoscape.worldsretold.defaultmod.config.ConfigModules;
-import xenoscape.worldsretold.hailstorm.item.BasicBlockCritter;
 
 @ObjectHolder(WorldsRetold.MODID)
 public class HailstormBlocks {
@@ -35,15 +34,6 @@ public class HailstormBlocks {
 	public static BasicBlockOverlayedPlant BOREAL_ORCHID = new BasicBlockOverlayedPlant("boreal_orchid")
 			.setCreativeTab(WorldsRetoldTabs.W_TAB);
 
-	@ObjectHolder("stone_critter_egg")
-	public static BasicBlockCritter STONE_CRITTER_EGG = new BasicBlockCritter("stone_critter_egg", Blocks.STONE);
-	@ObjectHolder("cobble_critter_egg")
-	public static BasicBlockCritter COBBLE_CRITTER_EGG = new BasicBlockCritter("cobble_critter_egg",
-			Blocks.COBBLESTONE);
-	@ObjectHolder("mosscobble_critter_egg")
-	public static BasicBlockCritter MOSSCOBBLE_CRITTER_EGG = new BasicBlockCritter("mosscobble_critter_egg",
-			Blocks.MOSSY_COBBLESTONE);
-
 	@Mod.EventBusSubscriber(modid = WorldsRetold.MODID)
 	public static class RegistrationHandler {
 
@@ -51,8 +41,7 @@ public class HailstormBlocks {
 		public static void registerBlocks(RegistryEvent.Register<Block> event) {
 			final IForgeRegistry<Block> blocks = event.getRegistry();
 			if (ConfigModules.isHailstormEnabled == true) {
-				blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, BOREAL_ORCHID, STONE_CRITTER_EGG,
-						COBBLE_CRITTER_EGG, MOSSCOBBLE_CRITTER_EGG);
+				blocks.registerAll(CRYONITE_ORE, CRYONITE_BLOCK, ARCTIC_WILLOW, BOREAL_ORCHID);
 			}
 		}
 	}

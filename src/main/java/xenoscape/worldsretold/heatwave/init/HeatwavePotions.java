@@ -36,8 +36,8 @@ public class HeatwavePotions {
 	}
 
 	private static void registerPotionRecipes() {
-		PotionHelper.addMix(PotionTypes.WATER, HeatwaveItems.SNAKE_FANG, PotionTypes.THICK);
-		PotionHelper.addMix(PotionTypes.AWKWARD, HeatwaveItems.SNAKE_FANG, NORMAL_VENOM);
+		PotionHelper.addMix(PotionTypes.WATER, HeatwaveItems.SCORPION_BULB, PotionTypes.THICK);
+		PotionHelper.addMix(PotionTypes.AWKWARD, HeatwaveItems.SCORPION_BULB, NORMAL_VENOM);
 		PotionHelper.addMix(NORMAL_VENOM, Items.REDSTONE, LONG_VENOM);
 		PotionHelper.addMix(NORMAL_VENOM, Items.GLOWSTONE_DUST, STRONG_VENOM);
 		PotionHelper.addMix(NORMAL_VENOM, Items.FERMENTED_SPIDER_EYE, PotionTypes.REGENERATION);

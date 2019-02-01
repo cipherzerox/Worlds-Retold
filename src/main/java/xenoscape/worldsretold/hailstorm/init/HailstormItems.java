@@ -149,10 +149,6 @@ public class HailstormItems {
 
 				itemblocks.registerItemBlock(HailstormBlocks.ARCTIC_WILLOW);
 				itemblocks.registerItemBlock(HailstormBlocks.BOREAL_ORCHID);
-
-				itemblocks.registerItemBlock(HailstormBlocks.STONE_CRITTER_EGG);
-				itemblocks.registerItemBlock(HailstormBlocks.COBBLE_CRITTER_EGG);
-				itemblocks.registerItemBlock(HailstormBlocks.MOSSCOBBLE_CRITTER_EGG);
 			}
 		}
 
