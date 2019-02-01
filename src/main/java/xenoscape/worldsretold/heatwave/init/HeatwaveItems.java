@@ -21,7 +21,7 @@ public class HeatwaveItems {
 
 	// Weapons
 	@ObjectHolder("khopesh")
-    public static BasicItemWeapon KHOPESH = new BasicItemWeapon("khopesh", HeatwaveMaterials.KHOPESH, 4.0F, 0.25D, 0);
+    public static BasicItemWeapon KHOPESH = new BasicItemWeapon("khopesh", HeatwaveMaterials.KHOPESH, 0.0F, 0.0D, 0);
 	@ObjectHolder("venom_sword")
     public static BasicItemWeapon VENOM_SWORD = new BasicItemWeapon("venom_sword", HeatwaveMaterials.VENOM_TOOL, 0.0F, 0.0D, 3);
 
