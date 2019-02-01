@@ -284,7 +284,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
                     int j1 = j + MathHelper.getInt(this.rand, 4, 16) * MathHelper.getInt(this.rand, -1, 1);
                     int k1 = k + MathHelper.getInt(this.rand, 4, 16) * MathHelper.getInt(this.rand, -1, 1);
 
-                    if (this.world.getBlockState(new BlockPos(i1, j1 - 1, k1)).isSideSolid(this.world, new BlockPos(i1, j1 - 1, k1), net.minecraft.util.EnumFacing.UP) && this.world.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10)
+                    if (this.world.getBlockState(new BlockPos(i1, j1 - 1, k1)).isSideSolid(this.world, new BlockPos(i1, j1 - 1, k1), net.minecraft.util.EnumFacing.UP))
                     {
                         entityzombie.setPosition((double)i1, (double)j1, (double)k1);
 
@@ -315,6 +315,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
 
         if (flag)
         {
+        	this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, 1F, 1F);
             float f = this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
 
             if (this.isBurning() && this.rand.nextFloat() < f * 0.3F)
