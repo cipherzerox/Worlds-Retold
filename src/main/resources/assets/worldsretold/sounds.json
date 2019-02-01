@@ -14,7 +14,8 @@
         "sounds": [
         "worldsretold:entity/hostile/anubite/anubitehurt1",
         "worldsretold:entity/hostile/anubite/anubitehurt2",
-        "worldsretold:entity/hostile/anubite/anubitehurt3"
+        "worldsretold:entity/hostile/anubite/anubitehurt3",
+        "worldsretold:entity/hostile/anubite/anubitehurt4"
         ],
         "subtitle": "subtitles.anubite.hurt"
     },
@@ -114,7 +115,7 @@
         "sounds": [
         "worldsretold:entity/neutral/snake/snakestrike"
         ],
-        "subtitle": "subtitles.snake.strike"
+        "subtitle": "subtitles.entity.strike"
     },
     "freezing": {
         "category": "neutral",
