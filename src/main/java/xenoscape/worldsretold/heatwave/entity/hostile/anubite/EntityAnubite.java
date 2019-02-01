@@ -190,8 +190,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         	this.setJumpCooldown(this.getJumpCooldown() - 1);
         	if (!this.onGround && this.getJumpPos() != null)
         	{
-        		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
         		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
+        		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
         	}
         }
         
@@ -202,6 +202,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         {
         	this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, 2F, 1.1F);
         	this.setJumpPos(this.getAttackTarget().getPosition());
+    		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
+    		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
         	double d01 = this.getAttackTarget().posX - this.posX;
         	double d11 = this.getAttackTarget().posZ - this.posZ;
         	float f21 = MathHelper.sqrt(d01 * d01 + d11 * d11);
