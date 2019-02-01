@@ -51,6 +51,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -236,7 +237,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
                 {
                     Entity entity = list.get(l);
                     if (!(entity instanceof EntityAnubite))
-                    this.attackEntityAsMob(entity);
+                    	entity.attackEntityFrom(new EntityDamageSource("worldsretold.leap", this), 4F);
                 }
             }
             IBlockState state = this.world.getBlockState(this.getPosition().down());
