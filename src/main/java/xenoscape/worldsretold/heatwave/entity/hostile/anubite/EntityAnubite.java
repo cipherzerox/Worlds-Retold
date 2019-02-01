@@ -356,8 +356,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(HeatwaveItems.VENOM_SWORD));
-        this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(HeatwaveItems.VENOM_SWORD));
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(HeatwaveItems.KHOPESH));
+        this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(HeatwaveItems.KHOPESH));
     }
 
     /**

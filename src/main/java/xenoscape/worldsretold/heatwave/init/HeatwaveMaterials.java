@@ -9,6 +9,7 @@ import xenoscape.worldsretold.hailstorm.init.HailstormItems;
 
 public class HeatwaveMaterials {
 
-    public static Item.ToolMaterial VENOM_TOOL = EnumHelper.addToolMaterial("VENOM", 0, 510, 0.0F, 0.0F, 10);
+    public static Item.ToolMaterial VENOM_TOOL = EnumHelper.addToolMaterial("VENOM", 0, 210, 0.0F, 0.0F, 10);
+    public static Item.ToolMaterial KHOPESH = EnumHelper.addToolMaterial("KHOPESH", 0, 376, 0.0F, 0.0F, 15);
 
 }
