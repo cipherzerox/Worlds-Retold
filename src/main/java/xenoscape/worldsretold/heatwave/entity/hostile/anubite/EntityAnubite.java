@@ -185,6 +185,12 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
     {
         super.onLivingUpdate();
         
+        if (this.getRevengeTarget() != null && !this.getRevengeTarget().isEntityAlive())
+        	this.setRevengeTarget(null);
+        
+        if (this.getAttackTarget() != null && !this.getAttackTarget().isEntityAlive())
+        	this.setAttackTarget(null);
+        
         if (this.getJumpCooldown() > 0)
         {
         	this.setJumpCooldown(this.getJumpCooldown() - 1);
@@ -211,6 +217,17 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         	this.motionX = (d01 / f21 * hor * hor + this.motionX * hor);
         	this.motionZ = (d11 / f21 * hor * hor + this.motionZ * hor);
         	this.motionY = 1D + (this.getAttackTarget().posY - this.posY) * 0.1D;
+            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(1D), EntitySelectors.getTeamCollisionPredicate(this));
+
+            if (!list.isEmpty())
+            {
+                for (int l = 0; l < list.size(); ++l)
+                {
+                    Entity entity = list.get(l);
+                    if (!(entity instanceof EntityAnubite))
+                    	entity.attackEntityFrom(new EntityDamageSource("worldsretold.leap", this), 2F);
+                }
+            }
         }
     }
     
