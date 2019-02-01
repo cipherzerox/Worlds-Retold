@@ -200,6 +200,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         
         if (!this.world.isRemote && this.onGround && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 256D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
         {
+        	this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, 2F, 1.1F);
         	this.setJumpPos(this.getAttackTarget().getPosition());
         	double d01 = this.getAttackTarget().posX - this.posX;
         	double d11 = this.getAttackTarget().posZ - this.posZ;
