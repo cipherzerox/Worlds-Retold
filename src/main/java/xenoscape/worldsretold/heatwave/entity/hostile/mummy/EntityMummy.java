@@ -135,6 +135,12 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
         else 
             this.risingTime = MathHelper.clamp(this.risingTime - 0.025F, 0F, 1F);
         
+        if (this.risingTime > 0.01F && this.risingTime < 0.99F)
+        {
+        	++this.limbSwingAmount;
+        	this.rotationPitch = (this.risingTime * 60F);
+        }
+        
         if (this.risingTime > 0.25F && this.risingTime < 0.99F)
         	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
         
@@ -245,7 +251,7 @@ public class EntityMummy extends EntityZombie implements IDesertCreature
     
     public float getEyeHeight()
     {
-        float f = 1.75F - ((this.prevRisingTime + (this.risingTime - this.prevRisingTime)) * 1.5F);
+        float f = 1.725F - ((this.prevRisingTime + (this.risingTime - this.prevRisingTime)) * 1.5F);
 
         if (this.isChild())
         {
