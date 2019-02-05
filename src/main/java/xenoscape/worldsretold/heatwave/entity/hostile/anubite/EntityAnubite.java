@@ -196,8 +196,8 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         	this.setJumpCooldown(this.getJumpCooldown() - 1);
         	if (!this.onGround && this.getJumpPos() != null)
         	{
-        		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
         		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
+        		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
         	}
         }
         
@@ -206,7 +206,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         
         if (!this.world.isRemote && this.onGround && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 256D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
         {
-        	this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, 2F, 1.1F);
+        	this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, this.getSoundVolume(), this.getSoundPitch());
         	this.setJumpPos(this.getAttackTarget().getPosition());
     		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
     		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
@@ -229,6 +229,33 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
                 }
             }
         }
+        
+		if (this.getAttackTarget() != null) 
+		{
+			Entity entity = this.getAttackTarget();
+
+			if (!entity.isEntityAlive())
+				this.setAttackTarget(null);
+		}
+		else
+		{
+			
+			List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(32D));
+			
+			for (EntityPlayer entity : list) 
+			{
+				if (entity != null && !entity.isCreative())
+					setAttackTarget(entity);
+			}
+			
+			List<EntityLivingBase> listother = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(32D));
+			
+			for (EntityLivingBase entity : listother) 
+			{
+				if (entity != null && entity.isEntityAlive() && (entity instanceof EntityVillager || entity instanceof EntityIronGolem))
+					setAttackTarget(entity);
+			}
+		}
     }
     
     public void fall(float distance, float damageMultiplier)
@@ -262,7 +289,6 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
             }
             IBlockState state = this.world.getBlockState(this.getPosition().down());
             
-            this.playSound(SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, 1F, 1F);
         	this.setJumpCooldown(200);
         	this.world.playEvent(2001, this.getPosition(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
 
@@ -345,6 +371,22 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         }
 
         return flag;
+    }
+    
+    /**
+     * Returns true if this entity should push and be pushed by other entities when colliding.
+     */
+    public boolean canBePushed()
+    {
+        return this.onGround && this.isEntityAlive() && !this.isOnLadder();
+    }
+    
+    /**
+     * Returns true if other Entities should be prevented from moving through this Entity.
+     */
+    public boolean canBeCollidedWith()
+    {
+        return this.onGround && !this.isDead;
     }
 
     protected SoundEvent getAmbientSound()

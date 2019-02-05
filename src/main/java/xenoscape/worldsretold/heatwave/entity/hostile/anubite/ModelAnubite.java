@@ -73,13 +73,17 @@ public class ModelAnubite extends ModelBiped
     	super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
     	
     	EntityAnubite anubite = (EntityAnubite)entityIn;
-    	if (!anubite.onGround)
+    	if (!anubite.onGround && anubite.getJumpCooldown() <= 0)
     	{
-    		this.bipedHead.rotateAngleX = 0.5F;
-    		this.bipedRightArm.rotateAngleX = 0.75F;
-    		this.bipedLeftArm.rotateAngleX = 0.75F;
+    		this.bipedHead.rotateAngleX = 0.75F;
+    		this.bipedHead.rotateAngleY = 0F;
     		this.bipedRightLeg.rotateAngleX = -1.5F;
     		this.bipedLeftLeg.rotateAngleX = 1.0F;
+            if (this.swingProgress <= 0.0F)
+            {
+        		this.bipedRightArm.rotateAngleX = 1.75F;
+        		this.bipedLeftArm.rotateAngleX = 1.75F;
+            }
     	}
 
         if (this.swingProgress > 0.0F)
