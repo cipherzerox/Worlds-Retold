@@ -58,11 +58,10 @@ import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
 public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreature
 {
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityAntlion.class, DataSerializers.BYTE);
     protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityAntlion.class, DataSerializers.BYTE);
     public EntityLivingBase heldEntity;
-    public float stingerBaseRot;
-    public float prevStingerBaseRot;
+    public float mandableRot;
+    public float prevMandableRot;
     
     public EntityAntlion(World worldIn)
     {
@@ -109,7 +108,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
     protected void entityInit()
     {
         super.entityInit();
-        this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
         this.dataManager.register(AGGRESSIVE, Byte.valueOf((byte)0));
     }
 
@@ -143,28 +141,23 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
         
         if (this.world.isRemote)
         {
-        	this.prevStingerBaseRot = this.stingerBaseRot;
+        	this.prevMandableRot = this.mandableRot;
         	
             if (this.isAggressive())
             {
-                this.stingerBaseRot = MathHelper.clamp(this.stingerBaseRot + 0.1F, -1.6F, -1.0471975511965976F);
+                this.mandableRot = MathHelper.clamp(this.mandableRot + 0.1F, 0.0F, 1.0F);
             }
             else
             {
-                this.stingerBaseRot = MathHelper.clamp(this.stingerBaseRot - 0.1F, -1.6F, -1.0471975511965976F);
+                this.mandableRot = MathHelper.clamp(this.mandableRot - 0.1F, 0.0F, 1.0F);
             }
-        }
-
-        if (!this.world.isRemote)
-        {
-            this.setBesideClimbableBlock(this.collidedHorizontally);
         }
     }
     
     @SideOnly(Side.CLIENT)
     public float getStingerBaseRot(float p_189795_1_)
     {
-        return (this.prevStingerBaseRot + (this.stingerBaseRot - this.prevStingerBaseRot) * p_189795_1_);
+        return (this.prevMandableRot + (this.mandableRot - this.prevMandableRot) * p_189795_1_);
     }
     
     @SideOnly(Side.CLIENT)
@@ -192,8 +185,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(2D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.325D);
     }
     
@@ -202,23 +194,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
         super.updateAITasks();
 
         this.setAggressive(this.getAttackTarget() != null);
-        if (!this.world.canBlockSeeSky(getPosition()) && !(this.getNavigator() instanceof PathNavigateClimber))
-        	this.createNavigator(world);
-        
-        if (this.getAttackTarget() != null)
-        {
-            double d = this.getDistanceSq(this.getAttackTarget());
-
-            if (d >= 4.0D && d <= 16.0D && this.onGround && this.getRNG().nextInt(5) == 0)
-            {
-                double d0 = this.getAttackTarget().posX - this.posX;
-                double d1 = this.getAttackTarget().posZ - this.posZ;
-                float f = MathHelper.sqrt(d0 * d0 + d1 * d1);
-                this.motionX += d0 / (double)f * 0.5D * 0.800000011920929D + this.motionX * 0.20000000298023224D;
-                this.motionZ += d1 / (double)f * 0.5D * 0.800000011920929D + this.motionZ * 0.20000000298023224D;
-                this.jump();
-            }
-        }
     }
 
     protected SoundEvent getAmbientSound()
@@ -235,11 +210,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
     {
         return SoundEvents.ENTITY_SPIDER_DEATH;
     }
-    
-    protected float getSoundPitch()
-    {
-    	return super.getSoundPitch() + (rand.nextFloat() * 0.2F - 0.1F);
-    }
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
@@ -251,56 +221,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
     {
         return new ResourceLocation(WorldsRetold.MODID, "entity/scorpion");
     }
-    
-    public boolean attackEntityAsMob(Entity entityIn)
-    {
-        int i = 5 * 1 + (int)this.world.getDifficultyForLocation(new BlockPos(this)).getAdditionalDifficulty();
-        PotionEffect poison = new PotionEffect(HeatwavePotions.VENOM, i * 20, this.world.getDifficulty().getDifficultyId() - 1);
-        
-    	if (this.heldEntity == null && entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).isPotionApplicable(poison) && !((EntityLivingBase)entityIn).isPotionActive(HeatwavePotions.VENOM))
-    	{
-    		this.heldEntity = (EntityLivingBase)entityIn;
-    		this.playSound(SoundEvents.ENTITY_GENERIC_HURT, 1F, 1F);
-    		this.ticksExisted = 0;
-            return true;
-    	}
-        if (super.attackEntityAsMob(entityIn))
-        {
-            if (this.heldEntity != null && entityIn == this.heldEntity && entityIn instanceof EntityLivingBase)
-            {
-
-                if (i > 0)
-                {
-                    ((EntityLivingBase)entityIn).addPotionEffect(poison);
-                	this.heldEntity = null;
-                }
-            }
-            else
-            	this.swingArm(EnumHand.MAIN_HAND);
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    /**
-     * Returns true if this entity should move as if it were on a ladder (either because it's actually on a ladder, or
-     * for AI reasons)
-     */
-    public boolean isOnLadder()
-    {
-        return this.isBesideClimbableBlock();
-    }
-
-    /**
-     * Sets the Entity inside a web block.
-     */
-    public void setInWeb()
-    {
-    }
 
     /**
      * Get this Entity's EnumCreatureAttribute
@@ -308,81 +228,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IDesertCreatu
     public EnumCreatureAttribute getCreatureAttribute()
     {
         return EnumCreatureAttribute.ARTHROPOD;
-    }
-
-    public boolean isPotionApplicable(PotionEffect potioneffectIn)
-    {
-        return potioneffectIn.getPotion() == MobEffects.POISON || potioneffectIn.getPotion() == HeatwavePotions.VENOM ? false : super.isPotionApplicable(potioneffectIn);
-    }
-
-    /**
-     * Returns true if the WatchableObject (Byte) is 0x01 otherwise returns false. The WatchableObject is updated using
-     * setBesideClimableBlock.
-     */
-    public boolean isBesideClimbableBlock()
-    {
-        return (((Byte)this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
-    }
-
-    /**
-     * Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is
-     * false.
-     */
-    public void setBesideClimbableBlock(boolean climbing)
-    {
-        byte b0 = ((Byte)this.dataManager.get(CLIMBING)).byteValue();
-
-        if (climbing)
-        {
-            b0 = (byte)(b0 | 1);
-        }
-        else
-        {
-            b0 = (byte)(b0 & -2);
-        }
-
-        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
-    }
-
-    /**
-     * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
-     * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory
-     */
-    @Nullable
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
-    {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
-
-        if (this.world.rand.nextInt(100) == 0)
-        {
-            EntityFester entityskeleton = new EntityFester(this.world);
-            entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData)null);
-            this.world.spawnEntity(entityskeleton);
-            entityskeleton.startRiding(this);
-        }
-
-        if (livingdata == null)
-        {
-            livingdata = new EntityAntlion.GroupData();
-
-            if (this.world.getDifficulty() == EnumDifficulty.HARD && this.world.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty())
-            {
-                ((EntityAntlion.GroupData)livingdata).setRandomEffect(this.world.rand);
-            }
-        }
-
-        if (livingdata instanceof EntityAntlion.GroupData)
-        {
-            Potion potion = ((EntityAntlion.GroupData)livingdata).effect;
-
-            if (potion != null)
-            {
-                this.addPotionEffect(new PotionEffect(potion, Integer.MAX_VALUE));
-            }
-        }
-
-        return livingdata;
     }
 
     public float getEyeHeight()
