@@ -14,8 +14,10 @@ import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.hailstorm.config.ConfigHailstormEntity;
 import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
+import xenoscape.worldsretold.hailstorm.entity.projectiles.black_arrow.EntityBlackArrow;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
 import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
+import xenoscape.worldsretold.heatwave.entity.hostile.antlion.EntityAntlion;
 import xenoscape.worldsretold.heatwave.entity.hostile.anubite.EntityAnubite;
 import xenoscape.worldsretold.heatwave.entity.hostile.evilcactus.EntityEvilCactus;
 import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
@@ -24,6 +26,7 @@ import xenoscape.worldsretold.heatwave.entity.neutral.camel.EntityCamel;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
+import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
 
 import java.util.Set;
 
@@ -42,6 +45,8 @@ public class HeatwaveEntities {
 				"cobra", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 6569510, 4269587);
 
 		// Hostile
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "antlion"), EntityAntlion.class,
+				"antlion", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 14193267, 15323177);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "anubite"), EntityAnubite.class,
 				"anubite", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 14193267, 15323177);
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "evilcactus"), EntityEvilCactus.class,
@@ -52,6 +57,8 @@ public class HeatwaveEntities {
 				"mummy", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 12956006, 0);
 
 		// Projectiles
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "thrown_sand"),
+				EntityThrownSand.class, "thrown_sand", EntityID++, WorldsRetold.INSTANCE, 64, 3, true);
 	}
 	
 	public static void init() {
@@ -79,7 +86,7 @@ public class HeatwaveEntities {
         if (ConfigHeatwaveEntity.isRoadrunnerEnabled) {
 			EntityRegistry.addSpawn(EntityRoadrunner.class, 5, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
-			EntityRegistry.addSpawn(EntityCobra.class, 1, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityRoadrunner.class, 1, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
 		}
 
@@ -99,6 +106,10 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
 		// Hostile
+        if (ConfigHeatwaveEntity.isAntlionEnabled) {
+			EntityRegistry.addSpawn(EntityAntlion.class, 5, 1, 1, EnumCreatureType.MONSTER,
+					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
+		}
         if (ConfigHeatwaveEntity.isAnubiteEnabled) {
 			EntityRegistry.addSpawn(EntityAnubite.class, 1, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));

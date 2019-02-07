@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.neutral.antlion;
+package xenoscape.worldsretold.heatwave.entity.hostile.antlion;
 
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.entity.Render;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderAntlion extends RenderLiving<EntityAntlion>
 {
-    private static final ResourceLocation TRAPJAW = new ResourceLocation("worldsretold:textures/entity/trap_jaw.png");
+    private static final ResourceLocation ANTLION = new ResourceLocation("worldsretold:textures/entity/antlion.png");
 	public static final RenderAntlion.Factory FACTORY = new RenderAntlion.Factory();
     
     public RenderAntlion(RenderManager renderManagerIn)
@@ -31,7 +31,7 @@ public class RenderAntlion extends RenderLiving<EntityAntlion>
      */
     protected ResourceLocation getEntityTexture(EntityAntlion entity)
     {
-        return TRAPJAW;
+        return ANTLION;
     }
     
 	public static class Factory implements IRenderFactory<EntityAntlion> {

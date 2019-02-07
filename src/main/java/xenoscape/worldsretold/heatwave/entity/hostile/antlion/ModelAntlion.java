@@ -1,8 +1,9 @@
-package xenoscape.worldsretold.heatwave.entity.neutral.antlion;
+package xenoscape.worldsretold.heatwave.entity.hostile.antlion;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * ModelAntlion - Xenoform55
@@ -75,24 +76,50 @@ public class ModelAntlion extends ModelBase {
         this.Head.addChild(this.RMandible);
     }
 
-    @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        this.Body.render(f5);
-        this.RLeg.render(f5);
-        this.Neck.render(f5);
-        this.LBLeg.render(f5);
-        this.RFLeg.render(f5);
-        this.LLeg.render(f5);
-        this.RBLeg.render(f5);
-        this.LFLeg.render(f5);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    {
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        this.Body.render(scale);
+        this.RLeg.render(scale);
+        this.Neck.render(scale);
+        this.LBLeg.render(scale);
+        this.RFLeg.render(scale);
+        this.LLeg.render(scale);
+        this.RBLeg.render(scale);
+        this.LFLeg.render(scale);
     }
 
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) 
+    {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
+    }
+    
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    {
+    	EntityAntlion antlion = (EntityAntlion)entityIn;
+        float f = ageInTicks - (float)entityIn.ticksExisted;
+        float baserot = antlion.getStingerBaseRot(f);
+        float fg = MathHelper.sin(this.swingProgress * (float)Math.PI);
+        float fg1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
+
+        this.RMandible.rotateAngleX = fg1 + baserot + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        this.LMandible.rotateAngleX = -fg1 - baserot - (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        
+        this.Head.rotateAngleY = netHeadYaw * 0.008726646F;
+        this.Head.rotateAngleX = headPitch * 0.008726646F;
+        this.Neck.rotateAngleY = netHeadYaw * 0.008726646F;
+        this.Neck.rotateAngleX = headPitch * 0.008726646F;
+        
+        this.RFLeg.rotateAngleY = 1.0927506446736497F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        this.RLeg.rotateAngleY = 1.5025539530419183F + MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        this.RBLeg.rotateAngleY = 2.408554367752175F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        this.LFLeg.rotateAngleY = -1.0927506446736497F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        this.LLeg.rotateAngleY = -1.5025539530419183F + MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        this.LBLeg.rotateAngleY = -2.408554367752175F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
     }
 }

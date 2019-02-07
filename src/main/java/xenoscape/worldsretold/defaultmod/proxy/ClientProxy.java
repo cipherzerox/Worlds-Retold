@@ -48,6 +48,8 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.EntityIceScrol
 import xenoscape.worldsretold.hailstorm.entity.projectiles.scroll.RenderIceScrollProjectile;
 import xenoscape.worldsretold.hailstorm.init.HailstormBlocks;
 import xenoscape.worldsretold.hailstorm.init.HailstormClientEvents;
+import xenoscape.worldsretold.heatwave.entity.hostile.antlion.EntityAntlion;
+import xenoscape.worldsretold.heatwave.entity.hostile.antlion.RenderAntlion;
 import xenoscape.worldsretold.heatwave.entity.hostile.anubite.EntityAnubite;
 import xenoscape.worldsretold.heatwave.entity.hostile.anubite.RenderAnubite;
 import xenoscape.worldsretold.heatwave.entity.hostile.evilcactus.EntityEvilCactus;
@@ -64,6 +66,8 @@ import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.RenderScorpion;
 import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
 import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.RenderRoadrunner;
+import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
+import xenoscape.worldsretold.heatwave.entity.projectiles.RenderThrownSand;
 
 public class ClientProxy extends ServerProxy {
 
@@ -121,12 +125,14 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityCobra.class, RenderCobra.FACTORY);
 
 		// Hostile
+		RenderingRegistry.registerEntityRenderingHandler(EntityAntlion.class, RenderAntlion.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityAnubite.class, RenderAnubite.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityEvilCactus.class, RenderEvilCactus.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityFester.class, RenderFester.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, RenderMummy.FACTORY);
 
 		// Projectile
+		RenderingRegistry.registerEntityRenderingHandler(EntityThrownSand.class, RenderThrownSand.FACTORY);
 	}
 
 	@Override

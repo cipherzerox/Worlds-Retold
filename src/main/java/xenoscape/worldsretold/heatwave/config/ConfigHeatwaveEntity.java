@@ -19,6 +19,7 @@ public class ConfigHeatwaveEntity extends Configuration {
     public static boolean isCobraEnabled;
 
     //Hostile
+    public static boolean isAntlionEnabled;
     public static boolean isAnubiteEnabled;
     public static boolean isCactorEnabled;
     public static boolean isFesterEnabled;
@@ -44,6 +45,8 @@ public class ConfigHeatwaveEntity extends Configuration {
                 "A desert snake that you probably shouldn't poke.");
 
         // Hostile
+        isAntlionEnabled = getBoolean("Enable Antlion", CATEGORY_HOSTILE, true,
+                "A sitting pair of jaws that throws sand at you to draw you closer in.");
         isAnubiteEnabled = getBoolean("Enable Anubite", CATEGORY_HOSTILE, true,
                 "A nasty dog headed guardian of the desert tombs, it dual weilds Khopeshs.");
         isCactorEnabled = getBoolean("Enable Cactor", CATEGORY_HOSTILE, true,
