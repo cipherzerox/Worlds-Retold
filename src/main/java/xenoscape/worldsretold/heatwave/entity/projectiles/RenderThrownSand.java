@@ -53,12 +53,13 @@ public class RenderThrownSand extends Render<EntityThrownSand>
         GlStateManager.pushMatrix();
         GlStateManager.enableRescaleNormal();
         GlStateManager.disableCull();
-        float f = this.getRenderYaw(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
+        GlStateManager.translate((float)x, (float)y + 0.5F, (float)z);
+        float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
         float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
         float f2 = 0.5F;
         GlStateManager.scale(-f2, -f2, f2);
         GlStateManager.rotate(f, 0F, 1F, 0F);
-        GlStateManager.rotate(f1, 1F, 0F, 0F);
+        GlStateManager.rotate(f1, -1F, 0F, 0F);
         int i = entity.getBrightnessForRender();
         int j = i % 65536;
         int k = i / 65536;

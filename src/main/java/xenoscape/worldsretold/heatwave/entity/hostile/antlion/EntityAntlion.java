@@ -59,6 +59,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.defaultmod.basic.EntitySurfaceMonster;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
+import xenoscape.worldsretold.hailstorm.init.HailstormSounds;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.entity.hostile.evilcactus.EntityEvilCactus;
 import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
@@ -76,7 +77,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
     public EntityAntlion(World worldIn)
     {
         super(worldIn);
-        this.setSize(1.4F, 0.8F);
+        this.setSize(1.6F, 0.8F);
     }
 
     protected void initEntityAI()
@@ -94,7 +95,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
         this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.8D));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
     }
 
@@ -195,7 +196,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.275D);
     }
     
     protected void updateAITasks()
@@ -210,6 +211,15 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
         	this.motionY = this.motionY > 0D ? 0D : this.motionY;
         	this.motionZ = 0.0D;
         }
+        
+    	if (!this.world.isRemote && !this.isDugIn() && this.getAttackTarget() == null && this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid() && rand.nextInt(50) == 0 && this.ticksExisted % 20 == 0)
+    		this.setDugIn(true);
+    	
+    	if (!this.world.isRemote && this.isDugIn() && this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) <= 4D)
+    	{
+    		this.setDugIn(false);
+    		this.jump();
+    	}
     }
 
     protected SoundEvent getAmbientSound()
@@ -248,7 +258,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
 
     public float getEyeHeight()
     {
-        return 0.65F;
+        return 0.3F;
     }
     
     public float getBlockPathWeight(BlockPos pos)
@@ -268,14 +278,16 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
     	EntityThrownSand entitysnowball = new EntityThrownSand(this.world, this);
-        double d0 = target.posY + (double)target.getEyeHeight() - 1.100000023841858D;
+    	entitysnowball.posY = this.posY + 1D;
         double d1 = target.posX - this.posX;
-        double d2 = d0 - entitysnowball.posY;
+        double d2 = (target.posY + (target.height / 3)) - (entitysnowball.posY);
         double d3 = target.posZ - this.posZ;
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-        entitysnowball.shoot(d1, d2 + (double)f, d3, 1.6F, 12.0F);
+        entitysnowball.shoot(d1, d2 + (double)f, d3, 1.6F, 1.0F);
         this.playSound(SoundEvents.ENTITY_SNOWBALL_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.spawnEntity(entitysnowball);
+        if (!target.isEntityAlive())
+        	this.setAttackTarget(null);
     }
 
 	public void setSwingingArms(boolean swingingArms) {}

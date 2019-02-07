@@ -2,6 +2,7 @@ package xenoscape.worldsretold.heatwave.entity.hostile.antlion;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
@@ -79,6 +80,14 @@ public class ModelAntlion extends ModelBase {
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+
+    	EntityAntlion antlion = (EntityAntlion)entityIn;
+        GlStateManager.pushMatrix();
+        if (antlion.isDugIn())
+        {
+            GlStateManager.translate(0.0F, 1.5F, 1.0F);
+            GlStateManager.rotate(-90F, 1F, 0F, 0F);
+        }
         this.Body.render(scale);
         this.RLeg.render(scale);
         this.Neck.render(scale);
@@ -87,6 +96,7 @@ public class ModelAntlion extends ModelBase {
         this.LLeg.render(scale);
         this.RBLeg.render(scale);
         this.LFLeg.render(scale);
+        GlStateManager.popMatrix();
     }
 
     /**
@@ -107,19 +117,40 @@ public class ModelAntlion extends ModelBase {
         float fg = MathHelper.sin(this.swingProgress * (float)Math.PI);
         float fg1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
 
-        this.RMandible.rotateAngleX = fg1 + baserot + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
-        this.LMandible.rotateAngleX = -fg1 - baserot - (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+        if (antlion.isDugIn())
+        {
+            this.RMandible.rotateAngleY = (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+            this.LMandible.rotateAngleY = -(MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+
+            this.Head.rotateAngleY = netHeadYaw * 0.008726646F;
+            this.Head.rotateAngleX = 1F - baserot;
+            this.Neck.rotateAngleY = netHeadYaw * 0.008726646F;
+            this.Neck.rotateAngleX = 1F - baserot;
+        	
+            this.RFLeg.rotateAngleY = 3F;
+            this.RLeg.rotateAngleY = 3F;
+            this.RBLeg.rotateAngleY = 3F;
+            this.LFLeg.rotateAngleY = -3F;
+            this.LLeg.rotateAngleY = -3F;
+            this.LBLeg.rotateAngleY = -3F;
+        }
+        else
+        {
+            this.RMandible.rotateAngleY = -(fg * 1.25F) + baserot + (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+            this.LMandible.rotateAngleY = (fg * 1.25F) - baserot - (MathHelper.sin(ageInTicks * 0.05F) * 0.05F);
+
+            this.Head.rotateAngleY = netHeadYaw * 0.008726646F;
+            this.Head.rotateAngleX = -0.8196066167365371F + headPitch * 0.008726646F;
+            this.Neck.rotateAngleY = netHeadYaw * 0.008726646F;
+            this.Neck.rotateAngleX = 0.8196066167365371F + headPitch * 0.008726646F;
+        	
+            this.RFLeg.rotateAngleY = 1.0927506446736497F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+            this.RLeg.rotateAngleY = 1.5025539530419183F + MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+            this.RBLeg.rotateAngleY = 2.408554367752175F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+            this.LFLeg.rotateAngleY = -1.0927506446736497F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+            this.LLeg.rotateAngleY = -1.5025539530419183F + MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+            this.LBLeg.rotateAngleY = -2.408554367752175F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        }
         
-        this.Head.rotateAngleY = netHeadYaw * 0.008726646F;
-        this.Head.rotateAngleX = headPitch * 0.008726646F;
-        this.Neck.rotateAngleY = netHeadYaw * 0.008726646F;
-        this.Neck.rotateAngleX = headPitch * 0.008726646F;
-        
-        this.RFLeg.rotateAngleY = 1.0927506446736497F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-        this.RLeg.rotateAngleY = 1.5025539530419183F + MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-        this.RBLeg.rotateAngleY = 2.408554367752175F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-        this.LFLeg.rotateAngleY = -1.0927506446736497F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-        this.LLeg.rotateAngleY = -1.5025539530419183F + MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-        this.LBLeg.rotateAngleY = -2.408554367752175F - MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
     }
 }
