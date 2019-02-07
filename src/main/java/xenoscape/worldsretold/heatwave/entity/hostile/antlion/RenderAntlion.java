@@ -29,8 +29,6 @@ public class RenderAntlion extends RenderLiving<EntityAntlion>
         {
             float f = partialTickTime - (float)entitylivingbaseIn.ticksExisted;
             float baserot = entitylivingbaseIn.getStingerBaseRot(f);
-            GlStateManager.translate(0.0F, 2.5F - baserot, 1.0F);
-            GlStateManager.rotate(-90F, 1F, 0F, 0F);
         	this.shadowOpaque = baserot;
         }
         else
