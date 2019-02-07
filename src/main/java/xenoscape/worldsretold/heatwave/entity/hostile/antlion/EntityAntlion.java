@@ -120,12 +120,9 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
     public void onUpdate()
     {
         super.onUpdate();
-        
-        if (this.isBeingRidden() && this.getPassengers() instanceof EntityCreature)
-        {
-            EntityCreature entitycreature = (EntityCreature)this.getPassengers();
-            entitycreature.renderYawOffset = this.renderYawOffset;
-        }
+
+        if (this.getAttackTarget() != null && !this.getAttackTarget().isEntityAlive())
+        	this.setAttackTarget(null);
         
         if (this.world.isRemote)
         {
@@ -212,8 +209,12 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
         	this.motionZ = 0.0D;
         }
         
-    	if (!this.world.isRemote && !this.isDugIn() && this.getAttackTarget() == null && this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid() && rand.nextInt(50) == 0 && this.ticksExisted % 20 == 0)
+    	if (!this.world.isRemote && !this.isDugIn() && this.world.getBlockState(this.getPosition().down()).getMaterial().isSolid() && rand.nextInt(this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) > 4D ? 50 : 10) == 0 && this.ticksExisted % 20 == 0)
+    	{
     		this.setDugIn(true);
+    		this.getNavigator().clearPath();
+        	this.world.playEvent(2001, this.getPosition().down(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
+    	}
     	
     	if (!this.world.isRemote && this.isDugIn() && this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) <= 4D)
     	{
@@ -286,8 +287,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
         entitysnowball.shoot(d1, d2 + (double)f, d3, 1.6F, 1.0F);
         this.playSound(SoundEvents.ENTITY_SNOWBALL_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.spawnEntity(entitysnowball);
-        if (!target.isEntityAlive())
-        	this.setAttackTarget(null);
     }
 
 	public void setSwingingArms(boolean swingingArms) {}

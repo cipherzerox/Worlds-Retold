@@ -1,6 +1,7 @@
 package xenoscape.worldsretold.heatwave.entity.hostile.antlion;
 
 import net.minecraft.client.model.ModelSpider;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -9,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 
 @SideOnly(Side.CLIENT)
 public class RenderAntlion extends RenderLiving<EntityAntlion>
@@ -19,6 +21,22 @@ public class RenderAntlion extends RenderLiving<EntityAntlion>
     public RenderAntlion(RenderManager renderManagerIn)
     {
         super(renderManagerIn, new ModelAntlion(), 1.0F);
+    }
+    
+    protected void preRenderCallback(EntityAntlion entitylivingbaseIn, float partialTickTime)
+    {
+        if (entitylivingbaseIn.isDugIn())
+        {
+            float f = partialTickTime - (float)entitylivingbaseIn.ticksExisted;
+            float baserot = entitylivingbaseIn.getStingerBaseRot(f);
+            GlStateManager.translate(0.0F, 2.5F - baserot, 1.0F);
+            GlStateManager.rotate(-90F, 1F, 0F, 0F);
+        	this.shadowOpaque = baserot;
+        }
+        else
+        {
+        	this.shadowOpaque = 1F;
+        }
     }
 
     protected float getDeathMaxRotation(EntityAntlion entityLivingBaseIn)

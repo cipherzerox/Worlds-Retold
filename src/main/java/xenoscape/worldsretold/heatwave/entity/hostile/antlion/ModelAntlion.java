@@ -81,13 +81,6 @@ public class ModelAntlion extends ModelBase {
     {
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-    	EntityAntlion antlion = (EntityAntlion)entityIn;
-        GlStateManager.pushMatrix();
-        if (antlion.isDugIn())
-        {
-            GlStateManager.translate(0.0F, 1.5F, 1.0F);
-            GlStateManager.rotate(-90F, 1F, 0F, 0F);
-        }
         this.Body.render(scale);
         this.RLeg.render(scale);
         this.Neck.render(scale);
@@ -96,7 +89,6 @@ public class ModelAntlion extends ModelBase {
         this.LLeg.render(scale);
         this.RBLeg.render(scale);
         this.LFLeg.render(scale);
-        GlStateManager.popMatrix();
     }
 
     /**
