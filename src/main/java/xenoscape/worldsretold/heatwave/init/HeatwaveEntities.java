@@ -79,15 +79,15 @@ public class HeatwaveEntities {
 		
 		// Passive
         if (ConfigHeatwaveEntity.isRoadrunnerEnabled) {
-			EntityRegistry.addSpawn(EntityRoadrunner.class, 20, 1, 1, EnumCreatureType.CREATURE,
+			EntityRegistry.addSpawn(EntityRoadrunner.class, 11, 1, 1, EnumCreatureType.CREATURE,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
-			EntityRegistry.addSpawn(EntityRoadrunner.class, 10, 1, 1, EnumCreatureType.CREATURE,
+			EntityRegistry.addSpawn(EntityRoadrunner.class, 2, 1, 1, EnumCreatureType.CREATURE,
 					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
 		}
 
 		// Neutral
         if (ConfigHeatwaveEntity.isCobraEnabled) {
-			EntityRegistry.addSpawn(EntityCobra.class, 5, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityCobra.class, 4, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 			EntityRegistry.addSpawn(EntityCobra.class, 1, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) savannahBiomes.toArray(new Biome[savannahBiomes.size()]));
@@ -102,7 +102,7 @@ public class HeatwaveEntities {
 		}
 		// Hostile
         if (ConfigHeatwaveEntity.isAntlionEnabled) {
-			EntityRegistry.addSpawn(EntityAntlion.class, 45, 1, 1, EnumCreatureType.CREATURE,
+			EntityRegistry.addSpawn(EntityAntlion.class, 2, 1, 10, EnumCreatureType.CREATURE,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isAnubiteEnabled) {
@@ -110,7 +110,7 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isCactorEnabled) {
-			EntityRegistry.addSpawn(EntityEvilCactus.class, 5, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityEvilCactus.class, 1, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isFesterEnabled) {
