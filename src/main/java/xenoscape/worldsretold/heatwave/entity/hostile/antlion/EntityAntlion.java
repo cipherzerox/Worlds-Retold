@@ -262,11 +262,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
     {
         return 0.3F;
     }
-    
-    public float getBlockPathWeight(BlockPos pos)
-    {
-        return 0.5F - this.world.getLightBrightness(pos);
-    }
 
 	public int getSpawnType()
 	{
