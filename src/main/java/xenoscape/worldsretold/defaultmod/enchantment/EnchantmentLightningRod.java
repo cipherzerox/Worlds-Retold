@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.hailstorm.enchantment;
+package xenoscape.worldsretold.defaultmod.enchantment;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
