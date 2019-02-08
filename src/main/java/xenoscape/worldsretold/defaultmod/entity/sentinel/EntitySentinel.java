@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.defaultmod.entity.neutral.sentinel;
+package xenoscape.worldsretold.defaultmod.entity.sentinel;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

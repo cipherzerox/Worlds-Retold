@@ -265,15 +265,6 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
 		} 
 		else 
 		{
-	        if (!source.isMagicDamage() && source.getImmediateSource() instanceof EntityLivingBase)
-	        {
-	            EntityLivingBase entitylivingbase = (EntityLivingBase)source.getImmediateSource();
-
-	            if (!source.isExplosion())
-	            {
-	                entitylivingbase.attackEntityFrom(DamageSource.CACTUS, 1F);
-	            }
-	        }
 			return super.attackEntityFrom(source, amount);
 		}
 	}

@@ -18,7 +18,7 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import xenoscape.worldsretold.WorldsRetold;
-import xenoscape.worldsretold.defaultmod.entity.neutral.sentinel.EntitySentinel;
+import xenoscape.worldsretold.defaultmod.entity.sentinel.EntitySentinel;
 import xenoscape.worldsretold.hailstorm.world.WorldGenHailstorm;
 
 public class StructureSentinelShack extends WorldGenerator {

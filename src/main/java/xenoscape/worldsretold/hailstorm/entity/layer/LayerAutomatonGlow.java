@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.worldsretold.defaultmod.entity.automaton.EntityAutomaton;
 
 
 public class LayerAutomatonGlow<T extends EntityLivingBase> implements LayerRenderer<T> {

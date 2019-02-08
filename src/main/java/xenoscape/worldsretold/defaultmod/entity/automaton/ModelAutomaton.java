@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.defaultmod.entity.neutral.automaton;
+package xenoscape.worldsretold.defaultmod.entity.automaton;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;

@@ -19,7 +19,7 @@ import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
 import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
 import xenoscape.worldsretold.defaultmod.basic.BasicItem;
-import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.worldsretold.defaultmod.entity.automaton.EntityAutomaton;
 
 
 public class BasicItemStatue extends BasicItem {

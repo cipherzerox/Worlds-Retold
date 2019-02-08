@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.defaultmod.entity.neutral.sentinel;
+package xenoscape.worldsretold.defaultmod.entity.sentinel;
 
 import javax.annotation.Nonnull;
 

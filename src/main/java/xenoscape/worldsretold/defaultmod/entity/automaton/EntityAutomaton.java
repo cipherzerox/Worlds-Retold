@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.defaultmod.entity.neutral.automaton;
+package xenoscape.worldsretold.defaultmod.entity.automaton;
 
 import java.util.List;
 

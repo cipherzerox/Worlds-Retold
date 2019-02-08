@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.passive.roadrunner;
+package xenoscape.worldsretold.heatwave.entity.passive;
 
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -8,8 +8,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
-import xenoscape.worldsretold.heatwave.entity.neutral.cobra.RenderCobra;
 
 @SideOnly(Side.CLIENT)
 public class RenderRoadrunner extends RenderLiving<EntityRoadrunner>

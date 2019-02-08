@@ -1,9 +1,8 @@
-package xenoscape.worldsretold.defaultmod.entity.neutral.sentinel;
+package xenoscape.worldsretold.defaultmod.entity.sentinel;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import xenoscape.worldsretold.defaultmod.entity.neutral.sentinel.EntitySentinel;
 import xenoscape.worldsretold.defaultmod.util.AdvancedModelBase;
 import xenoscape.worldsretold.defaultmod.util.AdvancedModelRenderer;
 

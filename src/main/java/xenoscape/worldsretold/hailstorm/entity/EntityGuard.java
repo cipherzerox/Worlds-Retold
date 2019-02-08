@@ -9,7 +9,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import xenoscape.worldsretold.defaultmod.basic.EntitySurfaceMonster;
-import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
+import xenoscape.worldsretold.defaultmod.entity.automaton.EntityAutomaton;
 
 public abstract class EntityGuard extends EntitySurfaceMonster
 {

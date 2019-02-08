@@ -3,9 +3,7 @@ package xenoscape.worldsretold.hailstorm.init;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityPolarBear;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -17,7 +15,6 @@ import xenoscape.worldsretold.hailstorm.entity.hostile.blizzard.EntityBlizzard;
 import xenoscape.worldsretold.hailstorm.entity.hostile.guardsman.EntityGuardsman;
 import xenoscape.worldsretold.hailstorm.entity.hostile.roller.EntitySnowRoller;
 import xenoscape.worldsretold.hailstorm.entity.hostile.wight.EntityWight;
-import xenoscape.worldsretold.defaultmod.entity.neutral.automaton.EntityAutomaton;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.worldsretold.hailstorm.entity.passive.penguin.EntityPenguin;
@@ -25,8 +22,6 @@ import xenoscape.worldsretold.hailstorm.entity.projectiles.black_arrow.EntityBla
 import xenoscape.worldsretold.hailstorm.entity.projectiles.egg.EntityPenguinEgg;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.frost_shot.EntityFrostShot;
 import xenoscape.worldsretold.hailstorm.entity.projectiles.hail.EntityHail;
-import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
-import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 
 import java.util.Set;
 
