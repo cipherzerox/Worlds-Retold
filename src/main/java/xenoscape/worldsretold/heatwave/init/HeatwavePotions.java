@@ -22,7 +22,7 @@ public class HeatwavePotions {
 			new PotionEffect[] { new PotionEffect(VENOM, 1800) }).setRegistryName("long_venom");
 	public static final PotionType STRONG_VENOM = new PotionType("venom",
 			new PotionEffect[] { new PotionEffect(VENOM, 450, 1) }).setRegistryName("strong_venom");
-
+	
 	public static void registerPotions() {
 		registerPotion(NORMAL_VENOM, LONG_VENOM, STRONG_VENOM, VENOM);
 		registerPotionRecipes();
