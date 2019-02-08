@@ -107,7 +107,7 @@ public class HeatwaveEntities {
 		}
 		// Hostile
         if (ConfigHeatwaveEntity.isAntlionEnabled) {
-			EntityRegistry.addSpawn(EntityAntlion.class, 5, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityAntlion.class, 10, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isAnubiteEnabled) {
@@ -115,7 +115,7 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isCactorEnabled) {
-			EntityRegistry.addSpawn(EntityEvilCactus.class, 20, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityEvilCactus.class, 5, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isFesterEnabled) {
