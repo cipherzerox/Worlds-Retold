@@ -34,6 +34,7 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
@@ -77,7 +78,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
     public EntityAntlion(World worldIn)
     {
         super(worldIn);
-        this.setSize(1.6F, 0.8F);
+        this.setSize(1.2F, 0.8F);
     }
 
     protected void initEntityAI()
@@ -269,7 +270,7 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
 
 	public int getSpawnType()
 	{
-		return 2;
+		return 3;
 	}
 	
 
@@ -290,7 +291,6 @@ public class EntityAntlion extends EntitySurfaceMonster implements IRangedAttack
     }
 
 	public void setSwingingArms(boolean swingingArms) {}
-	
 
     class AISitInPlace extends EntityAIBase
     {
