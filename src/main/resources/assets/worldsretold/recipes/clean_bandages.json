@@ -1,17 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "X",
-    "#"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:water_bucket"
-    },
-    "X": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "worldsretold:bandage_dirty"
+    },
+    {
+      "item": "minecraft:water_bucket"
     }
-  },
+  ],
   "result": {
     "item": "worldsretold:bandage_clean",
     "count": 1

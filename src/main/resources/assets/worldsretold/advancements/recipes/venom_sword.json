@@ -1,0 +1,36 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "worldsretold:venom_sword"
+        ]
+    },
+    "criteria": {
+        "has_item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "worldsretold:snake_fang"
+                    }
+                ]
+            }
+        },
+        "has_other_item": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "worldsretold:scorpion_bulb"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_item",
+            "has_other_item"
+        ]
+    ]
+}

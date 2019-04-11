@@ -33,6 +33,7 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.passive.EntityChicken;
@@ -68,6 +69,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.defaultmod.basic.EntitySurfaceMonster;
+import xenoscape.worldsretold.hailstorm.init.HailstormItems;
 import xenoscape.worldsretold.hailstorm.init.HailstormSounds;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 import xenoscape.worldsretold.heatwave.init.HeatwaveItems;
@@ -505,6 +507,15 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
 	{
 		return 2;
 	}
+
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+        if (wasRecentlyHit && this.rand.nextInt(12) == 0) {
+            EntityItem entityitem = this.dropItem(HeatwaveItems.KHOPESH, 1);
+            if (entityitem != null) {
+                entityitem.setNoDespawn();
+            }
+        }
+    }
 
     /**
      * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
