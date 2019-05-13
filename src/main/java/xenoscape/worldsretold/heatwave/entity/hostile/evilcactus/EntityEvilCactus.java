@@ -240,7 +240,7 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     {
         super.dropEquipment(wasRecentlyHit, lootingModifier);
         
-        this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.CACTUS), this.getSize() + 1), 0.0F);
+        this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.CACTUS), this.getSize()), 0.0F);
     }
 
     public float getEyeHeight() {
