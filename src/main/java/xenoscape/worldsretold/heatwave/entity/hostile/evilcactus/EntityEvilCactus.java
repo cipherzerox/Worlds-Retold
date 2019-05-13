@@ -28,6 +28,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -233,11 +235,13 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
     {
         return this.isEntityAlive() && !this.isAggressive() ? this.getEntityBoundingBox() : null;
     }
-
-	protected ResourceLocation getLootTable() 
-	{
-		return new ResourceLocation(WorldsRetold.MODID, "entity/cobra");
-	}
+    
+    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
+    {
+        super.dropEquipment(wasRecentlyHit, lootingModifier);
+        
+        this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.CACTUS), this.getSize() + 1), 0.0F);
+    }
 
     public float getEyeHeight() {
         return this.height - 0.5F;
