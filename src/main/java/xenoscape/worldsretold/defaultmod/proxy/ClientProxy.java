@@ -68,6 +68,8 @@ import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunne
 import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.RenderRoadrunner;
 import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
 import xenoscape.worldsretold.heatwave.entity.projectiles.RenderThrownSand;
+import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.EntityLivingFlame;
+import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.RenderLivingFlame;
 
 public class ClientProxy extends ServerProxy {
 
@@ -87,6 +89,9 @@ public class ClientProxy extends ServerProxy {
         }
 		if (ConfigModules.isHeatwaveEnabled == true) {
 			preInitHeatwave(event);
+        }
+		if (ConfigModules.isHellfireEnabled == true) {
+			preInitHellfire(event);
         }
 	}
 
@@ -133,6 +138,17 @@ public class ClientProxy extends ServerProxy {
 
 		// Projectile
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownSand.class, RenderThrownSand.FACTORY);
+	}
+	
+	public void preInitHellfire(final FMLPreInitializationEvent event) {
+		// Passive
+
+		// Neutral
+
+		// Hostile
+		RenderingRegistry.registerEntityRenderingHandler(EntityLivingFlame.class, RenderLivingFlame.FACTORY);
+		
+		// Projectile
 	}
 
 	@Override

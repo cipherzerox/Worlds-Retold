@@ -96,6 +96,7 @@ entity.ghoul.name=Ghoul
 entity.mimic.name=Mimic
 entity.fester.name=Fester
 entity.evilcactus.name=Cactor
+entity.livingflame.name=Living Flame
 
 # Boss
 entity.frostboar.name=Frost Boar
