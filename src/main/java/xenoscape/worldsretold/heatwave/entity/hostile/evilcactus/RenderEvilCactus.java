@@ -19,9 +19,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.RenderCaribou;
 
+@SideOnly(Side.CLIENT)
 public class RenderEvilCactus extends RenderLiving<EntityEvilCactus>
 {
 	public static final RenderEvilCactus.Factory FACTORY = new RenderEvilCactus.Factory();

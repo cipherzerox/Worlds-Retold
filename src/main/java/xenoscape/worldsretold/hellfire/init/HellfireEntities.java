@@ -54,7 +54,7 @@ public class HellfireEntities {
 		
 		// Hostile
         if (ConfigHellfireEntity.isLivingFlameEnabled) {
-			EntityRegistry.addSpawn(EntityLivingFlame.class, 10, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityLivingFlame.class, 20, 1, 8, EnumCreatureType.MONSTER,
 					(Biome[]) hellBiomes.toArray(new Biome[hellBiomes.size()]));
 		}
 	}

@@ -138,39 +138,13 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         return SoundEvents.ITEM_BUCKET_EMPTY_LAVA;
     }
 
-    /**
-     * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
-     * this entity is not solid.
-     *  
-     * For general purposes, use {@link #width} and {@link #height}.
-     *  
-     * @see getEntityBoundingBox
-     */
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox()
-    {
-        return null;
-    }
-    
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
-    {
-        super.dropEquipment(wasRecentlyHit, lootingModifier);
-        
-        this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.MAGMA)), 0.0F);
-    }
-
     public float getEyeHeight() {
         return this.height - 0.5F;
     }
 
-	public int getSpawnType()
-	{
-		return 5;
-	}
-
     public int getMaxSpawnedInChunk() 
     {
-        return 1;
+        return 8;
     }
     
     public boolean attackEntityAsMob(Entity entityIn)

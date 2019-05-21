@@ -19,11 +19,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.RenderCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
 import xenoscape.worldsretold.hailstorm.entity.passive.nix.ModelNix;
 
+@SideOnly(Side.CLIENT)
 public class RenderLivingFlame extends RenderLiving<EntityLivingFlame>
 {
 	public static final RenderLivingFlame.Factory FACTORY = new RenderLivingFlame.Factory();
@@ -37,12 +40,6 @@ public class RenderLivingFlame extends RenderLiving<EntityLivingFlame>
 	{
 		return null;
 	}
-	
-    @Override
-    public void doRender(EntityLivingFlame entity, double x, double y, double z, float entityYaw, float partialTicks) 
-    {
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
-    }
 
     public static class Factory implements IRenderFactory<EntityLivingFlame>
     {
