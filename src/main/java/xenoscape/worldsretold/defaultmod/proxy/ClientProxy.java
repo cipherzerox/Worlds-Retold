@@ -64,8 +64,8 @@ import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.RenderCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.RenderScorpion;
-import xenoscape.worldsretold.heatwave.entity.passive.EntityRoadrunner;
-import xenoscape.worldsretold.heatwave.entity.passive.RenderRoadrunner;
+import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
+import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.RenderRoadrunner;
 import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
 import xenoscape.worldsretold.heatwave.entity.projectiles.RenderThrownSand;
 

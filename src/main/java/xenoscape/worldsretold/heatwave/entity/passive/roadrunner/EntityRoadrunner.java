@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.passive;
+package xenoscape.worldsretold.heatwave.entity.passive.roadrunner;
 
 import javax.annotation.Nullable;
 

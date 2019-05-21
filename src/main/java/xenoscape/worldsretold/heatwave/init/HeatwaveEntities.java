@@ -20,7 +20,7 @@ import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.hostile.mummy.EntityMummy;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
-import xenoscape.worldsretold.heatwave.entity.passive.EntityRoadrunner;
+import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
 import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
 
 import java.util.Set;

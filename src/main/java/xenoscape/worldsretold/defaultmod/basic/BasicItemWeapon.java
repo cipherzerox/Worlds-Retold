@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraft.potion.PotionEffect;
 import xenoscape.worldsretold.defaultmod.WorldsRetoldTabs;
 import xenoscape.worldsretold.hailstorm.init.HailstormPotions;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
+import xenoscape.worldsretold.hellfire.init.HellfirePotions;
 import xenoscape.worldsretold.defaultmod.util.ModelRegistry;
 
 
@@ -93,6 +95,27 @@ public class BasicItemWeapon extends ItemSword implements ModelRegistry {
 		if (this.effect == 3) {
 			target.addPotionEffect(new PotionEffect(HeatwavePotions.VENOM, 100, 0));
 		}
+		if (this.effect == 4) {
+			target.addPotionEffect(new PotionEffect(HellfirePotions.HELLFIRE, 200, 0));
+		}
 		return true;
 	}
+
+	@Override
+    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    {
+		if (this.effect == 4 && entityLiving instanceof EntityPlayer && ((EntityPlayer)entityLiving).getCooledAttackStrength(0.0F) >= 1F) 
+		{
+			EntityPlayer playerIn = (EntityPlayer)entityLiving;
+	        if (!entityLiving.world.isRemote)
+	        {
+	            EntitySnowball entitysnowball = new EntitySnowball(entityLiving.world, playerIn);
+	            entitysnowball.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+	            entityLiving.world.spawnEntity(entitysnowball);
+	        }
+			return true;
+		}
+		else
+        return false;
+    }
 }

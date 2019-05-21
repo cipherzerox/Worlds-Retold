@@ -1,4 +1,4 @@
-package xenoscape.worldsretold.heatwave.entity.passive;
+package xenoscape.worldsretold.hellfire.entity.passive.somerandomanimal;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
