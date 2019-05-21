@@ -19,6 +19,7 @@ import xenoscape.worldsretold.defaultmod.config.WorldsRetoldConfig;
 import xenoscape.worldsretold.defaultmod.init.WorldsRetoldKeys;
 import xenoscape.worldsretold.hailstorm.HailstormModule;
 import xenoscape.worldsretold.heatwave.HeatwaveModule;
+import xenoscape.worldsretold.hellfire.HellfireModule;
 import xenoscape.worldsretold.defaultmod.proxy.ServerProxy;
 
 @Mod(modid = WorldsRetold.MODID, name = WorldsRetold.NAME, version = WorldsRetold.VERSION, guiFactory = WorldsRetold.CONFIG, updateJSON = WorldsRetold.UPDATE)
@@ -55,6 +56,9 @@ public class WorldsRetold {
 		if (ConfigModules.isHeatwaveEnabled) {
 			HeatwaveModule.INSTANCE.preInitHeatwave(event);
 		}
+		if (ConfigModules.isHellfireEnabled) {
+			HellfireModule.INSTANCE.preInitHellfire(event);
+		}
 		WorldsRetold.LOGGER.info(NAME + " Preinitialized");
 	}
 
@@ -68,6 +72,9 @@ public class WorldsRetold {
 		if (ConfigModules.isHeatwaveEnabled) {
 			HeatwaveModule.INSTANCE.initHeatwave(event);
 		}
+		if (ConfigModules.isHellfireEnabled) {
+			HellfireModule.INSTANCE.initHellfire(event);
+		}
 		WorldsRetold.LOGGER.info(NAME + " Initialized");
 	}
 
@@ -80,6 +87,9 @@ public class WorldsRetold {
 		}
 		if (ConfigModules.isHeatwaveEnabled) {
 			HeatwaveModule.INSTANCE.postInitHeatwave(event);
+		}
+		if (ConfigModules.isHellfireEnabled) {
+			HellfireModule.INSTANCE.postInitHellfire(event);
 		}
 		WorldsRetold.LOGGER.info(NAME + " Postinitialized");
 	}
