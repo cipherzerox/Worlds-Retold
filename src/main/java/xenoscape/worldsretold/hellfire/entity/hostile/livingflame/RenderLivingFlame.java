@@ -19,16 +19,21 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.RenderCaribou;
+import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
+import xenoscape.worldsretold.hailstorm.entity.passive.nix.ModelNix;
 
+@SideOnly(Side.CLIENT)
 public class RenderLivingFlame extends RenderLiving<EntityLivingFlame>
 {
 	public static final RenderLivingFlame.Factory FACTORY = new RenderLivingFlame.Factory();
 	
 	protected RenderLivingFlame(RenderManager renderManagerIn) 
 	{
-		super(renderManagerIn, new ModelChest(), 0F);
+		super(renderManagerIn, new ModelNix(), 0F);
 	}
 
 	protected ResourceLocation getEntityTexture(EntityLivingFlame entity) 

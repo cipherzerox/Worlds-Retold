@@ -22,13 +22,14 @@ import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.entity.neutral.scorpion.EntityScorpion;
 import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunner;
 import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
+import xenoscape.worldsretold.heatwave.init.HeatwaveEntities;
 import xenoscape.worldsretold.hellfire.config.ConfigHellfireEntity;
 import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.EntityLivingFlame;
 
 import java.util.Set;
 
 public class HellfireEntities {
-	public static int EntityID = HailstormEntities.EntityID;
+	public static int EntityID = HeatwaveEntities.EntityID;
 
 	public static void preInit() {
 		// Passive
@@ -54,7 +55,7 @@ public class HellfireEntities {
 		
 		// Hostile
         if (ConfigHellfireEntity.isLivingFlameEnabled) {
-			EntityRegistry.addSpawn(EntityLivingFlame.class, 10, 1, 1, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityLivingFlame.class, 20, 1, 8, EnumCreatureType.MONSTER,
 					(Biome[]) hellBiomes.toArray(new Biome[hellBiomes.size()]));
 		}
 	}

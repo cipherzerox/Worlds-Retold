@@ -25,6 +25,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -42,6 +43,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -70,9 +72,13 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     public EntityLivingFlame(World worldIn) {
         super(worldIn);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
-        this.setPathPriority(PathNodeType.DAMAGE_CACTUS, 0.0F);
-        this.setPathPriority(PathNodeType.DANGER_CACTUS, 0.0F);
-        this.setSize(0.75F, 0.9F);
+        this.setPathPriority(PathNodeType.LAVA, 8.0F);
+        this.setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
+        this.setPathPriority(PathNodeType.DAMAGE_FIRE, 0.0F);
+        this.isImmuneToFire = true;
+        this.experienceValue = 10;
+        this.setSize(0.75F, 0.1F);
+        this.stepHeight = 2F;
     }
 
     protected void initEntityAI() {
@@ -80,11 +86,6 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-    }
-    
-    public boolean isPreventingPlayerRest(EntityPlayer playerIn)
-    {
-        return this.isAggressive();
     }
 
     protected void entityInit() {
@@ -99,6 +100,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
+        this.posY += 0.9D;
 		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead = 180F;
         return super.onInitialSpawn(difficulty, livingdata);
     }
@@ -112,6 +114,8 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 
         if (value) {
             i = i | 1;
+            if (this.world.getBlockState(getPosition()).getBlock() == Blocks.FIRE)
+    		this.world.setBlockState(getPosition(), Blocks.AIR.getDefaultState());
         } else {
             i = i & ~1;
         }
@@ -129,50 +133,24 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     }
 
     protected SoundEvent getAmbientSound() {
-        return null;
+        return SoundEvents.BLOCK_FIRE_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENCHANT_THORNS_HIT;
+        return SoundEvents.BLOCK_FIRE_EXTINGUISH;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_CLOTH_BREAK;
-    }
-
-    /**
-     * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
-     * this entity is not solid.
-     *  
-     * For general purposes, use {@link #width} and {@link #height}.
-     *  
-     * @see getEntityBoundingBox
-     */
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox()
-    {
-        return this.isEntityAlive() && !this.isAggressive() ? this.getEntityBoundingBox() : null;
-    }
-    
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
-    {
-        super.dropEquipment(wasRecentlyHit, lootingModifier);
-        
-        this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.MAGMA)), 0.0F);
+        return SoundEvents.ITEM_BUCKET_EMPTY_LAVA;
     }
 
     public float getEyeHeight() {
-        return this.height - 0.5F;
+        return this.height;
     }
-
-	public int getSpawnType()
-	{
-		return 5;
-	}
 
     public int getMaxSpawnedInChunk() 
     {
-        return 1;
+        return 8;
     }
     
     public boolean attackEntityAsMob(Entity entityIn)
@@ -213,6 +191,14 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 		else if (source == DamageSource.LAVA) 
 		{
 			return false;
+		}  
+		else if (source == DamageSource.IN_WALL) 
+		{
+			return false;
+		} 
+		else if (source == DamageSource.FALL) 
+		{
+			return false;
 		} 
 		else 
 		{
@@ -222,7 +208,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 	
     public boolean isBurning()
     {
-        return this.isAggressive() && !this.isWet();
+        return extraheight > 0;
     }
     
     protected boolean isValidLightLevel()
@@ -254,12 +240,14 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     {
     	super.onLivingUpdate();
     	
+    	this.fallDistance = 0;
+    	
     	if (this.getAttackTarget() != null && !this.getAttackTarget().isEntityAlive())
     		this.setAttackTarget(null);
     	
     	if (!this.world.isRemote)
     	{
-        	if (this.isAggressive())
+        	if (this.isAggressive() || !this.onGround)
         	{
         		if (this.getAttackTarget() == null)
                     this.setAggressive(false);
@@ -268,15 +256,19 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         	}
         	else
         	{
-        		if (this.world.isAirBlock(getPosition()))
+            	this.setInvisible(true);
+        		if (this.world.isAirBlock(getPosition()) && this.isEntityAlive())
         		this.world.setBlockState(getPosition(), Blocks.FIRE.getDefaultState());
+        		if (this.world.getBlockState(getPosition().down()).getBlock().isFlammable(world, getPosition().down(), EnumFacing.UP) && this.ticksExisted % 40 == 0)
+        		{
+        	        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + 1D);
+        	        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue() + 0.1D);
+        		}
         		if (this.getAttackTarget() != null)
         		{
                     this.setAggressive(true);
                 	this.world.playEvent((EntityPlayer)null, 1018, this.getPosition(), 0);
-
         		}
-            	this.setInvisible(true);
             	if (this.ticksExisted % 60 == 0)
             		this.heal(1F);
         	}
@@ -301,24 +293,29 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
             int j = MathHelper.floor(this.posY);
             int k = MathHelper.floor(this.posZ);
 
-            if (this.isWet() || this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < 2.0F)
+            if (this.isWet() || (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < 2.0F && this.world.getBiome(new BlockPos(i, 0, k)) != Biomes.HELL))
             {
-                this.attackEntityFrom(DamageSource.DROWN, 3F);
+                this.attackEntityFrom(DamageSource.DROWN, 4F);
             }
     	}
     	
     	this.prevextraheight = this.extraheight;
     	
-        if (this.isAggressive())
+    	boolean height = this.world.getBlockState(new BlockPos(this.posX, this.posY + 0.5D, this.posZ)).isOpaqueCube();
+    	boolean height2 = this.world.getBlockState(new BlockPos(this.posX, this.posY + 1D, this.posZ)).isOpaqueCube();
+    	
+        if (this.isAggressive() || !this.onGround)
         {
-            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, 0.9F);
+            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
         }
         else
         {
-            this.extraheight = 0F;
+            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
         }
 
-        this.setSize(0.75F, 0.9F + this.extraheight);
+        this.setSize(0.1F, 0.1F);
+        if (this.world.isRemote)
+            this.setSize(0.75F, 0.1F + this.extraheight);
     }
     
 	public boolean getCanSpawnHere() 
@@ -327,7 +324,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0 && this.world.getBlockState(blockpos.south()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.north()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.west()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.east()).getBlock() == Blocks.AIR && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		return this.world.provider.getDimension() == -1 && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.NETHERRACK && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
 	}
 
     class AIWait extends EntityAIBase
