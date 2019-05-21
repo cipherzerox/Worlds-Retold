@@ -70,9 +70,12 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     public EntityLivingFlame(World worldIn) {
         super(worldIn);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
-        this.setPathPriority(PathNodeType.DAMAGE_CACTUS, 0.0F);
-        this.setPathPriority(PathNodeType.DANGER_CACTUS, 0.0F);
-        this.setSize(0.75F, 0.9F);
+        this.setPathPriority(PathNodeType.LAVA, 8.0F);
+        this.setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
+        this.setPathPriority(PathNodeType.DAMAGE_FIRE, 0.0F);
+        this.isImmuneToFire = true;
+        this.experienceValue = 10;
+        this.setSize(0.75F, 0.9F + this.extraheight);
     }
 
     protected void initEntityAI() {
@@ -80,11 +83,6 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-    }
-    
-    public boolean isPreventingPlayerRest(EntityPlayer playerIn)
-    {
-        return this.isAggressive();
     }
 
     protected void entityInit() {
@@ -129,15 +127,15 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     }
 
     protected SoundEvent getAmbientSound() {
-        return null;
+        return SoundEvents.BLOCK_FIRE_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENCHANT_THORNS_HIT;
+        return SoundEvents.BLOCK_FIRE_EXTINGUISH;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BLOCK_CLOTH_BREAK;
+        return SoundEvents.ITEM_BUCKET_EMPTY_LAVA;
     }
 
     /**
@@ -151,7 +149,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox()
     {
-        return this.isEntityAlive() && !this.isAggressive() ? this.getEntityBoundingBox() : null;
+        return null;
     }
     
     protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
@@ -222,7 +220,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 	
     public boolean isBurning()
     {
-        return this.isAggressive() && !this.isWet();
+        return true;
     }
     
     protected boolean isValidLightLevel()
@@ -263,7 +261,6 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         	{
         		if (this.getAttackTarget() == null)
                     this.setAggressive(false);
-            	this.setInvisible(false);
         		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;
         	}
         	else
@@ -276,7 +273,6 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
                 	this.world.playEvent((EntityPlayer)null, 1018, this.getPosition(), 0);
 
         		}
-            	this.setInvisible(true);
             	if (this.ticksExisted % 60 == 0)
             		this.heal(1F);
         	}
@@ -303,7 +299,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 
             if (this.isWet() || this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < 2.0F)
             {
-                this.attackEntityFrom(DamageSource.DROWN, 3F);
+                this.attackEntityFrom(DamageSource.DROWN, 4F);
             }
     	}
     	
@@ -327,7 +323,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 		int j = MathHelper.floor(this.getEntityBoundingBox().minY);
 		int k = MathHelper.floor(this.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return this.world.provider.getDimension() == 0 && this.world.getBlockState(blockpos.south()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.north()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.west()).getBlock() == Blocks.AIR && this.world.getBlockState(blockpos.east()).getBlock() == Blocks.AIR && this.world.canSeeSky(new BlockPos(this)) && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SAND && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+		return this.world.provider.getDimension() == -1 && this.world.getBlockState(blockpos.down()).getBlock() == Blocks.NETHERRACK && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
 	}
 
     class AIWait extends EntityAIBase

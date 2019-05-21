@@ -21,6 +21,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.EntityCaribou;
 import xenoscape.worldsretold.hailstorm.entity.passive.caribou.RenderCaribou;
+import xenoscape.worldsretold.hailstorm.entity.passive.nix.EntityNix;
+import xenoscape.worldsretold.hailstorm.entity.passive.nix.ModelNix;
 
 public class RenderLivingFlame extends RenderLiving<EntityLivingFlame>
 {
@@ -28,13 +30,19 @@ public class RenderLivingFlame extends RenderLiving<EntityLivingFlame>
 	
 	protected RenderLivingFlame(RenderManager renderManagerIn) 
 	{
-		super(renderManagerIn, new ModelChest(), 0F);
+		super(renderManagerIn, new ModelNix(), 0F);
 	}
 
 	protected ResourceLocation getEntityTexture(EntityLivingFlame entity) 
 	{
 		return null;
 	}
+	
+    @Override
+    public void doRender(EntityLivingFlame entity, double x, double y, double z, float entityYaw, float partialTicks) 
+    {
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    }
 
     public static class Factory implements IRenderFactory<EntityLivingFlame>
     {
