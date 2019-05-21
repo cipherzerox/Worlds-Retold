@@ -25,6 +25,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -42,6 +43,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -76,6 +78,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         this.isImmuneToFire = true;
         this.experienceValue = 10;
         this.setSize(0.75F, 0.1F);
+        this.stepHeight = 2F;
     }
 
     protected void initEntityAI() {
@@ -97,6 +100,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
+        this.posY += 0.9D;
 		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead = 180F;
         return super.onInitialSpawn(difficulty, livingdata);
     }
@@ -192,6 +196,10 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 		{
 			return false;
 		} 
+		else if (source == DamageSource.FALL) 
+		{
+			return false;
+		} 
 		else 
 		{
 			return super.attackEntityFrom(source, amount);
@@ -232,6 +240,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     {
     	super.onLivingUpdate();
     	
+    	this.fallDistance = 0;
     	
     	if (this.getAttackTarget() != null && !this.getAttackTarget().isEntityAlive())
     		this.setAttackTarget(null);
@@ -250,11 +259,15 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
             	this.setInvisible(true);
         		if (this.world.isAirBlock(getPosition()) && this.isEntityAlive())
         		this.world.setBlockState(getPosition(), Blocks.FIRE.getDefaultState());
+        		if (this.world.getBlockState(getPosition().down()).getBlock().isFlammable(world, getPosition().down(), EnumFacing.UP) && this.ticksExisted % 40 == 0)
+        		{
+        	        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + 1D);
+        	        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue() + 0.1D);
+        		}
         		if (this.getAttackTarget() != null)
         		{
                     this.setAggressive(true);
                 	this.world.playEvent((EntityPlayer)null, 1018, this.getPosition(), 0);
-
         		}
             	if (this.ticksExisted % 60 == 0)
             		this.heal(1F);
@@ -280,7 +293,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
             int j = MathHelper.floor(this.posY);
             int k = MathHelper.floor(this.posZ);
 
-            if (this.isWet() || this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < 2.0F)
+            if (this.isWet() || (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < 2.0F && this.world.getBiome(new BlockPos(i, 0, k)) != Biomes.HELL))
             {
                 this.attackEntityFrom(DamageSource.DROWN, 4F);
             }
@@ -288,19 +301,19 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     	
     	this.prevextraheight = this.extraheight;
     	
-    	boolean height = this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ)).isOpaqueCube();
+    	boolean height = this.world.getBlockState(new BlockPos(this.posX, this.posY + 0.5D, this.posZ)).isOpaqueCube();
     	boolean height2 = this.world.getBlockState(new BlockPos(this.posX, this.posY + 1D, this.posZ)).isOpaqueCube();
     	
         if (this.isAggressive() || !this.onGround)
         {
-            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F - (float)(this.motionY * 2D));
+            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
         }
         else
         {
-            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F - (float)(this.motionY * 2D));
+            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
         }
 
-        this.setSize(0.75F, 0.1F);
+        this.setSize(0.1F, 0.1F);
         if (this.world.isRemote)
             this.setSize(0.75F, 0.1F + this.extraheight);
     }
