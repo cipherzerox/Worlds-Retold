@@ -226,6 +226,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     {
     	super.onLivingUpdate();
     	
+    	
     	if (this.getAttackTarget() != null && !this.getAttackTarget().isEntityAlive())
     		this.setAttackTarget(null);
     	
@@ -235,10 +236,12 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         	{
         		if (this.getAttackTarget() == null)
                     this.setAggressive(false);
+            	this.setInvisible(false);
         		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead;
         	}
         	else
         	{
+            	this.setInvisible(true);
         		if (this.world.isAirBlock(getPosition()))
         		this.world.setBlockState(getPosition(), Blocks.FIRE.getDefaultState());
         		if (this.getAttackTarget() != null)
