@@ -14,19 +14,19 @@ public class HellfireModule {
 
 	public static HellfireModule INSTANCE = new HellfireModule();
 
-	public void preInitHeatwave(FMLPreInitializationEvent event) {
+	public void preInitHellfire(FMLPreInitializationEvent event) {
 		HellfireEntities.preInit();
 		HellfireConfig.preInitConfigs(event);
 		HellfirePotions.registerPotions();
 		WorldsRetold.LOGGER.info("Hellfire Module Preinitialized");
 	}
 
-	public void initHeatwave(FMLInitializationEvent event) {
+	public void initHellfire(FMLInitializationEvent event) {
 		HellfireEntities.init();
 		WorldsRetold.LOGGER.info("Hellfire Module Initialized");
 	}
 
-	public void postInitHeatwave(FMLPostInitializationEvent event) {
+	public void postInitHellfire(FMLPostInitializationEvent event) {
 		WorldsRetold.LOGGER.info("Hellfire Module Postinitialized");
 	}
 }
