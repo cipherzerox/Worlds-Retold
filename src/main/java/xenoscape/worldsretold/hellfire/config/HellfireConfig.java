@@ -12,7 +12,7 @@ public class HellfireConfig {
 
     public static void preInitConfigs(FMLPreInitializationEvent event) {
         File worldsRetoldFolder = new File(event.getModConfigurationDirectory().getAbsolutePath(), "worldsretold");
-        File heatwaveFolder = new File(worldsRetoldFolder, "heatwave");
+        File heatwaveFolder = new File(worldsRetoldFolder, "hellfire");
         entity = new ConfigHellfireEntity(new File(heatwaveFolder, "entity.cfg"));
     }
 

@@ -14,12 +14,12 @@ public class HellfirePotions {
 
 	public static final Potion HELLFIRE = new PotionVenom("hellfire", true, 16745472, 2, 0);
 
-	public static final PotionType NORMAL_HELLFIRE = new PotionType("venom",
-			new PotionEffect[] { new PotionEffect(HELLFIRE, 900) }).setRegistryName("venom");
-	public static final PotionType LONG_HELLFIRE = new PotionType("venom",
-			new PotionEffect[] { new PotionEffect(HELLFIRE, 1800) }).setRegistryName("long_venom");
-	public static final PotionType STRONG_HELLFIRE = new PotionType("venom",
-			new PotionEffect[] { new PotionEffect(HELLFIRE, 450, 1) }).setRegistryName("strong_venom");
+	public static final PotionType NORMAL_HELLFIRE = new PotionType("hellfire",
+			new PotionEffect[] { new PotionEffect(HELLFIRE, 900) }).setRegistryName("hellfire");
+	public static final PotionType LONG_HELLFIRE = new PotionType("hellfire",
+			new PotionEffect[] { new PotionEffect(HELLFIRE, 1800) }).setRegistryName("long_hellfire");
+	public static final PotionType STRONG_HELLFIRE = new PotionType("hellfire",
+			new PotionEffect[] { new PotionEffect(HELLFIRE, 450, 1) }).setRegistryName("strong_hellfire");
 	
 	public static void registerPotions() {
 		registerPotion(NORMAL_HELLFIRE, LONG_HELLFIRE, STRONG_HELLFIRE, HELLFIRE);
