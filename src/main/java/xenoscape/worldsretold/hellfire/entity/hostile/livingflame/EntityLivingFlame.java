@@ -75,7 +75,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         this.setPathPriority(PathNodeType.DAMAGE_FIRE, 0.0F);
         this.isImmuneToFire = true;
         this.experienceValue = 10;
-        this.setSize(0.75F, 0.9F + this.extraheight);
+        this.setSize(0.75F, 0.1F);
     }
 
     protected void initEntityAI() {
@@ -110,6 +110,8 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 
         if (value) {
             i = i | 1;
+            if (this.world.getBlockState(getPosition()).getBlock() == Blocks.FIRE)
+    		this.world.setBlockState(getPosition(), Blocks.AIR.getDefaultState());
         } else {
             i = i & ~1;
         }
@@ -139,7 +141,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     }
 
     public float getEyeHeight() {
-        return this.height - 0.5F;
+        return this.height;
     }
 
     public int getMaxSpawnedInChunk() 
@@ -185,6 +187,10 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 		else if (source == DamageSource.LAVA) 
 		{
 			return false;
+		}  
+		else if (source == DamageSource.IN_WALL) 
+		{
+			return false;
 		} 
 		else 
 		{
@@ -194,7 +200,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 	
     public boolean isBurning()
     {
-        return true;
+        return extraheight > 0;
     }
     
     protected boolean isValidLightLevel()
@@ -232,7 +238,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     	
     	if (!this.world.isRemote)
     	{
-        	if (this.isAggressive())
+        	if (this.isAggressive() || !this.onGround)
         	{
         		if (this.getAttackTarget() == null)
                     this.setAggressive(false);
@@ -242,7 +248,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         	else
         	{
             	this.setInvisible(true);
-        		if (this.world.isAirBlock(getPosition()))
+        		if (this.world.isAirBlock(getPosition()) && this.isEntityAlive())
         		this.world.setBlockState(getPosition(), Blocks.FIRE.getDefaultState());
         		if (this.getAttackTarget() != null)
         		{
@@ -282,16 +288,21 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     	
     	this.prevextraheight = this.extraheight;
     	
-        if (this.isAggressive())
+    	boolean height = this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ)).isOpaqueCube();
+    	boolean height2 = this.world.getBlockState(new BlockPos(this.posX, this.posY + 1D, this.posZ)).isOpaqueCube();
+    	
+        if (this.isAggressive() || !this.onGround)
         {
-            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, 0.9F);
+            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F - (float)(this.motionY * 2D));
         }
         else
         {
-            this.extraheight = 0F;
+            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F - (float)(this.motionY * 2D));
         }
 
-        this.setSize(0.75F, 0.9F + this.extraheight);
+        this.setSize(0.75F, 0.1F);
+        if (this.world.isRemote)
+            this.setSize(0.75F, 0.1F + this.extraheight);
     }
     
 	public boolean getCanSpawnHere() 
