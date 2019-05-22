@@ -301,16 +301,18 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     	
     	this.prevextraheight = this.extraheight;
     	
-    	boolean height = this.world.getBlockState(new BlockPos(this.posX, this.posY + 0.5D, this.posZ)).isOpaqueCube();
-    	boolean height2 = this.world.getBlockState(new BlockPos(this.posX, this.posY + 1D, this.posZ)).isOpaqueCube();
+    	boolean height = this.world.getBlockState(this.getPosition()).isOpaqueCube();
+    	boolean height2 = this.world.getBlockState(this.getPosition()).isSideSolid(world, this.getPosition(), EnumFacing.UP);
+    	boolean height3 = this.world.getBlockState(this.getPosition().up()).isOpaqueCube();
+    	boolean height4 = this.world.getBlockState(this.getPosition().up()).isSideSolid(world, this.getPosition(), EnumFacing.UP);
     	
         if (this.isAggressive() || !this.onGround)
         {
-            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
+            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height2 ? 0.1F : height ? 0.4F : height4 ? 0.9F : height3 ? 1.4F : 1.9F);
         }
         else
         {
-            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
+            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height2 ? 0.1F : height ? 0.4F : height4 ? 0.9F : height3 ? 1.4F : 1.9F);
         }
 
         this.setSize(0.1F, 0.1F);
