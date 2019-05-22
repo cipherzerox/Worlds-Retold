@@ -45,6 +45,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -100,7 +101,6 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        this.posY += 0.9D;
 		this.prevRenderYawOffset = this.renderYawOffset = this.prevRotationYaw = this.rotationYaw = this.prevRotationYawHead = this.rotationYawHead = 180F;
         return super.onInitialSpawn(difficulty, livingdata);
     }
@@ -301,21 +301,41 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     	
     	this.prevextraheight = this.extraheight;
     	
-    	boolean height = this.world.getBlockState(new BlockPos(this.posX, this.posY + 0.5D, this.posZ)).isOpaqueCube();
-    	boolean height2 = this.world.getBlockState(new BlockPos(this.posX, this.posY + 1D, this.posZ)).isOpaqueCube();
+    	boolean height = this.world.getBlockState(this.getPosition()).isOpaqueCube();
+    	boolean height2 = this.world.getBlockState(this.getPosition()).isSideSolid(world, this.getPosition(), EnumFacing.UP);
+    	boolean height3 = this.world.getBlockState(this.getPosition().up()).isOpaqueCube();
+    	boolean height4 = this.world.getBlockState(this.getPosition().up()).isSideSolid(world, this.getPosition(), EnumFacing.UP);
     	
         if (this.isAggressive() || !this.onGround)
         {
-            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
+            this.extraheight = MathHelper.clamp(this.extraheight + 0.1F, 0F, height2 ? 0.1F : height ? 0.4F : height4 ? 0.9F : height3 ? 1.4F : 1.9F);
         }
         else
         {
-            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height ? 0.1F : height2 ? 0.9F : 1.9F);
+            this.extraheight = MathHelper.clamp(this.extraheight - 0.1F, 0F, height2 ? 0.1F : height ? 0.4F : height4 ? 0.9F : height3 ? 1.4F : 1.9F);
         }
 
-        this.setSize(0.1F, 0.1F);
+        this.setSize(0.75F, 0.1F);
         if (this.world.isRemote)
             this.setSize(0.75F, 0.1F + this.extraheight);
+        
+        if (this.isEntityAlive() && (this.isAggressive() || !this.onGround))
+        {
+            double d0 = (double)this.getPosition().getX() + rand.nextDouble();
+            double d1 = (double)this.getPosition().getY() - 1D + rand.nextDouble() * 0.5D + this.extraheight;
+            double d2 = (double)this.getPosition().getZ() + rand.nextDouble();
+            world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        }
+        else if (!this.isEntityAlive())
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                double d0 = (double)this.getPosition().getX() + rand.nextDouble();
+                double d1 = (double)this.getPosition().getY() + rand.nextDouble() * 0.5D + 0.5D;
+                double d2 = (double)this.getPosition().getZ() + rand.nextDouble();
+                world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            }
+        }
     }
     
 	public boolean getCanSpawnHere() 
