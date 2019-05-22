@@ -328,6 +328,8 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         }
         else if (!this.isEntityAlive())
         {
+            if (this.world.getBlockState(getPosition()).getBlock() == Blocks.FIRE)
+    		this.world.setBlockState(getPosition(), Blocks.AIR.getDefaultState());
             for (int i = 0; i < 10; ++i)
             {
                 double d0 = (double)this.getPosition().getX() + rand.nextDouble();
