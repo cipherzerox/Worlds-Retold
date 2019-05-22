@@ -84,6 +84,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 
     protected void initEntityAI() {
         this.tasks.addTask(0, new EntityLivingFlame.AIWait());
+        this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
@@ -208,7 +209,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
 	
     public boolean isBurning()
     {
-        return extraheight > 0;
+        return this.world.getBlockState(getPosition()).getBlock() != Blocks.FIRE && this.isEntityAlive();
     }
     
     protected boolean isValidLightLevel()
@@ -239,6 +240,16 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
     public void onLivingUpdate()
     {
     	super.onLivingUpdate();
+    	
+    	if (this.isInLava() && this.getAttackTarget() != null)
+    	{
+            double d0 = this.getAttackTarget().posX - this.posX;
+            double d1 = this.getAttackTarget().posZ - this.posZ;
+            double d3 = d0 * d0 + d1 * d1;
+            double d5 = (double)MathHelper.sqrt(d3);
+            this.motionX += (d0 / d5 * 0.5D - this.motionX) * 0.6000000238418579D;
+            this.motionZ += (d1 / d5 * 0.5D - this.motionZ) * 0.6000000238418579D;
+    	}
     	
     	this.fallDistance = 0;
     	
@@ -322,7 +333,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         if (this.isEntityAlive() && (this.isAggressive() || !this.onGround))
         {
             double d0 = (double)this.getPosition().getX() + rand.nextDouble();
-            double d1 = (double)this.getPosition().getY() - 1D + rand.nextDouble() * 0.5D + this.extraheight;
+            double d1 = (double)this.getPosition().getY() - 0.5D + rand.nextDouble() * 0.5D;
             double d2 = (double)this.getPosition().getZ() + rand.nextDouble();
             world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
@@ -330,10 +341,10 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
         {
             if (this.world.getBlockState(getPosition()).getBlock() == Blocks.FIRE)
     		this.world.setBlockState(getPosition(), Blocks.AIR.getDefaultState());
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 30 - (this.deathTime <= 28 ? this.deathTime : 28); ++i)
             {
                 double d0 = (double)this.getPosition().getX() + rand.nextDouble();
-                double d1 = (double)this.getPosition().getY() + rand.nextDouble() * 0.5D + 0.5D;
+                double d1 = (double)this.getPosition().getY() - 0.5D + rand.nextDouble() * (this.deathTime * 0.1D);
                 double d2 = (double)this.getPosition().getZ() + rand.nextDouble();
                 world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             }
@@ -361,7 +372,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
          */
         public boolean shouldExecute()
         {
-            return !EntityLivingFlame.this.isAggressive();
+            return !EntityLivingFlame.this.isAggressive() && !EntityLivingFlame.this.isInLava();
         }
 
         /**

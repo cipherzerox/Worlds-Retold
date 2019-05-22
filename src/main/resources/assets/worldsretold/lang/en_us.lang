@@ -97,6 +97,7 @@ entity.mimic.name=Mimic
 entity.fester.name=Fester
 entity.evilcactus.name=Cactor
 entity.livingflame.name=Living Flame
+entity.hellhound.name=Hellhound
 
 # Boss
 entity.frostboar.name=Frost Boar
