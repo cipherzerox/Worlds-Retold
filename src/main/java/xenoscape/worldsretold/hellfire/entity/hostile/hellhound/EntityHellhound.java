@@ -117,7 +117,7 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
-        this.getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(this.rand.nextDouble() * 0.25D);
+        this.getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(this.rand.nextDouble() * 0.1D);
     }
 
     protected void entityInit()
@@ -154,7 +154,7 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         if (!this.world.isRemote && this.getAttackTarget() != null && this.onGround)
         	this.setJumpPos(this.getAttackTarget().getPosition());
         
-        if (!this.world.isRemote && this.onGround && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 256D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
+        if (!this.world.isRemote && this.onGround && this.getJumpCooldown() <= 0 && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) <= 128D && this.getDistanceSq(this.getAttackTarget()) > 16D && this.canEntityBeSeen(this.getAttackTarget()))
         {
         	this.playSound(HailstormSounds.ENTITY_SNAKE_STRIKE, this.getSoundVolume(), this.getSoundPitch());
         	this.setJumpPos(this.getAttackTarget().getPosition());
@@ -166,18 +166,7 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         	double hor = f21 / this.getDistance(this.getAttackTarget()) * 1.375D;
         	this.motionX = (d01 / f21 * hor * hor + this.motionX * hor);
         	this.motionZ = (d11 / f21 * hor * hor + this.motionZ * hor);
-        	this.motionY = 1D + (this.getAttackTarget().posY - this.posY) * 0.1D;
-            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(1D), EntitySelectors.getTeamCollisionPredicate(this));
-
-            if (!list.isEmpty())
-            {
-                for (int l = 0; l < list.size(); ++l)
-                {
-                    Entity entity = list.get(l);
-                    if (!(entity instanceof EntityHellhound))
-                    	entity.attackEntityFrom(new EntityDamageSource("worldsretold.leap", this), 2F);
-                }
-            }
+        	this.motionY = 0.75D + (this.getAttackTarget().posY - this.posY) * 0.1D;
         }
         
 		if (this.getAttackTarget() != null) 
@@ -240,11 +229,10 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
             IBlockState state = this.world.getBlockState(this.getPosition().down());
             
         	this.setJumpCooldown(200);
-        	this.world.playEvent(2001, this.getPosition(), Block.getStateId(this.world.getBlockState(this.getPosition().down())));
 
             if (!state.getBlock().isAir(state, world, this.getPosition().down()))
             {
-                int i1 = (int)(150.0D * 2.5D);
+                int i1 = (int)(50.0D * 2.5D);
                 if (!state.getBlock().addLandingEffects(state, (WorldServer)this.world, this.getPosition().down(), state, this, i1))
                 ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i1, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(state));
                 ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i1, 0.0D, 0.0D, 0.0D, 0.2000000596046448D, Block.getStateId(state));
@@ -429,34 +417,13 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
 
     public float getEyeHeight()
     {
-        float f = 1.914F;
-
-        if (this.isChild())
-        {
-            f = (float)((double)f - 0.891D);
-        }
-
-        return f;
-    }
-    
-    public float getBlockPathWeight(BlockPos pos)
-    {
-        return 0.5F - this.world.getLightBrightness(pos);
+        return this.height * 0.8F;
     }
 
 	public int getSpawnType()
 	{
-		return 2;
+		return 4;
 	}
-
-    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        if (wasRecentlyHit && this.rand.nextInt(12) == 0) {
-            EntityItem entityitem = this.dropItem(HeatwaveItems.KHOPESH, 1);
-            if (entityitem != null) {
-                entityitem.setNoDespawn();
-            }
-        }
-    }
 
     /**
      * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
