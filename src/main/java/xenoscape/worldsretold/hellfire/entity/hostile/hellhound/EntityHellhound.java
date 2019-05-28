@@ -228,13 +228,13 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
                 for (int l = 0; l < list.size(); ++l)
                 {
                     Entity entity = list.get(l);
-                    if (!(entity instanceof EntityHellhound))
+                    if (!(entity instanceof EntityHellhound) && !(entity instanceof EntityWitherSkeleton))
                     	entity.attackEntityFrom(new EntityDamageSource("worldsretold.leap", this), 4F);
                 }
             }
             IBlockState state = this.world.getBlockState(this.getPosition().down());
             
-        	this.setJumpCooldown(200);
+        	this.setJumpCooldown(100);
 
             if (!state.getBlock().isAir(state, world, this.getPosition().down()))
             {

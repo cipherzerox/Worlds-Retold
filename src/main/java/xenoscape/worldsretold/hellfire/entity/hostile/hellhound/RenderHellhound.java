@@ -81,8 +81,8 @@ public class RenderHellhound extends RenderLiving<EntityHellhound>
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
-            GlStateManager.scale(0.51F, 0.51F, 0.51F);
-            GlStateManager.translate(-0.5F, 1.2F, -0.725F);
+            GlStateManager.scale(0.51F, 0.45F, 0.5F);
+            GlStateManager.translate(-0.5F, 1.375F, -0.725F);
             GlStateManager.rotate(90F, 1F, 0F, 0F);
             int i = entitylivingbaseIn.getBrightnessForRender();
             int j = i % 65536;
