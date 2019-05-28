@@ -215,7 +215,7 @@ public class EntityAnubite extends EntitySurfaceMonster implements IDesertCreatu
         	double d01 = this.getJumpPos().getX() - this.posX;
         	double d11 = this.getJumpPos().getZ() - this.posZ;
         	float f21 = MathHelper.sqrt(d01 * d01 + d11 * d11);
-        	double hor = f21 / this.getDistance(getJumpPos().getX(), getJumpPos().getY(), getJumpPos().getZ()) * 1.325D;
+        	double hor = f21 / this.getDistance(getJumpPos().getX(), getJumpPos().getY(), getJumpPos().getZ()) * (this.getDistance(getJumpPos().getX(), getJumpPos().getY(), getJumpPos().getZ()) * 0.1D);
         	this.motionX = (d01 / f21 * hor * hor + this.motionX * hor);
         	this.motionZ = (d11 / f21 * hor * hor + this.motionZ * hor);
         	this.motionY = 1D + (this.getAttackTarget().posY - this.posY) * 0.1D;
