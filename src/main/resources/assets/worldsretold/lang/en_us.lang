@@ -126,6 +126,12 @@ splash_potion.effect.venom=Splash Potion of Venom
 lingering_potion.effect.venom=Lingering Potion of Venom
 tipped_arrow.effect.venom=Arrow of Venom
 
+effect.hellfire=Hellfire
+potion.effect.hellfire=Potion of Burning
+splash_potion.effect.hellfire=Splash Potion of Burning
+lingering_potion.effect.hellfire=Lingering Potion of Burning
+tipped_arrow.effect.hellfire=Arrow of Burning
+
 ##Enchantment##
 
 enchantment.icebound_blade=Icebound Blade
@@ -151,3 +157,7 @@ subtitles.wight.death=Wight death
 subtitles.anubite.ambient=Anubite growls
 subtitles.anubite.hurt=Anubite hurt
 subtitles.anubite.death=Anubite death
+subtitles.hellhound.ambient=Hellhound growls
+subtitles.hellhound.hurt=Hellhound hurt
+subtitles.hellhound.death=Hellhound death
+subtitles.hellhound.attack=Hellhound lunges
