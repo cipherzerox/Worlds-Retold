@@ -68,6 +68,8 @@ import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunne
 import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.RenderRoadrunner;
 import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
 import xenoscape.worldsretold.heatwave.entity.projectiles.RenderThrownSand;
+import xenoscape.worldsretold.hellfire.entity.hostile.hellhound.EntityHellhound;
+import xenoscape.worldsretold.hellfire.entity.hostile.hellhound.RenderHellhound;
 import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.EntityLivingFlame;
 import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.RenderLivingFlame;
 
@@ -147,6 +149,7 @@ public class ClientProxy extends ServerProxy {
 
 		// Hostile
 		RenderingRegistry.registerEntityRenderingHandler(EntityLivingFlame.class, RenderLivingFlame.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityHellhound.class, RenderHellhound.FACTORY);
 		
 		// Projectile
 	}

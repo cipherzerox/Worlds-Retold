@@ -8,11 +8,11 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import xenoscape.worldsretold.heatwave.potion.PotionVenom;
+import xenoscape.worldsretold.hellfire.potion.PotionHellfire;
 
 public class HellfirePotions {
 
-	public static final Potion HELLFIRE = new PotionVenom("hellfire", true, 16745472, 2, 0);
+	public static final Potion HELLFIRE = new PotionHellfire("hellfire", true, 16745472, 2, 0);
 
 	public static final PotionType NORMAL_HELLFIRE = new PotionType("hellfire",
 			new PotionEffect[] { new PotionEffect(HELLFIRE, 900) }).setRegistryName("hellfire");
@@ -20,9 +20,12 @@ public class HellfirePotions {
 			new PotionEffect[] { new PotionEffect(HELLFIRE, 1800) }).setRegistryName("long_hellfire");
 	public static final PotionType STRONG_HELLFIRE = new PotionType("hellfire",
 			new PotionEffect[] { new PotionEffect(HELLFIRE, 450, 1) }).setRegistryName("strong_hellfire");
+	public static final PotionType LONG_STRONG_HELLFIRE = new PotionType("hellfire",
+			new PotionEffect[] { new PotionEffect(HELLFIRE, 900, 1) }).setRegistryName("long_strong_hellfire");
 	
 	public static void registerPotions() {
 		registerPotion(NORMAL_HELLFIRE, LONG_HELLFIRE, STRONG_HELLFIRE, HELLFIRE);
+		ForgeRegistries.POTION_TYPES.register(LONG_STRONG_HELLFIRE);
 		registerPotionRecipes();
 	}
 
@@ -39,5 +42,7 @@ public class HellfirePotions {
 		PotionHelper.addMix(NORMAL_HELLFIRE, Items.REDSTONE, LONG_HELLFIRE);
 		PotionHelper.addMix(NORMAL_HELLFIRE, Items.GLOWSTONE_DUST, STRONG_HELLFIRE);
 		PotionHelper.addMix(NORMAL_HELLFIRE, Items.FERMENTED_SPIDER_EYE, PotionTypes.FIRE_RESISTANCE);
+		PotionHelper.addMix(STRONG_HELLFIRE, Items.REDSTONE, LONG_STRONG_HELLFIRE);
+		PotionHelper.addMix(LONG_HELLFIRE, Items.GLOWSTONE_DUST, LONG_STRONG_HELLFIRE);
 	}
 }

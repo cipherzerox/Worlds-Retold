@@ -44,6 +44,7 @@ public class WorldsRetold {
 	public static final DamageSource HAIL = new DamageSource("worldsretold.hail");
 	public static final DamageSource ICE_SCROLL_PROJECTILE = new DamageSource("worldsretold.ice_scroll_projectile");
 	public static final DamageSource VENOM = new DamageSource("worldsretold.venom").setDamageBypassesArmor().setDamageIsAbsolute();
+	public static final DamageSource HELLFIRE = new DamageSource("worldsretold.hellfire").setDamageBypassesArmor().setDamageIsAbsolute().setFireDamage();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

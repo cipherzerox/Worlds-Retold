@@ -1,4 +1,40 @@
 {
+    "hellhoundidle": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/hellhound/hellhoundidle1",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle2",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle3",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle4",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle5"
+        ],
+        "subtitle": "subtitles.hellhound.ambient"
+    },
+    "hellhoundhurt": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/hellhound/hellhoundidle1",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle2",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle3"
+        ],
+        "subtitle": "subtitles.hellhound.hurt"
+    },
+    "hellhounddeath": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/hellhound/hellhoundidle1",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle2",
+        "worldsretold:entity/hostile/hellhound/hellhoundidle3"
+        ],
+        "subtitle": "subtitles.hellhound.death"
+    },
+    "hellhoundattack": {
+        "category": "hostile",
+        "sounds": [
+        "worldsretold:entity/hostile/hellhound/hellhoundattack"
+        ],
+        "subtitle": "subtitles.hellhound.attack"
+    },
     "anubiteambient": {
         "category": "hostile",
         "sounds": [

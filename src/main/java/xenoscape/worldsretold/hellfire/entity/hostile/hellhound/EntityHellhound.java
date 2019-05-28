@@ -38,6 +38,7 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -107,6 +108,8 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityAnimal.class, false));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, false));
     }
 
@@ -134,6 +137,9 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
+        
+        if (!this.world.isRemote && this.isInLava() && this.ticksExisted % 20 == 0)
+        	this.heal(2);
         
         if (this.getRevengeTarget() != null && !this.getRevengeTarget().isEntityAlive())
         	this.setRevengeTarget(null);
@@ -213,7 +219,7 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         float f = potioneffect == null ? 0.0F : (float)(potioneffect.getAmplifier() + 1);
         int i = MathHelper.ceil((distance - 3.0F - f) * damageMultiplier);
 
-        if (i > 0 && this.getAttackTarget() != null && this.getJumpCooldown() <= 0)
+        if (this.getAttackTarget() != null && this.getJumpCooldown() <= 0)
         {
             List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(2D), EntitySelectors.getTeamCollisionPredicate(this));
 
@@ -303,11 +309,26 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         {
             if (entityIn instanceof EntityLivingBase)
             {
+            	this.playSound(HailstormSounds.ENTITY_HELLHOUND_ATTCK, this.getSoundVolume(), this.getSoundPitch());
                 ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(HellfirePotions.HELLFIRE, 200));
             }
 
             return true;
         }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public int getBrightnessForRender()
+    {
+        return 15728880;
+    }
+
+    /**
+     * Gets how bright this entity is.
+     */
+    public float getBrightness()
+    {
+        return 1.0F;
     }
     
     /**
@@ -328,27 +349,22 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
 
     protected SoundEvent getAmbientSound()
     {
-        return SoundEvents.ENTITY_WOLF_GROWL;
+        return HailstormSounds.ENTITY_HELLHOUND_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return SoundEvents.ENTITY_WOLF_AMBIENT;
+        return HailstormSounds.ENTITY_HELLHOUND_HURT;
     }
 
     protected SoundEvent getDeathSound()
     {
-        return SoundEvents.ENTITY_WOLF_HOWL;
-    }
-    
-    protected float getSoundPitch()
-    {
-        return (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.75F;
+        return HailstormSounds.ENTITY_HELLHOUND_DEATH;
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
-        this.playSound(SoundEvents.BLOCK_LADDER_STEP, 0.25F, getSoundPitch());
+        this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
     }
 
     @Nullable

@@ -16,10 +16,10 @@ import xenoscape.worldsretold.heatwave.HeatwaveModule;
 
 import java.util.UUID;
 
-public class PotionHellfire extends Potion {
-
-	public static final UUID MODIFIER_UUID = UUID.fromString("d8e4ae61-e49d-4231-aa67-0e6662669347");
-
+public class PotionHellfire extends Potion 
+{
+	private boolean isEntityInWater;
+	
 	public PotionHellfire(String name, boolean isBadPotion, int color, int IconIndexX, int IconIndexY) {
 		super(isBadPotion, color);
 		setPotionName("effect." + name);
@@ -30,32 +30,24 @@ public class PotionHellfire extends Potion {
 	@Override
 	public boolean hasStatusIcon() 
 	{
-		Minecraft.getMinecraft().getTextureManager()
-				.bindTexture(new ResourceLocation(WorldsRetold.MODID + ":textures/gui/potion_effects.png"));
+		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(WorldsRetold.MODID + ":textures/gui/potion_effects.png"));
 		return true;
 	}
 
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
-		target.rotationYawHead += target.getRNG().nextFloat() * 10F - 5F;
-		
-		if (target instanceof EntityPlayer)
-		{
-			((EntityPlayer)target).addPotionEffect(new PotionEffect(MobEffects.POISON, 21));
-			((EntityPlayer)target).cameraYaw += target.getRNG().nextFloat() - 0.5F;
-			((EntityPlayer)target).getFoodStats().addExhaustion(0.1F);
-			if (((EntityPlayer)target).getFoodStats().getFoodLevel() <= 10)
-	    		target.attackEntityFrom(WorldsRetold.VENOM, 1F);
-		}
-        if (target.isPotionApplicable(new PotionEffect(MobEffects.POISON)) && target.isPotionApplicable(new PotionEffect(this)) && !target.isEntityUndead() && (!(target instanceof EntityPlayer) || (target instanceof EntityPlayer && ((EntityPlayer)target).getFoodStats().getFoodLevel() > 10 && target.getHealth() > 1.0F)))
-        	target.attackEntityFrom(WorldsRetold.VENOM, 1F);
-
+		target.attackEntityFrom(WorldsRetold.HELLFIRE, par2);
+		target.setFire(20);
+		if (target.isWet())
+			isEntityInWater = true;
+		else
+			isEntityInWater = false;
 	}
 
 	@Override
 	public boolean isReady(int duration, int amplifier) {
-        int j = 20 >> amplifier;
+        int j = isEntityInWater ? 1 : 10 >> amplifier;
 
         if (j > 0)
         {

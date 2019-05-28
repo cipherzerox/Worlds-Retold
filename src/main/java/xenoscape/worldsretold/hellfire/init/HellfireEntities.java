@@ -24,6 +24,7 @@ import xenoscape.worldsretold.heatwave.entity.passive.roadrunner.EntityRoadrunne
 import xenoscape.worldsretold.heatwave.entity.projectiles.EntityThrownSand;
 import xenoscape.worldsretold.heatwave.init.HeatwaveEntities;
 import xenoscape.worldsretold.hellfire.config.ConfigHellfireEntity;
+import xenoscape.worldsretold.hellfire.entity.hostile.hellhound.EntityHellhound;
 import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.EntityLivingFlame;
 
 import java.util.Set;
@@ -39,6 +40,8 @@ public class HellfireEntities {
 		// Hostile
 		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "livingflame"), EntityLivingFlame.class,
 				"livingflame", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 16711680, 16734720);
+		EntityRegistry.registerModEntity(new ResourceLocation(WorldsRetold.MODID, "hellhound"), EntityHellhound.class,
+				"hellhound", EntityID++, WorldsRetold.INSTANCE, 64, 3, true, 16711680, 16734720);
 
 		// Projectiles
 	}
@@ -55,7 +58,11 @@ public class HellfireEntities {
 		
 		// Hostile
         if (ConfigHellfireEntity.isLivingFlameEnabled) {
-			EntityRegistry.addSpawn(EntityLivingFlame.class, 20, 1, 8, EnumCreatureType.MONSTER,
+			EntityRegistry.addSpawn(EntityLivingFlame.class, 25, 1, 8, EnumCreatureType.MONSTER,
+					(Biome[]) hellBiomes.toArray(new Biome[hellBiomes.size()]));
+		}
+        if (ConfigHellfireEntity.isHellhoundEnabled) {
+			EntityRegistry.addSpawn(EntityHellhound.class, 50, 1, 4, EnumCreatureType.MONSTER,
 					(Biome[]) hellBiomes.toArray(new Biome[hellBiomes.size()]));
 		}
 	}

@@ -24,6 +24,10 @@ public class HailstormSounds {
 	public static final SoundEvent ENTITY_ANUBITE_AMBIENT = createEvent("anubiteambient");
 	public static final SoundEvent ENTITY_ANUBITE_HURT = createEvent("anubitehurt");
 	public static final SoundEvent ENTITY_ANUBITE_DEATH = createEvent("anubitedeath");
+	public static final SoundEvent ENTITY_HELLHOUND_AMBIENT = createEvent("hellhoundidle");
+	public static final SoundEvent ENTITY_HELLHOUND_HURT = createEvent("hellhoundhurt");
+	public static final SoundEvent ENTITY_HELLHOUND_DEATH = createEvent("hellhounddeath");
+	public static final SoundEvent ENTITY_HELLHOUND_ATTCK = createEvent("hellhoundattack");
 
     @SubscribeEvent
 	public static void registerSounds(final RegistryEvent.Register<SoundEvent> evt) {

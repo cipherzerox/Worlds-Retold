@@ -18,6 +18,7 @@ public class ConfigHellfireEntity extends Configuration {
 
     //Hostile
     public static boolean isLivingFlameEnabled;
+    public static boolean isHellhoundEnabled;
 
     public ConfigHellfireEntity(File file) {
         super(file);
@@ -37,6 +38,8 @@ public class ConfigHellfireEntity extends Configuration {
         // Hostile
         isLivingFlameEnabled = getBoolean("Enable Living Flame", CATEGORY_HOSTILE, true,
                 "A hostile fire that sits on netherrack, waiting for unsuspecting pastibyers, then either attempting to burn them, or shooting them with hellfire.");
+        isHellhoundEnabled = getBoolean("Enable Hellhound", CATEGORY_HOSTILE, true,
+                "A demonic wolf capable of seeing enemies through walls and leaping at them, with a bite that inflicts Hellfire.");
         this.save();
     }
 
