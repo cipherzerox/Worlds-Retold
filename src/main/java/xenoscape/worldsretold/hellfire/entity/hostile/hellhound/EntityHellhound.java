@@ -166,13 +166,13 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
         	this.setJumpPos(this.getAttackTarget().getPosition());
     		this.getLookHelper().setLookPosition(this.getJumpPos().getX(), this.getJumpPos().getY(), this.getJumpPos().getZ(), 180F, 0F);
     		this.renderYawOffset = this.rotationYaw = this.rotationYawHead;
-        	double d01 = this.getAttackTarget().posX - this.posX;
-        	double d11 = this.getAttackTarget().posZ - this.posZ;
+        	double d01 = this.getJumpPos().getX() - this.posX;
+        	double d11 = this.getJumpPos().getZ() - this.posZ;
         	float f21 = MathHelper.sqrt(d01 * d01 + d11 * d11);
-        	double hor = f21 / this.getDistance(this.getAttackTarget()) * 1.375D;
+        	double hor = f21 / this.getDistance(getJumpPos().getX(), getJumpPos().getY(), getJumpPos().getZ()) * 1.325D;
         	this.motionX = (d01 / f21 * hor * hor + this.motionX * hor);
         	this.motionZ = (d11 / f21 * hor * hor + this.motionZ * hor);
-        	this.motionY = 0.75D + (this.getAttackTarget().posY - this.posY) * 0.1D;
+        	this.motionY = 0.6D + (this.getAttackTarget().posY - this.posY) * 0.1D;
         }
         
 		if (this.getAttackTarget() != null) 
