@@ -13,18 +13,18 @@
     "hellhoundhurt": {
         "category": "hostile",
         "sounds": [
-        "worldsretold:entity/hostile/hellhound/hellhoundidle1",
-        "worldsretold:entity/hostile/hellhound/hellhoundidle2",
-        "worldsretold:entity/hostile/hellhound/hellhoundidle3"
+        "worldsretold:entity/hostile/hellhound/hellhoundhurt1",
+        "worldsretold:entity/hostile/hellhound/hellhoundhurt2",
+        "worldsretold:entity/hostile/hellhound/hellhoundhurt3"
         ],
         "subtitle": "subtitles.hellhound.hurt"
     },
     "hellhounddeath": {
         "category": "hostile",
         "sounds": [
-        "worldsretold:entity/hostile/hellhound/hellhoundidle1",
-        "worldsretold:entity/hostile/hellhound/hellhoundidle2",
-        "worldsretold:entity/hostile/hellhound/hellhoundidle3"
+        "worldsretold:entity/hostile/hellhound/hellhounddeath1",
+        "worldsretold:entity/hostile/hellhound/hellhounddeath2",
+        "worldsretold:entity/hostile/hellhound/hellhounddeath3"
         ],
         "subtitle": "subtitles.hellhound.death"
     },
