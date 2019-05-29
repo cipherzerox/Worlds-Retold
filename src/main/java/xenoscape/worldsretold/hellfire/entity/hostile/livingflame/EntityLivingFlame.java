@@ -304,7 +304,7 @@ public class EntityLivingFlame extends EntitySurfaceMonster implements INetherCr
             int j = MathHelper.floor(this.posY);
             int k = MathHelper.floor(this.posZ);
 
-            if (this.isWet() || (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < 2.0F && this.world.getBiome(new BlockPos(i, 0, k)) != Biomes.HELL))
+            if (this.isWet() || (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) < (!this.world.canSeeSky(getPosition()) ? 0.75F : 2F) && this.world.getBiome(new BlockPos(i, 0, k)).getRainfall() > 0.5F && this.world.getBiome(new BlockPos(i, 0, k)) != Biomes.HELL))
             {
                 this.attackEntityFrom(DamageSource.DROWN, 4F);
             }

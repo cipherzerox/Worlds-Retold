@@ -3,6 +3,7 @@ package xenoscape.worldsretold.hellfire.potion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -37,12 +38,19 @@ public class PotionHellfire extends Potion
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
-		target.attackEntityFrom(WorldsRetold.HELLFIRE, 1 + par2);
-		target.setFire(2);
-		if (target.isWet())
-			isEntityInWater = true;
-		else
-			isEntityInWater = false;
+		if (!target.isImmuneToFire())
+		{
+			target.attackEntityFrom(WorldsRetold.HELLFIRE, 1 + par2);
+			target.setFire(2);
+			if (target.isWet())
+			{
+				isEntityInWater = true;
+        		if (target.world.isAirBlock(target.getPosition()) && target.isEntityAlive())
+        			target.world.setBlockState(target.getPosition(), Blocks.FIRE.getDefaultState());
+			}
+			else
+				isEntityInWater = false;
+		}
 	}
 
 	@Override

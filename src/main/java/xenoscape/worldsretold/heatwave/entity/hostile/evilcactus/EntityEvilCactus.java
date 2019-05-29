@@ -291,6 +291,9 @@ public class EntityEvilCactus extends EntitySurfaceMonster implements IDesertCre
         	}
         	else
         	{
+                if (this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ)).getBlock() == Blocks.WATER)
+                	this.world.setBlockState(new BlockPos(this.posX, this.posY, this.posZ), Blocks.AIR.getDefaultState());
+                
         		if (this.getAttackTarget() != null)
         		{
                     this.setAggressive(true);
