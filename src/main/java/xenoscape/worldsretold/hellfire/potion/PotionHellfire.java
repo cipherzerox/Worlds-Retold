@@ -38,7 +38,7 @@ public class PotionHellfire extends Potion
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
 		target.attackEntityFrom(WorldsRetold.HELLFIRE, 1 + par2);
-		target.setFire(20);
+		target.setFire(2);
 		if (target.isWet())
 			isEntityInWater = true;
 		else
@@ -47,7 +47,7 @@ public class PotionHellfire extends Potion
 
 	@Override
 	public boolean isReady(int duration, int amplifier) {
-        int j = isEntityInWater ? 1 : 10 >> amplifier;
+        int j = isEntityInWater ? 1 : 20 >> amplifier;
 
         if (j > 0)
         {
