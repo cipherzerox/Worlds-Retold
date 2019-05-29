@@ -37,7 +37,7 @@ public class PotionHellfire extends Potion
 	@Override
 	public void performEffect(final EntityLivingBase target, final int par2) 
 	{
-		target.attackEntityFrom(WorldsRetold.HELLFIRE, par2);
+		target.attackEntityFrom(WorldsRetold.HELLFIRE, 1 + par2);
 		target.setFire(20);
 		if (target.isWet())
 			isEntityInWater = true;
