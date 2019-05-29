@@ -92,7 +92,7 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
     public EntityHellhound(World worldIn)
     {
         super(worldIn);
-        this.setSize(0.72F, 0.9F);
+        this.setSize(0.75F, 0.95F);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.LAVA, 8.0F);
         this.setPathPriority(PathNodeType.DANGER_FIRE, 0.0F);
@@ -436,7 +436,7 @@ public class EntityHellhound extends EntitySurfaceMonster implements INetherCrea
 
     public float getEyeHeight()
     {
-        return this.height * 0.8F;
+        return this.height * 0.9F;
     }
 
 	public int getSpawnType()
