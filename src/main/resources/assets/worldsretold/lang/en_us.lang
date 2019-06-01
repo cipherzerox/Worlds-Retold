@@ -62,6 +62,9 @@ item.bandage_clean.name=Clean Bandages
 
 item.statue.name=Statue
 
+##Fluids##
+fluid.radiance=Radiance
+
 ##Entities##
 
 # Passive

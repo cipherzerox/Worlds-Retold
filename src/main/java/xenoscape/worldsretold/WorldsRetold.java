@@ -1,6 +1,7 @@
 package xenoscape.worldsretold;
 
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -62,6 +63,10 @@ public class WorldsRetold {
 		}
 		WorldsRetold.LOGGER.info(NAME + " Preinitialized");
 	}
+
+	static {
+        FluidRegistry.enableUniversalBucket();
+    }
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {

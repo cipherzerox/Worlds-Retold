@@ -1,13 +1,12 @@
 package xenoscape.worldsretold.hellfire;
 
-import net.minecraft.util.DamageSource;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xenoscape.worldsretold.WorldsRetold;
 import xenoscape.worldsretold.hellfire.config.HellfireConfig;
 import xenoscape.worldsretold.hellfire.init.HellfireEntities;
+import xenoscape.worldsretold.hellfire.init.HellfireFluids;
 import xenoscape.worldsretold.hellfire.init.HellfirePotions;
 
 public class HellfireModule {
@@ -18,11 +17,13 @@ public class HellfireModule {
 		HellfireEntities.preInit();
 		HellfireConfig.preInitConfigs(event);
 		HellfirePotions.registerPotions();
+		HellfireFluids.preInit();
 		WorldsRetold.LOGGER.info("Hellfire Module Preinitialized");
 	}
 
 	public void initHellfire(FMLInitializationEvent event) {
 		HellfireEntities.init();
+        HellfireFluids.init();
 		WorldsRetold.LOGGER.info("Hellfire Module Initialized");
 	}
 
