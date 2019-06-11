@@ -11,17 +11,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderScorpion extends RenderLiving<EntityScorpion>
+public class RenderHellfireScorpion extends RenderLiving<EntityHellfireScorpion>
 {
     private static final ResourceLocation DESERT_SCORPION = new ResourceLocation("worldsretold:textures/entity/deathstalker.png");
-	public static final RenderScorpion.Factory FACTORY = new RenderScorpion.Factory();
+	public static final RenderHellfireScorpion.Factory FACTORY = new RenderHellfireScorpion.Factory();
     
-    public RenderScorpion(RenderManager renderManagerIn)
+    public RenderHellfireScorpion(RenderManager renderManagerIn)
     {
-        super(renderManagerIn, new ModelScorpion(), 1.0F);
+        super(renderManagerIn, new ModelHellfireScorpion(), 1.0F);
     }
 
-    protected float getDeathMaxRotation(EntityScorpion entityLivingBaseIn)
+    protected float getDeathMaxRotation(EntityHellfireScorpion entityLivingBaseIn)
     {
         return 180.0F;
     }
@@ -29,15 +29,15 @@ public class RenderScorpion extends RenderLiving<EntityScorpion>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityScorpion entity)
+    protected ResourceLocation getEntityTexture(EntityHellfireScorpion entity)
     {
         return DESERT_SCORPION;
     }
     
-	public static class Factory implements IRenderFactory<EntityScorpion> {
+	public static class Factory implements IRenderFactory<EntityHellfireScorpion> {
 		@Override
-		public Render<? super EntityScorpion> createRenderFor(RenderManager manager) {
-			return new RenderScorpion(manager);
+		public Render<? super EntityHellfireScorpion> createRenderFor(RenderManager manager) {
+			return new RenderHellfireScorpion(manager);
 		}
 	}
 }

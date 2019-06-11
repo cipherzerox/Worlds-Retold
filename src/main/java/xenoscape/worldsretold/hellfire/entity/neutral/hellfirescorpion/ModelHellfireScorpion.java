@@ -10,7 +10,7 @@ import net.minecraft.util.math.MathHelper;
  * ModelScorpion - Enderman_of_D00M
  * Created using Tabula 7.0.0
  */
-public class ModelScorpion extends ModelBase {
+public class ModelHellfireScorpion extends ModelBase {
     public ModelRenderer body;
     public ModelRenderer head;
     public ModelRenderer rightleg1;
@@ -36,7 +36,7 @@ public class ModelScorpion extends ModelBase {
     public ModelRenderer tailbulb;
     public ModelRenderer tailpoint;
 
-    public ModelScorpion() {
+    public ModelHellfireScorpion() {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.rightarm1 = new ModelRenderer(this, 0, 49);
@@ -178,7 +178,7 @@ public class ModelScorpion extends ModelBase {
     
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
     {
-    	EntityScorpion scorpion = (EntityScorpion)entityIn;
+    	EntityHellfireScorpion scorpion = (EntityHellfireScorpion)entityIn;
         float f = ageInTicks - (float)entityIn.ticksExisted;
         float baserot = scorpion.getStingerBaseRot(f);
         float base1 = scorpion.getStinger1Rot(f);

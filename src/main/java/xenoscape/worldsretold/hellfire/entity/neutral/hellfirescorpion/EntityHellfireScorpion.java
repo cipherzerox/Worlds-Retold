@@ -56,10 +56,10 @@ import xenoscape.worldsretold.heatwave.entity.hostile.fester.EntityFester;
 import xenoscape.worldsretold.heatwave.entity.neutral.cobra.EntityCobra;
 import xenoscape.worldsretold.heatwave.init.HeatwavePotions;
 
-public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreature
+public class EntityHellfireScorpion extends EntitySurfaceMonster implements IDesertCreature
 {
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
-    protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityScorpion.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityHellfireScorpion.class, DataSerializers.BYTE);
+    protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.<Byte>createKey(EntityHellfireScorpion.class, DataSerializers.BYTE);
     public EntityLivingBase heldEntity;
     public float stingerBaseRot;
     public float stinger1Rot;
@@ -70,7 +70,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
     public float prevStinger2Rot;
     public float prevStinger3Rot;
     
-    public EntityScorpion(World worldIn)
+    public EntityHellfireScorpion(World worldIn)
     {
         super(worldIn);
         this.setSize(1.6F, 0.8F);
@@ -80,20 +80,20 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
     {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIRestrictSun(this));
-        this.tasks.addTask(2, new EntityScorpion.EntityAISeekShelter(this, 1.2D));
+        this.tasks.addTask(2, new EntityHellfireScorpion.EntityAISeekShelter(this, 1.2D));
         this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityEnderman.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(4, new EntityScorpion.AIScorpionAttack(this));
+        this.tasks.addTask(4, new EntityHellfireScorpion.AIScorpionAttack(this));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityScorpion.AIScorpionTarget(this, EntityPlayer.class));
-        this.targetTasks.addTask(3, new EntityScorpion.AIScorpionTarget(this, EntityIronGolem.class));
-        this.targetTasks.addTask(7, new EntityScorpion.AIScorpionTarget(this, EntityCobra.class));
-        this.targetTasks.addTask(6, new EntityScorpion.AIScorpionTarget(this, EntityBat.class));
-        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityParrot.class));
-        this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityChicken.class));
-        this.targetTasks.addTask(4, new EntityScorpion.AIScorpionTarget(this, EntityPenguin.class));
-        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntityPig.class));
-        this.targetTasks.addTask(5, new EntityScorpion.AIScorpionTarget(this, EntitySheep.class));
+        this.targetTasks.addTask(2, new EntityHellfireScorpion.AIScorpionTarget(this, EntityPlayer.class));
+        this.targetTasks.addTask(3, new EntityHellfireScorpion.AIScorpionTarget(this, EntityIronGolem.class));
+        this.targetTasks.addTask(7, new EntityHellfireScorpion.AIScorpionTarget(this, EntityCobra.class));
+        this.targetTasks.addTask(6, new EntityHellfireScorpion.AIScorpionTarget(this, EntityBat.class));
+        this.targetTasks.addTask(5, new EntityHellfireScorpion.AIScorpionTarget(this, EntityParrot.class));
+        this.targetTasks.addTask(4, new EntityHellfireScorpion.AIScorpionTarget(this, EntityChicken.class));
+        this.targetTasks.addTask(4, new EntityHellfireScorpion.AIScorpionTarget(this, EntityPenguin.class));
+        this.targetTasks.addTask(5, new EntityHellfireScorpion.AIScorpionTarget(this, EntityPig.class));
+        this.targetTasks.addTask(5, new EntityHellfireScorpion.AIScorpionTarget(this, EntitySheep.class));
     }
 
     /**
@@ -397,17 +397,17 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
 
         if (livingdata == null)
         {
-            livingdata = new EntityScorpion.GroupData();
+            livingdata = new EntityHellfireScorpion.GroupData();
 
             if (this.world.getDifficulty() == EnumDifficulty.HARD && this.world.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty())
             {
-                ((EntityScorpion.GroupData)livingdata).setRandomEffect(this.world.rand);
+                ((EntityHellfireScorpion.GroupData)livingdata).setRandomEffect(this.world.rand);
             }
         }
 
-        if (livingdata instanceof EntityScorpion.GroupData)
+        if (livingdata instanceof EntityHellfireScorpion.GroupData)
         {
-            Potion potion = ((EntityScorpion.GroupData)livingdata).effect;
+            Potion potion = ((EntityHellfireScorpion.GroupData)livingdata).effect;
 
             if (potion != null)
             {
@@ -435,7 +435,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
 
     static class AIScorpionAttack extends EntityAIAttackMelee
         {
-            public AIScorpionAttack(EntityScorpion spider)
+            public AIScorpionAttack(EntityHellfireScorpion spider)
             {
                 super(spider, 1.0D, true);
             }
@@ -466,7 +466,7 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
 
     static class AIScorpionTarget<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T>
         {
-            public AIScorpionTarget(EntityScorpion spider, Class<T> classTarget)
+            public AIScorpionTarget(EntityHellfireScorpion spider, Class<T> classTarget)
             {
                 super(spider, classTarget, true);
             }
@@ -483,14 +483,14 @@ public class EntityScorpion extends EntitySurfaceMonster implements IDesertCreat
     
     public class EntityAISeekShelter extends EntityAIBase
     {
-        private final EntityScorpion creature;
+        private final EntityHellfireScorpion creature;
         private double shelterX;
         private double shelterY;
         private double shelterZ;
         private final double movementSpeed;
         private final World world;
 
-        public EntityAISeekShelter(EntityScorpion theCreatureIn, double movementSpeedIn)
+        public EntityAISeekShelter(EntityHellfireScorpion theCreatureIn, double movementSpeedIn)
         {
             this.creature = theCreatureIn;
             this.movementSpeed = movementSpeedIn;
