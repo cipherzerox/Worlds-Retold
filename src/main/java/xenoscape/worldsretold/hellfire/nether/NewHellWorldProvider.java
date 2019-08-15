@@ -6,15 +6,17 @@ import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.gen.ChunkGeneratorHell;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.NewHellChunkGenerator;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xenoform.tartheus.world.NewHellBiomeProvider;
 
-public class WorldProviderNewHell extends WorldProvider
+public class NewHellWorldProvider extends WorldProvider
 {
     public static final int dimensionID = -1;
     public static final DimensionType WRNETHER = DimensionType.register("wrnether", "_wrnether", dimensionID,
-            WorldProviderNewHell.class, false);
+            NewHellWorldProvider.class, false);
 
     public DimensionType getDimensionType() {
         return WRNETHER;
@@ -33,7 +35,7 @@ public class WorldProviderNewHell extends WorldProvider
      */
     public void init()
     {
-        this.biomeProvider = new BiomeProviderSingle(Biomes.HELL);
+        this.biomeProvider = new NewHellBiomeProvider(this.world);
         this.doesWaterVaporize = true;
         this.nether = true;
     }
@@ -63,7 +65,7 @@ public class WorldProviderNewHell extends WorldProvider
 
     public IChunkGenerator createChunkGenerator()
     {
-        return new ChunkGeneratorHell(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed());
+        return new NewHellChunkGenerator(this.world, this.world.getWorldInfo().isMapFeaturesEnabled(), this.world.getSeed());
     }
 
     /**
