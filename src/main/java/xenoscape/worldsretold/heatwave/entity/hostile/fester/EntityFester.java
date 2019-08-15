@@ -21,6 +21,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import xenoscape.worldsretold.defaultmod.init.ProgressiveWorldGenData;
 import xenoscape.worldsretold.heatwave.entity.IDesertCreature;
 
 public class EntityFester extends AbstractSkeleton implements IDesertCreature
@@ -29,6 +30,17 @@ public class EntityFester extends AbstractSkeleton implements IDesertCreature
     {
         super(worldIn);
         this.isImmuneToFire = true;
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        ProgressiveWorldGenData data = ProgressiveWorldGenData.get(this.world);
+        if (data.getObtainedDiamond() == true) {
+            return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel()
+                    && this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+        } else {
+            return false;
+        }
     }
 
     @Nullable

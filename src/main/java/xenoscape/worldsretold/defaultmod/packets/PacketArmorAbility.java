@@ -52,7 +52,6 @@ public class PacketArmorAbility implements IMessage {
                             EntityPlayer player = mc.player;
                             World world = mc.world;
                             if (player != null) {
-                                WorldsRetold.LOGGER.info("Player Found");
                                 if (WorldsRetold.KEYS.armor_ability(player)) {
                                     WorldsRetold.LOGGER.info("Key Triggered");
                                     if (player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem().equals(HailstormItems.CRYONITE_HELMET)

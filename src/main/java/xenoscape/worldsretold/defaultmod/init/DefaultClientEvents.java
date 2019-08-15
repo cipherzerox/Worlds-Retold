@@ -15,6 +15,7 @@ import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -42,9 +43,15 @@ public class DefaultClientEvents {
         EntityPlayer player = mc.player;
         World world = mc.world;
         if (player != null) {
-            WorldsRetold.LOGGER.info("Player Found");
             if (WorldsRetold.KEYS.armor_ability(player)) {
                 WorldsRetold.LOGGER.info("Key Triggered");
+
+                ProgressiveWorldGenData data = ProgressiveWorldGenData.get(world);
+                if (data.getObtainedDiamond() == false) {
+                    data.setObtainedDiamond(true);
+                    data.markDirty();
+                }
+
                 WorldsRetold.NETWORK
                         .sendToServer(new PacketArmorAbility(player.getEntityId()));
             }

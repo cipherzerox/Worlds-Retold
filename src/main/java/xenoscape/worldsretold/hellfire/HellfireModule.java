@@ -1,5 +1,6 @@
 package xenoscape.worldsretold.hellfire;
 
+import net.minecraft.world.WorldProviderNewHell;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -24,6 +25,7 @@ public class HellfireModule {
 	public void initHellfire(FMLInitializationEvent event) {
 		HellfireEntities.init();
         HellfireFluids.init();
+		WorldProviderNewHell.overrideDimension();
 		WorldsRetold.LOGGER.info("Hellfire Module Initialized");
 	}
 

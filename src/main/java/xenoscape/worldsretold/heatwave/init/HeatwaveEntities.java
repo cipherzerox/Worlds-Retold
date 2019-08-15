@@ -1,16 +1,19 @@
 package xenoscape.worldsretold.heatwave.init;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import xenoscape.worldsretold.WorldsRetold;
+import xenoscape.worldsretold.defaultmod.init.ProgressiveWorldGenData;
 import xenoscape.worldsretold.hailstorm.init.HailstormEntities;
 import xenoscape.worldsretold.heatwave.config.ConfigHeatwaveEntity;
 import xenoscape.worldsretold.heatwave.entity.hostile.antlion.EntityAntlion;
@@ -57,6 +60,7 @@ public class HeatwaveEntities {
 	}
 	
 	public static void init() {
+
 		final Set<Biome> desertBiomes = (Set<Biome>) new ObjectArraySet();
 		for (final Biome biome : Biome.REGISTRY) {
 			final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
@@ -66,7 +70,7 @@ public class HeatwaveEntities {
 				desertBiomes.add(biome);
 			}
 		}
-		
+
 		final Set<Biome> savannahBiomes = (Set<Biome>) new ObjectArraySet();
 		for (final Biome biome : Biome.REGISTRY) {
 			final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
@@ -76,7 +80,7 @@ public class HeatwaveEntities {
 				savannahBiomes.add(biome);
 			}
 		}
-		
+
 		// Passive
         if (ConfigHeatwaveEntity.isRoadrunnerEnabled) {
 			EntityRegistry.addSpawn(EntityRoadrunner.class, 11, 1, 1, EnumCreatureType.CREATURE,
@@ -106,6 +110,7 @@ public class HeatwaveEntities {
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
         if (ConfigHeatwaveEntity.isAnubiteEnabled) {
+			WorldsRetold.LOGGER.info("Anubite spawn added.");
 			EntityRegistry.addSpawn(EntityAnubite.class, 1, 1, 1, EnumCreatureType.MONSTER,
 					(Biome[]) desertBiomes.toArray(new Biome[desertBiomes.size()]));
 		}
