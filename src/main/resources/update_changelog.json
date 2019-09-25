@@ -1,14 +1,14 @@
 {
     "homepage": "https://minecraft.curseforge.com/projects/worlds-retold",
     "promos": {
-      "1.12.2-latest": "1.0.3",
-      "1.12.2-recommended": "1.0.3"
+      "1.12.2-latest": "1.0.6",
+      "1.12.2-recommended": "1.0.6"
     },
     "1.12.2": {
         "1.0.0": "First Release.",
         "1.0.1": "Fixed a bug with the Guardsman, that was causing users to crash.",
       "1.0.2": "Linked the mod to the Forge Version Checker, updated the Manchot texture, and made Swords actually extend ItemSword, instead of being a custom class.",
       "1.0.3": "Fixed a whole bunch of bugs with the Hailstorm module.",
-      "1.1.0": "Heatwave module released!"
+      "1.0.6": "Structures added to the snow biomes!"
     }
 }
