@@ -24,7 +24,7 @@ public class ConfigModules extends Configuration {
 				"Adds new life and flora to the snow biomes of Minecraft.");
         isHeatwaveEnabled = getBoolean("Enable Heatwave Module", CATEGORY_MODULES, true,
 				"Adds new life and flora to the desert biome of Minecraft.");
-        isHellfireEnabled = getBoolean("Enable Hellfire Module", CATEGORY_MODULES, true,
+        isHellfireEnabled = getBoolean("Enable Hellfire Module", CATEGORY_MODULES, false,
 				"Adds new life and flora to the Nether in Minecraft.");
 
 		this.save();

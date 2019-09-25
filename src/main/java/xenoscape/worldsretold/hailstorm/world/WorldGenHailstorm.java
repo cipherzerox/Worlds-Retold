@@ -19,8 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xenoscape.worldsretold.hailstorm.config.ConfigHailstormWorldGen;
 import xenoscape.worldsretold.hailstorm.init.HailstormBlocks;
 import xenoscape.worldsretold.hailstorm.world.feature.WorldGenOverlayedFlower;
-import xenoscape.worldsretold.hailstorm.world.structure.StructureHailstormShrine;
-import xenoscape.worldsretold.hailstorm.world.structure.StructureSentinelShack;
+import xenoscape.worldsretold.hailstorm.world.structure.*;
 
 public class WorldGenHailstorm {
 
@@ -37,11 +36,30 @@ public class WorldGenHailstorm {
 		if (ConfigHailstormWorldGen.areFlowersEnabled) {
 			generateFlowers(event.getWorld(), event.getRand(), blockX, blockZ);
 		}
+
 		if (ConfigHailstormWorldGen.isHailstormShrineEnabled) {
 			generateHailstormShrine(event.getWorld(), event.getRand(), blockX, blockZ);
 		}
-		if (ConfigHailstormWorldGen.isSentinelShackEnabled) {
-			generateSentinelShack(event.getWorld(), event.getRand(), blockX, blockZ);
+		if (ConfigHailstormWorldGen.isIceTowerEnabled) {
+			generateIceTower(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigHailstormWorldGen.isBlimpCampEnabled) {
+			generateBlimpCamp(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigHailstormWorldGen.isIcyTavernEnabled) {
+			generateIcyTavern(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigHailstormWorldGen.isSnowTempleEnabled) {
+			generateSnowTemple(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigHailstormWorldGen.isMiningStationEnabled) {
+			generateMiningStation(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigHailstormWorldGen.isRuinedTavernEnabled) {
+			generateRuinedTavern(event.getWorld(), event.getRand(), blockX, blockZ);
+		}
+		if (ConfigHailstormWorldGen.isRuinedTempleEnabled) {
+			generateRuinedTemple(event.getWorld(), event.getRand(), blockX, blockZ);
 		}
 	}
 
@@ -125,31 +143,134 @@ public class WorldGenHailstorm {
 		int y = getGroundFromAbove(world, blockX, blockZ);
 		BlockPos pos = new BlockPos(blockX, y, blockZ);
 		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
+					&& generator != null && rand.nextInt(5) == 0) {
+				generator.generate(world, rand, pos);
+			}
+	}
+
+	private void generateIceTower(World world, Random rand, int blockX, int blockZ) {
+		StructureIceTower generator = new StructureIceTower();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		for (int i = 0; i < 10; ++i) {
 		if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
 				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
 				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
 				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
 				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
-				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && rand.nextInt(5) == 0 && biome != null
+				&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
 				&& generator != null) {
 			generator.generate(world, rand, pos);
+			}
 		}
 	}
 
-	private void generateSentinelShack(World world, Random rand, int blockX, int blockZ) {
-		StructureSentinelShack generator = new StructureSentinelShack();
+	private void generateBlimpCamp(World world, Random rand, int blockX, int blockZ) {
+		StructureBlimpCamp generator = new StructureBlimpCamp();
 		int y = getGroundFromAbove(world, blockX, blockZ);
 		BlockPos pos = new BlockPos(blockX, y, blockZ);
 		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
 		for (int i = 0; i < 20; ++i) {
 			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
-					|| BiomeDictionary.hasType(biome, BiomeDictionary.Type.CONIFEROUS))
 					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
 					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
 					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
 					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
-					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END) && biome != null
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
 					&& generator != null) {
+				generator.generate(world, rand, pos);
+			}
+		}
+	}
+
+	private void generateIcyTavern(World world, Random rand, int blockX, int blockZ) {
+		StructureIcyTavern generator = new StructureIcyTavern();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
+					&& generator != null && rand.nextInt(5) == 0) {
+				generator.generate(world, rand, pos);
+		}
+	}
+
+	private void generateSnowTemple(World world, Random rand, int blockX, int blockZ) {
+		StructureSnowTemple generator = new StructureSnowTemple();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
+					&& generator != null && rand.nextInt(30) == 0) {
+				generator.generate(world, rand, pos);
+			}
+	}
+
+	private void generateMiningStation(World world, Random rand, int blockX, int blockZ) {
+		StructureMiningStation generator = new StructureMiningStation();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		for (int i = 0; i < 10; ++i) {
+			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
+					&& generator != null && rand.nextInt(25) == 0) {
+				generator.generate(world, rand, pos);
+			}
+		}
+	}
+
+	private void generateRuinedTavern(World world, Random rand, int blockX, int blockZ) {
+		StructureRuinedTavern generator = new StructureRuinedTavern();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		for (int i = 0; i < 10; ++i) {
+			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
+					&& generator != null) {
+				generator.generate(world, rand, pos);
+			}
+		}
+	}
+
+	private void generateRuinedTemple(World world, Random rand, int blockX, int blockZ) {
+		StructureRuinedTemple generator = new StructureRuinedTemple();
+		int y = getGroundFromAbove(world, blockX, blockZ);
+		BlockPos pos = new BlockPos(blockX, y, blockZ);
+		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		for (int i = 0; i < 10; ++i) {
+			if ((BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+					&& !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)) && biome != null
+					&& generator != null && rand.nextInt(20) == 0) {
 				generator.generate(world, rand, pos);
 			}
 		}
@@ -166,12 +287,13 @@ public class WorldGenHailstorm {
 	}
 
 	public static boolean canSpawnHere(final World world, final BlockPos min, BlockPos max) {
-		return isCornerValid(world, min) && isCornerValid(world, new BlockPos(max.getX(), min.getY(), min.getZ()))
-				&& isCornerValid(world, max) && isCornerValid(world, new BlockPos(min.getX(), min.getY(), max.getZ()));
+		return isCornerValid(world, min) && isCornerValid(world, max) &&
+				isCornerValid(world, new BlockPos(max.getX(), min.getY(), min.getZ())) &&
+				isCornerValid(world, new BlockPos(min.getX(), min.getY(), max.getZ()));
 	}
 
 	public static boolean isCornerValid(final World world, final BlockPos pos) {
 		final int groundY = getGroundFromAbove(world, pos.getX(), pos.getZ());
-		return groundY > pos.getY() - 3 && groundY < pos.getY() + 3;
+		return groundY > pos.getY() - 4 && groundY < pos.getY() + 4;
 	}
 }

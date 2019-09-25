@@ -47,7 +47,7 @@ public class StructureHailstormShrine extends WorldGenerator {
 		if (WorldGenHailstorm.canSpawnHere(worldServer, generatePos, max)) {
 			System.out.println("X:" + origin.getX() + " Y:" + origin.getY() + " Z:" + origin.getZ());
 
-			template.addBlocksToWorld(world, generatePos.down(4), settings);
+			template.addBlocksToWorld(world, generatePos.down(3), settings);
 
 			Map<BlockPos, String> dataBlocks = template.getDataBlocks(generatePos, settings);
 			for (Entry<BlockPos, String> entry : dataBlocks.entrySet()) {
@@ -62,8 +62,8 @@ public class StructureHailstormShrine extends WorldGenerator {
 
 	private void handleDataBlock(World world, Random rand, BlockPos pos, String key) {
 		if ("chest".equals(key)) {
-			world.setBlockState(pos.down(4), Blocks.AIR.getDefaultState(), 3);
-			TileEntity entity = world.getTileEntity(pos.down(5));
+			world.setBlockState(pos.down(3), Blocks.AIR.getDefaultState(), 3);
+			TileEntity entity = world.getTileEntity(pos.down(4));
 			if (entity instanceof TileEntityChest) {
 				((TileEntityChest) entity).setLootTable(
 						new ResourceLocation(WorldsRetold.MODID, "chest/hailstorm_shrine_chest"), rand.nextLong());
@@ -75,9 +75,8 @@ public class StructureHailstormShrine extends WorldGenerator {
 			world.setBlockState(pos.down(1), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(3), Blocks.AIR.getDefaultState(), 3);
-			world.setBlockState(pos.down(4), Blocks.AIR.getDefaultState(), 3);
 			double d0 = (double) pos.getX() + 0.5D;
-			double d1 = (double) pos.getY() - 3;
+			double d1 = (double) pos.getY() - 2;
 			double d2 = (double) pos.getZ() + 0.5D;
 			EntityAutomaton entity = new EntityAutomaton(world, d0, d1, d2);
 			entity.setLocationAndAngles(d0, d1, d2, 135.0F, 0.0F);
@@ -92,9 +91,8 @@ public class StructureHailstormShrine extends WorldGenerator {
 			world.setBlockState(pos.down(1), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(3), Blocks.AIR.getDefaultState(), 3);
-			world.setBlockState(pos.down(4), Blocks.AIR.getDefaultState(), 3);
 			double d0 = (double) pos.getX() + 0.5D;
-			double d1 = (double) pos.getY() - 3;
+			double d1 = (double) pos.getY() - 2;
 			double d2 = (double) pos.getZ() + 0.5D;
 			EntityAutomaton entity = new EntityAutomaton(world, d0, d1, d2);
 			entity.setLocationAndAngles(d0, d1, d2, 225.0F, 0.0F);
@@ -109,9 +107,8 @@ public class StructureHailstormShrine extends WorldGenerator {
 			world.setBlockState(pos.down(1), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(3), Blocks.AIR.getDefaultState(), 3);
-			world.setBlockState(pos.down(4), Blocks.AIR.getDefaultState(), 3);
 			double d0 = (double) pos.getX() + 0.5D;
-			double d1 = (double) pos.getY() - 3;
+			double d1 = (double) pos.getY() - 2;
 			double d2 = (double) pos.getZ() + 0.5D;
 			EntityAutomaton entity = new EntityAutomaton(world, d0, d1, d2);
 			entity.setLocationAndAngles(d0, d1, d2, 315.0F, 0.0F);
@@ -126,9 +123,8 @@ public class StructureHailstormShrine extends WorldGenerator {
 			world.setBlockState(pos.down(1), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 3);
 			world.setBlockState(pos.down(3), Blocks.AIR.getDefaultState(), 3);
-			world.setBlockState(pos.down(4), Blocks.AIR.getDefaultState(), 3);
 			double d0 = (double) pos.getX() + 0.5D;
-			double d1 = (double) pos.getY() - 3;
+			double d1 = (double) pos.getY() - 2;
 			double d2 = (double) pos.getZ() + 0.5D;
 			EntityAutomaton entity = new EntityAutomaton(world, d0, d1, d2);
 			entity.setLocationAndAngles(d0, d1, d2, 45.0F, 0.0F);

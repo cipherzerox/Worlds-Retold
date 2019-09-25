@@ -27,7 +27,7 @@ import xenoscape.worldsretold.hellfire.entity.hostile.livingflame.RenderLivingFl
 public class RenderHellhound extends RenderLiving<EntityHellhound>
 {
 	public static final RenderHellhound.Factory FACTORY = new RenderHellhound.Factory();
-    private static final ResourceLocation HELLHOUND_TEXTURES = new ResourceLocation("textures/entity/wolf/wolf_angry.png");
+    private static final ResourceLocation HELLHOUND_TEXTURES = new ResourceLocation("worldsretold:textures/entity/hellhound.png");
 
     public RenderHellhound(RenderManager p_i47187_1_)
     {

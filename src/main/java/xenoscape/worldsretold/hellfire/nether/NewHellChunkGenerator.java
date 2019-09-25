@@ -452,8 +452,7 @@ public class NewHellChunkGenerator implements IChunkGenerator
         if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, false, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.NETHER_LAVA2))
             for (int j2 = 0; j2 < 16; ++j2)
             {
-                int offset = net.minecraftforge.common.ForgeModContainer.fixVanillaCascading ? 8 : 0; // MC-117810
-                this.lavaTrapGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + offset, this.rand.nextInt(108) + 10, this.rand.nextInt(16) + offset));
+                this.lavaTrapGen.generate(this.world, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(108) + 10, this.rand.nextInt(16) + 8));
             }
 
         biome.decorate(this.world, this.rand, new BlockPos(i, 0, j));

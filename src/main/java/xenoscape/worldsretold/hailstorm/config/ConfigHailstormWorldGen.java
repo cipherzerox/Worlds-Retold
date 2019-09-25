@@ -15,7 +15,13 @@ public class ConfigHailstormWorldGen extends Configuration {
 	
 	// Structures
 	public static boolean isHailstormShrineEnabled;
-	public static boolean isSentinelShackEnabled;
+	public static boolean isIceTowerEnabled;
+	public static boolean isBlimpCampEnabled;
+	public static boolean isIcyTavernEnabled;
+	public static boolean isSnowTempleEnabled;
+	public static boolean isMiningStationEnabled;
+	public static boolean isRuinedTavernEnabled;
+	public static boolean isRuinedTempleEnabled;
 
 	public ConfigHailstormWorldGen(File file) {
 		super(file);
@@ -33,8 +39,20 @@ public class ConfigHailstormWorldGen extends Configuration {
 		// Structures
 		isHailstormShrineEnabled = getBoolean("Enable Hailstorm Shrine", CATEGORY_STRUCTURES, true,
 				"A shrine of mysterious origin, that spawns in snowy biomes.");
-		isSentinelShackEnabled = getBoolean("Enable Sentinel Shack (WIP)", CATEGORY_STRUCTURES, false,
-				"A small shack that used to be occupied by Villagers.");
+		isIceTowerEnabled = getBoolean("Enable Ice Tower", CATEGORY_STRUCTURES, true,
+				"An icy tower, inside awaits dormant guardians.");
+		isBlimpCampEnabled = getBoolean("Enable Blimp Camp", CATEGORY_STRUCTURES, true,
+				"An abandoned blimp camp... Somehow the blimp has not deflated.");
+		isIcyTavernEnabled = getBoolean("Enable Icy Tavern", CATEGORY_STRUCTURES, true,
+				"People used to live here- Wonder what happened to them.");
+		isSnowTempleEnabled = getBoolean("Enable Ruined Temple", CATEGORY_STRUCTURES, true,
+				". . .");
+		isMiningStationEnabled = getBoolean("Enable Mining Station", CATEGORY_STRUCTURES, true,
+				". . .");
+		isRuinedTavernEnabled = getBoolean("Enable Ruined Tavern", CATEGORY_STRUCTURES, true,
+				"A ruined hut, this one seems more damaged than the others.");
+		isRuinedTempleEnabled = getBoolean("Enable Ruined Temple", CATEGORY_STRUCTURES, true,
+				". . .");
 		this.save();
 	}
 
