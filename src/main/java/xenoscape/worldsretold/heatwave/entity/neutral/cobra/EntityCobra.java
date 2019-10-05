@@ -123,12 +123,10 @@ public class EntityCobra extends EntitySurfaceMonster implements IDesertCreature
         }
     }
 
-    @SideOnly(Side.CLIENT)
     public float getRearingRot(float p_189795_1_) {
         return (this.prevRearingRot + (this.rearingRot - this.prevRearingRot) * p_189795_1_);
     }
 
-    @SideOnly(Side.CLIENT)
     public boolean isAggressive() {
         return ((Byte) this.dataManager.get(AGGRESSIVE)).byteValue() == 1;
     }
